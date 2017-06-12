@@ -115,11 +115,6 @@ fi
 
 source ~/config/env.sh
 
-# Ruby config
-# MUST BE LAST IN THIS FILE!!
-if [[ -s "$HOME/.rvm/bin/rvm" ]]; then
-  export PATH="$HOME/.rvm/bin:$PATH"
-  source $HOME/.rvm/scripts/rvm
-  export PATH="$HOME/.rvm/gems/$($HOME/.rvm/bin/rvm current)/bin:$PATH"
-  rvm use $($HOME/.rvm/bin/rvm current) &> /dev/null
-fi
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"

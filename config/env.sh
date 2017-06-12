@@ -25,14 +25,8 @@ config config --local status.showUntrackedFiles no
 alias timberlakessh="ssh anandbal@timberlake.cse.buffalo.edu"
 
 # Workspace shortcuts
-export OPS_WS="~/workspace/ops-class-ws"
-alias opsws="cd $OPS_WS"
 export DRONES_WS="~/workspace/drones"
 alias dronesws="cd $DRONES_WS"
-export OPENAI_WS="~/workspace/openai-gym"
-alias openaiws="cd $OPENAI_WS"
-export MICROPROC_WS="~/workspace/microproc"
-alias microprocsws="cd $MICROPROC_WS"
 export ROS_WS="~/workspace/ros_ws"
 alias ws_ros="cd $ROS_WS"
 
@@ -62,6 +56,9 @@ source /opt/ros/indigo/setup.bash
 # Python config
 source ~/config/pyconf.sh
 
-# Art stuff
-export PATH=$PATH:~/workspace/art/tools/playscii
+# Go config
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=~/workspace/go
+#export PATH=$PATH:$(go env GOPATH)/bin
+
 
