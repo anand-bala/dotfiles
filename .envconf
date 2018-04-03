@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Change Prompt
+# ------------------------------------------------------------
+GREEN="\[\e[1;32m\]"
+CYAN="\[\e[1;36m\]"
+MAGENTA="\[\e[1;35m\]"
+ENDCOLOR="\[\e[m\]"
+export GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+
+export PS1="${GREEN}[\u@\h] :${ENDCOLOR}${CYAN} \W${ENDCOLOR}${MAGENTA}$(__git_ps1 " |%s|")${ENDCOLOR}\n${CYAN}\$${ENDCOLOR} "
+
+# Set Paths
+# ------------------------------------------------------------d
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+if [ "$(uname)" == "Darwin" ]; then
+  export PATH="$PATH:/opt/X11/bin:/Library/TeX/texbin"
+fi
+
+export PATH="$HOME/bin:$PATH"
+
+# Set Default Editor
+# ------------------------------------------------------------
+export EDITOR=vim
+
+
+# Add color to terminal
+# (this is all commented out as I use Mac Terminal Profiles)
+# from http://osxdaily.com/2012/02/21/add-color-to-the-terminal-in-mac-os-x/
+# ------------------------------------------------------------
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+
+# Dev Environmant
+# ----------------------------
+
+for f in ${HOME}/.paths.d/*; do
+  source $f;
+done
+
+

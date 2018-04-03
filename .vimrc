@@ -101,6 +101,9 @@ set complete+=kspell
 let g:markdownfmt_command = 'mdfmt'
 au FileType markdown nmap <leader>s :<C-u>call markdownfmt#Format()<CR>
 
+" Molokai
+let g:molokai_original = 1
+
 " NERDTree
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -115,6 +118,10 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 " Vim Devicons
 set guifont=DroidSansMono_Nerd_Font:h11
 
+" YCM
+let g:ycm_global_ycm_extra_conf = '/home/anand/.vim/.ycm_extra_conf.py'
+let g:ycm_show_diagnostics_ui = 0
+
 " Vim-Latex Suite
 let g:tex_flavor='latex'
 
@@ -128,19 +135,18 @@ endfunction
 
 map <Leader>lx :<C-U>call CompileXeTex()<CR>
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" ALE config
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+let g:ale_set_highlights = 0
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:airline#extensions#ale#enabled = 1
 
-" Rust Config
-let g:racer_cmd = "/Users/anandbalakrishnan/.cargo/bin/racer"
-let g:racer_experimental_completer = 1
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+let g:ale_open_list = 1
 
 " Golang Config
 let g:go_highlight_types = 1
@@ -155,4 +161,5 @@ let g:go_metalinter_deadline = "5s"
 let g:go_def_mode = 'godef'
 let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
+
 
