@@ -1,5 +1,7 @@
 
-eval $(thefuck --alias)
+if command -v thefuck 2>/dev/null; then
+  eval $(thefuck --alias)
+fi
 alias bashconfig="$EDITOR ~/.bash_profile"
 alias bashsource="source ~/.bash_profile"
 
