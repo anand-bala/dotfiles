@@ -9,7 +9,7 @@ ENDCOLOR="\[\e[m\]"
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 
-export PS1="${GREEN}[\u@\h] :${ENDCOLOR}${CYAN} \W${ENDCOLOR}${MAGENTA}$(__git_ps1 " |%s|")${ENDCOLOR}\n${CYAN}\$${ENDCOLOR} "
+export PS1="$GREEN[\\u@\\h] :$ENDCOLOR$CYAN \\w$ENDCOLOR$MAGENTA\$(__git_ps1 ' |%s|')$ENDCOLOR\\n$CYAN\$${ENDCOLOR} "
 
 # Set Paths
 # ------------------------------------------------------------d
