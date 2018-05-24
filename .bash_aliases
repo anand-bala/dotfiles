@@ -1,5 +1,5 @@
 
-if command -v thefuck 2>/dev/null; then
+if command -v thefuck >/dev/null 2>&1; then
   eval $(thefuck --alias)
 fi
 alias bashconfig="$EDITOR ~/.bash_profile"
@@ -7,6 +7,7 @@ alias bashsource="source ~/.bash_profile"
 
 alias e="$EDITOR"
 alias mux="tmux-next"
+alias vim="vim --servername vim"
 
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
