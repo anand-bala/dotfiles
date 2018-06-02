@@ -16,8 +16,6 @@ return  (has('win32') || has('win64'))
 endfunction
 " }
 
-
-
 " Helps force plugins to load correctly when it is turned back on below
 filetype off
 
@@ -28,7 +26,6 @@ Plug 'tpope/vim-sensible'
 Plug 'editorconfig/editorconfig-vim'
 
 " Appearance
-Plug 'liuchengxu/space-vim-dark'
 Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'scrooloose/nerdtree'
@@ -43,7 +40,10 @@ Plug 'ryanoasis/vim-devicons'
 
 " Utilities
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
+
 Plug 'w0rp/ale'
+
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
@@ -51,34 +51,23 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 
 Plug 'shougo/denite.nvim'
-Plug 'rhysd/vim-grammarous'
+Plug 'shougo/deol.nvim'
 
 " Language specific shit
-"" Org-mode
-Plug 'jceb/vim-orgmode'
-Plug 'tpope/vim-speeddating'
-"" C/C++
-Plug 'zchee/deoplete-clang'
 "" Golang
-Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'zchee/deoplete-go',
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 "" Rust
 Plug 'sebastianmarkow/deoplete-rust'
+Plug 'timonv/vim-cargo'
 
 "" Python
 Plug 'zchee/deoplete-jedi'
 Plug 'davidhalter/jedi-vim'
 
-"" JS
-Plug 'heavenshell/vim-jsdoc'
-Plug 'othree/yajs.vim'
-Plug 'ternjs/tern_for_vim'
-Plug 'carlitux/deoplete-ternjs'
-
 "" HTML
 Plug 'mattn/emmet-vim'
-Plug 'othree/html5.vim'
 
 "" TOML
 Plug 'cespare/vim-toml'
@@ -88,10 +77,6 @@ Plug 'lervag/vimtex'
 
 "" Markdown
 Plug 'plasticboy/vim-markdown'
-Plug 'JamshedVesuna/vim-markdown-preview'
-
-"" Doxygen
-Plug 'vim-scripts/DoxygenToolkit.vim'
 
 call plug#end()
 
@@ -143,6 +128,9 @@ set list " To enable by default
 " Or use your leader key + l to toggle on/off
 " map <leader>l :set list!<CR> " Toggle tabs and EOL
 
+" Autosave on changing buffer or losing focus
+autocmd BufLeave,FocusLost * silent! wall
+
 " NERDTree
 let loaded_netrwPlugin=1
 let NERDTreeRespectWildIgnore=1
@@ -166,6 +154,9 @@ else
   set guifont=DroidSansMono_Nerd_Font:h11
 endif
 
+" Dispatch config
+nnoremap <F9> :Dispatch<CR>
+
 " ALE config
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '>>'
@@ -184,9 +175,14 @@ autocmd QuitPre * if empty(&bt) | lclose | endif
 
 nmap <leader>d <Plug>(ale_fix)
 
-"" ALE js stuff
+"" ALE stuff
 let g:ale_fixers = {
       \   'javascript': ['eslint'],
+      \   'rust': ['rustfmt'],
+      \}
+
+let g:ale_linters = {
+      \   'markdown': ['vale'],
       \}
 
 " Airline
@@ -204,7 +200,10 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 let g:deoplete#sources#go#gocode_binary = '/home/anand/go/bin/gocode'
 
-" Deoplete Rust
+" Rust
+autocmd FileType rust let b:dispatch = 'cargo run'
+let g:cargo_command = "Dispatch cargo {cmd}"
+let g:ale_rust_rls_toolchain = 'stable'
 let g:deoplete#sources#rust#racer_binary='/home/anand/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path='/home/anand/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 
@@ -241,3 +240,8 @@ let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toml_frontmatter = 1
 
 let vim_markdown_preview_hotkey='<C-m>'
+
+" Golang
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#package_dot = 1
+let g:deoplete#sources#go#pointer = 1
