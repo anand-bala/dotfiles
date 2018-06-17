@@ -121,3 +121,5 @@ export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
 export PATH=/usr/local/cuda-8.0/bin:$PATH
 
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

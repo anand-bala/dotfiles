@@ -1,32 +1,11 @@
-" Don't try to be vi compatible
 set nocompatible
-
-
-" Detect Environment {
-silent function! OSX()
-return has('macunix')
-endfunction
-
-silent function! LINUX()
-return has('unix') && !has('macunix') && !has('win32unix')
-endfunction
-
-silent function! WINDOWS()
-return  (has('win32') || has('win64'))
-endfunction
-" }
-
-" Helps force plugins to load correctly when it is turned back on below
 filetype off
 
-" TODO: Load plugins here (pathogen or vundle)
-call plug#begin()
-" Config shit
-Plug 'tpope/vim-sensible'
-Plug 'editorconfig/editorconfig-vim'
+"---------------------------------------------------------------------- PLUGINS
 
-" Appearance
+call plug#begin()
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'tpope/vim-sensible'
 
 Plug 'scrooloose/nerdtree'
 Plug 'ddollar/nerdcommenter'
@@ -37,10 +16,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
 
-
-" Utilities
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 Plug 'w0rp/ale'
 
@@ -49,32 +29,23 @@ Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'honza/vim-snippets'
 
-Plug 'shougo/denite.nvim'
-Plug 'shougo/deol.nvim'
-
-" Language specific shit
 "" Golang
 Plug 'zchee/deoplete-go',
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
 "" Rust
 Plug 'sebastianmarkow/deoplete-rust'
 Plug 'timonv/vim-cargo'
-
 "" Python
 Plug 'zchee/deoplete-jedi'
 Plug 'davidhalter/jedi-vim'
-
 "" HTML
 Plug 'mattn/emmet-vim'
-
 "" TOML
 Plug 'cespare/vim-toml'
-
 "" TeX
 Plug 'lervag/vimtex'
-
 "" Markdown
 Plug 'plasticboy/vim-markdown'
 
@@ -84,6 +55,7 @@ set background=dark
 colorscheme PaperColor
 filetype plugin on
 
+"-------------------------------------------------------- DEFAULT CONFIGURATION
 
 set modelines=0 " Disable Modelines
 set number      " Show line numbers
@@ -101,10 +73,6 @@ set softtabstop=2
 set expandtab
 set noshiftround
 
-" Move up/down editor lines
-nnoremap j gj
-nnoremap k gk
-
 set hidden  " Allow hidden buffers
 set ttyfast " Rendering
 set laststatus=2  " Status bar
@@ -118,41 +86,37 @@ set ignorecase
 set smartcase
 set showmatch
 
-" Formatting
-map <leader>q gqip
-
 " Visualize tabs and newlines
 set listchars=tab:▸\ ,eol:¬
 " Uncomment this to enable by default:
 set list " To enable by default
-" Or use your leader key + l to toggle on/off
-" map <leader>l :set list!<CR> " Toggle tabs and EOL
 
 " Autosave on changing buffer or losing focus
 autocmd BufLeave,FocusLost * silent! wall
 
+
+"------------------------------------------------------------ Visual Settings
+
 " NERDTree
 let loaded_netrwPlugin=1
 let NERDTreeRespectWildIgnore=1
-
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-
 map <C-n> :NERDTreeToggle<CR>
-
-" let g:NERDTreeDirArrowExpandable = '▸'
-" let g:NERDTreeDirArrowCollapsible = '▾'
 let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrows = 1
 
 " Vim Devicons
-if !LINUX()
-  set guifont=Go\-Mono 11
-else
-  set guifont=DroidSansMono_Nerd_Font:h11
-endif
+set guifont=DroidSansMono_Nerd_Font:h11
+
+" Airline
+let g:airline#extensions#ale#enabled = 1
+
+
+"------------------------------------------------------ Helper Plugins Settings
+"                                                                Dispatch, ALE,
 
 " Dispatch config
 nnoremap <F9> :Dispatch<CR>
@@ -182,11 +146,9 @@ let g:ale_fixers = {
       \}
 
 let g:ale_linters = {
-      \   'markdown': ['vale'],
+      \   'markdown': ['redpen'],
+      \   'tex': ['redpen']
       \}
-
-" Airline
-let g:airline#extensions#ale#enabled = 1
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -223,10 +185,10 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
       \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" Use tern_for_vim.
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
-
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
 
 " C/C++
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.9/lib/libclang.so'
