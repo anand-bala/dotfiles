@@ -8,27 +8,10 @@ CYAN="\[\e[1;36m\]"
 MAGENTA="\[\e[1;35m\]"
 RED="\[\e[1;31\]"
 ENDCOLOR="\[\e[m\]"
-export GIT_PS1_SHOWDIRTYSTATE=true
-export GIT_PS1_SHOWUNTRACKEDFILES=true
+export GIT_PS1_SHOWDIRTYSTATE=false
+export GIT_PS1_SHOWUNTRACKEDFILES=false
 
-function virtualenv_info(){
-  # Get Virtual Env
-  if [[ -n "$VIRTUAL_ENV" ]]; then
-    # Strip out the path and just leave the env name
-    venv="${VIRTUAL_ENV##*/}"
-  else
-    # In case you don't have one activated
-    venv=''
-  fi
-  [[ -n "$venv" ]] && echo -e "(venv:$venv)"
-}
-
-# disable the default virtualenv prompt change
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-VENV="\$(virtualenv_info)";
-
-export PS1="$GREEN[\\u@\\h] :$ENDCOLOR$CYAN \\w$ENDCOLOR$MAGENTA\$(__git_ps1 ' |%s|')$ENDCOLOR $VENV\\n$CYAN\$${ENDCOLOR} "
+export PS1="$GREEN[\\u@\\h] :$ENDCOLOR$CYAN \\w$ENDCOLOR$MAGENTA\$(__git_ps1 ' |%s|')$ENDCOLOR\\n$CYAN\$$ENDCOLOR "
 
 # Set Paths
 # ------------------------------------------------------------d

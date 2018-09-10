@@ -6,8 +6,6 @@ alias bashconfig="$EDITOR ~/.bash_profile"
 alias bashsource="source ~/.bash_profile"
 
 alias e="$EDITOR"
-alias mux="tmux-next"
-alias vim="vim --servername vim"
 
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation

@@ -23,7 +23,6 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'embear/vim-localvimrc'
 
 Plug 'w0rp/ale'
 
@@ -38,25 +37,25 @@ Plug 'honza/vim-snippets'
 Plug 'alisdair/vim-armasm'
 "" C/C++
 Plug 'zchee/deoplete-clang'
+Plug 'zchee/libclang-python3'
 Plug 'shougo/neoinclude.vim'
 "" Golang
 Plug 'zchee/deoplete-go',
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-"" Rust
-Plug 'racer-rust/vim-racer', { 'for': 'rust' }
-Plug 'timonv/vim-cargo'
-
 "" Python
 Plug 'zchee/deoplete-jedi'
-Plug 'davidhalter/jedi-vim'
-"" HTML
-Plug 'mattn/emmet-vim'
+"" Rust
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+"" Kotlin
+Plug 'udalov/kotlin-vim'
 "" TOML
 Plug 'cespare/vim-toml'
 "" TeX
 Plug 'lervag/vimtex'
 "" Markdown
 Plug 'plasticboy/vim-markdown'
+Plug 'suan/vim-instant-markdown'
 
 call plug#end()
 
@@ -100,13 +99,14 @@ set listchars=tab:▸\ ,eol:¬
 " Uncomment this to enable by default:
 set list " To enable by default
 
-" Autosave on changing buffer or losing focus
-autocmd BufLeave,FocusLost * silent! wall
 
 " if (has("termguicolors"))
 "   set termguicolors
 " endif
 " let g:palenight_terminal_italics=1
+
+set pyxversion=3
+set pyx=3
 
 
 "------------------------------------------------------------ Visual Settings
@@ -114,9 +114,14 @@ autocmd BufLeave,FocusLost * silent! wall
 " NERDTree
 let loaded_netrwPlugin=1
 let NERDTreeRespectWildIgnore=1
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+augroup nerdtree
+  autocmd!
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+augroup END
+
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeMinimalUI = 1
@@ -157,55 +162,15 @@ let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 let g:ale_list_window_size = 5
+let g:ale_keep_list_window_open = 1
 
-augroup CloseLoclistWindowGroup
-  autocmd!
-  autocmd QuitPre * if empty(&buftype) | lclose | endif
-augroup END
 
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-autocmd QuitPre * if empty(&bt) | lclose | endif
+let g:airline#extensions#ale#enabled = 1
 
-nmap <leader>d <Plug>(ale_fix)
-
-"" ALE stuff
-let g:ale_fixers = {
-      \   'javascript': ['eslint'],
-      \   'rust': ['rustfmt'],
-      \   'c': ['clang-format'],
-      \}
-
-let g:ale_linters = {
-      \   'markdown': ['redpen'],
-      \   'tex': ['redpen']
-      \}
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
-" if !exists('g:deoplete#omni#input_patterns')
-"   let g:deoplete#omni#input_patterns = {}
-" endif
-" " let g:deoplete#disable_auto_complete = 1
-" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-let g:deoplete#sources#go#gocode_binary = '/home/anand/go/bin/gocode'
-
-" Rust
-autocmd FileType rust let b:dispatch = 'cargo run %'
-let g:cargo_command = "Dispatch cargo {cmd}"
-
-let g:ale_rust_rls_toolchain = 'stable'
-
-let g:racer_cmd = '/home/anand/.cargo/bin/racer'
-let g:racer_experimental_completer = 1
-
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 
 " Plugin key-mappings.
@@ -228,20 +193,5 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
 
-" C/C++
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.9/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 
-" Markdown
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_math = 1
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_toml_frontmatter = 1
 
-let vim_markdown_preview_hotkey='<C-m>'
-
-" Golang
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#package_dot = 1
-let g:deoplete#sources#go#pointer = 1
