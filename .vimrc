@@ -54,8 +54,10 @@ Plug 'cespare/vim-toml'
 "" TeX
 Plug 'lervag/vimtex'
 "" Markdown
-Plug 'plasticboy/vim-markdown'
-Plug 'suan/vim-instant-markdown'
+" Plug 'plasticboy/vim-markdown'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+
 
 call plug#end()
 
