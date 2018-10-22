@@ -1,0 +1,31 @@
+cd ..
+cd ..
+cd cps_vida/notes/
+git status
+l
+cd ..
+cd ..
+ls
+cd cps_vida/
+git clone git@bitbucket.org:anand-b/csci699-cps.git
+cd csci699-cps/
+ls
+cd project-proposal/
+ls
+cp citations.bib ~/Workspace/cps_vida/notes/
+exit
+ls
+ls ~/.emacs.d/elpa/org-20181022/
+ls ~/.emacs.d/elpa/org-20181022/etc/
+ls ~/.emacs.d/elpa/org-20181022/etc/styles/
+less ~/.emacs.d/elpa/org-20181022/
+cat ~/.emacs.d/elpa/org-20181022/dir
+cat ~/.emacs.d/elpa/org-20181022/README_ELPA 
+readlink ~/Bibliography/
+readlink ~/Bibliography/
+cd 
+cd Box\ Sync/
+cd
+cd Bibliography/
+ls
+pwd
