@@ -30,7 +30,6 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-
 if [ -f /usr/local/etc/bash_completion ]; then
   . /usr/local/etc/bash_completion
 elif [ -f /etc/bash_completion ]; then
@@ -44,4 +43,5 @@ done
 [ -f ~/.secretsconf ] && . ~/.secretsconf
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 
