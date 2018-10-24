@@ -36,9 +36,11 @@ elif [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
 
-for f in ${HOME}/.bashrc.d/*; do
+# set -x
+for f in ${HOME}/.bashrc.d/*.bash; do
   source $f
 done
+# set +x
 
 [ -f ~/.secretsconf ] && . ~/.secretsconf
 

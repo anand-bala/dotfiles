@@ -1,18 +1,10 @@
-
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
-
 if command -v pyenv 1>/dev/null 2>&1; then
+export PATH="/home/anand/.pyenv/bin:$PATH"
   eval "$(pyenv init -)"
 fi
 
 export WORKON_HOME="$HOME/.venvs"
 [ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
-
-
-export WORKON_HOME=$HOME/.venvs
-[ -f /usr/local/bin/virtualenvwrapper.sh ] && . /usr/local/bin/virtualenvwrapper.sh
-
 
 # pip bash completion start
 _pip_completion()
@@ -23,9 +15,5 @@ _pip_completion()
 }
 complete -o default -F _pip_completion pip
 # pip bash completion end
-
-export PATH="/home/anand/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 

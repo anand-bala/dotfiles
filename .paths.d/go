@@ -1,4 +1,4 @@
-#!/bin/bash
+#!usr/bin/env bash
 
 export GOROOT="/usr/local/go"
 export GOHOME="$HOME/go"

@@ -1,5 +1,6 @@
-export CLICOLOR=1
-export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+# source ~/.bashrc.d/themes/oh-my-git/prompt.sh
+export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
-source ~/.bashrc.d/theme.bash
+source ~/.bashrc.d/themes/powerline/prompt.sh
+
 

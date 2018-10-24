@@ -1,3 +1,8 @@
+# COLORS!
+# ------------------------------------------------------------
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+
 # Set Paths
 # ------------------------------------------------------------d
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"

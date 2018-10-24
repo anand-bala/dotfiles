@@ -4,8 +4,8 @@ filetype off
 "---------------------------------------------------------------------- PLUGINS
 
 call plug#begin()
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'altercation/vim-colors-solarized'
-Plug 'drewtempelmeyer/palenight.vim'
 
 Plug 'tpope/vim-sensible'
 
@@ -33,36 +33,15 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 
-""ARM ASM
-Plug 'alisdair/vim-armasm'
-"" C/C++
-Plug 'zchee/deoplete-clang'
-Plug 'zchee/libclang-python3'
-Plug 'shougo/neoinclude.vim'
-"" Golang
-Plug 'zchee/deoplete-go',
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-"" Python
-Plug 'zchee/deoplete-jedi'
-"" Rust
-Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer', { 'for': 'rust' }
-"" Kotlin
-Plug 'udalov/kotlin-vim'
-"" TOML
-Plug 'cespare/vim-toml'
-"" TeX
-Plug 'lervag/vimtex'
 "" Markdown
 " Plug 'plasticboy/vim-markdown'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 
-
 call plug#end()
 
 set background=dark
-colorscheme palenight
+" colorscheme dracula
 filetype plugin on
 
 "-------------------------------------------------------- DEFAULT CONFIGURATION
