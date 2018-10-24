@@ -1,5 +1,0 @@
-#!/bin/bash
-export ANDROID_STUDIO_PATH="/opt/android-studio"
-export PATH="$ANDROID_STUDIO_PATH/bin:$PATH"
-
-

@@ -128,7 +128,7 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrows = 1
 
 " Vim Devicons
-set guifont=DroidSansMono_Nerd_Font:h11
+set guifont=DroidSansMono\ Nerd\ Font:h11
 
 " Airline
 let g:airline#extensions#ale#enabled = 1
