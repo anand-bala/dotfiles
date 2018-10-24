@@ -11,17 +11,18 @@ if [ "$(uname)" == "Darwin" ]; then
   export PATH="$PATH:/opt/X11/bin:/Library/TeX/texbin"
 fi
 
-export PATH="$HOME/bin:$PATH"
+if [ -d "$HOME/bin"]; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/bin"]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
 
 # Set Default Editor
-# ------------------------------------------------------------
 export EDITOR=vim
 
-
-
-# Dev Environmant
-# ----------------------------
-
+# Dev Environment
 for f in ${HOME}/.paths.d/*; do
   source $f;
 done
