@@ -16,6 +16,8 @@ __powerline() {
     readonly SYMBOL_GIT_PUSH='↑'
     readonly SYMBOL_GIT_PULL='↓'
 
+    readonly PS_SYMBOL_PYTHON='🐍'
+
     if [[ -z "$PS_SYMBOL" ]]; then
       case "$(uname)" in
           Darwin)   PS_SYMBOL='';;
@@ -59,6 +61,15 @@ __powerline() {
         printf " $ref$marks"
     }
 
+  __virtualenv() {
+      if [ -z "${VIRTUAL_ENV}" ] ; then
+        return
+      else
+        local virtualenv="$(basename $VIRTUAL_ENV)"
+        printf "($PS_SYMBOL_PYTHON $virtualenv)"
+      fi
+    }
+ 
     ps1() {
         # Check the exit code of the previous command and display different
         # colors in the prompt accordingly. 
@@ -82,7 +93,16 @@ __powerline() {
             local git="$COLOR_GIT$(__git_info)$RESET"
         fi
 
-        PS1="$cwd$git$symbol"
+        if shopt -q promptvars; then
+          __powerline_virtualenv="$(__virtualenv)"
+          local venv="\${__powerline_virtualenv}"
+        else
+          local venv="$(__powerline_virtualenv)"
+        fi
+        
+        local host_user="$COLOR_SUCCESS[\h@\u]$RESET"
+
+        PS1="$host_user:$cwd$git\n$venv$symbol"
     }
 
     PROMPT_COMMAND="ps1${PROMPT_COMMAND:+; $PROMPT_COMMAND}"

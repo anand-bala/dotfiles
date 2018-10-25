@@ -11,11 +11,11 @@ if [ "$(uname)" == "Darwin" ]; then
   export PATH="$PATH:/opt/X11/bin:/Library/TeX/texbin"
 fi
 
-if [ -d "$HOME/bin"]; then
+if [ -d "$HOME/bin" ]; then
   export PATH="$HOME/bin:$PATH"
 fi
 
-if [ -d "$HOME/.local/bin"]; then
+if [ -d "$HOME/.local/bin" ]; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
