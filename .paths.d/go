@@ -4,6 +4,5 @@ export GOROOT="/usr/local/go"
 export GOHOME="$HOME/go"
 export PATH=$GOROOT/bin:$GOHOME/bin:$PATH
 
-complete -C /home/anand/go/bin/gocomplete go
 
 
