@@ -1,0 +1,38 @@
+antigen use oh-my-zsh
+
+antigen bundle git
+antigen bundle pip
+antigen bundle lein
+antigen bundle command-not-found
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+#: DEV stuff {
+
+antigen bundle joshuarubin/zsh-direnv
+
+## Python
+antigen bundle pip
+antigen bundle pyenv
+antigen bundle virtualenv
+antigen bundle virtualenvwrapper
+
+## Rust
+antigen bundle rust
+antigen bundle cargo
+
+## Go
+antigen bundle golang
+
+## rbenv
+antigen bundle rbenv
+
+#: }
+
+#: Theme {
+# antigen theme iplaces/astro-zsh-theme
+antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
+#: }
+
+antigen apply
+
