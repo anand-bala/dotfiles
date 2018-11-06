@@ -1,9 +1,0 @@
-if command -v pyenv 1>/dev/null 2>&1; then
-export PATH="/home/anand/.pyenv/bin:$PATH"
-  eval "$(pyenv init -)"
-fi
-
-export WORKON_HOME="$HOME/.venvs"
-[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
-
-

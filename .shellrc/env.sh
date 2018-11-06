@@ -22,5 +22,7 @@ fi
 # Set Default Editor
 export EDITOR=vim
 
-
+for f in $HOME/.shellrc/paths/* ; do
+  . $f
+done
 

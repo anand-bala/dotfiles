@@ -37,9 +37,8 @@ elif [ -f /etc/bash_completion ]; then
 fi
 
 # set -x
-for f in ${HOME}/.bashrc.d/*.bash; do
-  source $f
-done
+source ~/.shellrc/aliases.sh
+source ~/.shellrc/env.sh
 # set +x
 
 [ -f ~/.secretsconf ] && . ~/.secretsconf
