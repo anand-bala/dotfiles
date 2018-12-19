@@ -1,12 +1,16 @@
-export WORKON_HOME="$HOME/.virtualenvs"
+# vim: filetype=sh
 
-if command -v pyenv 1>/dev/null 2>&1; then
-  export PATH="/home/anand/.pyenv/bin:$PATH"
-  eval "$(pyenv init -)"
-  if command -v pyenv-virtualenvwrapper 1>/dev/null 2>&1; then
-    pyenv virtualenvwrapper_lazy
-  fi
-fi
+# export WORKON_HOME="$HOME/.virtualenvs"
 
+# if [ -d "$HOME/.pyenv/bin" ]; then
+#   export PATH="$HOME/.pyenv/bin:$PATH"
+# fi
+
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init -)"
+#   pyenv virtualenvwrapper_lazy
+# fi
+
+export PATH=/home/anand/miniconda/bin:$PATH
 
 
