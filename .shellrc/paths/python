@@ -11,6 +11,5 @@
 #   pyenv virtualenvwrapper_lazy
 # fi
 
-export PATH=/home/anand/miniconda/bin:$PATH
-
+source $HOME/miniconda/etc/profile.d/conda.sh
 

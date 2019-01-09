@@ -15,6 +15,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+[ -x "$(command -v kitty)" ] && alias ssh='kitty +kitten ssh'
 
 alias e="$EDITOR"
 
@@ -38,16 +39,15 @@ alias pathe='echo -e ${PATH//:/\\n}'         # path:         Echo all executable
 alias show_options='shopt'                  # Show_options: display bash options settings
 alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
-alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
-
 alias config='/usr/bin/env git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 alias m="make"
 alias e="$EDITOR"
 
-trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
-
 if [ "$(uname)" = "Darwin" ]; then
+
+  trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
+
   alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
 
   # showa: to remind yourself of an alias (given some part of it)
