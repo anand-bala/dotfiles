@@ -1,0 +1,9 @@
+changeps1: False
+auto_update_conda: True
+add_pip_as_python_depencency: True
+use_pip: True
+
+create_default_packages:
+  - pip
+  - numpy
+
