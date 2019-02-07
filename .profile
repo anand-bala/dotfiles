@@ -9,3 +9,6 @@ case $- in
       fi
     fi
 esac
+
+
+export PATH="$HOME/.poetry/bin:$PATH"
