@@ -6,7 +6,7 @@ antigen bundle command-not-found
 
 #: DEV stuff {
 
-antigen bundle joshuarubin/zsh-direnv
+# antigen bundle joshuarubin/zsh-direnv
 
 ## Python
 antigen bundle pip
