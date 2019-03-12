@@ -58,6 +58,8 @@ if [ "$(uname)" = "Darwin" ]; then
   # -----------------------------------------------------------
   spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
 
+elif [ "$(uname)" = "Linux" ]; then
+  alias myip="hostname -I"
 fi
 
 # lr:  Full Recursive Directory Listing

@@ -6,5 +6,6 @@ use_pip: True
 create_default_packages:
   - pip
   - numpy
+  - jupyter
   - ipython
 
