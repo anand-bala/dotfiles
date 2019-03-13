@@ -3,9 +3,17 @@ auto_update_conda: True
 add_pip_as_python_depencency: True
 use_pip: True
 
+channels:
+  - defaults
+  - conda-forge
+
+channel_priority: true
+
 create_default_packages:
-  - pip
+  - pip<19
   - numpy
-  - jupyter
   - ipython
+  - matplotlib
+  - jupyter
+  - sphinx
 

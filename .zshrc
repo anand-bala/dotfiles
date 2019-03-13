@@ -1,4 +1,5 @@
 #: Basic Configuration {
+autoload -Uz compinit
 setopt appendhistory autocd nomatch autopushd pushdignoredups promptsubst
 unsetopt beep
 
@@ -12,7 +13,6 @@ autoload -U compinit
 source ~/.shellrc/zsh/antigen.zsh
 antigen init ~/.shellrc/zsh/antigenrc
 #: }
-
 
 #: Common Shell stuff {
 # Manipulate aliases
@@ -29,6 +29,5 @@ fpath+=~/.zfunc
 #: }
 
 compinit
-
 
 

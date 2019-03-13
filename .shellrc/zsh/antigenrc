@@ -6,13 +6,8 @@ antigen bundle command-not-found
 
 #: DEV stuff {
 
-# antigen bundle joshuarubin/zsh-direnv
-
 ## Python
 antigen bundle pip
-# antigen bundle pyenv
-#antigen bundle virtualenv
-#antigen bundle virtualenvwrapper
 
 ## Rust
 antigen bundle rust
@@ -21,14 +16,11 @@ antigen bundle cargo
 ## Go
 antigen bundle golang
 
-## rbenv
-antigen bundle rbenv
-
 #: }
 
 #: Theme {
 # antigen theme iplaces/astro-zsh-theme
-antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
+antigen theme denysdovhan/spaceship-prompt
 #: }
 
 antigen apply
