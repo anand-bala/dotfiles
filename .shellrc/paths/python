@@ -14,3 +14,15 @@ if [ -f $HOME/.poetry/env ]; then
   source $HOME/.poetry/env
 fi
 
+
+mk_pypkg() {
+  for pkg_dir in "$@"
+  do
+    mkdir -p $pkg_dir
+    touch $pkg_dir/__init__.py
+  done
+}
+
+alias clr_pycache="fd -I -t d __pycache__ --exec rm -rf {}"
+
+
