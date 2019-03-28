@@ -15,9 +15,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
 
-"" Markdown
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'lervag/vimtex'
 
 call plug#end()
 
@@ -91,4 +91,6 @@ let g:NERDTreeDirArrows = 1
 
 set guifont=DroidSansMono\ Nerd\ Font:h11
 
+au BufRead,BufNewFile *.md setlocal textwidth=80
+au BufRead,BufNewFile *.tex setlocal textwidth=80
 
