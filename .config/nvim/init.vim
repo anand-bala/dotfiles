@@ -1,15 +1,9 @@
-set nocompatible
-filetype off
 
-"---------------------------------------------------------------------- PLUGINS
-
+" -- PLUGINS
 call plug#begin()
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'tpope/vim-sensible'
 
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+" Visual
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 Plug 'scrooloose/nerdtree'
 Plug 'ddollar/nerdcommenter'
@@ -19,17 +13,27 @@ Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
 
+" Backend Tools
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" Language specific
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'lervag/vimtex'
+Plug 'Shougo/deoplete-clangx'
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+
 
 call plug#end()
-
-set background=dark
-" colorscheme dracula
 filetype plugin on
 
-"-------------------------------------------------------- DEFAULT CONFIGURATION
+" -- VISUAL
+set background=dark
+
+" --- Sane defaults 
 
 set modelines=0 " Disable Modelines
 set number      " Show line numbers
@@ -37,7 +41,6 @@ set ruler       " Show file stats
 set visualbell  " Blink cursor on error instead of beeping (grr)
 set encoding=utf-8  " Encoding
 
-" Whitespace
 set wrap
 set textwidth=0
 set formatoptions=tcqrn1
@@ -48,38 +51,14 @@ set expandtab
 set noshiftround
 
 set hidden  " Allow hidden buffers
-set ttyfast " Rendering
 set laststatus=2  " Status bar
 
-" Last line
-set showmode
-set showcmd
-
-" Searching
+" --- Searching
 set ignorecase
 set smartcase
 set showmatch
 
-" Visualize tabs and newlines
-set listchars=tab:▸\ ,eol:¬
-" Uncomment this to enable by default:
-set list " To enable by default
-
-
-" if (has("termguicolors"))
-"   set termguicolors
-" endif
-" let g:palenight_terminal_italics=1
-
-set pyxversion=3
-set pyx=3
-
-
-"------------------------------------------------------------ Visual Settings
-
-let g:deoplete#enable_at_startup = 1
-
-" NERDTree
+" --- NERDTree
 let loaded_netrwPlugin=1
 let NERDTreeRespectWildIgnore=1
 
@@ -95,8 +74,31 @@ let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrows = 1
 
-set guifont=DroidSansMono\ Nerd\ Font:h11
 
-au BufRead,BufNewFile *.md setlocal textwidth=80
-au BufRead,BufNewFile *.tex setlocal textwidth=80
+" -- Spelling
+setlocal spell
+set spelllang=en_us
+
+" -- UltiSnips
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+" -- Deoplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+
+" disable autocomplete by default
+let b:deoplete_disable_auto_complete=1
+let g:deoplete_disable_auto_complete=1
+
+if !exists('g:deoplete#omni#input_patterns')
+    let g:deoplete#omni#input_patterns = {}
+endif
+
+" Disable the candidates in Comment/String syntaxes.
+call deoplete#custom#source('_',
+            \ 'disabled_syntaxes', ['Comment', 'String'])
+
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
