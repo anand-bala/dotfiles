@@ -16,6 +16,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 [ -x "$(command -v kitty)" ] && alias ssh='kitty +kitten ssh'
+[ -x "$(command -v nvim)" ] && alias vim='nvim'
 
 alias e="$EDITOR"
 
@@ -38,7 +39,7 @@ alias whicht='type -all'                     # which:        Find executables
 alias pathe='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
 alias show_options='shopt'                  # Show_options: display bash options settings
 alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
-mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
+mkcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
 alias config='/usr/bin/env git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 alias m="make"

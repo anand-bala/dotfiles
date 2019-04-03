@@ -92,6 +92,8 @@ let g:deoplete#enable_smart_case = 1
 let b:deoplete_disable_auto_complete=1
 let g:deoplete_disable_auto_complete=1
 
+au BufRead,BufNewFile *.md setlocal textwidth=80
+au BufRead,BufNewFile *.tex setlocal textwidth=80
 if !exists('g:deoplete#omni#input_patterns')
     let g:deoplete#omni#input_patterns = {}
 endif
