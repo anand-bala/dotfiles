@@ -17,14 +17,16 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'w0rp/ale'
 
-" Language specific
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'lervag/vimtex'
-Plug 'Shougo/deoplete-clangx'
+" Deoplete + Language specific
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+
+
+" Language specific
+Plug 'lervag/vimtex'
+Plug 'plasticboy/vim-markdown'
 
 
 call plug#end()
@@ -32,6 +34,8 @@ filetype plugin on
 
 " -- VISUAL
 set background=dark
+
+set mouse=a
 
 " --- Sane defaults 
 
@@ -57,6 +61,12 @@ set laststatus=2  " Status bar
 set ignorecase
 set smartcase
 set showmatch
+" -- Airline
+let g:airline_left_sep  = ''
+let g:airline_right_sep = ''
+let g:airline#extensions#ale#enabled = 1
+let airline#extensions#ale#error_symbol = 'E:'
+let airline#extensions#ale#warning_symbol = 'W:'
 
 " --- NERDTree
 let loaded_netrwPlugin=1
@@ -65,18 +75,17 @@ let NERDTreeRespectWildIgnore=1
 augroup nerdtree
   autocmd!
   autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
   autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 augroup END
 
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeAutoDeleteBuffer = 1
-let g:NERDTreeMinimalUI = 1
+" let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrows = 1
 
 
 " -- Spelling
-setlocal spell
 set spelllang=en_us
 
 " -- UltiSnips
@@ -94,13 +103,19 @@ let g:deoplete_disable_auto_complete=1
 
 au BufRead,BufNewFile *.md setlocal textwidth=80
 au BufRead,BufNewFile *.tex setlocal textwidth=80
-if !exists('g:deoplete#omni#input_patterns')
-    let g:deoplete#omni#input_patterns = {}
-endif
-
-" Disable the candidates in Comment/String syntaxes.
-call deoplete#custom#source('_',
-            \ 'disabled_syntaxes', ['Comment', 'String'])
 
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" -- ALE
+
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+" -- TeX
+let g:tex_flavor = "latex"
+let g:vimtex_view_method='zathura'
+" let g:vimtex_quickfix_mode=0
 

@@ -16,4 +16,5 @@ create_default_packages:
   - matplotlib
   - jupyter
   - sphinx
+  - jedi
 
