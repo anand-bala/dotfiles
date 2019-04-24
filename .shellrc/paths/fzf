@@ -1,4 +1,4 @@
-export FZF_DEFAULT_COMMAND="fd -L . $HOME"
+export FZF_DEFAULT_COMMAND="fd -L ."
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd -L -t d . $HOME"
+export FZF_ALT_C_COMMAND="fd -L -t d ."
 
