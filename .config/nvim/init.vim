@@ -2,6 +2,9 @@
 " -- PLUGINS
 call plug#begin('~/.local/share/nvim/plugged')
 
+" Sanity stuff
+Plug 'ciaranm/securemodelines'
+
 " Visual
 Plug 'dracula/vim', { 'as': 'dracula' }
 
@@ -72,6 +75,8 @@ Plug 'junegunn/fzf.vim'
 
   let g:fzf_layout = { 'up': '~40%' }
 " }}
+
+Plug 'sakhnik/nvim-gdb', { 'do': ':UpdateRemotePlugins' }
 
 " Deoplete + Language specific
 Plug 'deoplete-plugins/deoplete-jedi'

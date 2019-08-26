@@ -1,4 +1,4 @@
-# vim: filetype=sh
+# vim: set filetype=sh
 
 export WORKON_HOME="$HOME/.virtualenvs"
 

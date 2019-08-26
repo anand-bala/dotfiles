@@ -17,4 +17,7 @@ create_default_packages:
   - jupyter
   - sphinx
   - jedi
+  - autopep8
+  - pylint
+  - rope
 

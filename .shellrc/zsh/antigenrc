@@ -1,4 +1,7 @@
+# vim: set filetype=sh
 antigen use oh-my-zsh
+
+antigen bundle ubuntu
 
 antigen bundle git
 # antigen bundle lein
