@@ -92,6 +92,8 @@ Plug 'lervag/vimtex'
 " }}
 Plug 'plasticboy/vim-markdown'
 
+Plug 'ziglang/zig.vim'
+
 call plug#end()
 filetype plugin on
 

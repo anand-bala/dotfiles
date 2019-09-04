@@ -1,0 +1,36 @@
+# vim: set filetype=sh
+
+roszsh() {
+  source /opt/ros/melodic/setup.zsh
+}
+
+rosproj() {
+  source devel/setup.zsh
+}
+
+set_ros_master() {
+  export ROS_MASTER_URI=http://$1:11311
+  export ROS_HOSTNAME=$1
+}
+
+ros2sh() {
+  source /opt/ros/crystal/setup.zsh
+}
+
+
+ros2proj() {
+  source install/setup.zsh
+}
+
+add_gazebo_model_path() {
+  if [[ $# -eq 1 ]]; then
+    export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:$1
+  fi
+}
+
+set_turtlebot_type() {
+  if [[ $# -eq 1 ]]; then
+    export TURTLEBOT3_MODEL="$1"
+  fi
+}
+

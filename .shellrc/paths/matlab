@@ -1,0 +1,5 @@
+# vim: set filetype=sh
+
+alias matlab="matlab -nodesktop -nodisplay -nosplash"
+
+

@@ -10,5 +10,3 @@ case $- in
     fi
 esac
 
-
-export PATH="$HOME/.poetry/bin:$PATH"
