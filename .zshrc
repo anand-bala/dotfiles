@@ -1,3 +1,7 @@
+if [ "$(umask)" = "0000" ]; then 
+  umask 0022 
+fi
+
 #: Basic Configuration {
 autoload -Uz compinit
 setopt appendhistory autocd nomatch autopushd pushdignoredups promptsubst
