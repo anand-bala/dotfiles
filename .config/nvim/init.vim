@@ -1,3 +1,47 @@
+" -- Sane defaults 
+
+set modelines=0 " Disable Modelines
+set number      " Show line numbers
+set ruler       " Show file stats
+set visualbell  " Blink cursor on error instead of beeping (grr)
+set encoding=utf-8  " Encoding
+
+set wrap
+set textwidth=0
+set formatoptions=tcqrn1
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set noshiftround
+
+set hidden  " Allow hidden buffers
+set laststatus=2  " Status bar
+
+" -- Searching
+set ignorecase
+set smartcase
+set showmatch
+
+" -- Pop-Up Menu
+"  Tab to scroll (SHIFT+Tab for backward scroll)
+"  ESC to cancel
+"  ENTER for accept
+inoremap <silent><expr> <Esc>     pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <silent><expr> <CR>      pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <silent><expr> <tab>     pumvisible() ? "\<C-n>" : "\<tab>"
+inoremap <silent><expr> <s-tab>   pumvisible() ? "\<C-p>" : "\<s-tab>"
+
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" -- Spelling
+set spelllang=en_us
+nnoremap <silent> <leader>ts :set spell!<CR>
+
+" -- Interface Settings
+set background=dark
+set mouse=a
+
 
 " -- PLUGINS
 call plug#begin('~/.local/share/nvim/plugged')
@@ -73,7 +117,7 @@ Plug 'junegunn/fzf.vim'
   nnoremap <C-f> :Files<Cr>
   nnoremap <C-g> :Rg<Cr>
 
-  let g:fzf_layout = { 'up': '~40%' }
+  let g:fzf_layout = { 'down': '~40%' }
 " }}
 
 Plug 'sakhnik/nvim-gdb', { 'do': ':UpdateRemotePlugins' }
@@ -96,53 +140,5 @@ Plug 'ziglang/zig.vim'
 
 call plug#end()
 filetype plugin on
-
-set background=dark
-set mouse=a
-
-" -- Sane defaults 
-
-set modelines=0 " Disable Modelines
-set number      " Show line numbers
-set ruler       " Show file stats
-set visualbell  " Blink cursor on error instead of beeping (grr)
-set encoding=utf-8  " Encoding
-
-set wrap
-set textwidth=0
-set formatoptions=tcqrn1
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-set noshiftround
-
-set hidden  " Allow hidden buffers
-set laststatus=2  " Status bar
-
-" -- Searching
-set ignorecase
-set smartcase
-set showmatch
-
-" -- Pop-Up Menu
-"  Tab to scroll (SHIFT+Tab for backward scroll)
-"  ESC to cancel
-"  ENTER for accept
-inoremap <silent><expr> <Esc>     pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <silent><expr> <CR>      pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <silent><expr> <tab>     pumvisible() ? "\<C-n>" : "\<tab>"
-inoremap <silent><expr> <s-tab>   pumvisible() ? "\<C-p>" : "\<s-tab>"
-
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" -- Spelling
-set spelllang=en_us
-nnoremap <silent> <leader>ts :set spell!<CR>
-
-" -- Misc
-au BufRead,BufNewFile *.md setlocal textwidth=80
-au BufRead,BufNewFile *.tex setlocal textwidth=80
-
 
 

@@ -10,7 +10,7 @@ channels:
 channel_priority: true
 
 create_default_packages:
-  - pip<19
+  - pip
   - numpy
   - ipython
   - matplotlib
