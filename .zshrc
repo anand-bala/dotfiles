@@ -1,5 +1,5 @@
-if [ "$(umask)" = "0000" ]; then 
-  umask 0022 
+if [[ $(umask) == "000" ]]; then 
+  umask 022 
 fi
 
 #: Basic Configuration {
