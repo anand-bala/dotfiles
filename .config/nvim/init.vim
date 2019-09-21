@@ -154,6 +154,4 @@ Plug 'ziglang/zig.vim'
 call plug#end()
 filetype plugin on
 
-syntax on
-colorscheme dracula
 
