@@ -42,43 +42,49 @@ nnoremap <silent> <leader>ts :set spell!<CR>
 set background=dark
 set mouse=a
 
+" -- Windows stuff
+if has('win32')
+  let g:python3_host_prog = 'C:\Users\anand\AppData\Local\Microsoft\WindowsApps\python3.exe'
+endif
 
 " -- PLUGINS
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin()
 
 " Sanity stuff
 Plug 'ciaranm/securemodelines'
 
 " Visual
-Plug 'dracula/vim', { 'as': 'dracula' }
+if has('win32')
+  Plug 'dracula/vim', { 'as': 'dracula' }
+endif
 
 Plug 'scrooloose/nerdtree'
 " {{
-  let loaded_netrwPlugin=1
-  let NERDTreeRespectWildIgnore=1
+let loaded_netrwPlugin=1
+let NERDTreeRespectWildIgnore=1
 
-  augroup nerdtree
-    autocmd!
-    autocmd StdinReadPre * let s:std_in=1
-    " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-  augroup END
+augroup nerdtree
+  autocmd!
+  autocmd StdinReadPre * let s:std_in=1
+  " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+augroup END
 
-  map <C-n> :NERDTreeToggle<CR>
-  let g:NERDTreeAutoDeleteBuffer = 1
-  " let g:NERDTreeMinimalUI = 1
-  let g:NERDTreeDirArrows = 1
+map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeAutoDeleteBuffer = 1
+" let g:NERDTreeMinimalUI = 1
+let g:NERDTreeDirArrows = 1
 " }}
 Plug 'ddollar/nerdcommenter'
 Plug 'xuyuanp/nerdtree-git-plugin'
 
 Plug 'vim-airline/vim-airline'
 " {{
-  let g:airline_left_sep  = ''
-  let g:airline_right_sep = ''
-  let g:airline#extensions#ale#enabled = 1
-  let airline#extensions#ale#error_symbol = 'E:'
-  let airline#extensions#ale#warning_symbol = 'W:'
+let g:airline_left_sep  = ''
+let g:airline_right_sep = ''
+let g:airline#extensions#ale#enabled = 1
+let airline#extensions#ale#error_symbol = 'E:'
+let airline#extensions#ale#warning_symbol = 'W:'
 " }}
 
 Plug 'airblade/vim-gitgutter'
@@ -87,37 +93,37 @@ Plug 'ryanoasis/vim-devicons'
 " Backend Tools
 Plug 'SirVer/ultisnips'
 " {{
-  let g:UltiSnipsExpandTrigger = '<tab>'
-  let g:UltiSnipsJumpForwardTrigger = '<tab>'
-  let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 " }}
 Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " {{
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
 
-  " disable autocomplete by default
-  let b:deoplete_disable_auto_complete=1
-  let g:deoplete_disable_auto_complete=1
+" disable autocomplete by default
+let b:deoplete_disable_auto_complete=1
+let g:deoplete_disable_auto_complete=1
 " }}
 Plug 'w0rp/ale'
 " {{
-  let g:ale_lint_on_enter = 0
-  let g:ale_lint_on_text_changed = 'never'
-  let g:ale_echo_msg_error_str = 'E'
-  let g:ale_echo_msg_warning_str = 'W'
-  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " }}
 
 " Good tools
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " {{
-  nnoremap <C-f> :Files<Cr>
-  nnoremap <C-g> :Rg<Cr>
+nnoremap <C-f> :Files<Cr>
+nnoremap <C-g> :Rg<Cr>
 
-  let g:fzf_layout = { 'down': '~40%' }
+let g:fzf_layout = { 'down': '~40%' }
 " }}
 
 Plug 'sakhnik/nvim-gdb', { 'do': ':UpdateRemotePlugins' }
@@ -130,9 +136,16 @@ Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 " Language specific
 Plug 'lervag/vimtex'
 " {{
-  let g:tex_flavor = "latex"
+let g:tex_flavor = "latex"
+
+if has('win32')
+  let g:vimtex_view_general_viewer = 'SumatraPDF'
+  let g:vimtex_view_general_options='-reuse-instance -forward-search @tex @line @pdf'
+  let g:vimtex_view_general_options_latexmk='-reuse-instance'
+else 
   let g:vimtex_view_method='zathura'
-  " let g:vimtex_quickfix_mode=0
+endif
+" let g:vimtex_quickfix_mode=0
 " }}
 Plug 'plasticboy/vim-markdown'
 
@@ -141,4 +154,6 @@ Plug 'ziglang/zig.vim'
 call plug#end()
 filetype plugin on
 
+syntax on
+colorscheme dracula
 
