@@ -1,7 +1,9 @@
-changeps1: False
-auto_update_conda: True
-add_pip_as_python_depencency: True
-use_pip: True
+# vim: set ft=yaml
+
+changeps1: false
+auto_update_conda: true
+add_pip_as_python_depencency: true
+use_pip: true
 
 channels:
   - defaults
@@ -10,7 +12,6 @@ channels:
 channel_priority: true
 
 create_default_packages:
-  - pip
   - numpy
   - ipython
   - matplotlib
@@ -18,6 +19,6 @@ create_default_packages:
   - sphinx
   - jedi
   - autopep8
-  - pylint
   - rope
+  - flake8
 

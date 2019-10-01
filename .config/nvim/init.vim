@@ -48,7 +48,8 @@ if has('win32')
 endif
 
 " -- PLUGINS
-call plug#begin()
+let pluginpath = stdpath('data') . '/plugged'
+call plug#begin(pluginpath)
 
 " Sanity stuff
 Plug 'ciaranm/securemodelines'
