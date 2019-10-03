@@ -43,9 +43,9 @@ set background=dark
 set mouse=a
 
 " -- Windows stuff
-if has('win32')
-  let g:python3_host_prog = 'C:\Users\anand\AppData\Local\Microsoft\WindowsApps\python3.exe'
-endif
+" if has('win32')
+"   let g:uython3_host_prog = 'C:\Users\anand\AppData\Local\Microsoft\WindowsApps\python3.exe'
+" endif
 
 " -- PLUGINS
 let pluginpath = stdpath('data') . '/plugged'
@@ -99,15 +99,7 @@ let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 " }}
 Plug 'honza/vim-snippets'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" {{
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
 
-" disable autocomplete by default
-let b:deoplete_disable_auto_complete=1
-let g:deoplete_disable_auto_complete=1
-" }}
 Plug 'w0rp/ale'
 " {{
 let g:ale_lint_on_enter = 0
@@ -115,6 +107,13 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" }}
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-sources'
+" {{
+inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " }}
 
 " Good tools
@@ -127,15 +126,9 @@ nnoremap <C-g> :Rg<Cr>
 let g:fzf_layout = { 'down': '~40%' }
 " }}
 
-Plug 'sakhnik/nvim-gdb', { 'do': ':UpdateRemotePlugins' }
-
-" Deoplete + Language specific
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
-
-
 " Language specific
 Plug 'lervag/vimtex'
+" Plug 'neoclide/coc-vimtex'
 " {{
 let g:tex_flavor = "latex"
 
@@ -155,4 +148,7 @@ Plug 'ziglang/zig.vim'
 call plug#end()
 filetype plugin on
 
+if has('win32')
+  colorscheme dracula
+endif
 
