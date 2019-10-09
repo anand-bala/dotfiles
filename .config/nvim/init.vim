@@ -23,16 +23,6 @@ set ignorecase
 set smartcase
 set showmatch
 
-" -- Pop-Up Menu
-"  Tab to scroll (SHIFT+Tab for backward scroll)
-"  ESC to cancel
-"  ENTER for accept
-inoremap <silent><expr> <Esc>     pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <silent><expr> <CR>      pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <silent><expr> <tab>     pumvisible() ? "\<C-n>" : "\<tab>"
-inoremap <silent><expr> <s-tab>   pumvisible() ? "\<C-p>" : "\<s-tab>"
-
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " -- Spelling
 set spelllang=en_us
@@ -94,9 +84,9 @@ Plug 'ryanoasis/vim-devicons'
 " Backend Tools
 Plug 'SirVer/ultisnips'
 " {{
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+" let g:UltiSnipsExpandTrigger = '<tab>'
+" let g:UltiSnipsJumpForwardTrigger = '<tab>'
+" let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 " }}
 Plug 'honza/vim-snippets'
 
@@ -112,8 +102,6 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-sources'
 " {{
-inoremap <silent><expr> <c-space> coc#refresh()
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " }}
 
 " Good tools
@@ -151,4 +139,25 @@ filetype plugin on
 if has('win32')
   colorscheme dracula
 endif
+
+" -- Pop-Up Menu
+"  Tab to scroll (SHIFT+Tab for backward scroll)
+"  ESC to cancel
+"  ENTER for accept
+inoremap <silent><expr> <Esc>     pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <silent><expr> <CR>      pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <silent><expr> <S-TAB>   pumvisible() ? "\<C-p>" : "\<S-TAB>"
+inoremap <silent><expr> <c-space> coc#refresh()
+
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 
