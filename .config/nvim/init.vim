@@ -50,9 +50,10 @@ if has('win32')
 endif
 
 Plug 'scrooloose/nerdtree'
+Plug 'albfan/nerdtree-git-plugin'
 " {{
-let loaded_netrwPlugin=1
-let NERDTreeRespectWildIgnore=1
+" let loaded_netrwPlugin=1
+let g:NERDTreeRespectWildIgnore=1
 
 augroup nerdtree
   autocmd!
@@ -65,9 +66,21 @@ map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeAutoDeleteBuffer = 1
 " let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrows = 1
+
+let g:NERDTreeIndicatorMapCustom = {
+      \ "Modified"  : "✹",
+      \ "Staged"    : "✚",
+      \ "Untracked" : "✭",
+      \ "Renamed"   : "➜",
+      \ "Unmerged"  : "═",
+      \ "Deleted"   : "✖",
+      \ "Dirty"     : "✗",
+      \ "Clean"     : "✔︎",
+      \ 'Ignored'   : '☒',
+      \ "Unknown"   : "?"
+      \ }
 " }}
 Plug 'ddollar/nerdcommenter'
-Plug 'xuyuanp/nerdtree-git-plugin'
 
 Plug 'vim-airline/vim-airline'
 " {{
@@ -84,9 +97,9 @@ Plug 'ryanoasis/vim-devicons'
 " Backend Tools
 Plug 'SirVer/ultisnips'
 " {{
-" let g:UltiSnipsExpandTrigger = '<tab>'
-" let g:UltiSnipsJumpForwardTrigger = '<tab>'
-" let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 " }}
 Plug 'honza/vim-snippets'
 
@@ -160,4 +173,9 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+augroup VCenterCursor
+  au!
+  au BufEnter,WinEnter,WinNew,VimResized *,*.*
+        \ let &scrolloff=winheight(win_getid())/2
+augroup END
 
