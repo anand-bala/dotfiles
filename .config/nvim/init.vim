@@ -125,6 +125,7 @@ nnoremap <C-g> :Rg<Cr>
 
 let g:fzf_layout = { 'down': '~40%' }
 " }}
+Plug 'tpope/vim-fugitive'
 
 " Language specific
 Plug 'lervag/vimtex'
@@ -139,9 +140,16 @@ if has('win32')
 else 
   let g:vimtex_view_method='zathura'
 endif
+  let g:vimtex_compiler_progname='nvr'
 " let g:vimtex_quickfix_mode=0
 " }}
 Plug 'plasticboy/vim-markdown'
+" {{
+  let g:vim_markdown_frontmatter = 1
+  let g:vim_markdown_toml_frontmatter = 1
+  let g:vim_markdown_auto_insert_bullets = 0
+  let g:vim_markdown_new_list_item_indent = 0
+" }}
 
 Plug 'ziglang/zig.vim'
 
