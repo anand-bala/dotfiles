@@ -64,7 +64,7 @@ augroup END
 
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeAutoDeleteBuffer = 1
-" let g:NERDTreeMinimalUI = 1
+let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrows = 1
 
 let g:NERDTreeIndicatorMapCustom = {
@@ -141,18 +141,22 @@ if has('win32')
 else 
   let g:vimtex_view_method='zathura'
 endif
-  let g:vimtex_compiler_progname='nvr'
+let g:vimtex_compiler_progname='nvr'
 " let g:vimtex_quickfix_mode=0
 " }}
+
 Plug 'plasticboy/vim-markdown'
 " {{
-  let g:vim_markdown_frontmatter = 1
-  let g:vim_markdown_toml_frontmatter = 1
-  let g:vim_markdown_auto_insert_bullets = 0
-  let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
 " }}
 
 Plug 'ziglang/zig.vim'
+
+Plug 'cespare/vim-toml'
+Plug 'robertbasic/vim-hugo-helper'
 
 call plug#end()
 filetype plugin on
