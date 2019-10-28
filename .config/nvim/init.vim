@@ -129,6 +129,13 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " }}
 
+Plug 'rhysd/vim-grammarous'
+" {{
+let g:grammarous#default_comments_only_filetypes = {
+      \ '*' : 1, 'help' : 0, 'markdown' : 0,
+      \ }
+" }}
+
 " Good tools
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -139,6 +146,7 @@ nnoremap <C-g> :Rg<Cr>
 let g:fzf_layout = { 'down': '~40%' }
 " }}
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'
 
 " Language specific
 Plug 'lervag/vimtex'
