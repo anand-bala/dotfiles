@@ -33,7 +33,18 @@ install_fish() {
   dest=$config_dir/fish
   rm -rf $dest
   mkdir -pv $dest
-  __ln_at $dest $src/*
+  for node in $src/*; do
+    if [[ -d "$node" ]]; then
+      mkdir -pv $dest/$(basename $node)
+      for f in $node/*; do
+        __ln_at $dest/$(basename $node) $(readlink -f $f)
+      done
+
+    elif [[ -f "$node" ]]; then
+      __ln_at $dest $(readlink -f $node) 
+    fi
+  done
+  # __ln_at $dest $src/*
 }
 
 install_nvim() {

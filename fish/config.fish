@@ -20,3 +20,6 @@ else
   set -gx EDITOR vim
 end
 
+
+
+

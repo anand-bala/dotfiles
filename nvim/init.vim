@@ -1,3 +1,8 @@
+" -- Shell Problems
+if &shell =~# 'fish$'
+    set shell=sh
+endif
+
 " -- Sane defaults 
 
 set modelines=0 " Disable Modelines
