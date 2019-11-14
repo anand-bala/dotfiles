@@ -25,27 +25,22 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 install_kitty() {
   rm -rf $config_dir/kitty/*
   mkdir -pv $config_dir/kitty
-  __ln_at $config_dir/kitty $SCRIPTPATH/kitty/*.conf
+  __ln_at $config_dir/kitty $SCRIPTPATH/kitty/*
 }
 
 install_fish() {
   src=$SCRIPTPATH/fish
   dest=$config_dir/fish
   rm -rf $dest
-  mkdir -pv $config_dir/fish/{completions,conf.d,"functions"}
-
-  __ln_at $dest $(__ls_files $src)
-
-  [[ $(__ls_files $src/completions) ]] && __ln_at $dest/completions $(__ls_files $src/completions)
-  [[ $(__ls_files $src/conf.d) ]] && __ln_at $dest/conf.d $(__ls_files $src/conf.d)
-  [[ $(__ls_files $src/"functions") ]] && __ln_at $dest/"functions" $(__ls_files $src/"functions")
+  mkdir -pv $dest
+  __ln_at $dest $src/*
 }
 
 install_nvim() {
   src=$SCRIPTPATH/nvim
   dest=$config_dir/nvim
   rm -rf $dest
-  mkdir -pv $config_dir/nvim
+  mkdir -pv $dest
   __ln_at $dest $src/*
 }
 

@@ -55,9 +55,6 @@ call plug#begin(pluginpath)
 Plug 'ciaranm/securemodelines'
 
 " Visual
-if has('win32')
-  Plug 'dracula/vim', { 'as': 'dracula' }
-endif
 Plug 'patstockwell/vim-monokai-tasty'
 " {{
 let g:vim_monokai_tasty_italic = 1
@@ -206,14 +203,13 @@ Plug 'ziglang/zig.vim'
 Plug 'cespare/vim-toml'
 Plug 'robertbasic/vim-hugo-helper'
 
-
+" Shell Support
 Plug 'dag/vim-fish'
+Plug 'pprovost/vim-ps1'
+
 
 call plug#end()
 filetype plugin on
 
-if has('win32')
-  colorscheme dracula
-endif
 colorscheme vim-monokai-tasty
 
