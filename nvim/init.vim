@@ -59,58 +59,6 @@ call plug#begin(pluginpath)
 " Sanity stuff
 Plug 'ciaranm/securemodelines'
 
-" Visual
-Plug 'patstockwell/vim-monokai-tasty'
-" {{
-let g:vim_monokai_tasty_italic = 1
-let g:airline_theme='monokai_tasty'
-" }}
-
-Plug 'scrooloose/nerdtree'
-Plug 'albfan/nerdtree-git-plugin'
-" {{
-" let loaded_netrwPlugin=1
-let g:NERDTreeRespectWildIgnore=1
-
-augroup nerdtree
-  autocmd!
-  autocmd StdinReadPre * let s:std_in=1
-  " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-augroup END
-
-map <C-n> :NERDTreeToggle<CR>
-let g:NERDTreeAutoDeleteBuffer = 1
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeDirArrows = 1
-
-let g:NERDTreeIndicatorMapCustom = {
-      \ "Modified"  : "✹",
-      \ "Staged"    : "✚",
-      \ "Untracked" : "✭",
-      \ "Renamed"   : "➜",
-      \ "Unmerged"  : "═",
-      \ "Deleted"   : "✖",
-      \ "Dirty"     : "✗",
-      \ "Clean"     : "✔︎",
-      \ 'Ignored'   : '☒',
-      \ "Unknown"   : "?"
-      \ }
-" }}
-Plug 'ddollar/nerdcommenter'
-
-Plug 'vim-airline/vim-airline'
-" {{
-let g:airline_left_sep  = ''
-let g:airline_right_sep = ''
-let g:airline#extensions#ale#enabled = 1
-let airline#extensions#ale#error_symbol = 'E:'
-let airline#extensions#ale#warning_symbol = 'W:'
-" }}
-
-Plug 'airblade/vim-gitgutter'
-Plug 'ryanoasis/vim-devicons'
-
 " Backend Tools
 Plug 'SirVer/ultisnips'
 " {{
@@ -212,9 +160,63 @@ Plug 'robertbasic/vim-hugo-helper'
 Plug 'dag/vim-fish'
 Plug 'pprovost/vim-ps1'
 
+" Visual
+Plug 'patstockwell/vim-monokai-tasty'
+" {{
+let g:vim_monokai_tasty_italic = 1
+let g:airline_theme='monokai_tasty'
+" }}
+
+Plug 'scrooloose/nerdtree'
+Plug 'albfan/nerdtree-git-plugin'
+" {{
+" let loaded_netrwPlugin=1
+let g:NERDTreeRespectWildIgnore=1
+
+augroup nerdtree
+  autocmd!
+  autocmd StdinReadPre * let s:std_in=1
+  " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+augroup END
+
+map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeAutoDeleteBuffer = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeDirArrows = 1
+
+let g:NERDTreeIndicatorMapCustom = {
+      \ "Modified"  : "✹",
+      \ "Staged"    : "✚",
+      \ "Untracked" : "✭",
+      \ "Renamed"   : "➜",
+      \ "Unmerged"  : "═",
+      \ "Deleted"   : "✖",
+      \ "Dirty"     : "✗",
+      \ "Clean"     : "✔︎",
+      \ 'Ignored'   : '☒',
+      \ "Unknown"   : "?"
+      \ }
+" }}
+Plug 'ddollar/nerdcommenter'
+
+Plug 'vim-airline/vim-airline'
+" {{
+let g:airline_left_sep  = ''
+let g:airline_right_sep = ''
+let g:airline#extensions#ale#enabled = 1
+let airline#extensions#ale#error_symbol = 'E:'
+let airline#extensions#ale#warning_symbol = 'W:'
+let g:airline_powerline_fonts = 1
+" }}
+
+Plug 'airblade/vim-gitgutter'
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 filetype plugin on
 
-colorscheme vim-monokai-tasty
+" colorscheme vim-monokai-tasty
+" GuiFont MesloLGMDZ\ NF:h13
+
 
