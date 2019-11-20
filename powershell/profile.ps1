@@ -18,4 +18,14 @@ Set-Theme Pure
 # $psdir = "$($Env:HOMEPATH)/Documents/WindowsPowerShell/autoload"
 # Get-ChildItem "${psdir}\*.ps1" | ForEach-Object { Import-Module $_ } 
 
+# -- Dev stuff
+
+# Conda {{
+$CondaHook = "$($Env:HOME)\Miniconda3\shell\condabin\conda-hook.ps1" 
+if (Test-Path -Type Leaf $CondaHook) {
+  . $CondaHook
+}
+
+# }}
+
 

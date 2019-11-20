@@ -102,6 +102,8 @@ let g:fzf_layout = { 'down': '~40%' }
 " }}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-abolish'
+
 
 Plug 'Shougo/denite.nvim'
 " {{
