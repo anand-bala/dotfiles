@@ -41,6 +41,10 @@ if test -e $HOME/.fzf/bin/fzf
   set -gx   FZF_CD_COMMAND              "fd -L -t d . \$dir"
   set -gx   FZF_CD_WITH_HIDDEN_COMMAND  "fd -H -L -t d . \$dir"
 
+  set -gx   FZF_DEFAULT_COMMAND         "fd -L ."
+  set -gx   FZF_CTRL_T_COMMAND          "$FZF_DEFAULT_COMMAND"
+  set -gx   FZF_ALT_C_COMMAND           "fd -L -t d ."
+
   set -gx   PATH  $HOME/.fzf/bin $PATH
 end
 
