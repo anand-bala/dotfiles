@@ -104,6 +104,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
 
+Plug 'majutsushi/tagbar'
+" {{
+nmap <F8> :TagbarToggle<CR>
+" }}
 
 Plug 'Shougo/denite.nvim'
 " {{
