@@ -1,7 +1,7 @@
 setlocal spell
 setlocal textwidth=80
 
-function InputFilesFrom(dir, pattern)
+function! InputFilesFrom(dir, pattern)
   let l:files = split(globpath(a:dir, a:pattern), '\n')
   for f in l:files
     let l:file = substitute(f,"\\","/", "g") 
@@ -10,7 +10,7 @@ function InputFilesFrom(dir, pattern)
   endfor
 endfunction
 
-function LoadGlobFor(fmt_string, dir, pattern)
+function! LoadGlobFor(fmt_string, dir, pattern)
   let l:files = split(globpath(a:dir, a:pattern), '\n')
   for f in l:files
     let l:file = substitute(f,"\\","/", "g") 
