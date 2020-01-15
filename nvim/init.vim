@@ -28,17 +28,6 @@ set ignorecase
 set smartcase
 set showmatch
 
-" -- Pop-Up Menu
-"  Tab to scroll (SHIFT+Tab for backward scroll)
-"  ESC to cancel
-"  ENTER for accept
-inoremap <silent><expr> <Esc>     pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <silent><expr> <CR>      pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <silent><expr> <tab>     pumvisible() ? "\<C-n>" : "\<tab>"
-inoremap <silent><expr> <s-tab>   pumvisible() ? "\<C-p>" : "\<s-tab>"
-
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
 " -- Spelling
 set spelllang=en_us
 nnoremap <silent> <leader>ts :set spell!<CR>
@@ -47,10 +36,17 @@ nnoremap <silent> <leader>ts :set spell!<CR>
 set background=dark
 set mouse=a
 
-" -- Windows stuff
-" if has('win32')
-"   let g:uython3_host_prog = 'C:\Users\anand\AppData\Local\Microsoft\WindowsApps\python3.exe'
-" endif
+" -- Pop-Up Menu
+"  Tab to scroll (SHIFT+Tab for backward scroll)
+"  ESC to cancel
+"  ENTER for accept
+inoremap <silent><expr> <Esc>     pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <silent><expr> <CR>      pumvisible() ? "\<C-y>\<cr>" : "\<CR>"
+inoremap <silent><expr> <tab>     pumvisible() ? "\<C-n>" : "\<tab>"
+inoremap <silent><expr> <s-tab>   pumvisible() ? "\<C-p>" : "\<s-tab>"
+
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
 
 " -- PLUGINS
 let pluginpath = stdpath('data') . '/plugged'
@@ -62,26 +58,109 @@ Plug 'ciaranm/securemodelines'
 " Backend Tools
 Plug 'SirVer/ultisnips'
 " {{
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsExpandTrigger = '<nop>'
+let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+let g:UltiSnipsRemoveSelectModeMappings = 0
 " }}
 Plug 'honza/vim-snippets'
 
-Plug 'w0rp/ale'
-" {{
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" }}
+" Plug 'w0rp/ale'
+" " {{
+" let g:ale_lint_on_enter = 0
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_echo_msg_error_str = 'E'
+" let g:ale_echo_msg_warning_str = 'W'
+" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" " }}
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-sources'
 " {{
-inoremap <silent><expr> <c-space> coc#refresh()
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+let g:coc_global_extensions = [
+  \ 'coc-vimtex',
+  \ 'coc-json',
+  \ 'coc-word',
+  \ 'coc-snippets',
+  \ 'coc-lists',
+  \ 'coc-yaml'
+  \]
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+inoremap <silent><expr> <C-SPACE> coc#refresh()
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " }}
 
 Plug 'rhysd/vim-grammarous'
@@ -104,33 +183,17 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
 
+" ctags
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 " {{
 nmap <F8> :TagbarToggle<CR>
+nnoremap <silent> <leader>tb :TagbarToggle<CR>
 " }}
-
-Plug 'Shougo/denite.nvim'
-" {{
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-        \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-        \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-        \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-        \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-        \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-        \ denite#do_map('toggle_select').'j'
-endfunction
-" }}
+Plug 'jiangmiao/auto-pairs'
 
 " Language specific
 Plug 'lervag/vimtex'
-" Plug 'neoclide/coc-vimtex'
 " {{
 let g:tex_flavor = "latex"
 
@@ -139,11 +202,11 @@ if has('win32')
   let g:vimtex_view_general_options='-reuse-instance -forward-search @tex @line @pdf'
   let g:vimtex_view_general_options_latexmk='-reuse-instance'
 else 
-  " let g:vimtex_view_method='zathura'
-  let g:vimtex_view_general_viewer = 'qpdfview'
-  let g:vimtex_view_general_options
-        \ = '--unique @pdf\#src:@tex:@line:@col'
-  let g:vimtex_view_general_options_latexmk = '--unique'
+  let g:vimtex_view_method='zathura'
+  " let g:vimtex_view_general_viewer = 'qpdfview'
+  " let g:vimtex_view_general_options
+  "       \ = '--unique @pdf\#src:@tex:@line:@col'
+  " let g:vimtex_view_general_options_latexmk = '--unique'
 endif
 let g:vimtex_compiler_progname='nvr'
 " let g:vimtex_quickfix_mode=0
@@ -155,6 +218,16 @@ let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_new_list_item_indent = 0
+" }}
+
+Plug 'rhysd/vim-clang-format'
+" {{
+" map to <Leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+" if you install vim-operator-user
+autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+
 " }}
 
 Plug 'ziglang/zig.vim'
@@ -221,9 +294,6 @@ Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 filetype plugin on
-
-" colorscheme vim-monokai-tasty
-" GuiFont MesloLGMDZ\ NF:h13
 
 augroup VCenterCursor
   au!

@@ -1,6 +1,8 @@
 " Setup for C++ files
 
-"" ALE Config {{
-let b:ale_fixers = ['clang-format']
-"" }}
+" map to <Leader>cf in C++ code
+nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+vnoremap <buffer><Leader>cf :ClangFormat<CR>
+
+set foldmethod=syntax
 
