@@ -219,6 +219,7 @@ let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_new_list_item_indent = 0
 " }}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 
 Plug 'rhysd/vim-clang-format'
 " {{
