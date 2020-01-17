@@ -182,7 +182,14 @@ let g:fzf_layout = { 'down': '~40%' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
+Plug 'junegunn/vim-easy-align'
+" {{
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
 
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" }}
 " ctags
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'

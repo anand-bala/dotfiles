@@ -55,12 +55,21 @@ install_nvim() {
   __ln_at $dest $src/*
 }
 
+install_git() {
+  src=$SCRIPTPATH/git
+  dest=$config_dir/git
+  rm -rf $dest
+  mkdir -pv $dest
+  __ln_at $dest $src/*
+}
+
+
 
 # Install Script
 
 if [[ $# -lt 1 ]]; then
   echoerr "Why are you asking me to install nothing?!"
-  echoerr "USAGE: $0 [neovim|nvim] [fish] [kitty]"
+  echoerr "USAGE: $0 [neovim|nvim] [fish] [kitty] [git]"
   exit 1
 fi
 
@@ -77,6 +86,10 @@ while [[ $# -gt 0 ]]; do
     kitty )
       echo "Install config for kitty terminal"
       install_kitty
+      ;;
+    git )
+      echo "Install config for git (global)"
+      install_git
       ;;
     *)
       echoerr "'$1'?!? I have no idea what you're talking about?!"

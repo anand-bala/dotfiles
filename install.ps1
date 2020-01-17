@@ -41,7 +41,6 @@ function __recurse_install {
   }
 }
 
-
 function install_nvim {
   $src = (Get-Item "$($SCRIPTPATH)\nvim")
   $dest = (New-Item -Type Directory -Force -Path "$($Env:LOCALAPPDATA)\nvim")
@@ -53,6 +52,16 @@ function install_nvim {
   __recurse_install -Path $src -Destination $dest
 }
 
+function install_git {
+  $src = (Get-Item "$($SCRIPTPATH)\git")
+  $dest = (New-Item -Type Directory -Force -Path "$($Env:LOCALAPPDATA)\git")
+
+  # Get-ChildItem "$($src)" | % {
+  #   New-Item -Force -ItemType SymbolicLink -Path "$($dest)\$($_.Name)" -Target $_.FullName 
+  # }
+  New-Item -Type Directory -Force -Path $dest
+  __recurse_install -Path $src -Destination $dest
+}
 
 function install_pwsh {
   $src = (Get-Item "$($SCRIPTPATH)\powershell")
@@ -69,6 +78,7 @@ foreach ( $prog in $Configs ) {
   switch -Regex ( $prog ){
     'neovim|nvim' { Write-Host "Installing Neovim config" | install_nvim }
     'powershell|posh|pwsh' { Write-Host "Installing Powershell config" | install_pwsh }
+    'git' {Write-Host "Installing git (global) config" | install_git}
     default { Write-Error "[$($prog)]?! I have no idea what you're talking about..." }
   }
 }
