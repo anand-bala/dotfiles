@@ -182,6 +182,8 @@ let g:fzf_layout = { 'down': '~40%' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 " {{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -197,7 +199,6 @@ Plug 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
 nnoremap <silent> <leader>tb :TagbarToggle<CR>
 " }}
-Plug 'jiangmiao/auto-pairs'
 
 " Language specific
 Plug 'lervag/vimtex'
