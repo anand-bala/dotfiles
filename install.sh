@@ -63,6 +63,13 @@ install_git() {
   __ln_at $dest $src/*
 }
 
+install_conda() {
+  src=$SCRIPTPATH/conda
+  dest=$HOME/.conda
+  rm -rf $dest
+  mkdir -pv $dest
+  __ln_at $dest $src/*
+}
 
 
 # Install Script

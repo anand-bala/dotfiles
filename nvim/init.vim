@@ -78,12 +78,13 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-sources'
 " {{
 let g:coc_global_extensions = [
-  \ 'coc-vimtex',
-  \ 'coc-json',
   \ 'coc-word',
   \ 'coc-snippets',
   \ 'coc-lists',
-  \ 'coc-yaml'
+  \ 'coc-yaml',
+  \ 'coc-vimtex',
+  \ 'coc-json',
+  \ 'coc-rls',
   \]
 
 inoremap <silent><expr> <TAB>
@@ -240,6 +241,10 @@ autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
 " }}
 
+Plug 'rust-lang/rust.vim'
+" {{
+let g:autofmt_autosave = 1
+" }}
 Plug 'ziglang/zig.vim'
 
 Plug 'cespare/vim-toml'

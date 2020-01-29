@@ -41,6 +41,15 @@ function __recurse_install {
   }
 }
 
+function install_conda {
+  $src = (Get-Item "$($SCRIPTPATH)\conda")
+  $dest = (New-Item -Type Directory -Force -Path "$($Env:USERPROFILE)\.conda")
+
+  New-Item -Type Directory -Force -Path $dest
+  __recurse_install -Path $src -Destination $dest
+}
+
+
 function install_nvim {
   $src = (Get-Item "$($SCRIPTPATH)\nvim")
   $dest = (New-Item -Type Directory -Force -Path "$($Env:LOCALAPPDATA)\nvim")
@@ -78,7 +87,8 @@ foreach ( $prog in $Configs ) {
   switch -Regex ( $prog ){
     'neovim|nvim' { Write-Host "Installing Neovim config" | install_nvim }
     'powershell|posh|pwsh' { Write-Host "Installing Powershell config" | install_pwsh }
-    'git' {Write-Host "Installing git (global) config" | install_git}
+    'git' { Write-Host "Installing git (global) config" | install_git }
+    'conda' { Write-Host "Installing conda config" | install_conda }
     default { Write-Error "[$($prog)]?! I have no idea what you're talking about..." }
   }
 }

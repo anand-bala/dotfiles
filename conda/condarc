@@ -1,0 +1,24 @@
+# vim: set ft=yaml
+
+changeps1: false
+auto_update_conda: true
+add_pip_as_python_depencency: true
+use_pip: true
+
+channels:
+  - defaults
+  - conda-forge
+
+channel_priority: true
+
+create_default_packages:
+  - numpy
+  - ipython
+  - matplotlib
+  - jupyter
+  - sphinx
+  - jedi
+  - autopep8
+  - rope
+  - flake8
+
