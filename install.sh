@@ -66,7 +66,6 @@ install_git() {
 install_conda() {
   src=$SCRIPTPATH/conda
   dest=$HOME/.conda
-  rm -rf $dest
   mkdir -pv $dest
   __ln_at $dest $src/*
 }
@@ -97,6 +96,10 @@ while [[ $# -gt 0 ]]; do
     git )
       echo "Install config for git (global)"
       install_git
+      ;;
+    conda )
+      echo "Install config for conda"
+      install_conda
       ;;
     *)
       echoerr "'$1'?!? I have no idea what you're talking about?!"
