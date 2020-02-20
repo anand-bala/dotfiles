@@ -1,4 +1,5 @@
 {
+  "python.condaPath": "conda",
   "languageserver": {
     "ccls": {
       "command": "ccls",
