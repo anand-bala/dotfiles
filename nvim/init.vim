@@ -222,6 +222,9 @@ let g:vimtex_compiler_progname='nvr'
 " let g:vimtex_quickfix_mode=0
 " }}
 
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+
 Plug 'plasticboy/vim-markdown'
 " {{
 let g:vim_markdown_frontmatter = 1

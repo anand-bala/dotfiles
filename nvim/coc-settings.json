@@ -1,4 +1,6 @@
 {
+  "snippets.ultisnips.enable": false,
+  "snippets.snipmate.enable": true,
   "python.condaPath": "conda",
   "languageserver": {
     "ccls": {
