@@ -60,6 +60,11 @@ if test -e $HOME/.cargo/env
   set -gx PATH    $HOME/.cargo/bin $PATH
 end
 
+# --- Starfish setup (https://starship.rs)
+if command -sq starship
+  starship init fish | source
+end
+
 # -- Custom functions for productivity
 
 function chpwd --on-variable PWD

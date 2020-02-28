@@ -17,8 +17,15 @@ create_default_packages:
   - matplotlib
   - jupyter
   - sphinx
+  - python-language-server
   - jedi
-  - autopep8
   - rope
-  - flake8
+  - pyflakes
+  - mypy
+  - mccabe
+  - pycodestyle
+  - pydocstyle
+  - autopep8
+  - yapf
+      
 
