@@ -10,10 +10,12 @@ remove-item alias:curl
 remove-item alias:wget
 
 # -- Appearance stuff
-Import-Module pure-pwsh
+
 Import-Module oh-my-posh
 
-Set-Theme Pure
+if (Get-Command starship -ErrorAction SilentlyContinue) {
+  Invoke-Expression (&starship init powershell)
+}
 
 # $psdir = "$($Env:HOMEPATH)/Documents/WindowsPowerShell/autoload"
 # Get-ChildItem "${psdir}\*.ps1" | ForEach-Object { Import-Module $_ } 
