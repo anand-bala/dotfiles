@@ -2,15 +2,13 @@
 # Setup PATH from scratch
 # -----------------------------------------------------------------------------
 
-# Setup macOS specific paths
-if test (uname) = "Darwin"
-  set -x PATH $PATH /opt/X11/bin /Library/TeX/texbin
-end
+# Setup macOS specific paths: use https://github.com/oh-my-fish/plugin-osx/
 
 # Common directories to add, if they exist
 for p in "$HOME/bin" "$HOME/.local/bin" "/snap/bin"
   if test -d $p
-    set -x PATH $p $PATH
+    and not contains -- $p $PATH
+      set -gx PATH $p $PATH
   end
 end
 
@@ -45,19 +43,16 @@ if test -e $HOME/.fzf/bin/fzf
   set -gx   FZF_CTRL_T_COMMAND          "$FZF_DEFAULT_COMMAND"
   set -gx   FZF_ALT_C_COMMAND           "fd -L -t d ."
 
-  set -gx   PATH  $HOME/.fzf/bin $PATH
+  contains -- $HOME/.fzf/bin $PATH
+  or set -gx   PATH  $HOME/.fzf/bin $PATH
 end
 
 # --- Golang config
 if test -d /usr/local/go
   set -x GOROOT   /usr/local/go
   set -x GOHOME   $HOME/go
-  set -gx PATH    $GOROOT/bin $GOHOME/bin $PATH
-end
-
-# --- Rust config
-if test -e $HOME/.cargo/env
-  set -gx PATH    $HOME/.cargo/bin $PATH
+  contains -- $GOROOT/bin $PATH; or set -gx PATH $GOROOT/bin $PATH
+  contains -- $GOHOME/bin $PATH; or set -gx PATH $GOHOME/bin $PATH
 end
 
 # --- Starfish setup (https://starship.rs)
