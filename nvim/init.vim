@@ -65,14 +65,31 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 " }}
 Plug 'honza/vim-snippets'
 
-" Plug 'w0rp/ale'
-" " {{
-" let g:ale_lint_on_enter = 0
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_echo_msg_error_str = 'E'
-" let g:ale_echo_msg_warning_str = 'W'
-" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" " }}
+Plug 'dense-analysis/ale'
+" {{
+let g:ale_set_signs = 0
+
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_filetype_changed = 0
+let g:ale_lint_delay = 0
+
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
+
+let g:ale_statusline_format = ['Errors: %d', 'Warnings: %d', '']
+
+let g:ale_linters = {
+      \ 'tex': [],
+      \ 'python': ['pylint'],
+      \}
+
+nmap <silent> <leader>aa <Plug>(ale_lint)
+nmap <silent> <leader>aj <Plug>(ale_next_wrap)
+nmap <silent> <leader>ak <Plug>(ale_previous_wrap)
+" }}
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-sources'
@@ -81,9 +98,7 @@ let g:coc_global_extensions = [
       \ 'coc-actions',
       \ 'coc-word',
       \ 'coc-snippets',
-      \ 'coc-lists',
       \ 'coc-yaml',
-      \ 'coc-vimtex',
       \ 'coc-json',
       \ 'coc-rls',
       \ 'coc-python'
@@ -100,59 +115,34 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = '<tab>'
+imap <silent> <c-u>      <plug>(coc-snippets-expand)
 
-inoremap <silent><expr> <C-SPACE> coc#refresh()
+nmap <silent> <leader>ld <plug>(coc-definition)zv
+nmap <silent> <leader>lt <plug>(coc-type-definition)
+nmap <silent> <leader>li <plug>(coc-implementation)
+nmap <silent> <leader>lf <plug>(coc-references)
+nmap          <leader>lr <plug>(coc-rename)
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>lp <plug>(coc-diagnostic-prev)
+nmap <silent> <leader>ln <plug>(coc-diagnostic-next)
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
+nnoremap <silent> K :call <sid>show_documentation()<cr>
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
+  if index(['vim','help'], &filetype) >= 0
+    execute 'help ' . expand('<cword>')
+  elseif &filetype ==# 'tex'
+    VimtexDocPackage
   else
     call CocAction('doHover')
   endif
 endfunction
 
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Remap for do codeAction of selected region
-function! s:cocActionsOpenFromSelected(type) abort
-  execute 'CocCommand actions.open ' . a:type
-endfunction
-xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+if exists('*CocActionAsync')
+  augroup coc_settings
+    autocmd!
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+  augroup END
+endif
 " }}
 
 Plug 'rhysd/vim-grammarous'
@@ -178,14 +168,31 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 " {{
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
+let g:easy_align_bypass_fold = 1
 
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
+nmap ga <plug>(LiveEasyAlign)
+vmap ga <plug>(LiveEasyAlign)
+nmap gA <plug>(EasyAlign)
+vmap gA <plug>(EasyAlign)
+vmap .  <plug>(EasyAlignRepeat)
 " }}
+Plug 'andymass/vim-matchup'
+
 " ctags
 Plug 'ludovicchabant/vim-gutentags'
+" {{
+let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
+let g:gutentags_ctags_extra_args = [
+      \ '--tag-relative=yes',
+      \ '--fields=+aimS',
+      \ ]
+let g:gutentags_file_list_command = {
+      \ 'markers': {
+      \   '.git': 'git ls-files',
+      \   '.hg': 'hg files',
+      \ },
+      \}
+" }}
 Plug 'majutsushi/tagbar'
 " {{
 nmap <F8> :TagbarToggle<CR>
@@ -195,21 +202,38 @@ nnoremap <silent> <leader>tb :TagbarToggle<CR>
 " Language specific
 Plug 'lervag/vimtex'
 " {{
-let g:tex_flavor = "latex"
+let g:tex_stylish = 1
+let g:tex_conceal = ''
+let g:tex_flavor = 'latex'
+let g:tex_isk='48-57,a-z,A-Z,192-255,:'
 
-if has('win32')
-  let g:vimtex_view_general_viewer = 'SumatraPDF'
-  let g:vimtex_view_general_options='-reuse-instance -forward-search @tex @line @pdf'
-  let g:vimtex_view_general_options_latexmk='-reuse-instance'
-else 
-  let g:vimtex_view_method='zathura'
-  " let g:vimtex_view_general_viewer = 'qpdfview'
-  " let g:vimtex_view_general_options
-  "       \ = '--unique @pdf\#src:@tex:@line:@col'
-  " let g:vimtex_view_general_options_latexmk = '--unique'
-endif
+let g:vimtex_fold_enabled = 1
+let g:vimtex_fold_types = {
+      \ 'markers' : {'enabled': 0},
+      \ 'sections' : {'parse_levels': 1},
+      \}
+let g:vimtex_format_enabled = 1
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_automatic = 0
+let g:vimtex_view_forward_search_on_start = 0
+let g:vimtex_toc_config = {
+      \ 'split_pos' : 'full',
+      \ 'mode' : 2,
+      \ 'fold_enable' : 1,
+      \ 'hotkeys_enabled' : 1,
+      \ 'hotkeys_leader' : '',
+      \ 'refresh_always' : 0,
+      \}
+let g:vimtex_quickfix_open_on_warning = 0
+let g:vimtex_quickfix_autoclose_after_keystrokes = 3
+let g:vimtex_imaps_enabled = 0
+let g:vimtex_complete_img_use_tail = 1
+let g:vimtex_complete_bib = {
+      \ 'simple' : 1,
+      \ 'menu_fmt' : '@year, @author_short, @title',
+      \}
+let g:vimtex_echo_verbose_input = 0
 let g:vimtex_compiler_progname='nvr'
-" let g:vimtex_quickfix_mode=0
 " }}
 
 Plug 'vim-pandoc/vim-pandoc'
