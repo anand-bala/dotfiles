@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 shopt -s nullglob dotglob     # To include hidden files
-
+shopt -s failglob             # Fail on bad glob expansion
+set -eu -o pipefail
 
 # Some helpers
 
