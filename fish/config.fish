@@ -18,20 +18,7 @@ else
   set -gx EDITOR vim
 end
 
-# --- Miniconda config
-if test -e $HOME/miniconda/etc/fish/conf.d/conda.fish
-  source $HOME/miniconda/etc/fish/conf.d/conda.fish
-end
-
-# --- CUDA config
-if test -d "/usr/local/cuda"
-  set -gx CUDA_HOME           /usr/local/cuda
-  set -gx DYLD_LIBRARY_PATH   $DYLD_LIBRARY_PATH $CUDA_HOME/lib
-  set -gx LD_LIBRARY_PATH     $LD_LIBRARY_PATH $CUDA_HOME/lib64
-  if test -d /usr/local/cuda/extras/CUPTI/lib64
-    set -gx LD_LIBRARY_PATH   $LD_LIBRARY_PATH $CUDA_HOME/extras/CUPTI/lib64
-  end
-end
+# I keep my fish plugins in ~/.fishpkg and add them to my fishfile.
 
 # --- FZF config
 if test -e $HOME/.fzf/bin/fzf
@@ -55,11 +42,6 @@ if test -d /usr/local/go
   contains -- $GOHOME/bin $PATH; or set -gx PATH $GOHOME/bin $PATH
 end
 
-# --- Starfish setup (https://starship.rs)
-if command -sq starship
-  starship init fish | source
-end
-
 # -- Custom functions for productivity
 
 function chpwd --on-variable PWD
@@ -70,4 +52,8 @@ function chpwd --on-variable PWD
     end
 end
 
+# --- Starfish setup (https://starship.rs)
+if command -sq starship
+  starship init fish | source
+end
 
