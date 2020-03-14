@@ -12,6 +12,7 @@ set visualbell  " Blink cursor on error instead of beeping (grr)
 set encoding=utf-8  " Encoding
 
 set wrap
+set linebreak
 set textwidth=0
 set formatoptions=tcqrn1
 set tabstop=2
@@ -19,6 +20,8 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set noshiftround
+
+set conceallevel=2
 
 set hidden  " Allow hidden buffers
 set laststatus=2  " Status bar
@@ -126,7 +129,13 @@ nmap          <leader>lr <plug>(coc-rename)
 nmap <silent> <leader>lp <plug>(coc-diagnostic-prev)
 nmap <silent> <leader>ln <plug>(coc-diagnostic-next)
 
+" Formatting selected code.
+xmap <leader>gf  <Plug>(coc-format-selected)
+nmap <leader>gf  <Plug>(coc-format-selected)
+
 nnoremap <silent> K :call <sid>show_documentation()<cr>
+command! -nargs=0 Format :call CocAction('format')
+
 function! s:show_documentation()
   if index(['vim','help'], &filetype) >= 0
     execute 'help ' . expand('<cword>')
@@ -153,14 +162,6 @@ let g:grammarous#default_comments_only_filetypes = {
 " }}
 
 " Good tools
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-" {{
-nnoremap <C-f> :Files<Cr>
-nnoremap <C-g> :Rg<Cr>
-
-let g:fzf_layout = { 'down': '~40%' }
-" }}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
@@ -177,6 +178,15 @@ vmap gA <plug>(EasyAlign)
 vmap .  <plug>(EasyAlignRepeat)
 " }}
 Plug 'andymass/vim-matchup'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" {{
+nnoremap <C-f> :Files<Cr>
+nnoremap <C-g> :Rg<Cr>
+
+let g:fzf_layout = { 'down': '~40%' }
+" }}
 
 " ctags
 Plug 'ludovicchabant/vim-gutentags'
@@ -195,7 +205,6 @@ let g:gutentags_file_list_command = {
 " }}
 Plug 'majutsushi/tagbar'
 " {{
-nmap <F8> :TagbarToggle<CR>
 nnoremap <silent> <leader>tb :TagbarToggle<CR>
 " }}
 
@@ -236,9 +245,6 @@ let g:vimtex_echo_verbose_input = 0
 let g:vimtex_compiler_progname='nvr'
 " }}
 
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-
 Plug 'plasticboy/vim-markdown'
 " {{
 let g:vim_markdown_frontmatter = 1
@@ -246,8 +252,9 @@ let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_new_list_item_indent = 0
 let g:vim_markdown_math = 1
+let g:vim_markdown_folding_disabled = 1
 " }}
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
+Plug 'mzlogin/vim-markdown-toc'
 
 Plug 'rhysd/vim-clang-format'
 " {{
@@ -266,18 +273,10 @@ let g:autofmt_autosave = 1
 Plug 'ziglang/zig.vim'
 
 Plug 'cespare/vim-toml'
-Plug 'robertbasic/vim-hugo-helper'
 
 " Shell Support
 Plug 'dag/vim-fish'
 Plug 'pprovost/vim-ps1'
-
-" Visual
-Plug 'patstockwell/vim-monokai-tasty'
-" {{
-let g:vim_monokai_tasty_italic = 1
-let g:airline_theme='monokai_tasty'
-" }}
 
 Plug 'scrooloose/nerdtree'
 Plug 'albfan/nerdtree-git-plugin'
@@ -312,14 +311,9 @@ let g:NERDTreeIndicatorMapCustom = {
 " }}
 Plug 'ddollar/nerdcommenter'
 
-Plug 'vim-airline/vim-airline'
+Plug 'liuchengxu/eleline.vim'
 " {{
-let g:airline_left_sep  = ''
-let g:airline_right_sep = ''
-let g:airline#extensions#ale#enabled = 1
-let airline#extensions#ale#error_symbol = 'E:'
-let airline#extensions#ale#warning_symbol = 'W:'
-let g:airline_powerline_fonts = 1
+let g:eleline_powerline_fonts = 1
 " }}
 
 Plug 'airblade/vim-gitgutter'
