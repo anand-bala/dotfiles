@@ -21,10 +21,13 @@ set softtabstop=2
 set expandtab
 set noshiftround
 
-set conceallevel=2
+" set conceallevel=2
 
 set hidden  " Allow hidden buffers
 set laststatus=2  " Status bar
+
+set list                   " Show non-printable characters.
+set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:±,trail:·
 
 " -- Searching
 set ignorecase
@@ -33,6 +36,7 @@ set showmatch
 
 " -- Spelling
 set spelllang=en_us
+set nospell
 nnoremap <silent> <leader>ts :set spell!<CR>
 
 " -- Interface Settings
@@ -50,7 +54,6 @@ inoremap <silent><expr> <s-tab>   pumvisible() ? "\<C-p>" : "\<s-tab>"
 
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-
 " -- PLUGINS
 let pluginpath = stdpath('data') . '/plugged'
 call plug#begin(pluginpath)
@@ -59,18 +62,19 @@ call plug#begin(pluginpath)
 Plug 'ciaranm/securemodelines'
 
 " Backend Tools
-Plug 'SirVer/ultisnips'
-" {{
-let g:UltiSnipsExpandTrigger = '<nop>'
-let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-let g:UltiSnipsRemoveSelectModeMappings = 0
-" }}
+" Plug 'SirVer/ultisnips'
+" " {{
+" let g:UltiSnipsExpandTrigger = '<nop>'
+" let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+" let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+" let g:UltiSnipsRemoveSelectModeMappings = 0
+" " }}
 Plug 'honza/vim-snippets'
 
 Plug 'dense-analysis/ale'
 " {{
-let g:ale_set_signs = 0
+let g:ale_set_signs = 1
+let g:ale_set_highlights = 1
 
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
@@ -78,15 +82,10 @@ let g:ale_lint_on_enter = 0
 let g:ale_lint_on_filetype_changed = 0
 let g:ale_lint_delay = 0
 
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
-
-let g:ale_statusline_format = ['Errors: %d', 'Warnings: %d', '']
-
 let g:ale_linters = {
       \ 'tex': [],
-      \ 'python': ['pylint'],
+      \ 'python': [],
+      \ 'rust': [],
       \}
 
 nmap <silent> <leader>aa <Plug>(ale_lint)
@@ -164,7 +163,12 @@ let g:grammarous#default_comments_only_filetypes = {
 " Good tools
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
+
+Plug 'vim-scripts/utl.vim'
+
 Plug 'tpope/vim-abolish'
+Plug 'arthurxavierx/vim-caser'
+
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
@@ -179,6 +183,7 @@ vmap .  <plug>(EasyAlignRepeat)
 " }}
 Plug 'andymass/vim-matchup'
 
+" Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " {{
@@ -187,6 +192,9 @@ nnoremap <C-g> :Rg<Cr>
 
 let g:fzf_layout = { 'down': '~40%' }
 " }}
+
+" Smart commenting
+Plug 'preservim/nerdcommenter'
 
 " ctags
 Plug 'ludovicchabant/vim-gutentags'
@@ -239,7 +247,7 @@ let g:vimtex_imaps_enabled = 0
 let g:vimtex_complete_img_use_tail = 1
 let g:vimtex_complete_bib = {
       \ 'simple' : 1,
-      \ 'menu_fmt' : '@year, @author_short, @title',
+      \ 'menu_fmt' : '@title, @author_short, @year',
       \}
 let g:vimtex_echo_verbose_input = 0
 let g:vimtex_compiler_progname='nvr'
@@ -256,21 +264,13 @@ let g:vim_markdown_folding_disabled = 1
 " }}
 Plug 'mzlogin/vim-markdown-toc'
 
-Plug 'rhysd/vim-clang-format'
-" {{
-" map to <Leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
-" if you install vim-operator-user
-autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
-
-" }}
+Plug 'jceb/vim-orgmode'
+Plug 'vim-scripts/SyntaxRange'
 
 Plug 'rust-lang/rust.vim'
 " {{
 let g:autofmt_autosave = 1
 " }}
-Plug 'ziglang/zig.vim'
 
 Plug 'cespare/vim-toml'
 
@@ -278,16 +278,14 @@ Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'pprovost/vim-ps1'
 
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 Plug 'albfan/nerdtree-git-plugin'
 " {{
-" let loaded_netrwPlugin=1
 let g:NERDTreeRespectWildIgnore=1
 
 augroup nerdtree
   autocmd!
   autocmd StdinReadPre * let s:std_in=1
-  " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
   autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 augroup END
 
@@ -309,7 +307,6 @@ let g:NERDTreeIndicatorMapCustom = {
       \ "Unknown"   : "?"
       \ }
 " }}
-Plug 'ddollar/nerdcommenter'
 
 Plug 'liuchengxu/eleline.vim'
 " {{
