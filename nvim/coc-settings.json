@@ -8,15 +8,12 @@
   "suggest.removeDuplicateItems": true,
   "signature.floatMaxWidth": 12,
   "list.maxHeight": 18,
-
   "snippets.ultisnips.enable": false,
   "snippets.snipmate.enable": true,
-  
   "python.condaPath": "conda",
   "python.linting.mypyEnabled": true,
   "python.linting.flake8Enabled": true,
   "python.linting.pylintEnabled": false,
-
   "languageserver": {
     "ccls": {
       "command": "ccls",
@@ -28,17 +25,14 @@
         "objcpp"
       ],
       "rootPatterns": [
-        ".ccls-root",
-        "compile_commands.json"
+        ".ccls",
+        "compile_commands.json",
+        ".git/",
+        ".hg/"
       ],
       "initializationOptions": {
         "cache": {
-          "directory": ".ccls-cache"
-        },
-        "clang": {
-          "extraArgs": [
-            "--gcc-toolchain=/usr"
-          ]
+          "directory": "/tmp/ccls"
         }
       }
     }

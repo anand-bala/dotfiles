@@ -1,0 +1,26 @@
+snippet im "Math" w
+\(${1}\)`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+snippet dm "Math" w
+\[$1.\] $0
+endsnippet
+
+snippet _ "subscript" i
+_{$1}$0
+endsnippet
+
+snippet ^ "superscript" i
+^{$1}$0
+endsnippet
+
+snippet // "Fraction" i
+\\frac{$1}{$2}$0
+endsnippet
+
+

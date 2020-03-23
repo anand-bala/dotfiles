@@ -5,4 +5,4 @@ set expandtab
 set autoindent
 set fileformat=unix
 
-" set textwidth=79
+let b:ale_linters = []
