@@ -34,6 +34,12 @@ vmap .  <plug>(EasyAlignRepeat)
 Plug 'andymass/vim-matchup'
 
 Plug 'preservim/nerdcommenter'
+" {{
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" }}
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'

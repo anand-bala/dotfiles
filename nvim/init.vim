@@ -16,3 +16,6 @@ augroup end
 
 runtime conf.d/lintcomp.vim
 runtime conf.d/ui.vim
+
+runtime conf.d/orgmode.vim
+
