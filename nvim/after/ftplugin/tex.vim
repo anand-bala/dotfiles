@@ -34,4 +34,6 @@ let g:vimtex_complete_bib = {
       \}
 let g:vimtex_echo_verbose_input = 0
 let g:vimtex_compiler_progname='nvr'
+
+nnoremap <C-s> :call vimtex#fzf#run()<cr>
 " }}

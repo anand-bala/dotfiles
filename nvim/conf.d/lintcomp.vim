@@ -18,10 +18,13 @@ let g:ale_linters = {
       \ 'python': [],
       \ 'rust': [],
       \}
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 nmap <silent> <leader>aa <Plug>(ale_lint)
-nmap <silent> <leader>aj <Plug>(ale_next_wrap)
-nmap <silent> <leader>ak <Plug>(ale_previous_wrap)
+nmap <silent> <leader>ln <Plug>(ale_next_wrap)
+nmap <silent> <leader>lp <Plug>(ale_previous_wrap)
 " }}
 
 " -- coc.nvim config
@@ -55,8 +58,9 @@ nmap <silent> <leader>li <plug>(coc-implementation)
 nmap <silent> <leader>lf <plug>(coc-references)
 nmap          <leader>lr <plug>(coc-rename)
 
-nmap <silent> <leader>lp <plug>(coc-diagnostic-prev)
-nmap <silent> <leader>ln <plug>(coc-diagnostic-next)
+" Use ALE for diagnostics
+" nmap <silent> <leader>lp <plug>(coc-diagnostic-prev)
+" nmap <silent> <leader>ln <plug>(coc-diagnostic-next)
 
 " Formatting selected code.
 xmap <leader>gf  <Plug>(coc-format-selected)

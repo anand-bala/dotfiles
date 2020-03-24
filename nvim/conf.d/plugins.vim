@@ -33,6 +33,8 @@ vmap .  <plug>(EasyAlignRepeat)
 " }}
 Plug 'andymass/vim-matchup'
 
+Plug 'tpope/vim-speeddating'
+
 Plug 'preservim/nerdcommenter'
 " {{
 let g:NERDSpaceDelims = 1
@@ -69,15 +71,11 @@ Plug 'neoclide/coc-sources'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 
-
 " -- Language specific
 Plug 'lervag/vimtex'
 
 Plug 'plasticboy/vim-markdown'
 Plug 'mzlogin/vim-markdown-toc'
-
-Plug 'jceb/vim-orgmode'
-Plug 'vim-scripts/SyntaxRange'
 
 Plug 'rust-lang/rust.vim'
 " {{
