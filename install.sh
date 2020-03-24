@@ -32,7 +32,6 @@ install_kitty() {
 install_fish() {
   src=$SCRIPTPATH/fish
   dest=$config_dir/fish
-  rm -rf $dest
   mkdir -pv $dest
   for node in $src/*; do
     if [[ -d "$node" ]]; then
@@ -59,7 +58,6 @@ install_nvim() {
 install_git() {
   src=$SCRIPTPATH/git
   dest=$config_dir/git
-  rm -rf $dest
   mkdir -pv $dest
   __ln_at $dest $src/*
 }
