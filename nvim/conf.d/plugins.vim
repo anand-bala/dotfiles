@@ -83,6 +83,7 @@ let g:autofmt_autosave = 1
 " }}
 
 Plug 'cespare/vim-toml'
+Plug 'stephpy/vim-yaml'
 
 " Shell Support
 Plug 'dag/vim-fish'
