@@ -1,13 +1,58 @@
-" -- Shell Problems
+" -- Fishshell fixes
 if &shell =~# 'fish$'
   set shell=sh
 endif
 
-runtime conf.d/sane.vim
+" -- Sanity settings {{{
+set modelines=0 " Disable Modelines
+set number      " Show line numbers
+set ruler       " Show file stats
+set visualbell  " Blink cursor on error instead of beeping (grr)
+set encoding=utf-8  " Encoding
+
+set wrap
+set linebreak
+set textwidth=0
+set formatoptions=tcqrn1
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set noshiftround
+
+" set conceallevel=2
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+set foldmethod=syntax
+
+set hidden  " Allow hidden buffers
+set laststatus=2  " Status bar
+
+set list                   " Show non-printable characters.
+set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:±,trail:·
+
+" Searching
+set ignorecase
+set smartcase
+set showmatch
+
+" Spelling
+set spelllang=en_us
+set nospell
+
+" Interface Settings
+set background=dark
+set mouse=a
+
+" Split pane settings
+
+" Right and bottom splits as opposed to left and top
+set splitbelow
+set splitright
+" }}}
 
 runtime conf.d/plugins.vim
-
-" -- Filetype mappings
 
 augroup ft_mappings
   au!
@@ -17,5 +62,5 @@ augroup end
 runtime conf.d/lintcomp.vim
 runtime conf.d/ui.vim
 
-runtime conf.d/orgmode.vim
-
+runtime conf.d/fuzzyfinder.vim
+runtime conf.d/keybindings.vim

@@ -24,13 +24,8 @@ Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 " {{
 let g:easy_align_bypass_fold = 1
-
-nmap ga <plug>(LiveEasyAlign)
-vmap ga <plug>(LiveEasyAlign)
-nmap gA <plug>(EasyAlign)
-vmap gA <plug>(EasyAlign)
-vmap .  <plug>(EasyAlignRepeat)
 " }}
+
 Plug 'andymass/vim-matchup'
 
 Plug 'tpope/vim-speeddating'
@@ -43,14 +38,11 @@ let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 " }}
 
+" Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" {{
-nnoremap <C-f> :Files<Cr>
-nnoremap <C-g> :Rg<Cr>
 
-let g:fzf_layout = { 'down': '~40%' }
-" }}
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " -- Completions, Linting, and Snippets
 
@@ -66,6 +58,22 @@ Plug 'honza/vim-snippets'
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-sources'
+" {{{
+let g:coc_global_extensions = [
+      \ 'coc-actions',
+      \ 'coc-css',
+      \ 'coc-emmet',
+      \ 'coc-html',
+      \ 'coc-json',
+      \ 'coc-prettier',
+      \ 'coc-python',
+      \ 'coc-rls',
+      \ 'coc-snippets',
+      \ 'coc-tsserver',
+      \ 'coc-word',
+      \ 'coc-yaml',
+      \]
+" }}}
 
 " ctags
 Plug 'ludovicchabant/vim-gutentags'
