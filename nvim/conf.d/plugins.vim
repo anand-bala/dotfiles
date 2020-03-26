@@ -41,8 +41,9 @@ let g:NERDCompactSexyComs = 1
 " Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+" {{{
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+" }}}
 
 " -- Completions, Linting, and Snippets
 
