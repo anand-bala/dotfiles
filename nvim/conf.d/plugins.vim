@@ -78,12 +78,18 @@ let g:coc_global_extensions = [
 
 " ctags
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
+" {{{
+let g:vista_default_executive = 'ctags'
+let g:vista_finder_alternative_executives = ['coc', 'ale', 'ctags']
+" }}}
 
 " -- Language specific
 Plug 'lervag/vimtex'
 
-Plug 'plasticboy/vim-markdown'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-pandoc'
+
 Plug 'mzlogin/vim-markdown-toc'
 
 Plug 'rust-lang/rust.vim'
@@ -91,8 +97,11 @@ Plug 'rust-lang/rust.vim'
 let g:autofmt_autosave = 1
 " }}
 
+Plug 'neovimhaskell/haskell-vim'
+
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
+Plug 'Glench/Vim-Jinja2-Syntax'
 
 " Shell Support
 Plug 'dag/vim-fish'

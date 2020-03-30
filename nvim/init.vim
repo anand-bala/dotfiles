@@ -57,6 +57,7 @@ runtime conf.d/plugins.vim
 augroup ft_mappings
   au!
   autocmd BufRead,BufNewFile *.tex,*.latex  set filetype=tex
+  autocmd BufRead,BufNewFile *.md           set filetype=markdown.pandoc
 augroup end
 
 runtime conf.d/lintcomp.vim
@@ -64,3 +65,5 @@ runtime conf.d/ui.vim
 
 runtime conf.d/fuzzyfinder.vim
 runtime conf.d/keybindings.vim
+
+runtime conf.d/notetaking.vim

@@ -22,12 +22,11 @@ nmap <silent> <leader>aa <Plug>(ale_lint)
 nmap <silent> <leader>ln <Plug>(ale_next_wrap)
 nmap <silent> <leader>lp <Plug>(ale_previous_wrap)
 
-
 imap <silent> <c-u>      <plug>(coc-snippets-expand)
 
-nmap <silent> <leader>ld <plug>(coc-definition)
-nmap <silent> <leader>lt <plug>(coc-type-definition)
-nmap <silent> <leader>li <plug>(coc-implementation)
+nmap <silent> <leader>gd <plug>(coc-definition)
+nmap <silent> <leader>gt <plug>(coc-type-definition)
+nmap <silent> <leader>gi <plug>(coc-implementation)
 nmap <silent> <leader>lf <plug>(coc-references)
 nmap          <leader>lr <plug>(coc-rename)
 
@@ -36,8 +35,8 @@ nmap          <leader>lr <plug>(coc-rename)
 " nmap <silent> <leader>ln <plug>(coc-diagnostic-next)
 
 " Formatting selected code.
-vmap <leader>gf  <Plug>(coc-format-selected)
-nmap <leader>gf  <Plug>(coc-format-selected)
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 " Use default formatter
 command! -nargs=0 Format :call CocAction('format')
@@ -54,6 +53,11 @@ function! s:show_documentation()
   endif
 endfunction
 " }}}
+
+" -- Vista {{{
+nnoremap <silent> <C-s>     :Vista finder fzf:coc<CR>
+" }}}
+
 
 " -- Pop-Up Menu {{{
 "  Tab to scroll (SHIFT+Tab for backward scroll)
