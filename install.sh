@@ -22,6 +22,11 @@ __ln_at() {
 config_dir=${XDG_CONFIG_HOME:-$HOME/.config}
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
+install_starship() {
+  rm -rf $config_dir/starship/starship.toml
+  mkdir -pv $config_dir/starship
+  __ln_at $config_dir/starship $SCRIPTPATH/starship/*
+}
 
 install_kitty() {
   rm -rf $config_dir/kitty/*
@@ -99,6 +104,10 @@ while [[ $# -gt 0 ]]; do
     conda )
       echo "Install config for conda"
       install_conda
+      ;;
+    starship )
+      echo "Installing config for starship prompt"
+      install_starship
       ;;
     *)
       echoerr "'$1'?!? I have no idea what you're talking about?!"

@@ -1,0 +1,60 @@
+prompt_order = [
+    "username",
+    "hostname",
+    "directory",
+    "git_branch",
+    "git_commit",
+    "git_state",
+    "git_status",
+    "hg_branch",
+    "package",
+    "elm",
+    "golang",
+    "haskell",
+    "nodejs",
+    "python",
+    "rust",
+    "conda",
+    "cmd_duration",
+    "line_break",
+    "jobs",
+    "time",
+    "character",
+]
+
+[character]
+symbol = "λ"
+
+[haskell]
+disabled = true
+symbol = " "
+
+[aws]
+disabled = true
+
+[conda]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = " "
+
+[python]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "

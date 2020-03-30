@@ -27,5 +27,3 @@ create_default_packages:
   - pydocstyle
   - autopep8
   - yapf
-      
-
