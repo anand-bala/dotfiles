@@ -8,3 +8,4 @@ oh-my-fish/plugin-rustup
 ~/.fishpkg/plugin-miniconda-conf
 ~/.fishpkg/plugin-poetry-path
 ~/.fishpkg/plugin-haskell-path
+reitzig/sdkman-for-fish
