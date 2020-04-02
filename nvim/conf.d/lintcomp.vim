@@ -22,6 +22,7 @@ let g:ale_linters = {
 
 let g:ale_fixers = {
       \ 'javascript': ['eslint'],
+      \ 'haskell': ['hindent', 'stylish-haskell'],
       \ }
 
 let g:ale_echo_msg_error_str = 'E'
@@ -42,7 +43,7 @@ endif
 
 " -- ctags settings
 " {{
-let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
+" let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
 let g:gutentags_ctags_extra_args = [
       \ '--tag-relative=yes',
       \ '--fields=+aimS',

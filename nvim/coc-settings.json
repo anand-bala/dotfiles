@@ -26,15 +26,15 @@
       }
     },
     "haskell": {
-      "command": "hie-wrapper",
+      "command": "ghcide",
       "args": ["--lsp"],
-      "rootPatterns": ["stack.yaml", "cabal.config", "package.yaml"],
-      "filetypes": ["hs", "lhs", "haskell"],
-      "initializationOptions": {
-        "languageServerHaskell": {
-          "hlintOn": true
-        }
-      }
+      "rootPatterns": [
+        ".stack.yaml",
+        ".hie-bios",
+        "cabal.config",
+        "package.yaml"
+      ],
+      "filetypes": ["hs", "lhs", "haskell"]
     }
   }
 }

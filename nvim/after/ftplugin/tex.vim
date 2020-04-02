@@ -34,6 +34,14 @@ let g:vimtex_complete_bib = {
       \}
 let g:vimtex_echo_verbose_input = 0
 let g:vimtex_compiler_progname='nvr'
+ 
+if has('win32') || (has('unix') && exists('$WSLENV'))
+  if executable('SumatraPDF.exe')
+    let g:vimtex_view_general_viewer = 'SumatraPDF.exe'
+  elseif executable('mupdf.exe')
+    let g:vimtex_view_general_viewer = 'mupdf.exe'
+  endif
+endif
 
 nnoremap <C-s> :call vimtex#fzf#run()<cr>
 " }}

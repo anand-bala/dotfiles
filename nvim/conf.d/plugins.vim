@@ -80,8 +80,10 @@ let g:coc_global_extensions = [
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'liuchengxu/vista.vim'
 " {{{
-let g:vista_default_executive = 'ctags'
-let g:vista_finder_alternative_executives = ['coc', 'ale', 'ctags']
+let g:vista_default_executive = 'coc'
+let g:vista_ctags_cmd = {
+      \ 'haskell': 'hasktags -x -o - -c',
+      \ }
 " }}}
 
 " -- Language specific
@@ -107,7 +109,10 @@ Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'dag/vim-fish'
 Plug 'pprovost/vim-ps1'
 
-" -- UI stuff
+" -- Writing!
+Plug 'reedes/vim-pencil'
+
+" - stuff
 
 Plug 'preservim/nerdtree'
 Plug 'albfan/nerdtree-git-plugin'
