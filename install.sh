@@ -20,7 +20,12 @@ __ln_at() {
 # Actual Installers
 
 config_dir=${XDG_CONFIG_HOME:-$HOME/.config}
-SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+SCRIPTPATH="$( cd "$(dirname $(readlink -f "$0"))" ; pwd -P )"
+
+install_alacritty() {
+  mkdir -pv $config_dir/alacritty
+  __ln_at $config_dir/alacritty $SCRIPTPATH/alacritty/*
+}
 
 install_starship() {
   rm -rf $config_dir/starship/starship.toml
@@ -108,6 +113,10 @@ while [[ $# -gt 0 ]]; do
     starship )
       echo "Installing config for starship prompt"
       install_starship
+      ;;
+    alacritty )
+      echo "Installing config for Alacritty"
+      install_alacritty
       ;;
     *)
       echoerr "'$1'?!? I have no idea what you're talking about?!"
