@@ -117,6 +117,7 @@ Plug 'preservim/nerdtree'
 Plug 'albfan/nerdtree-git-plugin'
 
 Plug 'itchyny/lightline.vim'
+Plug 'edkolev/tmuxline.vim'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'

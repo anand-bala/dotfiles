@@ -50,3 +50,13 @@ let g:lightline = {
       \ },
       \ }
 " }}}
+" -- TMUX Line {{{
+let g:tmuxline_preset = {
+      \'a'    : '#H',
+      \'b'    : '#S',
+      \'win'  : '#I #W',
+      \'cwin' : '#I #W',
+      \'x'    : '%a %b %d',
+      \'y'    : '%r',
+      \}
+" }}}
