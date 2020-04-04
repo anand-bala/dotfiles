@@ -38,8 +38,15 @@ let g:NERDTreeIndicatorMapCustom = {
       \ }
 " }}
 
-" -- Elegant status line
-" {{
-let g:eleline_powerline_fonts = 1
-" }}
-
+" -- Lightline status line {{{
+let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+" }}}

@@ -13,7 +13,9 @@ set encoding=utf-8  " Encoding
 set wrap
 set linebreak
 set textwidth=0
-set formatoptions=tcqrn1
+
+set formatoptions=cqrn
+
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2

@@ -110,14 +110,13 @@ Plug 'dag/vim-fish'
 Plug 'pprovost/vim-ps1'
 
 " -- Writing!
-Plug 'reedes/vim-pencil'
-
+Plug 'junegunn/goyo.vim'
 " - stuff
 
 Plug 'preservim/nerdtree'
 Plug 'albfan/nerdtree-git-plugin'
 
-Plug 'liuchengxu/eleline.vim'
+Plug 'itchyny/lightline.vim'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
