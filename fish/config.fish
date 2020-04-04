@@ -54,3 +54,5 @@ function chpwd --on-variable PWD
     end
 end
 
+set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
+
