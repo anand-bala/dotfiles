@@ -6,7 +6,7 @@
 let g:pandoc#keyboard#use_default_mappings = 0
 let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
 let g:pandoc#filetypes#pandoc_markdown = 0
-let g:pandoc#syntax#conceal#use = 1
+let g:pandoc#syntax#conceal#use = 0
 " }}}
 
 " -- Goyo {{{

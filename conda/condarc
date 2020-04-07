@@ -19,6 +19,7 @@ create_default_packages:
   - sphinx
   - python-language-server
   - jedi
+  - black
   - rope
   - pyflakes
   - mypy

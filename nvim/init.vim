@@ -4,6 +4,7 @@ if &shell =~# 'fish$'
 endif
 
 " -- Sanity settings {{{
+set secure
 set modelines=0 " Disable Modelines
 set number      " Show line numbers
 set ruler       " Show file stats

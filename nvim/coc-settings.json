@@ -8,12 +8,26 @@
   "suggest.removeDuplicateItems": true,
   "signature.floatMaxWidth": 12,
   "list.maxHeight": 18,
+
+  "html.filetypes": [
+    "html",
+    "handlebars",
+    "htmldjango",
+    "liquid"
+  ],
+
   "snippets.ultisnips.enable": false,
   "snippets.snipmate.enable": true,
+  
   "python.condaPath": "conda",
   "python.linting.mypyEnabled": true,
   "python.linting.flake8Enabled": true,
   "python.linting.pylintEnabled": false,
+
+  "emmet.includeLanguages": {
+    "liquid": "html"
+  },
+
   "languageserver": {
     "ccls": {
       "command": "ccls",

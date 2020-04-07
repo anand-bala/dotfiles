@@ -84,6 +84,7 @@ let g:vista_default_executive = 'coc'
 let g:vista_ctags_cmd = {
       \ 'haskell': 'hasktags -x -o - -c',
       \ }
+let g:vista_sidebar_width = 40
 " }}}
 
 " -- Language specific
@@ -104,6 +105,7 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'tpope/vim-liquid'
 
 " Shell Support
 Plug 'dag/vim-fish'
