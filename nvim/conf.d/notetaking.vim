@@ -2,15 +2,19 @@
 " Author: Anand Balakrishnan
 " Description: Configuration for my notetaking extensions
 
-" -- Pandoc {{{
-let g:pandoc#keyboard#use_default_mappings = 0
-let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
-let g:pandoc#filetypes#pandoc_markdown = 0
-let g:pandoc#syntax#conceal#use = 0
-" }}}
-
 " -- Goyo {{{
 let g:goyo_width = 85
 let g:goyo_height = '95%'
 " }}}
+
+" -- Markdown {{
+let g:vim_markdown_follow_anchor = 1
+let g:vim_markdown_autowrite = 1
+let g:vim_markdown_edit_url_in = 'vsplit'
+
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_strikethrough = 1
+" }}
 

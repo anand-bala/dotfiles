@@ -18,11 +18,12 @@
 
   "snippets.ultisnips.enable": false,
   "snippets.snipmate.enable": true,
-  
+
   "python.condaPath": "conda",
   "python.linting.mypyEnabled": true,
   "python.linting.flake8Enabled": true,
   "python.linting.pylintEnabled": false,
+  "python.formatting.provider":"black",
 
   "emmet.includeLanguages": {
     "liquid": "html"

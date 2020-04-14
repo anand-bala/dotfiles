@@ -23,7 +23,7 @@ set softtabstop=2
 set expandtab
 set noshiftround
 
-" set conceallevel=2
+set conceallevel=2
 set foldnestmax=10
 set nofoldenable
 set foldlevel=2

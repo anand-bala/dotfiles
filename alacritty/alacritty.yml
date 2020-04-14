@@ -1,12 +1,12 @@
 font:
   normal:
-    family: FiraCode NF
-    style: Regular
+    family: "FiraMono Nerd Font"
+    style: "Regular"
   bold:
-    family: FiraCode NF
-    style: Bold
+    family: "FiraMono Nerd Font"
+    style: "Bold"
   size: 11.0
-draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: false
 # Colors (Dracula)
 colors:
   # Default colors

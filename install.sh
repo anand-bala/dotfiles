@@ -34,7 +34,7 @@ install_starship() {
 }
 
 install_kitty() {
-  rm -rf $config_dir/kitty/*
+  rm -rf "$config_dir/kitty/*"
   mkdir -pv $config_dir/kitty
   __ln_at $config_dir/kitty $SCRIPTPATH/kitty/*
 }

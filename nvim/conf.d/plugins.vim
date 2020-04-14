@@ -25,6 +25,7 @@ Plug 'junegunn/vim-easy-align'
 " {{
 let g:easy_align_bypass_fold = 1
 " }}
+Plug 'godlygeek/tabular'
 
 Plug 'andymass/vim-matchup'
 
@@ -90,15 +91,15 @@ let g:vista_sidebar_width = 40
 " -- Language specific
 Plug 'lervag/vimtex'
 
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'vim-pandoc/vim-pandoc'
-
+Plug 'plasticboy/vim-markdown'
 Plug 'mzlogin/vim-markdown-toc'
 
 Plug 'rust-lang/rust.vim'
 " {{
 let g:autofmt_autosave = 1
 " }}
+
+Plug 'goerz/jupytext.vim'
 
 Plug 'neovimhaskell/haskell-vim'
 
@@ -110,6 +111,7 @@ Plug 'tpope/vim-liquid'
 " Shell Support
 Plug 'dag/vim-fish'
 Plug 'pprovost/vim-ps1'
+Plug 'tmux-plugins/vim-tmux'
 
 " -- Writing!
 Plug 'junegunn/goyo.vim'

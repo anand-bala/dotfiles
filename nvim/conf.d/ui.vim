@@ -42,15 +42,22 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:lightline = {
       \ 'colorscheme': 'powerline',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \   'left':   [[ 'mode', 'paste' ],
+      \              [ 'gitbranch', 'readonly', 'filename', 'modified' ],
+      \              [ 'cocstatus' ],
+      \              ],
+      \   'right':  [[ 'lineinfo' ],
+      \              [ 'filefotmat', 'fileencoding', 'filetype' ],
+      \              ],
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
+      \   'gitbranch': 'FugitiveHead',
+      \   'cocstatus': 'coc#status'
       \ },
       \ }
 " }}}
 " -- TMUX Line {{{
+let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = {
       \'a'    : '#H',
       \'b'    : '#S',
