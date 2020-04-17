@@ -16,7 +16,7 @@
     "liquid"
   ],
 
-  "snippets.ultisnips.enable": false,
+  "snippets.ultisnips.enable": true,
   "snippets.snipmate.enable": true,
 
   "python.condaPath": "conda",

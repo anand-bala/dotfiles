@@ -41,6 +41,10 @@ if has('win32') || (has('unix') && exists('$WSLENV'))
   elseif executable('mupdf.exe')
     let g:vimtex_view_general_viewer = 'mupdf.exe'
   endif
+elseif has('unix')
+  if executable('zathura')
+    let g:vimtex_view_method = 'zathura'
+  endif
 endif
 
 nnoremap <C-s> :call vimtex#fzf#run()<cr>

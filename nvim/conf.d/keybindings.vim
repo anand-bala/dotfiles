@@ -17,6 +17,10 @@ nnoremap <C-g> :Rg<Cr>
 vnoremap <C-g> y/<C-R>"<CR> 
 " }}
 
+" -- Vista {{{
+nnoremap <silent> <C-s>     :Vista finder fzf:coc<CR>
+" }}}
+
 " -- Linter/Completions {{{
 nmap <silent> <leader>aa <Plug>(ale_lint)
 nmap <silent> <leader>ln <Plug>(ale_next_wrap)
@@ -54,10 +58,19 @@ function! s:show_documentation()
 endfunction
 " }}}
 
-" -- Vista {{{
-nnoremap <silent> <C-s>     :Vista finder fzf:coc<CR>
+" -- nvim-lsp {{{
+" nnoremap <silent> gc <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <silent> pd    <cmd>lua vim.lsp.buf.peek_definition()<CR>
+" nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+" nnoremap <silent> ]d :NextDiagnostic<CR>
+" nnoremap <silent> [d :PrevDiagnostic<CR>
+" nnoremap <silent> <leader>do :OpenDiagnostic<CR>
+" nnoremap <leader>dl <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
 " }}}
-
 
 " -- Pop-Up Menu {{{
 "  Tab to scroll (SHIFT+Tab for backward scroll)
@@ -65,12 +78,11 @@ nnoremap <silent> <C-s>     :Vista finder fzf:coc<CR>
 "  ENTER for accept
 inoremap <silent><expr> <Esc>     pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <silent><expr> <CR>      pumvisible() ? "\<C-y>\<cr>" : "\<CR>"
-inoremap <silent><expr> <S-TAB>   pumvisible() ? "\<C-p>" : "\<S-TAB>"
+inoremap <silent><expr> <S-TAB>   pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ pumvisible() ? "\<C-n" :
       \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+      \ completion#trigger_completion()
 
 function! s:check_back_space() abort
   let col = col('.') - 1

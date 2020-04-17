@@ -14,8 +14,6 @@ Plug 'ciaranm/securemodelines'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 
-Plug 'vim-scripts/utl.vim'
-
 Plug 'tpope/vim-abolish'
 Plug 'arthurxavierx/vim-caser'
 
@@ -25,11 +23,8 @@ Plug 'junegunn/vim-easy-align'
 " {{
 let g:easy_align_bypass_fold = 1
 " }}
-Plug 'godlygeek/tabular'
 
 Plug 'andymass/vim-matchup'
-
-Plug 'tpope/vim-speeddating'
 
 Plug 'preservim/nerdcommenter'
 " {{
@@ -48,13 +43,13 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " -- Completions, Linting, and Snippets
 
-" Plug 'SirVer/ultisnips'
-" " {{
-" let g:UltiSnipsExpandTrigger = '<nop>'
-" let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-" let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-" let g:UltiSnipsRemoveSelectModeMappings = 0
-" " }}
+Plug 'SirVer/ultisnips'
+" {{
+let g:UltiSnipsExpandTrigger = '<TAB>'
+let g:UltiSnipsJumpForwardTrigger = '<c-n>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
+let g:UltiSnipsRemoveSelectModeMappings = 0
+" }}
 Plug 'honza/vim-snippets'
 
 Plug 'dense-analysis/ale'
@@ -70,11 +65,14 @@ let g:coc_global_extensions = [
       \ 'coc-prettier',
       \ 'coc-python',
       \ 'coc-rls',
-      \ 'coc-snippets',
       \ 'coc-tsserver',
       \ 'coc-word',
       \ 'coc-yaml',
       \]
+" Plug 'neovim/nvim-lsp'
+" Plug 'haorenW1025/completion-nvim'
+" Plug 'vigoux/completion-treesitter'
+" Plug 'haorenW1025/diagnostic-nvim'
 " }}}
 
 " ctags
@@ -82,9 +80,6 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'liuchengxu/vista.vim'
 " {{{
 let g:vista_default_executive = 'coc'
-let g:vista_ctags_cmd = {
-      \ 'haskell': 'hasktags -x -o - -c',
-      \ }
 let g:vista_sidebar_width = 40
 " }}}
 
@@ -99,19 +94,13 @@ Plug 'rust-lang/rust.vim'
 let g:autofmt_autosave = 1
 " }}
 
-Plug 'goerz/jupytext.vim'
-
-Plug 'neovimhaskell/haskell-vim'
-
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
-Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'tpope/vim-liquid'
 
 " Shell Support
 Plug 'dag/vim-fish'
 Plug 'pprovost/vim-ps1'
-Plug 'tmux-plugins/vim-tmux'
 
 " -- Writing!
 Plug 'junegunn/goyo.vim'

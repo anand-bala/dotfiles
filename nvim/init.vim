@@ -48,6 +48,12 @@ set nospell
 set background=dark
 set mouse=a
 
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
 " Split pane settings
 
 " Right and bottom splits as opposed to left and top
@@ -60,7 +66,6 @@ runtime conf.d/plugins.vim
 augroup ft_mappings
   au!
   autocmd BufRead,BufNewFile *.tex,*.latex  set filetype=tex
-  autocmd BufRead,BufNewFile *.md           set filetype=pandoc.markdown
 augroup end
 
 runtime conf.d/lintcomp.vim
