@@ -35,7 +35,7 @@ let g:NERDCompactSexyComs = 1
 " }}
 
 " Fuzzy search
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin --no-fish' }
 Plug 'junegunn/fzf.vim'
 " {{{
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
@@ -53,26 +53,26 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 Plug 'honza/vim-snippets'
 
 Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-sources'
-" {{{
-let g:coc_global_extensions = [
-      \ 'coc-actions',
-      \ 'coc-css',
-      \ 'coc-emmet',
-      \ 'coc-html',
-      \ 'coc-json',
-      \ 'coc-prettier',
-      \ 'coc-python',
-      \ 'coc-rls',
-      \ 'coc-tsserver',
-      \ 'coc-word',
-      \ 'coc-yaml',
-      \]
-" Plug 'neovim/nvim-lsp'
-" Plug 'haorenW1025/completion-nvim'
-" Plug 'vigoux/completion-treesitter'
-" Plug 'haorenW1025/diagnostic-nvim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc-sources'
+" " {{{
+" let g:coc_global_extensions = [
+      " \ 'coc-actions',
+      " \ 'coc-css',
+      " \ 'coc-emmet',
+      " \ 'coc-html',
+      " \ 'coc-json',
+      " \ 'coc-prettier',
+      " \ 'coc-python',
+      " \ 'coc-rls',
+      " \ 'coc-tsserver',
+      " \ 'coc-word',
+      " \ 'coc-yaml',
+      " \]
+Plug 'neovim/nvim-lsp'
+Plug 'haorenW1025/completion-nvim'
+Plug 'vigoux/completion-treesitter'
+Plug 'haorenW1025/diagnostic-nvim'
 " }}}
 
 " ctags
@@ -89,6 +89,7 @@ Plug 'lervag/vimtex'
 Plug 'plasticboy/vim-markdown'
 Plug 'mzlogin/vim-markdown-toc'
 
+Plug 'ziglang/zig.vim'
 Plug 'rust-lang/rust.vim'
 " {{
 let g:autofmt_autosave = 1

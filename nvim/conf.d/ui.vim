@@ -47,7 +47,7 @@ let g:lightline = {
       \              [ 'cocstatus' ],
       \              ],
       \   'right':  [[ 'lineinfo' ],
-      \              [ 'filefotmat', 'fileencoding', 'filetype' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ],
       \              ],
       \ },
       \ 'component_function': {

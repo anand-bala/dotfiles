@@ -68,6 +68,7 @@ augroup ft_mappings
   autocmd BufRead,BufNewFile *.tex,*.latex  set filetype=tex
 augroup end
 
+runtime conf.d/lsp.vim
 runtime conf.d/lintcomp.vim
 runtime conf.d/ui.vim
 
