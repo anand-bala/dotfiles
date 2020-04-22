@@ -51,9 +51,9 @@ function s:nvim_lsp_keybindings()
     nnoremap <silent> <leader>ld  <cmd>lua require'diagnostic.util'.show_line_diagnostics()<CR>
 endfunction
 
-nnoremap <silent> ]d          :NextDiagnostic<CR>
-nnoremap <silent> [d          :PrevDiagnostic<CR>
-nnoremap <silent> <leader>do  :OpenDiagnostic<CR>
+nnoremap <silent> <leader>d   :NextDiagnostic<CR>
+nnoremap <silent> pd          :PrevDiagnostic<CR>
+nnoremap <silent> <leader>od  :OpenDiagnostic<CR>
 " }}}
 
 " -- Pop-Up Menu {{{
