@@ -44,7 +44,6 @@ let g:lightline = {
       \ 'active': {
       \   'left':   [[ 'mode', 'paste' ],
       \              [ 'gitbranch', 'readonly', 'filename', 'modified' ],
-      \              [ 'cocstatus' ],
       \              ],
       \   'right':  [[ 'lineinfo' ],
       \              [ 'fileformat', 'fileencoding', 'filetype' ],
@@ -52,7 +51,6 @@ let g:lightline = {
       \ },
       \ 'component_function': {
       \   'gitbranch': 'FugitiveHead',
-      \   'cocstatus': 'coc#status'
       \ },
       \ }
 " }}}
@@ -78,4 +76,17 @@ augroup end
 
 let g:matchup_matchparen_fallback = 0
 
+" }}}
+
+" -- FZF
+" {{{
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+" }}}
+
+" -- LSP
+" {{{
+let g:LspDiagnosticsErrorSign = ' '
+let g:LspDiagnosticsWarningSign = '⚡'
+let g:LspDiagnosticsInformationSign = '✦ '
+let g:LspDiagnosticsHintSign = ' '
 " }}}

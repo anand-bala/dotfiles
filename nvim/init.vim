@@ -17,9 +17,9 @@ set textwidth=0
 
 set formatoptions=cqrn
 
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 set noshiftround
 
@@ -47,6 +47,7 @@ set nospell
 " Interface Settings
 set background=dark
 set mouse=a
+set noshowmode
 
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
@@ -68,11 +69,8 @@ augroup ft_mappings
   autocmd BufRead,BufNewFile *.tex,*.latex  set filetype=tex
 augroup end
 
-runtime conf.d/lsp.vim
 runtime conf.d/lintcomp.vim
 runtime conf.d/ui.vim
-
-runtime conf.d/fuzzyfinder.vim
 runtime conf.d/keybindings.vim
 
-runtime conf.d/notetaking.vim
+runtime conf.d/writing.vim

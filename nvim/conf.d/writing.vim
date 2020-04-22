@@ -1,13 +1,36 @@
-setlocal spell
-setlocal textwidth=80
+" File: notetaking.vim
+" Author: Anand Balakrishnan
+" Description: Configuration for my notetaking extensions
 
-" {{
+" -- Goyo {{{
+let g:goyo_width = 85
+let g:goyo_height = '95%'
+" }}}
+
+" -- Markdown {{
+let g:vim_markdown_follow_anchor = 1
+let g:vim_markdown_autowrite = 1
+let g:vim_markdown_edit_url_in = 'vsplit'
+
+let g:vim_markdown_math = 1
+let g:vim_markdown_strikethrough = 1
+
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_folding_disabled = 1
+
+" }}
+
+" -- TeX
+" {{{
 let g:tex_stylish = 1
 let g:tex_conceal = ''
 let g:tex_flavor = 'latex'
 let g:tex_isk='48-57,a-z,A-Z,192-255,:'
 
-let g:vimtex_fold_enabled = 1
+let g:vimtex_fold_enabled = 0
 let g:vimtex_fold_types = {
       \ 'markers' : {'enabled': 0},
       \ 'sections' : {'parse_levels': 1},
@@ -34,7 +57,7 @@ let g:vimtex_complete_bib = {
       \}
 let g:vimtex_echo_verbose_input = 0
 let g:vimtex_compiler_progname='nvr'
- 
+
 if has('win32') || (has('unix') && exists('$WSLENV'))
   if executable('SumatraPDF.exe')
     let g:vimtex_view_general_viewer = 'SumatraPDF.exe'
@@ -42,10 +65,7 @@ if has('win32') || (has('unix') && exists('$WSLENV'))
     let g:vimtex_view_general_viewer = 'mupdf.exe'
   endif
 elseif has('unix')
-  if executable('zathura')
-    let g:vimtex_view_method = 'zathura'
-  endif
+  let g:vimtex_view_method = 'zathura'
 endif
+" }}}
 
-nnoremap <C-s> :call vimtex#fzf#run()<cr>
-" }}

@@ -37,38 +37,14 @@ let g:NERDCompactSexyComs = 1
 " Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin --no-fish' }
 Plug 'junegunn/fzf.vim'
-" {{{
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-" }}}
+Plug 'pbogut/fzf-mru.vim'
 
 " -- Completions, Linting, and Snippets
 
 Plug 'SirVer/ultisnips'
-" {{
-let g:UltiSnipsExpandTrigger = '<TAB>'
-let g:UltiSnipsJumpForwardTrigger = '<c-n>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
-let g:UltiSnipsRemoveSelectModeMappings = 0
-" }}
 Plug 'honza/vim-snippets'
 
 Plug 'dense-analysis/ale'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'neoclide/coc-sources'
-" " {{{
-" let g:coc_global_extensions = [
-      " \ 'coc-actions',
-      " \ 'coc-css',
-      " \ 'coc-emmet',
-      " \ 'coc-html',
-      " \ 'coc-json',
-      " \ 'coc-prettier',
-      " \ 'coc-python',
-      " \ 'coc-rls',
-      " \ 'coc-tsserver',
-      " \ 'coc-word',
-      " \ 'coc-yaml',
-      " \]
 Plug 'neovim/nvim-lsp'
 Plug 'haorenW1025/completion-nvim'
 Plug 'vigoux/completion-treesitter'
@@ -78,10 +54,6 @@ Plug 'haorenW1025/diagnostic-nvim'
 " ctags
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'liuchengxu/vista.vim'
-" {{{
-let g:vista_default_executive = 'coc'
-let g:vista_sidebar_width = 40
-" }}}
 
 " -- Language specific
 Plug 'lervag/vimtex'
