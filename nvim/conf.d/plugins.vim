@@ -79,9 +79,6 @@ Plug 'pprovost/vim-ps1'
 Plug 'junegunn/goyo.vim'
 " - stuff
 
-Plug 'preservim/nerdtree'
-Plug 'albfan/nerdtree-git-plugin'
-
 Plug 'itchyny/lightline.vim'
 Plug 'edkolev/tmuxline.vim'
 
