@@ -69,3 +69,13 @@ elseif has('unix')
 endif
 " }}}
 
+" -- Zotero
+" {{{
+function! ZoteroCite()
+  " pick a format based on the filetype (customize at will)
+  let format = &filetype =~ '.*tex' ? 'cite' : 'pandoc'
+  let api_call = 'curl -s http://127.0.0.1:23119/better-bibtex/cayw?format='.format
+  execute 'read !'.api_call
+endfunction
+" }}}
+

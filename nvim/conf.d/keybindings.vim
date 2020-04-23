@@ -10,8 +10,16 @@ vnoremap < <gv
 vnoremap > >gv|
 
 " go up/down onw visual line
-map <down>  gj
-map <up>    gk
+nnoremap j      gj
+nnoremap k      gk
+vnoremap j      gj
+vnoremap k      gk
+nnoremap <Down> gj
+nnoremap <Up>   gk
+vnoremap <Down> gj
+vnoremap <Up>   gk
+inoremap <Down> <C-o>gj
+inoremap <Up>   <C-o>gk
 " }}}
 
 " -- EasyAlign {{{
@@ -23,16 +31,22 @@ vmap .  <plug>(EasyAlignRepeat)
 " }}}
 
 " -- Searching stuff {{
-nnoremap <C-f>          :Files<Cr>
-nnoremap <C-g>          :Rg<Cr>
-vnoremap <C-g>          y:Rg <C-R>"<CR> 
-noremap  <C-t>          :Tags<CR>
-nmap <silent> <C-s>     :Vista finder fzf:nvim_lsp<CR>
+nnoremap <C-f> :Files<Cr>
+nnoremap <C-g> :Rg<Cr>
+vnoremap <C-g> y:Rg <C-R>"<CR>
+noremap  <C-t> :Tags<CR>
+nmap     <C-s> :Vista finder fzf:nvim_lsp<CR>
+
 
 augroup ft_search_kb
     au!
     autocmd FileType tex nmap <silent><buffer>  <C-s> :call vimtex#fzf#run('ctli', g:fzf_layout)<cr>
 augroup end
+
+" Search for Zotero references
+nnoremap  <silent><C-z> :call ZoteroCite()<CR>
+inoremap  <silent><C-z> <C-o>:call ZoteroCite()<CR>
+
 " }}}
 
 " -- nvim-lsp {{{
