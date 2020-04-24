@@ -2,6 +2,11 @@
 " Author: Anand Balakrishnan
 " Description: Configuration for my notetaking extensions
 
+" -- Spell check on for the following
+augroup spellceck_ft_specific
+    autocmd FileType tex,latex,markdown set spell
+augroup end
+
 " -- Goyo {{{
 let g:goyo_width = 85
 let g:goyo_height = '95%'
@@ -24,6 +29,9 @@ let g:vim_markdown_folding_disabled = 1
 " }}
 
 " -- TeX
+" Disable some chktex warnings
+let g:ale_tex_chktex_options = '-n3 -I'
+
 " {{{
 let g:tex_stylish = 1
 let g:tex_conceal = ''

@@ -42,7 +42,7 @@ let g:gutentags_file_list_command = {
 
 " -- UltiSnips
 " {{
-let g:UltiSnipsExpandTrigger = '<TAB>'
+let g:UltiSnipsExpandTrigger = '<c-y>'
 let g:UltiSnipsJumpForwardTrigger = '<c-n>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
 let g:UltiSnipsRemoveSelectModeMappings = 0

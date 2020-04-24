@@ -66,7 +66,7 @@ function s:nvim_lsp_keybindings()
 endfunction
 
 nnoremap <silent> <leader>d   :NextDiagnostic<CR>
-nnoremap <silent> pd          :PrevDiagnostic<CR>
+nnoremap <silent> <leader>pd  :PrevDiagnostic<CR>
 nnoremap <silent> <leader>od  :OpenDiagnostic<CR>
 " }}}
 
