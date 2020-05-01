@@ -37,7 +37,6 @@ let g:NERDCompactSexyComs = 1
 " Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin --no-fish' }
 Plug 'junegunn/fzf.vim'
-Plug 'pbogut/fzf-mru.vim'
 
 " -- Completions, Linting, and Snippets
 
@@ -66,24 +65,17 @@ Plug 'rust-lang/rust.vim'
 " {{
 let g:autofmt_autosave = 1
 " }}
+Plug 'pest-parser/pest.vim'
+Plug 'psf/black', { 'branch': 'stable' }
 
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
-Plug 'tpope/vim-liquid'
 
-" Shell Support
 Plug 'dag/vim-fish'
-Plug 'pprovost/vim-ps1'
 
-" -- Writing!
-Plug 'junegunn/goyo.vim'
-" - stuff
-
-Plug 'preservim/nerdtree'
-Plug 'albfan/nerdtree-git-plugin'
+" -- UI stuff
 
 Plug 'itchyny/lightline.vim'
-Plug 'edkolev/tmuxline.vim'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'

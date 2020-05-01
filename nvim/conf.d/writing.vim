@@ -7,11 +7,6 @@ augroup spellceck_ft_specific
     autocmd FileType tex,latex,markdown set spell
 augroup end
 
-" -- Goyo {{{
-let g:goyo_width = 85
-let g:goyo_height = '95%'
-" }}}
-
 " -- Markdown {{
 let g:vim_markdown_follow_anchor = 1
 let g:vim_markdown_autowrite = 1
@@ -25,14 +20,13 @@ let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_new_list_item_indent = 0
 let g:vim_markdown_folding_disabled = 1
-
 " }}
 
 " -- TeX
+" {{{
 " Disable some chktex warnings
 let g:ale_tex_chktex_options = '-n3 -I'
 
-" {{{
 let g:tex_stylish = 1
 let g:tex_conceal = ''
 let g:tex_flavor = 'latex'
