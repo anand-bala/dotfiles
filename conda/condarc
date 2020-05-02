@@ -12,19 +12,13 @@ channels:
 channel_priority: true
 
 create_default_packages:
-  - numpy
   - ipython
-  - matplotlib
-  - jupyter
-  - sphinx
-  - python-language-server
   - jedi
   - black
   - rope
-  - pyflakes
+  - flake8
   - mypy
   - mccabe
   - pycodestyle
   - pydocstyle
   - autopep8
-  - yapf

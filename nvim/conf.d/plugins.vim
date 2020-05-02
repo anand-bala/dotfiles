@@ -75,10 +75,15 @@ Plug 'dag/vim-fish'
 
 " -- UI stuff
 
+Plug 'lambdalisue/fern.vim'
 Plug 'itchyny/lightline.vim'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
+Plug 'lambdalisue/fern-renderer-devicons.vim'
+" {{
+let g:fern#renderer = "devicons"
+" }}
 
 call plug#end()
 filetype plugin on

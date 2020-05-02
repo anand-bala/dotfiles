@@ -13,3 +13,4 @@ reitzig/sdkman-for-fish
 ~/.fishpkg/plugin-jrnl
 ~/.fishpkg/plugin-tmux-session-helpers
 ~/.fishpkg/plugin-opam-bin-paths
+~/.fishpkg/plugin-mujoco-paths

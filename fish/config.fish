@@ -65,9 +65,3 @@ if command -sq -- flatpak
 end
 
 
-function mkfile -d "Touch the list of files, and creates directories if they don't exist"
-    mkdir -pv (dirname $argv)
-    touch $argv
-end
-
-

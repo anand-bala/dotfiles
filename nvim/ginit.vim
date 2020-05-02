@@ -1,4 +1,4 @@
 colorscheme vim-monokai-tasty
-GuiFont! MesloLGMDZ\ NF:h11
+GuiFont! FiraMono\ NF:h11
 
 
