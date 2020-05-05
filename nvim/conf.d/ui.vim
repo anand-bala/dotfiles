@@ -4,39 +4,46 @@
 
 " Make the cursor vertically centered
 augroup VCenterCursor
-  au!
-  au BufEnter,WinEnter,WinNew,VimResized *,*.*
-        \ let &scrolloff=winheight(win_getid())/2
+    au!
+    au BufEnter,WinEnter,WinNew,VimResized *,*.*
+                \ let &scrolloff=winheight(win_getid())/2
 augroup END
+
+" -- NERDTree
+" {{{
+augroup nerdtree_config
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup end
+" }}}
 
 " -- Lightline status line {{{
 let g:lightline = {
-      \ 'colorscheme': 'powerline',
-      \ 'active': {
-      \   'left':   [[ 'mode', 'paste' ],
-      \              [ 'gitbranch', 'readonly', 'filename', 'modified' ],
-      \              ],
-      \   'right':  [[ 'lineinfo' ],
-      \              [ 'fileformat', 'fileencoding', 'filetype' ],
-      \              ],
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'MyGitBranch',
-      \   'filetype': 'MyFiletype',
-      \   'fileformat': 'MyFileformat',
-      \ },
-      \ }
+            \ 'colorscheme': 'powerline',
+            \ 'active': {
+            \   'left':   [[ 'mode', 'paste' ],
+            \              [ 'gitbranch', 'readonly', 'filename', 'modified' ],
+            \              ],
+            \   'right':  [[ 'lineinfo' ],
+            \              [ 'fileformat', 'fileencoding', 'filetype' ],
+            \              ],
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'MyGitBranch',
+            \   'filetype': 'MyFiletype',
+            \   'fileformat': 'MyFileformat',
+            \ },
+            \ }
 
 function! MyGitBranch()
     return FugitiveHead() . ' '
 endfunction
 
 function! MyFiletype()
-  return winwidth(0) > 50 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+    return winwidth(0) > 50 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
 function! MyFileformat()
-  return winwidth(0) > 50 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+    return winwidth(0) > 50 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
 " }}}
@@ -44,9 +51,9 @@ endfunction
 " -- Matchup {{{
 
 augroup matchup_matchparen_highlight
-  au!
-  au BufRead,BufNewFile,ColorScheme * hi MatchParen ctermbg=lightgray ctermfg=black guibg=lightgray guifg=black
-  au BufRead,BufNewFile,ColorScheme * hi MatchWord cterm=underline gui=underline
+    au!
+    au BufRead,BufNewFile,ColorScheme * hi MatchParen ctermbg=lightgray ctermfg=black guibg=lightgray guifg=black
+    au BufRead,BufNewFile,ColorScheme * hi MatchWord cterm=underline gui=underline
 augroup end
 
 let g:matchup_matchparen_fallback = 0

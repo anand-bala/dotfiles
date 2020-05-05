@@ -9,21 +9,25 @@ let g:ale_set_highlights = 0
 " Set ALE explicit so that I need to enable only the select few plugins I like
 " in ALE (proselint, etc.)
 let g:ale_linters_explicit = 1
+let g:ale_fix_on_save = 1
 
 let g:ale_linters = {
       \ 'tex' : ['proselint', 'lacheck', 'chktex'],
       \ 'markdown' : ['proselint'],
-      \ 'rst': ['proselint']
+      \ 'rst': ['proselint'],
       \ }
 
 let g:ale_fixers = {
       \ 'javascript': ['eslint'],
-      \ 'haskell': ['hindent', 'stylish-haskell'],
+      \ 'cpp': ['clangformat','clangtidy'],
       \ }
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+command Format  ALEFix
+
 " }}
 
 " -- ctags settings

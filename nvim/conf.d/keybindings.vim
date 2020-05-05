@@ -22,6 +22,11 @@ inoremap <Down> <C-o>gj
 inoremap <Up>   <C-o>gk
 " }}}
 
+" -- NERDTree
+" {{{
+map <C-n> :NERDTreeToggle<CR>
+" }}}
+
 " -- EasyAlign {{{
 nmap ea <plug>(LiveEasyAlign)
 vmap ea <plug>(LiveEasyAlign)
@@ -89,38 +94,3 @@ endfunction
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " }}}
 
-" -- Fern
-" {{{
-function! s:init_fern() abort
-  nmap <buffer><expr>
-      \ <Plug>(fern-my-expand-or-collapse)
-      \ fern#smart#leaf(
-      \   "\<Plug>(fern-action-collapse)",
-      \   "\<Plug>(fern-action-expand)",
-      \   "\<Plug>(fern-action-collapse)",
-      \ )
-
-  nmap <buffer><nowait> <CR> <Plug>(fern-my-expand-or-collapse)
-
-  nmap <buffer> t <Plug>(fern-action-open:tabedit)
-  nmap <buffer> T <Plug>(fern-action-open:tabedit)gT
-  nmap <buffer> i <Plug>(fern-action-open:split)
-  nmap <buffer> gi <Plug>(fern-action-open:split)<C-w>p
-  nmap <buffer> s <Plug>(fern-action-open:vsplit)
-  nmap <buffer> gs <Plug>(fern-action-open:vsplit)<C-w>p
-  nmap <buffer> I <Plug>(fern-action-hide-toggle)
-
-  nmap <buffer> d <Plug>(fern-action-remove)
-
-  nmap <buffer> q :<C-u>quit<CR>
-endfunction
-
-
-augroup fern-custom-kb
-  autocmd! *
-  autocmd FileType fern call s:init_fern()
-augroup END
-
-nmap <silent><C-n> :Fern . -drawer -reveal=% -toggle -width=40<CR>
-
-" }}}

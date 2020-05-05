@@ -66,7 +66,6 @@ Plug 'rust-lang/rust.vim'
 let g:autofmt_autosave = 1
 " }}
 Plug 'pest-parser/pest.vim'
-Plug 'psf/black', { 'branch': 'stable' }
 
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
@@ -74,16 +73,11 @@ Plug 'stephpy/vim-yaml'
 Plug 'dag/vim-fish'
 
 " -- UI stuff
-
-Plug 'lambdalisue/fern.vim'
+Plug 'preservim/nerdtree'
 Plug 'itchyny/lightline.vim'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
-Plug 'lambdalisue/fern-renderer-devicons.vim'
-" {{
-let g:fern#renderer = "devicons"
-" }}
 
 call plug#end()
 filetype plugin on

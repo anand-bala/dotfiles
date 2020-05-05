@@ -12,7 +12,7 @@ end
 local function setup()
     local nvim_lsp = require 'nvim_lsp'
 
-    nvim_lsp.ccls.setup{on_attach = on_attach_callback}
+    nvim_lsp.clangd.setup{on_attach = on_attach_callback}
     nvim_lsp.pyls_ms.setup{on_attach = on_attach_callback}
     nvim_lsp.rust_analyzer.setup{on_attach = on_attach_callback}
     nvim_lsp.texlab.setup{on_attach = on_attach_callback}
