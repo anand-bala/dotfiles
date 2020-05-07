@@ -43,36 +43,47 @@ noremap  <C-t> :Tags<CR>
 nmap     <C-s> :Vista finder fzf:nvim_lsp<CR>
 
 
-augroup ft_search_kb
-    au!
-    autocmd FileType tex nmap <silent><buffer>  <C-s> :call vimtex#fzf#run('ctli', g:fzf_layout)<cr>
-augroup end
-
 " Search for Zotero references
 nnoremap  <silent><C-z> :call ZoteroCite()<CR>
 inoremap  <silent><C-z> <C-o>:call ZoteroCite()<CR>
 
 " }}}
 
-" -- nvim-lsp {{{
-augroup nvim_lsp_kb
-    autocmd BufRead,BufEnter *  :call <SID>nvim_lsp_keybindings()
+" -- nvim-lsp and ALE {{{
+augroup lsp_kb
+    au!
+    autocmd BufRead,BufEnter *  :call <SID>lsp_keybindings()
 augroup end
 
-function s:nvim_lsp_keybindings()
+function s:lsp_keybindings()
     nnoremap <silent> gc          <cmd>lua vim.lsp.buf.declaration()<CR>
     nnoremap <silent> gd          <cmd>lua vim.lsp.buf.definition()<CR>
-    nnoremap <silent> K           <cmd>lua vim.lsp.buf.hover()<CR>
-    nnoremap <silent> gi          <cmd>lua vim.lsp.buf.implementation()<CR>
     nnoremap <silent> gr          <cmd>lua vim.lsp.buf.references()<CR>
     nnoremap <silent> pd          <cmd>lua vim.lsp.buf.peek_definition()<CR>
     nnoremap <silent> g0          <cmd>lua vim.lsp.buf.document_symbol()<CR>
     nnoremap <silent> <leader>ld  <cmd>lua require'diagnostic.util'.show_line_diagnostics()<CR>
+
+    nmap <silent>   gi          <Plug>(nvim-lsp-implementation)
+    nmap <silent>   K           <Plug>(nvim-lsp-hover)
+    nmap <silent>   <leader>f   <Plug>(nvim-lsp-formatting)
 endfunction
 
-nnoremap <silent> <leader>d   :NextDiagnostic<CR>
-nnoremap <silent> <leader>pd  :PrevDiagnostic<CR>
-nnoremap <silent> <leader>od  :OpenDiagnostic<CR>
+nnoremap <silent> <leader>d   <cmd>NextDiagnostic<CR>
+nnoremap <silent> <leader>pd  <cmd>PrevDiagnostic<CR>
+nnoremap <silent> <leader>od  <cmd>OpenDiagnostic<CR>
+" }}}
+
+" -- VimTeX {{{
+augroup tex_kb
+    au!
+    autocmd FileType tex,latex  :call <SID>tex_keybindings()
+augroup end
+
+function s:tex_keybindings()
+    nmap <silent><buffer>   <leader>lv  <plug>(vimtex-view)
+    nmap <silent><buffer>   <C-s>       :call vimtex#fzf#run('ctli', g:fzf_layout)<cr>
+endfunction
+
 " }}}
 
 " -- Pop-Up Menu {{{

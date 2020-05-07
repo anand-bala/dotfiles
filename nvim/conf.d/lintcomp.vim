@@ -26,7 +26,7 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-command Format  ALEFix
+command! -nargs=0 Format ALEFix
 
 " }}
 
@@ -62,7 +62,18 @@ let g:vista_sidebar_width = 40
 " -- nvim-lsp completions-nvim diagnostics-nvim
 " {{{
 " Load default LSP configuration
-lua require("lsp-config").setup()
+" diagnostic-nvim
+let g:diagnostic_enable_virtual_text = 0
+let g:diagnostic_virtual_text_prefix = ' '
+let g:diagnostic_trimmed_virtual_text = 30
+let g:space_before_virtual_text = 5
+let g:diagnostic_insert_delay = 1
+
+" completion-nvim
+let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_max_items = 10
+let g:completion_enable_auto_paren = 1
+let g:completion_timer_cycle = 200
 
 let g:completion_trigger_character = ['.', '::']
 let g:completion_confirm_key = "\<TAB>"
@@ -83,20 +94,9 @@ let g:completion_chain_complete_list = {
             \   },
             \}
 
-command! LspShowLineDiagnostic lua require'diagnostic.util'.show_line_diagnostics()<CR>
+lua require("lsp-config").setup()
 
-" diagnostic-nvim
-let g:diagnostic_enable_virtual_text = 0
-let g:diagnostic_virtual_text_prefix = ' '
-let g:diagnostic_trimmed_virtual_text = 30
-let g:space_before_virtual_text = 5
-let g:diagnostic_insert_delay = 1
-
-" completion-nvim
-let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_max_items = 10
-let g:completion_enable_auto_paren = 1
-let g:completion_timer_cycle = 200
+command! LspShowLineDiagnostic lua require'diagnostic.util'.show_line_diagnostics()
 
 " }}}
 
