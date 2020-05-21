@@ -6,6 +6,7 @@ add_pip_as_python_depencency: true
 use_pip: true
 
 channels:
+  - pytorch
   - defaults
   - conda-forge
 
