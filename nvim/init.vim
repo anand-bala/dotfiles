@@ -3,6 +3,8 @@ if &shell =~# 'fish$'
   set shell=sh
 endif
 
+runtime conf.d/plugins.vim
+
 " -- Sanity settings {{{
 set secure
 set modelines=0 " Disable Modelines
@@ -17,13 +19,13 @@ set textwidth=0
 
 set formatoptions=cqrn
 
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 set noshiftround
 
-set conceallevel=2
+" set conceallevel=2
 set foldnestmax=10
 set nofoldenable
 set foldlevel=2
@@ -62,7 +64,6 @@ set splitbelow
 set splitright
 " }}}
 
-runtime conf.d/plugins.vim
 
 augroup ft_mappings
   au!

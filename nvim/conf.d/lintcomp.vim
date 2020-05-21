@@ -12,15 +12,19 @@ let g:ale_linters_explicit = 1
 let g:ale_fix_on_save = 1
 
 let g:ale_linters = {
-      \ 'tex' : ['proselint', 'lacheck', 'chktex'],
       \ 'markdown' : ['proselint'],
       \ 'rst': ['proselint'],
+      \ 'cmake': ['cmakelint'],
       \ }
 
 let g:ale_fixers = {
       \ 'javascript': ['eslint'],
-      \ 'cpp': ['clangformat','clangtidy'],
+      \ 'cpp': ['clang-format'],
+      \ 'python': ['black', 'isort'],
+      \ 'cmake': ['cmakeformat'],
       \ }
+let g:ale_cmake_cmakeformat_executable = 'cmake-format'
+let g:ale_cmake_cmakelint_executable = 'cmake-lint'
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -70,33 +74,43 @@ let g:space_before_virtual_text = 5
 let g:diagnostic_insert_delay = 1
 
 " completion-nvim
-let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_enable_snippet = ''
 let g:completion_max_items = 10
 let g:completion_enable_auto_paren = 1
-let g:completion_timer_cycle = 200
 
 let g:completion_trigger_character = ['.', '::']
 let g:completion_confirm_key = "\<TAB>"
+
+let g:completion_auto_change_source = 1
 let g:completion_chain_complete_list = {
-            \ 'default' : {
-            \   'default': [
-            \       {'complete_items': ['lsp', 'snippet']},
-            \       {'mode': '<c-p>'},
-            \       {'mode': '<c-n>'}],
-            \   'comment': [],
-            \   'string' : [
-            \       {'complete_items': ['path']}]
-            \   },
-            \ 'markdown' : {
-            \   'default': [
-            \       {'mode': 'spell'}],
-            \   'comment': [],
-            \   },
-            \}
+      \ 'default' : {
+      \   'default': [
+      \       {'complete_items': ['lsp', 'snippet']},
+      \       {'mode': '<c-p>'},
+      \       {'mode': '<c-n>'}],
+      \   'comment': [],
+      \   'string' : [
+      \       {'complete_items': ['path']}]
+      \   },
+      \ 'markdown' : {
+      \   'default': [
+      \       {'mode': 'spell'}],
+      \   'comment': [],
+      \   },
+      \ 'python' : [
+      \   { 'complete_items' : ['lsp', 'ts', 'snippet']}
+      \ ],
+      \}
 
-lua require("lsp-config").setup()
+augroup nvim_lsp_aucmd
+  " this one is which you're most likely to use?
+  autocmd BufEnter * lua require'completion'.on_attach()
+  autocmd BufEnter * lua require'lsp-config'.setup()
+augroup end
+" lua require'completion'.on_attach()
+" lua require("lsp-config").setup()
 
-command! LspShowLineDiagnostic lua require'diagnostic.util'.show_line_diagnostics()
+command! LspShowLineDiagnostic lua vim.lsp.util.show_line_diagnostics()
 
 " }}}
 

@@ -9,6 +9,10 @@ call plug#begin(pluginpath)
 
 " -- Sanity stuff
 Plug 'ciaranm/securemodelines'
+Plug 'editorconfig/editorconfig-vim'
+" {{
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+" }}
 
 " -- Everyday tools
 Plug 'tpope/vim-fugitive'
@@ -46,7 +50,7 @@ Plug 'honza/vim-snippets'
 Plug 'dense-analysis/ale'
 Plug 'neovim/nvim-lsp'
 Plug 'haorenW1025/completion-nvim'
-Plug 'vigoux/completion-treesitter'
+Plug 'nvim-treesitter/completion-treesitter'
 Plug 'haorenW1025/diagnostic-nvim'
 " }}}
 
@@ -65,7 +69,6 @@ Plug 'rust-lang/rust.vim'
 " {{
 let g:autofmt_autosave = 1
 " }}
-Plug 'pest-parser/pest.vim'
 
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'

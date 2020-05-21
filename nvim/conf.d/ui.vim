@@ -79,8 +79,9 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " -- LSP
 " {{{
-let g:LspDiagnosticsErrorSign = ' '
-let g:LspDiagnosticsWarningSign = '⚡'
-let g:LspDiagnosticsInformationSign = '✦ '
-let g:LspDiagnosticsHintSign = ' '
+call sign_define("LspDiagnosticsErrorSign", {"text" : " ", "texthl" : "LspDiagnosticsError"})
+call sign_define("LspDiagnosticsWarningSign", {"text" : "⚡", "texthl" : "LspDiagnosticsWarning"})
+call sign_define("LspDiagnosticInformationSign", {"text" : "✦ ", "texthl" : "LspDiagnosticsInformation"})
+call sign_define("LspDiagnosticHintSign", {"text" : " ", "texthl" : "LspDiagnosticsHint"})
+
 " }}}
