@@ -17,6 +17,8 @@ if type -q nvim
 else
   set -gx EDITOR vim
 end
+alias e="$EDITOR"
+
 
 # I keep my fish plugins in ~/.fishpkg and add them to my fishfile.
 

@@ -7,10 +7,6 @@ oh-my-fish/plugin-rustup
 ~/.fishpkg/plugin-cuda-paths
 ~/.fishpkg/plugin-miniconda-conf
 ~/.fishpkg/plugin-poetry-path
-~/.fishpkg/plugin-haskell-path
 ~/.fishpkg/plugin-ruby-gems-path
 reitzig/sdkman-for-fish
-~/.fishpkg/plugin-jrnl
 ~/.fishpkg/plugin-tmux-session-helpers
-~/.fishpkg/plugin-opam-bin-paths
-~/.fishpkg/plugin-mujoco-paths
