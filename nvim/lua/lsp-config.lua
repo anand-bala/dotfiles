@@ -9,6 +9,7 @@ local conf = {}
 -- Configure LSP client when it attaches to buffer
 function conf.on_attach(client, bufnr)
     require'diagnostic'.on_attach()
+    require'completion'.on_attach()
     api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     api.nvim_buf_set_var(bufnr, 'nvim_lsp_buf_active', 1)
 
