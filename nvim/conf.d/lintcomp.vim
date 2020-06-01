@@ -102,13 +102,7 @@ let g:completion_auto_change_source = 1
       " \ ],
       " \}
 
-augroup nvim_lsp_aucmd
-  " this one is which you're most likely to use?
-  " autocmd BufEnter * lua require'completion'.on_attach()
-  autocmd BufEnter * lua require'lsp-config'.setup()
-augroup end
-" lua require'completion'.on_attach()
-" lua require("lsp-config").setup()
+lua require("lsp-config").setup()
 
 command! LspShowLineDiagnostic lua vim.lsp.util.show_line_diagnostics()
 
