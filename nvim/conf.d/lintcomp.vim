@@ -50,7 +50,7 @@ let g:gutentags_file_list_command = {
 
 " -- UltiSnips
 " {{
-let g:UltiSnipsExpandTrigger = '<c-y>'
+let g:UltiSnipsExpandTrigger = '<C-CR>'
 let g:UltiSnipsJumpForwardTrigger = '<c-n>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
 let g:UltiSnipsRemoveSelectModeMappings = 0
@@ -74,37 +74,37 @@ let g:space_before_virtual_text = 5
 let g:diagnostic_insert_delay = 1
 
 " completion-nvim
-let g:completion_enable_snippet = ''
+let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_max_items = 10
 let g:completion_enable_auto_paren = 1
 
 let g:completion_trigger_character = ['.', '::']
-let g:completion_confirm_key = "\<TAB>"
+" let g:completion_confirm_key = "\<TAB>"
 
 let g:completion_auto_change_source = 1
-let g:completion_chain_complete_list = {
-      \ 'default' : {
-      \   'default': [
-      \       {'complete_items': ['lsp', 'snippet']},
-      \       {'mode': '<c-p>'},
-      \       {'mode': '<c-n>'}],
-      \   'comment': [],
-      \   'string' : [
-      \       {'complete_items': ['path']}]
-      \   },
-      \ 'markdown' : {
-      \   'default': [
-      \       {'mode': 'spell'}],
-      \   'comment': [],
-      \   },
-      \ 'python' : [
-      \   { 'complete_items' : ['lsp', 'ts', 'snippet']}
-      \ ],
-      \}
+" let g:completion_chain_complete_list = {
+      " \ 'default' : {
+      " \   'default': [
+      " \       {'complete_items': ['lsp', 'snippet']},
+      " \       {'mode': '<c-p>'},
+      " \       {'mode': '<c-n>'}],
+      " \   'comment': [],
+      " \   'string' : [
+      " \       {'complete_items': ['path']}]
+      " \   },
+      " \ 'markdown' : {
+      " \   'default': [
+      " \       {'mode': 'spell'}],
+      " \   'comment': [],
+      " \   },
+      " \ 'python' : [
+      " \   { 'complete_items' : ['lsp', 'ts', 'snippet']}
+      " \ ],
+      " \}
 
 augroup nvim_lsp_aucmd
   " this one is which you're most likely to use?
-  autocmd BufEnter * lua require'completion'.on_attach()
+  " autocmd BufEnter * lua require'completion'.on_attach()
   autocmd BufEnter * lua require'lsp-config'.setup()
 augroup end
 " lua require'completion'.on_attach()

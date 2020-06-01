@@ -10,13 +10,14 @@ set cpo&vim
 
 if executable("textidote")
   let s:textidote_cmd = 'textidote'
-elseif exists('g:vimtex_textidote_jar')
-      \ && filereadable(fnamemodify(g:vimtex_textidote_jar, ':p'))
+elseif exists('g:tex_textidote_jar')
+      \ && filereadable(fnamemodify(g:tex_textidote_jar, ':p'))
   let s:textidote_cmd = 'java -jar '
-        \ . shellescape(fnamemodify(g:vimtex_textidote_jar, ':p'))
+        \ . shellescape(fnamemodify(g:tex_textidote_jar, ':p'))
 else
   echoerr 'To use the textidote compiler, '
-        \ . 'please set g:vimtex_textidote_jar to the path of textidote.jar!'
+        \ . 'please set g:tex_textidote_jar to the path of textidote.jar!'
+        \ . 'Or install textidote globally.'
   finish
 endif
 

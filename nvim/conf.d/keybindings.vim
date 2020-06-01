@@ -77,7 +77,7 @@ nnoremap <silent> <leader>pd  <cmd>PrevDiagnostic<CR>
 nnoremap <silent> <leader>od  <cmd>OpenDiagnostic<CR>
 " }}}
 
-" -- VimTeX {{{
+" -- TeX {{{
 augroup tex_kb
     au!
     autocmd FileType tex,latex  :call <SID>tex_keybindings()
@@ -85,7 +85,7 @@ augroup end
 
 function s:tex_keybindings()
     nmap <silent><buffer>   <leader>lv  <cmd>lua TexlabForwardSearch()<CR>
-    nmap <silent><buffer>   <C-s>       :call vimtex#fzf#run('ctli', g:fzf_layout)<cr>
+    " nmap <silent><buffer>   <C-s>       :call vimtex#fzf#run('ctli', g:fzf_layout)<cr>
 endfunction
 
 " }}}

@@ -59,7 +59,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'liuchengxu/vista.vim'
 
 " -- Language specific
-Plug 'lervag/vimtex'
+" Plug 'lervag/vimtex'
 
 Plug 'plasticboy/vim-markdown'
 Plug 'mzlogin/vim-markdown-toc'
