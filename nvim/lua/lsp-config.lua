@@ -40,7 +40,7 @@ local function setup_lsp(client, config)
 end
 
 local function setup()
-    setup_lsp(nvim_lsp.ccls, {})
+    -- setup_lsp(nvim_lsp.ccls, {})
     setup_lsp(nvim_lsp.clangd, {})
     setup_lsp(nvim_lsp.pyls_ms, {})
     setup_lsp(nvim_lsp.rust_analyzer, {})

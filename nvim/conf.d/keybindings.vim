@@ -37,6 +37,18 @@ vmap .  <plug>(EasyAlignRepeat)
 " }}}
 
 " -- Searching stuff {{
+
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:70%'), <bang>0)
+
+command! -bang -nargs=? -complete=dir GFiles
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:70%'), <bang>0)
+
+command! -bang -nargs=* Rg
+\ call fzf#vim#grep(
+\   'rg --max-columns=80 --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 2,
+\   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%'),  <bang>0)
+
 nnoremap <C-f> :Files<Cr>
 nnoremap <C-g> :Rg<Cr>
 vnoremap <C-g> y:Rg <C-R>"<CR>

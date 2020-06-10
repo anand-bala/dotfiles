@@ -2,6 +2,9 @@
 " Author: Anand Balakrishnan
 " Description: Configuration for Linter and Autocomplete
 
+
+
+
 " -- ALE config
 " {{
 let g:ale_set_signs = 1
@@ -50,10 +53,10 @@ let g:gutentags_file_list_command = {
 
 " -- UltiSnips
 " {{
-let g:UltiSnipsExpandTrigger = '<C-CR>'
-let g:UltiSnipsJumpForwardTrigger = '<c-n>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
-let g:UltiSnipsRemoveSelectModeMappings = 0
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger="jl"
+let g:UltiSnipsJumpForwardTrigger="jl"
+let g:UltiSnipsJumpBackwardTrigger="jh"
 " }}
 
 " -- Vista
@@ -76,9 +79,13 @@ let g:diagnostic_insert_delay = 1
 " completion-nvim
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_max_items = 10
-let g:completion_enable_auto_paren = 1
+let g:completion_enable_auto_paren = 0
 
-let g:completion_trigger_character = ['.', '::']
+augroup CompletionTriggerCharacter
+  autocmd!
+  autocmd BufEnter * let g:completion_trigger_character = ['.']
+  autocmd FileType rust,cpp let g:completion_trigger_character = ['.', '::']
+augroup end
 " let g:completion_confirm_key = "\<TAB>"
 
 let g:completion_auto_change_source = 1
