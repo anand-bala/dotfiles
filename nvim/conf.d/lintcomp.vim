@@ -18,6 +18,7 @@ let g:ale_linters = {
       \ 'markdown' : ['proselint'],
       \ 'rst': ['proselint'],
       \ 'cmake': ['cmakelint'],
+      \ 'python': ['mypy'],
       \ }
 
 let g:ale_fixers = {
