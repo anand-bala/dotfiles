@@ -59,6 +59,9 @@ end
 set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
 
 if command -sq -- flatpak
+  contains -- $HOME/.local/share $XDG_DATA_DIRS
+    or set -gx --path XDG_DATA_DIRS $HOME/.local/share $XDG_DATA_DIRS
+
   contains -- $HOME/.local/share/flatpak/exports/share $XDG_DATA_DIRS
     or set -gx --path XDG_DATA_DIRS $XDG_DATA_DIRS $HOME/.local/share/flatpak/exports/share
 
@@ -66,4 +69,10 @@ if command -sq -- flatpak
     or set -gx --path XDG_DATA_DIRS $XDG_DATA_DIRS /var/lib/flatpak/exports/share
 end
 
+if command -sq -- clang
+  alias cc="clang"
+end
+if command -sq -- clang++
+  alias c++="clang++"
+end
 

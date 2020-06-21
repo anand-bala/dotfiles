@@ -22,7 +22,6 @@ let g:lightline = {
             \ 'active': {
             \   'left':   [[ 'mode', 'paste' ],
             \              [ 'gitbranch', 'readonly', 'filename', 'modified' ],
-            \              [ 'nvimlsp' ],
             \              ],
             \   'right':  [[ 'lineinfo' ],
             \              [ 'fileformat', 'fileencoding', 'filetype' ],
@@ -32,7 +31,6 @@ let g:lightline = {
             \   'gitbranch': 'MyGitBranch',
             \   'filetype': 'MyFiletype',
             \   'fileformat': 'MyFileformat',
-            \   'nvimlsp' : 'LspStatus',
             \ },
             \ }
 

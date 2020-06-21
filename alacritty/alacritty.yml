@@ -1,9 +1,9 @@
 font:
   normal:
-    family: "FiraMono Nerd Font"
+    family: "Delugia Nerd Font"
     style: "Regular"
   bold:
-    family: "FiraMono Nerd Font"
+    family: "Delugia Nerd Font"
     style: "Bold"
   size: 11.0
 draw_bold_text_with_bright_colors: false
