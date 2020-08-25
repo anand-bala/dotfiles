@@ -9,17 +9,7 @@ channels:
   - pytorch
   - defaults
   - conda-forge
-
-channel_priority: true
+channel_priority: flexible
 
 create_default_packages:
   - ipython
-  - jedi
-  - black
-  - rope
-  - flake8
-  - mypy
-  - mccabe
-  - pycodestyle
-  - pydocstyle
-  - autopep8
