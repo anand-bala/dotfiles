@@ -31,6 +31,7 @@ let g:lightline = {
             \   'gitbranch': 'MyGitBranch',
             \   'filetype': 'MyFiletype',
             \   'fileformat': 'MyFileformat',
+            \   'filename' : 'MyFilename',
             \ },
             \ }
 
@@ -38,22 +39,16 @@ function! MyGitBranch()
     return FugitiveHead() . ' '
 endfunction
 
+function! MyFileformat()
+  return winwidth(0) > 50 ? &fileformat : ''
+endfunction
+
 function! MyFiletype()
     return winwidth(0) > 50 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
-function! MyFileformat()
-    return winwidth(0) > 50 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
-
-function! LspStatus() abort
-    if luaeval('vim.lsp.buf.server_ready()')
-        let err_str = 'E:' . luaeval("vim.lsp.util.buf_diagnostics_count(\"Error\")")
-        let warn_str = 'W:' . luaeval("vim.lsp.util.buf_diagnostics_count(\"Warning\")")
-        return err_str . ' ' . warn_str
-    else
-        return ''
-    endif
+function! MyFilename()
+    return expand('%')
 endfunction
 
 " }}}

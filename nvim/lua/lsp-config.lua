@@ -46,6 +46,7 @@ local function setup()
     setup_lsp(nvim_lsp.rust_analyzer, {})
     setup_lsp(nvim_lsp.sumneko_lua, {})
     setup_lsp(nvim_lsp.vimls, {})
+    setup_lsp(nvim_lsp.cssls, {})
 
     setup_lsp(nvim_lsp.texlab, require'lsp-texlab'.config())
 end

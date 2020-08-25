@@ -49,10 +49,8 @@ Plug 'honza/vim-snippets'
 
 Plug 'dense-analysis/ale'
 Plug 'neovim/nvim-lsp'
-Plug 'haorenW1025/completion-nvim'
-" Plug 'nvim-treesitter/nvim-treesitter'
-" Plug 'nvim-treesitter/completion-treesitter'
-Plug 'haorenW1025/diagnostic-nvim'
+Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/diagnostic-nvim'
 " }}}
 
 " ctags

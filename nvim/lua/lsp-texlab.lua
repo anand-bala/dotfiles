@@ -31,23 +31,25 @@ end
 
 function TexlabForwardSearch()
   local bufnr = vim.api.nvim_get_current_buf()
+  local uri = vim.uri_from_bufnr(bufnr);
+  local line = vim.fn.line(".");
+  local col = vim.fn.col(".");
   local params = {
-    textDocument = { uri = vim.uri_from_bufnr(bufnr) };
+    textDocument = { uri = uri };
     position = {
-      line = vim.fn.line(".");
-      character = vim.fn.col(".");
+      line = line;
+      character = col;
     };
   }
   lsp.buf_request(bufnr, 'textDocument/forwardSearch', params,
       function(err, _, result, _)
         if err then error(tostring(err)) end
-        print("Search for " .. bufnr .. ":"  .. texlab_build_status[result.status])
+        print("Search for " .. uri .. ":" .. line .. ":" .. col .. " -- " .. texlab_build_status[result.status])
       end)
 end
 
 function M.config()
   local lfs = require 'lfs'
-  local util = require 'nvim_lsp/util'
 
   return {
     root_dir=function(fname)

@@ -20,6 +20,9 @@ let g:ale_linters = {
 
 let g:ale_fixers = {
       \ 'javascript': ['eslint'],
+      \ 'css': ['prettier'],
+      \ 'scss': ['prettier'],
+      \ 'html': ['prettier'],
       \ 'cpp': ['clang-format'],
       \ 'python': ['black', 'isort'],
       \ 'cmake': ['cmakeformat'],
@@ -87,25 +90,6 @@ augroup end
 " let g:completion_confirm_key = "\<TAB>"
 
 let g:completion_auto_change_source = 1
-" let g:completion_chain_complete_list = {
-      " \ 'default' : {
-      " \   'default': [
-      " \       {'complete_items': ['lsp', 'snippet']},
-      " \       {'mode': '<c-p>'},
-      " \       {'mode': '<c-n>'}],
-      " \   'comment': [],
-      " \   'string' : [
-      " \       {'complete_items': ['path']}]
-      " \   },
-      " \ 'markdown' : {
-      " \   'default': [
-      " \       {'mode': 'spell'}],
-      " \   'comment': [],
-      " \   },
-      " \ 'python' : [
-      " \   { 'complete_items' : ['lsp', 'ts', 'snippet']}
-      " \ ],
-      " \}
 
 lua require("lsp-config").setup()
 
