@@ -1,4 +1,3 @@
-jethrokuan/fzf
 jorgebucaran/fish-bax
 iamruinous/plugin-home-binpath
 iamruinous/plugin-yarn-binpath
@@ -8,5 +7,5 @@ oh-my-fish/plugin-rustup
 ~/.fishpkg/plugin-miniconda-conf
 ~/.fishpkg/plugin-poetry-path
 ~/.fishpkg/plugin-ruby-gems-path
-reitzig/sdkman-for-fish
 ~/.fishpkg/plugin-tmux-session-helpers
+~/.fishpkg/plugin-fzf-helpers

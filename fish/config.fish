@@ -24,16 +24,6 @@ alias e="$EDITOR"
 
 # --- FZF config
 if test -e $HOME/.fzf/bin/fzf
-  set -gx   FZF_LEGACY_KEYBINDINGS 0
-
-  set -gx   FZF_FIND_FILE_COMMAND       "fd -L -t f . \$dir"
-  set -gx   FZF_CD_COMMAND              "fd -L -t d . \$dir"
-  set -gx   FZF_CD_WITH_HIDDEN_COMMAND  "fd -H -L -t d . \$dir"
-
-  set -gx   FZF_DEFAULT_COMMAND         "fd -L -t f ."
-  set -gx   FZF_CTRL_T_COMMAND          "$FZF_DEFAULT_COMMAND"
-  set -gx   FZF_ALT_C_COMMAND           "fd -L -t d ."
-
   contains -- $HOME/.fzf/bin $PATH
   or set -gx   PATH  $HOME/.fzf/bin $PATH
 end
@@ -68,11 +58,3 @@ if command -sq -- flatpak
   contains -- /var/lib/flatpak/exports/share $XDG_DATA_DIRS
     or set -gx --path XDG_DATA_DIRS $XDG_DATA_DIRS /var/lib/flatpak/exports/share
 end
-
-if command -sq -- clang
-  alias cc="clang"
-end
-if command -sq -- clang++
-  alias c++="clang++"
-end
-
