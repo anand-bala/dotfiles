@@ -22,6 +22,7 @@ let g:lightline = {
             \ 'active': {
             \   'left':   [[ 'mode', 'paste' ],
             \              [ 'gitbranch', 'readonly', 'filename', 'modified' ],
+            \              [ 'lspstatus' ],
             \              ],
             \   'right':  [[ 'lineinfo' ],
             \              [ 'fileformat', 'fileencoding', 'filetype' ],
@@ -32,6 +33,7 @@ let g:lightline = {
             \   'filetype': 'MyFiletype',
             \   'fileformat': 'MyFileformat',
             \   'filename' : 'MyFilename',
+            \   'lspstatus' : 'LspStatus',
             \ },
             \ }
 
@@ -49,6 +51,14 @@ endfunction
 
 function! MyFilename()
     return expand('%')
+endfunction
+
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+
+  return ''
 endfunction
 
 " }}}

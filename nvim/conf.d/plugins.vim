@@ -51,6 +51,7 @@ Plug 'dense-analysis/ale'
 Plug 'neovim/nvim-lsp'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
+Plug 'nvim-lua/lsp-status.nvim'
 " }}}
 
 " ctags
@@ -67,6 +68,12 @@ Plug 'ziglang/zig.vim'
 Plug 'rust-lang/rust.vim'
 " {{
 let g:autofmt_autosave = 1
+" }}
+
+Plug 'JuliaEditorSupport/julia-vim'
+" {{
+let g:latex_to_unicode_tab = 0
+let g:latex_to_unicode_suggestions = 0
 " }}
 
 Plug 'cespare/vim-toml'

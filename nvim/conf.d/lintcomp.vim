@@ -71,23 +71,22 @@ let g:vista_sidebar_width = 40
 " {{{
 " Load default LSP configuration
 " diagnostic-nvim
+
+let g:diagnostic_auto_popup_while_jump = 0
 let g:diagnostic_enable_virtual_text = 0
-let g:diagnostic_virtual_text_prefix = ' '
-let g:diagnostic_trimmed_virtual_text = 30
-let g:space_before_virtual_text = 5
-let g:diagnostic_insert_delay = 1
+let g:diagnostic_enable_underline = 0
 
 " completion-nvim
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_max_items = 10
 let g:completion_enable_auto_paren = 0
+let g:completion_timer_cycle = 200 "default value is 80
 
 augroup CompletionTriggerCharacter
   autocmd!
   autocmd BufEnter * let g:completion_trigger_character = ['.']
   autocmd FileType rust,cpp let g:completion_trigger_character = ['.', '::']
 augroup end
-" let g:completion_confirm_key = "\<TAB>"
 
 let g:completion_auto_change_source = 1
 
