@@ -15,27 +15,18 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " }}
 
 " -- Everyday tools
+Plug 'andymass/vim-matchup'
+Plug 'tpope/vim-commentary'
+
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 
 Plug 'tpope/vim-abolish'
-Plug 'arthurxavierx/vim-caser'
 
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 " {{
 let g:easy_align_bypass_fold = 1
-" }}
-
-Plug 'andymass/vim-matchup'
-
-Plug 'preservim/nerdcommenter'
-" {{
-let g:NERDSpaceDelims = 1
-
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
 " }}
 
 " Fuzzy search
@@ -59,7 +50,6 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'liuchengxu/vista.vim'
 
 " -- Language specific
-" Plug 'lervag/vimtex'
 
 Plug 'plasticboy/vim-markdown'
 Plug 'mzlogin/vim-markdown-toc'

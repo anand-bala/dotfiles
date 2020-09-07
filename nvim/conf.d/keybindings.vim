@@ -22,6 +22,12 @@ inoremap <Down> <C-o>gj
 inoremap <Up>   <C-o>gk
 " }}}
 
+" -- Commenting
+" {{{
+noremap <leader>c<SPACE> <Cmd>Commentary<CR>
+noremap <C-_> <Cmd>Commentary<CR>
+" }}}
+
 
 " -- NERDTree
 " {{{
@@ -71,23 +77,17 @@ augroup lsp_kb
 augroup end
 
 function s:lsp_keybindings()
-  nnoremap <silent> gc          <cmd>lua vim.lsp.buf.declaration()<CR>
   nnoremap <silent> gd          <cmd>lua vim.lsp.buf.definition()<CR>
   " nnoremap <silent> gr          <cmd>lua vim.lsp.buf.references()<CR>
   nnoremap <silent> pd          <cmd>lua vim.lsp.buf.peek_definition()<CR>
   nnoremap <silent> g0          <cmd>lua vim.lsp.buf.document_symbol()<CR>
   nnoremap <silent> <leader>ld  <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
 
-  nmap <silent>   gi          <Plug>(nvim-lsp-implementation)
-  nmap <silent>   K           <Plug>(nvim-lsp-hover)
-  nmap <silent>   <leader>f   <Plug>(nvim-lsp-formatting)
-
-  nmap <silent>   <leader>r   <cmd>call completion_treesitter#smart_rename()<CR>
+  nnoremap <silent>   K           <Plug>(nvim-lsp-hover)
+  nnoremap <silent> <leader>d   <cmd>NextDiagnostic<CR>
+  nnoremap <silent> <leader>pd  <cmd>PrevDiagnostic<CR>
+  nnoremap <silent> <leader>od  <cmd>OpenDiagnostic<CR>
 endfunction
-
-nnoremap <silent> <leader>d   <cmd>NextDiagnostic<CR>
-nnoremap <silent> <leader>pd  <cmd>PrevDiagnostic<CR>
-nnoremap <silent> <leader>od  <cmd>OpenDiagnostic<CR>
 " }}}
 
 " -- TeX {{{
