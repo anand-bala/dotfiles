@@ -4,17 +4,12 @@ local cmd = vim.api.nvim_command
 local tbl_extend = vim.tbl_extend
 local buf_map = vim.api.nvim_buf_set_keymap
 
-local lsp_status = require('lsp-status')
-
-lsp_status.register_progress()
-
 local conf = {}
 
 -- Configure LSP client when it attaches to buffer
 function conf.on_attach(client, bufnr)
     require'diagnostic'.on_attach()
     require'completion'.on_attach()
-    lsp_status.on_attach(client)
 
     api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     api.nvim_buf_set_var(bufnr, 'nvim_lsp_buf_active', 1)
@@ -42,23 +37,24 @@ end
 
 local function setup_lsp(client, config)
     local lsp_config = tbl_extend("keep", config, conf)
-    lsp_config.capabilities = tbl_extend('keep', lsp_config.capabilities or {}, lsp_status.capabilities)
     client.setup(lsp_config)
 end
 
 local function setup()
-    -- setup_lsp(nvim_lsp.ccls, {})
     setup_lsp(nvim_lsp.clangd, {
-      callbacks = lsp_status.extensions.clangd.setup(),
       init_options = {
         clangdFileStatus = true
       }
     })
     setup_lsp(nvim_lsp.pyls_ms, {
-      callbacks = lsp_status.extensions.pyls_ms.setup(),
       settings = { python = { workspaceSymbols = { enabled = true }}},
     })
-    setup_lsp(nvim_lsp.julials, {})
+    setup_lsp(nvim_lsp.julials, {
+      filetypes = { "julia" };
+      root_dir = function(fname)
+        return nvim_lsp.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+      end;
+    })
 
     setup_lsp(nvim_lsp.texlab, require'lsp-texlab'.config())
 

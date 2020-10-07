@@ -55,9 +55,9 @@ let g:gutentags_file_list_command = {
 " -- UltiSnips
 " {{
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsExpandTrigger="jl"
-let g:UltiSnipsJumpForwardTrigger="jl"
-let g:UltiSnipsJumpBackwardTrigger="jh"
+" let g:UltiSnipsExpandTrigger="jl"
+" let g:UltiSnipsJumpForwardTrigger="\<TAB>"
+" let g:UltiSnipsJumpBackwardTrigger="\<TAB>"
 " }}
 
 " -- Vista

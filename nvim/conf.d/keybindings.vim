@@ -10,10 +10,6 @@ vnoremap < <gv
 vnoremap > >gv|
 
 " go up/down onw visual line
-nnoremap j      gj
-nnoremap k      gk
-vnoremap j      gj
-vnoremap k      gk
 nnoremap <Down> gj
 nnoremap <Up>   gk
 vnoremap <Down> gj
@@ -24,8 +20,10 @@ inoremap <Up>   <C-o>gk
 
 " -- Commenting
 " {{{
-noremap <leader>c<SPACE> <Cmd>Commentary<CR>
-noremap <C-_> <Cmd>Commentary<CR>
+nnoremap <leader>c<SPACE> <Cmd>Commentary<CR>
+vnoremap <leader>c<SPACE> <Cmd>'<,'>Commentary<CR>
+nnoremap <C-_> <Cmd>Commentary<CR>
+vnoremap <C-_> <Cmd>'<,'>Commentary<CR>
 " }}}
 
 
@@ -62,6 +60,7 @@ nnoremap <C-t> :Tags<CR>
 nnoremap <C-p> :Buffers<CR>
 nmap     <C-s> :Vista finder fzf:nvim_lsp<CR>
 
+command! -bang -nargs=0 IMaps call fzf#vim#maps('i', 0)
 
 " Search for Zotero references
 nnoremap  <silent><C-z> :call ZoteroCite()<CR>
@@ -70,17 +69,17 @@ inoremap  <silent><C-z> <C-o>:call ZoteroCite()<CR>
 " }}}
 
 " -- nvim-lsp and ALE {{{
-let g:completion_confirm_key = "\<C-y>"
+" let g:completion_confirm_key = "\<C-y>"
 augroup lsp_kb
   au!
   autocmd BufRead,BufEnter *  :call <SID>lsp_keybindings()
 augroup end
 
 function s:lsp_keybindings()
-  nnoremap <silent> gd          <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> <leader>gd          <cmd>lua vim.lsp.buf.definition()<CR>
   " nnoremap <silent> gr          <cmd>lua vim.lsp.buf.references()<CR>
-  nnoremap <silent> pd          <cmd>lua vim.lsp.buf.peek_definition()<CR>
-  nnoremap <silent> g0          <cmd>lua vim.lsp.buf.document_symbol()<CR>
+  " nnoremap <silent> pd          <cmd>lua vim.lsp.buf.peek_definition()<CR>
+  " nnoremap <silent> g0          <cmd>lua vim.lsp.buf.document_symbol()<CR>
   nnoremap <silent> <leader>ld  <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
 
   nnoremap <silent>   K           <Plug>(nvim-lsp-hover)
@@ -102,6 +101,20 @@ function s:tex_keybindings()
 endfunction
 
 " }}}
+
+" -- Julia {{{
+augroup julia_kb
+  au!
+  autocmd FileType julia  :call <SID>julia_keybindings()
+augroup end
+
+function s:julia_keybindings()
+  nnoremap <leader>f <cmd>call JuliaFormatter#Format(0)<CR>
+  vnoremap <leader>f <cmd>call JuliaFormatter#Format(1)<CR>
+endfunction
+
+" }}}
+
 
 " -- Pop-Up Menu {{{
 
@@ -144,3 +157,5 @@ function! s:help_keybindings()
 endfunction
 
 " }}}
+
+" -- 

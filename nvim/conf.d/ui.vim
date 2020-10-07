@@ -22,7 +22,6 @@ let g:lightline = {
       \ 'active': {
       \   'left':   [[ 'mode', 'paste' ],
       \              [ 'gitbranch', 'readonly', 'filename', 'modified' ],
-      \              [ 'lspstatus' ],
       \              ],
       \   'right':  [[ 'lineinfo' ],
       \              [ 'fileformat', 'fileencoding', 'filetype' ],
@@ -33,7 +32,6 @@ let g:lightline = {
       \   'filetype': 'MyFiletype',
       \   'fileformat': 'MyFileformat',
       \   'filename' : 'MyFilename',
-      \   'lspstatus' : 'LspStatus',
       \ },
       \ }
 
@@ -42,23 +40,15 @@ function! MyGitBranch()
 endfunction
 
 function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
 function! MyFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
 function! MyFilename()
   return expand('%')
-endfunction
-
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")
-  endif
-
-  return ''
 endfunction
 
 " }}}

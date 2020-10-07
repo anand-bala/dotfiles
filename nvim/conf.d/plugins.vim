@@ -39,10 +39,9 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 Plug 'dense-analysis/ale'
-Plug 'neovim/nvim-lsp'
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
-Plug 'nvim-lua/lsp-status.nvim'
 " }}}
 
 " ctags
@@ -64,7 +63,9 @@ Plug 'JuliaEditorSupport/julia-vim'
 " {{
 let g:latex_to_unicode_tab = 0
 let g:latex_to_unicode_suggestions = 0
+let g:latex_to_unicode_auto = 1
 " }}
+Plug 'kdheepak/JuliaFormatter.vim'
 
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
