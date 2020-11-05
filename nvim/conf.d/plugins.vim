@@ -24,10 +24,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
 
 Plug 'tpope/vim-surround'
-Plug 'junegunn/vim-easy-align'
-" {{
-let g:easy_align_bypass_fold = 1
-" }}
+Plug 'godlygeek/tabular'
 
 " Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin --no-fish' }

@@ -15,7 +15,7 @@ set encoding=utf-8  " Encoding
 
 set wrap
 set linebreak
-set textwidth=88
+set textwidth=79
 
 set formatoptions=cqrn
 

@@ -46,8 +46,11 @@ local function setup()
         clangdFileStatus = true
       }
     })
-    setup_lsp(nvim_lsp.pyls_ms, {
-      settings = { python = { workspaceSymbols = { enabled = true }}},
+    setup_lsp(nvim_lsp.pyls, {
+      settings = {
+        python = { workspaceSymbols = { enabled = true }},
+        pyls = {configurationSources = { "flake8" }},
+      },
     })
     setup_lsp(nvim_lsp.julials, {
       filetypes = { "julia" };

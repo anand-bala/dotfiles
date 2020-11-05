@@ -32,12 +32,11 @@ vnoremap <C-_> <Cmd>'<,'>Commentary<CR>
 map <C-n> :NERDTreeToggle<CR>
 " }}}
 
-" -- EasyAlign {{{
-nmap ea <plug>(LiveEasyAlign)
-vmap ea <plug>(LiveEasyAlign)
-nmap eA <plug>(EasyAlign)
-vmap eA <plug>(EasyAlign)
-vmap .  <plug>(EasyAlignRepeat)
+" -- Tabular {{{
+nmap <leader>a= <Cmd>Tabularize /=<CR>
+vmap <leader>a= <Cmd>Tabularize /=<CR>
+nmap <leader>a: <Cmd>Tabularize /:\zs<CR>
+vmap <leader>a: <Cmd>Tabularize /:\zs<CR>
 " }}}
 
 " -- Searching stuff {{
