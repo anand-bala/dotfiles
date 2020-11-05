@@ -1,11 +1,10 @@
-jorgebucaran/fish-bax
 iamruinous/plugin-home-binpath
 iamruinous/plugin-yarn-binpath
 oh-my-fish/plugin-rustup
 ~/.fishpkg/plugin-starship-prompt
 ~/.fishpkg/plugin-cuda-paths
 ~/.fishpkg/plugin-miniconda-conf
-~/.fishpkg/plugin-poetry-path
 ~/.fishpkg/plugin-ruby-gems-path
 ~/.fishpkg/plugin-tmux-session-helpers
 ~/.fishpkg/plugin-fzf-helpers
+jorgebucaran/bax.fish
