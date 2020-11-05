@@ -15,15 +15,16 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " }}
 
 " -- Everyday tools
-Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-abolish'
 
+Plug 'andymass/vim-matchup'
+Plug 'tpope/vim-surround'
+
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 
-Plug 'tpope/vim-abolish'
-
-Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
 
 " Fuzzy search
@@ -70,7 +71,8 @@ Plug 'stephpy/vim-yaml'
 Plug 'dag/vim-fish'
 
 " -- UI stuff
-Plug 'preservim/nerdtree'
+Plug 'justinmk/vim-dirvish'
+Plug 'kristijanhusak/vim-dirvish-git'
 Plug 'itchyny/lightline.vim'
 
 Plug 'airblade/vim-gitgutter'

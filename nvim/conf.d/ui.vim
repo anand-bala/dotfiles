@@ -9,12 +9,6 @@ augroup VCenterCursor
         \ let &scrolloff=winheight(win_getid())/2
 augroup END
 
-" -- NERDTree
-" {{{
-augroup nerdtree_config
-  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-augroup end
-" }}}
 
 " -- Lightline status line {{{
 let g:lightline = {

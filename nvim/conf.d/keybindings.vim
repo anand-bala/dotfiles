@@ -18,18 +18,9 @@ inoremap <Down> <C-o>gj
 inoremap <Up>   <C-o>gk
 " }}}
 
-" -- Commenting
-" {{{
-nnoremap <leader>c<SPACE> <Cmd>Commentary<CR>
-vnoremap <leader>c<SPACE> <Cmd>'<,'>Commentary<CR>
-nnoremap <C-_> <Cmd>Commentary<CR>
-vnoremap <C-_> <Cmd>'<,'>Commentary<CR>
-" }}}
-
-
 " -- NERDTree
 " {{{
-map <C-n> :NERDTreeToggle<CR>
+map <C-n> :Dirvish<CR>
 " }}}
 
 " -- Tabular {{{
@@ -55,8 +46,6 @@ command! -bang -nargs=* Rg
 nnoremap <C-f> :Files<Cr>
 nnoremap <C-g> :Rg<Cr>
 vnoremap <C-g> y:Rg <C-R>"<CR>
-nnoremap <C-t> :Tags<CR>
-nnoremap <C-p> :Buffers<CR>
 nmap     <C-s> :Vista finder fzf:nvim_lsp<CR>
 
 command! -bang -nargs=0 IMaps call fzf#vim#maps('i', 0)
