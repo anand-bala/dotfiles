@@ -13,3 +13,6 @@ channel_priority: flexible
 
 create_default_packages:
   - ipython
+  - mypy
+  - isort
+
