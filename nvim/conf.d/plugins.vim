@@ -70,13 +70,21 @@ Plug 'stephpy/vim-yaml'
 
 Plug 'dag/vim-fish'
 
+" -- Writing stuff
+Plug 'junegunn/goyo.vim'
+
+
 " -- UI stuff
-Plug 'justinmk/vim-dirvish'
-Plug 'kristijanhusak/vim-dirvish-git'
+Plug 'ryanoasis/vim-devicons'
+Plug 'lambdalisue/nerdfont.vim'
+
 Plug 'itchyny/lightline.vim'
 
 Plug 'airblade/vim-gitgutter'
-Plug 'ryanoasis/vim-devicons'
+
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/fern-git-status.vim'
 
 call plug#end()
 filetype plugin on

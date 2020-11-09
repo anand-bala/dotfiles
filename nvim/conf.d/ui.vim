@@ -64,6 +64,15 @@ let g:matchup_matchparen_fallback = 0
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 " }}}
 
+" -- Fern
+" {{{
+let g:fern#renderer = "nerdfont"
+augroup fern_ui 
+  autocmd FileType fern setlocal nonumber norelativenumber statusline=%F
+augroup end
+
+" }}}
+
 " -- LSP
 " {{{
 call sign_define("LspDiagnosticsErrorSign", {"text" : " ", "texthl" : "LspDiagnosticsError"})

@@ -18,11 +18,6 @@ inoremap <Down> <C-o>gj
 inoremap <Up>   <C-o>gk
 " }}}
 
-" -- NERDTree
-" {{{
-map <C-n> :Dirvish<CR>
-" }}}
-
 " -- Tabular {{{
 nmap <leader>a= <Cmd>Tabularize /=<CR>
 vmap <leader>a= <Cmd>Tabularize /=<CR>
@@ -54,6 +49,10 @@ command! -bang -nargs=0 IMaps call fzf#vim#maps('i', 0)
 nnoremap  <silent><C-z> :call ZoteroCite()<CR>
 inoremap  <silent><C-z> <C-o>:call ZoteroCite()<CR>
 
+" }}}
+
+" -- Fern {{{
+nnoremap <silent><C-n> <Cmd>Fern . -drawer -keep -toggle<CR>
 " }}}
 
 " -- nvim-lsp and ALE {{{
