@@ -23,7 +23,7 @@ if (Get-Command starship -ErrorAction SilentlyContinue) {
 # -- Dev stuff
 
 # Conda {{
-$CondaHook = "$($Env:HOME)\Miniconda3\shell\condabin\conda-hook.ps1" 
+$CondaHook = "$($Env:HOME)\miniconda3\shell\condabin\conda-hook.ps1" 
 if (Test-Path -Type Leaf $CondaHook) {
   . $CondaHook
 }
