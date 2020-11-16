@@ -1,6 +1,6 @@
-local util = require 'nvim_lsp/util'
+local util = require 'lspconfig/util'
 local lsp = vim.lsp
-local texlabConf = require 'nvim_lsp/texlab'
+local texlabConf = require 'lspconfig/texlab'
 
 local M = {}
 

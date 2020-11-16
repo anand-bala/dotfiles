@@ -21,7 +21,6 @@ Plug 'tpope/vim-abolish'
 Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-surround'
 
-Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 
@@ -39,7 +38,7 @@ Plug 'honza/vim-snippets'
 Plug 'dense-analysis/ale'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/diagnostic-nvim'
+Plug 'nvim-treesitter/nvim-treesitter'
 " }}}
 
 " ctags

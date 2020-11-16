@@ -2,42 +2,6 @@
 " Author: Anand Balakrishnan
 " Description: Configuration for Linter and Autocomplete
 
-" -- ALE config
-" {{
-let g:ale_set_signs = 1
-let g:ale_set_highlights = 0
-" Set ALE explicit so that I need to enable only the select few plugins I like
-" in ALE (proselint, etc.)
-let g:ale_linters_explicit = 1
-let g:ale_fix_on_save = 1
-
-let g:ale_linters = {
-      \ 'markdown' : ['proselint', 'vale', 'alex'],
-      \ 'rst': ['proselint'],
-      \ 'cmake': ['cmakelint'],
-      \ 'python': ['mypy'],
-      \ }
-
-let g:ale_fixers = {
-      \ 'javascript': ['eslint'],
-      \ 'css': ['prettier'],
-      \ 'scss': ['prettier'],
-      \ 'html': ['prettier'],
-      \ 'cpp': ['clang-format'],
-      \ 'python': ['black', 'isort'],
-      \ 'cmake': ['cmakeformat'],
-      \ }
-let g:ale_cmake_cmakeformat_executable = 'cmake-format'
-let g:ale_cmake_cmakelint_executable = 'cmake-lint'
-
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-command! -nargs=0 Format ALEFix
-
-" }}
-
 " -- ctags settings
 " {{
 let g:gutentags_ctags_extra_args = [
@@ -46,6 +10,7 @@ let g:gutentags_ctags_extra_args = [
       \ ]
 let g:gutentags_file_list_command = {
       \ 'markers': {
+      \   '.latexmkrc': 'fd -L -t f',
       \   '.git': 'fd -L -t f',
       \   '.hg': 'fd -L -t f',
       \ },
@@ -67,14 +32,33 @@ let g:vista_finder_alternative_executives = ['nvim_lsp', 'ale']
 let g:vista_sidebar_width = 40
 " }}}
 
-" -- nvim-lsp completions-nvim diagnostics-nvim
-" {{{
-" Load default LSP configuration
-" diagnostic-nvim
 
-let g:diagnostic_auto_popup_while_jump = 0
-let g:diagnostic_enable_virtual_text = 0
-let g:diagnostic_enable_underline = 0
+" -- nvim-lsp and ALE
+" {{{
+" ALE
+let g:ale_set_signs = 1
+let g:ale_set_highlights = 0
+let g:ale_linters_explicit = 1
+let g:ale_fix_on_save = 1
+let g:ale_set_loclist=0
+let g:ale_set_quickfix=0
+
+let g:ale_linters = {
+      \ 'cmake': ['cmakelint'],
+      \ }
+
+let g:ale_fixers = {
+      \ 'cmake': ['cmakeformat'],
+      \ }
+let g:ale_cmake_cmakeformat_executable = 'cmake-format'
+let g:ale_cmake_cmakelint_executable = 'cmake-lint'
+
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s'
+
+command! -nargs=0 Format ALEFix
+
 
 " completion-nvim
 let g:completion_enable_snippet = 'UltiSnips'
@@ -92,7 +76,60 @@ let g:completion_auto_change_source = 1
 
 lua require("lsp-config").setup()
 
-command! LspShowLineDiagnostic lua vim.lsp.util.show_line_diagnostics()
+function! s:fix_ale_list(buffer, list) abort
+    let l:format = g:ale_echo_msg_format
+    let l:new_list = []
 
+    for l:item in a:list
+        let l:fixed_item = copy(l:item)
+
+        let l:fixed_item.text = ale#GetLocItemMessage(l:item, l:format)
+
+        if l:item.bufnr == -1
+            " If the buffer number is invalid, remove it.
+            call remove(l:fixed_item, 'bufnr')
+        endif
+
+        call add(l:new_list, l:fixed_item)
+    endfor
+
+    return l:new_list
+endfunction
+
+function s:update_diagnostics()
+  let l:bfnum = bufnr()
+  let l:lsp_loclist = luaeval("require(\"lsp-config\").get_loclist()")
+  let l:ale_loclist = ale#engine#GetLoclist(l:bfnum)
+  let l:ale_items = s:fix_ale_list(l:bfnum, l:ale_loclist)
+  let l:list = l:lsp_loclist + l:ale_items
+
+  call sort(l:list, function('ale#util#LocItemCompareWithText'))
+  call uniq(l:list, function('ale#util#LocItemCompareWithText'))
+  call setloclist(0, [], 'r', {'items': l:list, 'title': 'Diagnostics'})
+endfunction
+
+function! GetDiagnostics()
+  let l:bfnum = bufnr()
+  let l:lsp_loclist = luaeval("require(\"lsp-config\").get_loclist()")
+  let l:ale_loclist = ale#engine#GetLoclist(l:bfnum)
+  let l:ale_items = s:fix_ale_list(l:bfnum, l:ale_loclist)
+  let l:items = l:lsp_loclist + l:ale_items
+  call sort(l:items, function("ale#util#LocItemCompare"))
+  return l:items
+endfunction
+
+function s:open_diagnostics()
+  call s:update_diagnostics()
+  lopen
+  wincmd p
+endfunction
+
+augroup LintProgress
+  autocmd!
+  autocmd User ALELintPost,LSPDiagnosticsChanged call <SID>update_diagnostics()
+augroup end
+
+command! -bang -nargs=0 Diagnostics call <SID>open_diagnostics()
 " }}}
 
+lua require("ts-config")
