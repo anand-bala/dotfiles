@@ -73,11 +73,21 @@ augroup end
 
 " }}}
 
-" -- LSP
+" -- LSP and ALE
 " {{{
-call sign_define("LspDiagnosticsErrorSign", {"text" : " ", "texthl" : "LspDiagnosticsError"})
-call sign_define("LspDiagnosticsWarningSign", {"text" : "⚡", "texthl" : "LspDiagnosticsWarning"})
-call sign_define("LspDiagnosticInformationSign", {"text" : "✦ ", "texthl" : "LspDiagnosticsInformation"})
-call sign_define("LspDiagnosticHintSign", {"text" : " ", "texthl" : "LspDiagnosticsHint"})
+
+let g:ale_sign_error = ""
+let g:ale_sign_warning = "⚡"
+let g:ale_sign_info = "✦"
+call ale#sign#Clear()
+sign define ALEErrorSign text= texthl=LspDiagnosticsSignError linehl= numhl=
+sign define ALEWarningSign text=⚡ texthl=LspDiagnosticsSignWarning linehl= numhl=
+sign define ALEInformationSign text=✦ texthl=LspDiagnosticsSignInformation linehl= numhl=
+
+
+sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=
+sign define LspDiagnosticsSignWarning text=⚡ texthl=LspDiagnosticsSignWarning linehl= numhl=
+sign define LspDiagnosticsSignInformation text=✦ texthl=LspDiagnosticsSignInformation linehl= numhl=
+sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=
 
 " }}}

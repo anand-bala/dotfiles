@@ -4,7 +4,8 @@
 
 " -- Spell check on for the following
 augroup spellceck_ft_specific
-    autocmd FileType tex,latex,markdown set spell
+    au!
+    autocmd FileType tex,latex,markdown setlocal spell
 augroup end
 
 " -- Markdown {{

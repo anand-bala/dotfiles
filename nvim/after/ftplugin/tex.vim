@@ -5,7 +5,7 @@ set textwidth=80
 
 " ALE
 " {{{
-let b:ale_linters = ['proselint', 'lacheck', 'chktex', 'textidote']
+let b:ale_linters = ['proselint', 'lacheck', 'textidote']
 " Disable some chktex warnings
 let g:ale_tex_chktex_options = '-n3 -I'
 let b:ale_fixers = ['remove_trailing_lines', 'trim_whitespace']
