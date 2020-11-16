@@ -49,15 +49,13 @@ function TexlabForwardSearch()
 end
 
 function M.config()
-  local lfs = require 'lfs'
-
   return {
     root_dir=function(fname)
       for _,pat in pairs({'root.tex','main.tex'})  do
         local match = util.root_pattern(pat)(fname)
         if match then return match end
       end
-      return lfs.currentdir()
+      return vim.fn.getcwd()
     end;
     settings = {
       latex = {
