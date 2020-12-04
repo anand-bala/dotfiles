@@ -5,7 +5,7 @@
 # Setup macOS specific paths: use https://github.com/oh-my-fish/plugin-osx/
 
 # Common directories to add, if they exist
-for p in "$HOME/bin" "$HOME/.local/bin" "/snap/bin"
+for p in "$HOME/bin" "$HOME/.local/bin"
   if test -d $p
     and not contains -- $p $PATH
       set -gx PATH $p $PATH
@@ -47,6 +47,7 @@ function chpwd --on-variable PWD
 end
 
 set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
+starship init fish | source
 
 if command -sq -- flatpak
   contains -- $HOME/.local/share $XDG_DATA_DIRS
