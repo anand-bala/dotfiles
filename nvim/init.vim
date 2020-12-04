@@ -25,7 +25,7 @@ set softtabstop=2
 set expandtab
 set noshiftround
 
-" set conceallevel=2
+set conceallevel=2
 set foldnestmax=10
 set nofoldenable
 set foldlevel=2
@@ -47,7 +47,7 @@ set spelllang=en_us
 set nospell
 
 " Interface Settings
-set background=dark
+" set background=dark
 set mouse=a
 set noshowmode
 
@@ -75,3 +75,7 @@ runtime conf.d/ui.vim
 runtime conf.d/keybindings.vim
 
 runtime conf.d/writing.vim
+
+syntax enable
+set termguicolors
+colorscheme dracula

@@ -14,7 +14,7 @@ augroup END
 let g:lightline = {
       \ 'colorscheme': 'powerline',
       \ 'active': {
-      \   'left':   [[ 'mode', 'paste' ],
+      \   'left':   [[ 'mode', 'paste', 'session' ],
       \              [ 'gitbranch', 'readonly', 'filename', 'modified' ],
       \              ],
       \   'right':  [[ 'lineinfo' ],
@@ -26,6 +26,7 @@ let g:lightline = {
       \   'filetype': 'MyFiletype',
       \   'fileformat': 'MyFileformat',
       \   'filename' : 'MyFilename',
+      \   'session': 'ObsessionStatus'
       \ },
       \ }
 
@@ -44,18 +45,6 @@ endfunction
 function! MyFilename()
   return expand('%')
 endfunction
-
-" }}}
-
-" -- Matchup {{{
-
-augroup matchup_matchparen_highlight
-  au!
-  au BufRead,BufNewFile,ColorScheme * hi MatchParen ctermbg=lightgray ctermfg=black guibg=lightgray guifg=black
-  au BufRead,BufNewFile,ColorScheme * hi MatchWord cterm=underline gui=underline
-augroup end
-
-let g:matchup_matchparen_fallback = 0
 
 " }}}
 

@@ -4,8 +4,10 @@
 
 
 " Platform portable way of setting the plugin download path
-let pluginpath = stdpath('data') . '/plugged'
-call plug#begin(pluginpath)
+let s:is_win = has('win32') || has('win64')
+let s:pluginpath = stdpath('data') . '/plugged'
+
+call plug#begin(s:pluginpath)
 
 " -- Sanity stuff
 Plug 'ciaranm/securemodelines'
@@ -15,6 +17,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " }}
 
 " -- Everyday tools
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
 
@@ -27,7 +30,11 @@ Plug 'tpope/vim-dispatch'
 Plug 'godlygeek/tabular'
 
 " Fuzzy search
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin --no-fish' }
+if s:is_win && !has('win32unix')
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
+else
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin --no-fish' }
+endif
 Plug 'junegunn/fzf.vim'
 
 " -- Completions, Linting, and Snippets
@@ -49,6 +56,8 @@ Plug 'liuchengxu/vista.vim'
 
 Plug 'plasticboy/vim-markdown'
 Plug 'mzlogin/vim-markdown-toc'
+
+Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 
 Plug 'ziglang/zig.vim'
 Plug 'rust-lang/rust.vim'
@@ -85,6 +94,7 @@ Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 
+Plug 'dracula/vim', { 'as': 'dracula' }
+
 call plug#end()
 filetype plugin on
-
