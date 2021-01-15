@@ -12,6 +12,9 @@ disabled = true
 symbol = " "
 ignore_base = false
 
+[gcloud]
+disable = true
+
 [git_branch]
 symbol = " "
 
@@ -23,6 +26,9 @@ symbol = " "
 
 [nodejs]
 symbol = " "
+
+[openstack]
+disable = true
 
 [package]
 symbol = " "
