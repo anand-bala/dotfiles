@@ -36,19 +36,12 @@ if test -d /usr/local/go
   contains -- $GOHOME/bin $PATH; or set -gx PATH $GOHOME/bin $PATH
 end
 
-# -- Custom functions for productivity
-
-function chpwd --on-variable PWD
-    set -l cursor_pos (commandline --cursor)
-    # Only show directory listing in interactive mode when not tab completing
-    if test $cursor_pos -eq 0 ;and status --is-interactive
-        ll
-    end
+# --- Miniconda config
+if test -e $HOME/miniconda3/etc/fish/conf.d/conda.fish
+  source $HOME/miniconda3/etc/fish/conf.d/conda.fish
 end
 
-set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
-starship init fish | source
-
+# --- Setup paths for flatpak
 if command -sq -- flatpak
   contains -- $HOME/.local/share $XDG_DATA_DIRS
     or set -gx --path XDG_DATA_DIRS $HOME/.local/share $XDG_DATA_DIRS
@@ -59,3 +52,18 @@ if command -sq -- flatpak
   contains -- /var/lib/flatpak/exports/share $XDG_DATA_DIRS
     or set -gx --path XDG_DATA_DIRS $XDG_DATA_DIRS /var/lib/flatpak/exports/share
 end
+
+# -- Custom functions for productivity
+
+function chpwd --on-variable PWD
+    set -l cursor_pos (commandline --cursor)
+    # Only show directory listing in interactive mode when not tab completing
+    if test $cursor_pos -eq 0 ;and status --is-interactive
+        ll
+    end
+end
+
+# --- Last thing to be set should be the prompt
+set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
+starship init fish | source
+

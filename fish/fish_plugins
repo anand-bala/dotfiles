@@ -1,0 +1,9 @@
+~/.config/fish/plugins/cuda-paths
+~/.config/fish/plugins/fzf-helpers
+~/.config/fish/plugins/tmux-session-helpers
+~/.config/fish/plugins/ruby-gems-path
+iamruinous/plugin-home-binpath
+oh-my-fish/plugin-rustup
+jorgebucaran/bax.fish
+iamruinous/plugin-yarn-binpath
+jorgebucaran/fisher
