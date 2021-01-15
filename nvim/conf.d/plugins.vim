@@ -45,42 +45,22 @@ Plug 'honza/vim-snippets'
 Plug 'dense-analysis/ale'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " }}}
 
 " ctags
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'liuchengxu/vista.vim'
 
 " -- Language specific
-
+Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 Plug 'plasticboy/vim-markdown'
 Plug 'mzlogin/vim-markdown-toc'
 
-Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
-
 Plug 'ziglang/zig.vim'
 Plug 'rust-lang/rust.vim'
-" {{
-let g:autofmt_autosave = 1
-" }}
-
-Plug 'JuliaEditorSupport/julia-vim'
-" {{
-let g:latex_to_unicode_tab = 0
-let g:latex_to_unicode_suggestions = 0
-let g:latex_to_unicode_auto = 1
-" }}
-Plug 'kdheepak/JuliaFormatter.vim'
-
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
-
 Plug 'dag/vim-fish'
-
-" -- Writing stuff
-Plug 'junegunn/goyo.vim'
-
 
 " -- UI stuff
 Plug 'ryanoasis/vim-devicons'

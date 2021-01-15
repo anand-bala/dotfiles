@@ -1,6 +1,9 @@
 " ALE
 " {{{
-let b:ale_linters = ['clang-format']
-let b:ale_fixers = ['clangtidy']
+let b:ale_fixers = ['clangtidy', 'clang-format']
 " }}}
+
+" Add triple-slash comments
+setlocal comments^=:///
+setlocal matchpairs+=<:>
 

@@ -105,10 +105,13 @@ function M.setup()
     }
   })
   setup_lsp(nvim_lsp.pyls, {
-    settings = {
-      python = { workspaceSymbols = { enabled = true }},
-      pyls = {configurationSources = { "flake8" }},
-    },
+      settings = {
+        python = { workspaceSymbols = { enabled = true }},
+        pyls = {
+          configurationSources = { "flake8" },
+          pyls_mypy = {enabled = true},
+        },
+      },
   })
   setup_lsp(nvim_lsp.julials, {
     filetypes = { "julia" };

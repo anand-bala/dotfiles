@@ -3,6 +3,7 @@ if &shell =~# 'fish$'
   set shell=sh
 endif
 
+syntax enable
 runtime conf.d/plugins.vim
 
 " -- Sanity settings {{{
@@ -76,6 +77,5 @@ runtime conf.d/keybindings.vim
 
 runtime conf.d/writing.vim
 
-syntax enable
 set termguicolors
 colorscheme dracula
