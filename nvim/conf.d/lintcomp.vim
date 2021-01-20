@@ -43,8 +43,8 @@ let g:ale_echo_msg_format = '[%linter%] %s'
 " LSP
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_max_items = 10
-let g:completion_enable_auto_paren = 0
 let g:completion_timer_cycle = 200 "default value is 80
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
 
 augroup CompletionTriggerCharacter
   autocmd!

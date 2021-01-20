@@ -46,6 +46,7 @@ Plug 'dense-analysis/ale'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'ojroques/nvim-lspfuzzy'
 " }}}
 
 " ctags
@@ -70,9 +71,9 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'lambdalisue/fern.vim'
-Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-Plug 'lambdalisue/fern-git-status.vim'
+" Plug 'lambdalisue/fern.vim'
+" Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+" Plug 'lambdalisue/fern-git-status.vim'
 
 Plug 'dracula/vim', { 'as': 'dracula' }
 

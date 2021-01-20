@@ -19,10 +19,10 @@ inoremap <Up>   <C-o>gk
 " }}}
 
 " -- Tabular {{{
-nmap <leader>a= <Cmd>Tabularize /=<CR>
-vmap <leader>a= <Cmd>Tabularize /=<CR>
-nmap <leader>a: <Cmd>Tabularize /:\zs<CR>
-vmap <leader>a: <Cmd>Tabularize /:\zs<CR>
+nmap <leader>ea= <Cmd>Tabularize /=<CR>
+vmap <leader>ea= <Cmd>Tabularize /=<CR>
+nmap <leader>ea: <Cmd>Tabularize /:\zs<CR>
+vmap <leader>ea: <Cmd>Tabularize /:\zs<CR>
 " }}}
 
 " -- Searching stuff {{
@@ -41,39 +41,31 @@ command! -bang -nargs=* Rg
 nnoremap <C-f> :Files<Cr>
 nnoremap <C-g> :Rg<Cr>
 vnoremap <C-g> y:Rg <C-R>"<CR>
-nmap     <C-s> :Vista finder fzf:nvim_lsp<CR>
 
 command! -bang -nargs=0 IMaps call fzf#vim#maps('i', 0)
 
 " Search for Zotero references
 nnoremap  <silent><C-z> :call ZoteroCite()<CR>
 inoremap  <silent><C-z> <C-o>:call ZoteroCite()<CR>
-
-" }}}
-
-" -- Fern {{{
-nnoremap <silent><C-n> <Cmd>Fern . -drawer -keep -toggle<CR>
 " }}}
 
 " -- nvim-lsp and ALE {{{
-" let g:completion_confirm_key = "\<C-y>"
-augroup lsp_kb
-  au!
-  autocmd BufRead,BufEnter *  :call <SID>lsp_keybindings()
-augroup end
+inoremap <silent> <C-p>         <Plug>(completion_trigger)
 
-function s:lsp_keybindings()
-  nnoremap <silent> <leader>gd <cmd>  lua vim.lsp.buf.definition()<CR>
-  " nnoremap <silent> gr       <cmd>  lua vim.lsp.buf.references()<CR>
-  " nnoremap <silent> pd       <cmd>  lua vim.lsp.buf.peek_definition()<CR>
-  " nnoremap <silent> g0       <cmd>  lua vim.lsp.buf.document_symbol()<CR>
-  nnoremap <silent> <leader>ld <cmd>  lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <silent> K             <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <leader>gd    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <leader>gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>pd    <cmd>lua require'lsp_util'.peek_definition()<CR>
+nnoremap <silent> <C-s>         <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> <leader>gw    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> <leader>f     <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> <leader>a     <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
 
-  nnoremap <silent>   K        <Plug> (nvim-lsp-hover)
-  nnoremap <silent> <leader>d  <cmd>  lua vim.lsp.diagnostic.goto_next()<CR>
-  nnoremap <silent> <leader>pd <cmd>  lua vim.lsp.diagnostic.goto_prev()<CR>
-  nnoremap <silent> <leader>od <cmd>  Diagnostics<CR>
-endfunction
+nnoremap <silent> <leader>ld    <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <silent> ]d            <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent> [d            <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> <leader>od    <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 " }}}
 
 " -- TeX {{{
@@ -84,20 +76,6 @@ augroup end
 
 function s:tex_keybindings()
   nmap <silent><buffer>   <leader>lv  <cmd>lua TexlabForwardSearch()<CR>
-  " nmap <silent><buffer>   <C-s>       :call vimtex#fzf#run('ctli', g:fzf_layout)<cr>
-endfunction
-
-" }}}
-
-" -- Julia {{{
-augroup julia_kb
-  au!
-  autocmd FileType julia  :call <SID>julia_keybindings()
-augroup end
-
-function s:julia_keybindings()
-  nnoremap <leader>f <cmd>call JuliaFormatter#Format(0)<CR>
-  vnoremap <leader>f <cmd>call JuliaFormatter#Format(1)<CR>
 endfunction
 
 " }}}
@@ -105,20 +83,19 @@ endfunction
 
 " -- Pop-Up Menu {{{
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~ '\s'
+" endfunction
 
-"  Tab to scroll (SHIFT+Tab for backward scroll)
 "  ESC to cancel
 "  ENTER for accept
-inoremap <silent><expr> <Esc>     pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <silent><expr> <CR>      pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-y>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ completion#trigger_completion()
+" inoremap <silent><expr> <Esc>     pumvisible() ? "\<C-e>" : "\<Esc>"
+" inoremap <silent><expr> <CR>      pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-y>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ completion#trigger_completion()
 " }}}
 
 " -- Vim Help
