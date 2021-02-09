@@ -1,10 +1,11 @@
 ~/.config/fish/plugins/home-binpath
 ~/.config/fish/plugins/gdb-dashboard-helpers
-~/.config/fish/plugins/yarn-binpath
 ~/.config/fish/plugins/cuda-paths
 ~/.config/fish/plugins/fzf-helpers
 ~/.config/fish/plugins/tmux-session-helpers
 ~/.config/fish/plugins/ruby-gems-path
 ~/.config/fish/plugins/rustup-binpath
+~/.config/fish/plugins/golang-paths
+~/.config/fish/plugins/luarocks-binpath
 jorgebucaran/bax.fish
 jorgebucaran/fisher

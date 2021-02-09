@@ -55,10 +55,6 @@ end
 
 # -- Custom functions for productivity
 
-if command -sq -- exa
-  alias -s ls="exa"
-end
-
 function chpwd --on-variable PWD
     set -l cursor_pos (commandline --cursor)
     # Only show directory listing in interactive mode when not tab completing
