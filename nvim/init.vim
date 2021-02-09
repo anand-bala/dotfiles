@@ -4,7 +4,9 @@ if &shell =~# 'fish$'
 endif
 
 syntax enable
+
 runtime conf.d/plugins.vim
+
 
 " -- Sanity settings {{{
 set secure
@@ -16,7 +18,7 @@ set encoding=utf-8  " Encoding
 
 set wrap
 set linebreak
-set textwidth=79
+set textwidth=88 " Use 88 because 80 is outdated
 
 set formatoptions=cqrn
 
@@ -53,7 +55,7 @@ set mouse=a
 set noshowmode
 
 " Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
+set completeopt=menu,menuone,noselect
 
 " Avoid showing message extra message when using completion
 set shortmess+=c
@@ -65,17 +67,34 @@ set splitbelow
 set splitright
 " }}}
 
-
 augroup ft_mappings
   au!
   autocmd BufRead,BufNewFile *.tex,*.latex  set filetype=tex
 augroup end
 
-runtime conf.d/lintcomp.vim
-runtime conf.d/ui.vim
-runtime conf.d/keybindings.vim
+" -- Spell check on for the following
+augroup spellceck_ft_specific
+  au!
+  autocmd FileType markdown   setlocal spell
+  autocmd FileType gitcommit  setlocal spell
+  autocmd FileType tex,latex  setlocal spell
+augroup end
 
-runtime conf.d/writing.vim
+" Make the cursor vertically centered
+augroup VCenterCursor
+  au!
+  au BufEnter,WinEnter,WinNew,VimResized *,*.*
+        \ let &scrolloff=winheight(win_getid())/2
+augroup END
+
+" -- Terminal
+" {{{
+au TermOpen * setlocal nonumber norelativenumber
+" }}}
+
+
+lua require('init')
 
 set termguicolors
 colorscheme dracula
+

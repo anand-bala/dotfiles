@@ -1,0 +1,57 @@
+version: 2
+root-markers:
+  - .git/
+log-file: /home/anand/.cache/nvim/efm.log
+log-level: 1
+
+tools:
+  python-black: &python-black
+    format-command: 'black --quiet -'
+    format-stdin: true
+
+  python-mypy: &python-mypy
+    lint-command: 'mypy --show-column-numbers'
+    lint-formats:
+      - '%f:%l:%c: %trror: %m'
+      - '%f:%l:%c: %tarning: %m'
+      - '%f:%l:%c: %tote: %m'
+
+  python-isort: &python-isort
+    format-command: 'isort --quiet -'
+    format-stdin: true
+
+  cmake-format: &cmake-format
+    format-command: 'cmake-format -'
+    format-stdin: true
+
+  cmake-lint: &cmake-lint
+    lint-command: 'cmake-lint --suppress-decorations'
+    lint-stdin: false
+    lint-formats:
+      - '%f:%l: %m'
+
+  vale: &vale
+    lint-command: 'vale --output=line --no-wrap --config=~/.config/vale/vale.ini'
+    lint-formats:
+      - '%f:%l:%c:%m'
+
+  luafmt: &luafmt
+    format-command: 'lua-format'
+    format-stdin: true
+
+languages:
+  python:
+    - <<: *python-black
+    - <<: *python-isort
+    - <<: *python-mypy
+
+  cmake:
+    - <<: *cmake-format
+    - <<: *cmake-lint
+
+  markdown:
+    - <<: *vale
+
+  lua:
+    - <<: *luafmt
+
