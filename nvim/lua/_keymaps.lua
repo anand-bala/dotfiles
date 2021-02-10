@@ -56,9 +56,14 @@ local lsp_mappings = function(bufnr)
   lspmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
   lspmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 
-  lspmap('n', '<leader>s' , '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-  lspmap('n', '<leader>D' , '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+  lspmap('n', '<leader>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+  lspmap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+
+  lspmap('n', '<C-s>'     , '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+  lspmap('n', '<leader>gw', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+  lspmap('n', '<leader>a' , '<cmd>lua vim.lsp.buf.code_action()<CR>')
   lspmap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+  lspmap('n', '<leader>f' , '<cmd>lua vim.lsp.buf.formatting()<CR>')
 
   lspmap('n', '<leader>ld', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
   lspmap('n', '[d'        , '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
@@ -66,6 +71,7 @@ local lsp_mappings = function(bufnr)
   lspmap('n', '<leader>q' , '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
 
   cmd [[command! OpenDiagnostic lua vim.lsp.diagnostic.set_loclist()]]
+
 
   local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
   if filetype == "tex" or filetype == "latex" then

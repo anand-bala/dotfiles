@@ -123,10 +123,10 @@ Plug 'stephpy/vim-yaml'
 Plug 'dag/vim-fish'
 
 " -- UI stuff
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'mhinz/vim-signify'
 
-Plug 'airblade/vim-gitgutter'
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 
 Plug 'dracula/vim', { 'as': 'dracula' }
 
