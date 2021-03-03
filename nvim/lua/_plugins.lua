@@ -5,7 +5,7 @@ local execute = vim.api.nvim_command
 local utils = require '_utils'
 
 --- Bootstrap paq-nvim if not present
-local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/paq-nvim'
+local install_path = vim.fn.stdpath('data') .. '/site/pack/paqs/opt/paq-nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     execute('!git clone https://github.com/savq/paq-nvim.git ' .. install_path)
 end
