@@ -9,3 +9,4 @@
 ~/.config/fish/plugins/luarocks-binpath
 jorgebucaran/bax.fish
 jorgebucaran/fisher
+dracula/fish

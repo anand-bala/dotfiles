@@ -20,7 +20,8 @@ end
 alias e="$EDITOR"
 
 
-# I keep my fish plugins in ~/.fishpkg and add them to my fishfile.
+# --- Colorize GCC output
+set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"
 
 # --- FZF config
 if test -e $HOME/.fzf/bin/fzf
@@ -61,6 +62,17 @@ function chpwd --on-variable PWD
     if test $cursor_pos -eq 0 ;and status --is-interactive
         ll
     end
+end
+
+function cdgitroot -d "Change directory to the git root repo"
+  set -l git_toplevel (git rev-parse --show-toplevel 2> /dev/null)
+  set -l cmd_status $status
+  if test $cmd_status -ne 0
+    echo "Looks like you're not in a git repository" 2>&1
+  else
+    echo Changing directory to $git_toplevel
+    cd $git_toplevel
+  end
 end
 
 # --- Last thing to be set should be the prompt
