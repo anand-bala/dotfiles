@@ -1,6 +1,6 @@
 -- Separators
-local left_separator = '▌'
-local right_separator = '▐'
+local left_separator = '|'
+local right_separator = '|'
 -- Blank Between Components
 local space = ' '
 
@@ -28,7 +28,7 @@ local get_file_icon = function(name, ext)
     local icon = ''
     if vim.fn.exists("*WebDevIconsGetFileTypeSymbol") == 1 then
         icon = vim.fn.WebDevIconsGetFileTypeSymbol(name)
-        return icon .. ' '
+        return icon
     end
     local ok, devicons = pcall(require, 'nvim-web-devicons')
     if not ok then
@@ -38,7 +38,7 @@ local get_file_icon = function(name, ext)
     end
     icon = devicons.get_icon(name, ext)
     if icon == nil then icon = '' end
-    return icon .. ' '
+    return icon
 end
 
 local getTabLabel = function(n)
@@ -63,11 +63,11 @@ function _G.TabLine()
     for _, val in ipairs(tab_list) do
         local file_name = getTabLabel(val)
         if val == current_tab then
-            tabline = tabline .. "%#TabLineSelSeparator# " .. left_separator
-            tabline = tabline .. "%#TabLineSel# " .. file_name
+            -- tabline = tabline .. "%#TabLineSelSeparator#" .. left_separator
+            tabline = tabline .. "%#TabLineSel #" .. file_name
             tabline = tabline .. " %#TabLineSelSeparator#" .. right_separator
         else
-            tabline = tabline .. "%#TabLineSeparator# " .. left_separator
+            -- tabline = tabline .. "%#TabLineSeparator#" .. left_separator
             tabline = tabline .. "%#TabLine# " .. file_name
             tabline = tabline .. " %#TabLineSeparator#" .. right_separator
         end
@@ -78,7 +78,7 @@ function _G.TabLine()
     -- tabline = tabline .. "%#TabLineSeparator#" .. left_separator ..
     --               "%#Tabline# " .. TrimmedDirectory(dir) ..
     --               "%#TabLineSeparator#" .. right_separator
-    tabline = tabline .. space
+    -- tabline = tabline .. space
     return tabline
 end
 

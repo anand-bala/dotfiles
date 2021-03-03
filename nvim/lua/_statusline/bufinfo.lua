@@ -7,6 +7,11 @@ function M.file_readonly()
 end
 
 function M.file_name()
+    if vim.bo.filetype == "fugitive" then
+        return "fugitive "
+    elseif vim.bo.filetype == "fugitiveblame" then
+        return "git blame "
+    end
     local file = vim.fn.expand('%:f')
     if vim.fn.empty(file) == 1 then return '' end
     if string.len(M.file_readonly()) ~= 0 then

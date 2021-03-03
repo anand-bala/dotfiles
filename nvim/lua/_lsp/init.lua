@@ -3,6 +3,8 @@ local lspconfig = require 'lspconfig'
 
 local utils = require '_utils'
 
+local M = {}
+
 -- [[ Diagnostics signs ]]
 vim.fn.sign_define("LspDiagnosticsSignError", {
     text = "",
@@ -61,9 +63,21 @@ local conf = {
     on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
         vim.api.nvim_buf_set_var(bufnr, 'nvim_lsp_buf_active', 1)
+        if client.resolved_capabilities.document_formatting then
+            vim.api.nvim_buf_set_var(bufnr, 'nvim_lsp_formatting', 1)
+        end
         require'_keymaps'.lsp_mappings(bufnr)
     end
 }
+
+function M.lsp_format_sync()
+    local format_p = vim.b.nvim_lsp_formatting
+    if format_p ~= nil and format_p == 1 then vim.lsp.buf.formatting_sync() end
+end
+
+utils.create_augroup("lspformat", {
+    {'BufWritePre', '*', [[lua require'_lsp'.lsp_format_sync()]]}
+})
 
 --- General interface to setup LSP clients
 local function setup_lsp(client, config)
@@ -84,10 +98,12 @@ setup_lsp(lspconfig.pyls, {
         pyls = {configurationSources = {"flake8"}, pyls_mypy = {enabled = true}}
     }
 })
-setup_lsp(lspconfig.texlab, require'_lsp/texlab')
-setup_lsp(lspconfig.sumneko_lua, require'_lsp/sumneko_lua')
+setup_lsp(lspconfig.texlab, require '_lsp/texlab')
+setup_lsp(lspconfig.sumneko_lua, require '_lsp/sumneko_lua')
 setup_lsp(lspconfig.vimls, {})
-setup_lsp(lspconfig.efm, require'_lsp/efm')
+setup_lsp(lspconfig.efm, require '_lsp/efm')
 
 -- [[ Additional plugins for LSP ]]
 require('lspfuzzy').setup {}
+
+return M

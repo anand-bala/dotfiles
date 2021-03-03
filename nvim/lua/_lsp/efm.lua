@@ -6,6 +6,6 @@ return {
     init_options = {documentFormatting = true},
     filetypes = {
         'python', 'yaml', 'json', 'html', 'scss', 'css', 'markdown', 'cmake',
-        'lua'
+        'lua', 'cpp'
     }
 }

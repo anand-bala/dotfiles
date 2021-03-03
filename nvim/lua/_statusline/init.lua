@@ -25,7 +25,7 @@ local current_mode = setmetatable({
     ['v'] = 'V',
     ['V'] = 'V',
     ['^V'] = 'V',
-    ['s'] = 'Select',
+    ['s'] = 'S',
     ['S'] = 'S·Line',
     ['^S'] = 'S·Block',
     ['i'] = 'I',
@@ -83,11 +83,17 @@ end
 
 gls.left = {
     {
+        VimSession = {
+            provider = function()
+                return vim.fn['ObsessionStatus']() .. ' '
+            end,
+            highlight = {colors.red, colors.bg, 'bold'}
+        },
         ViMode = {
             provider = function()
                 vim.api.nvim_command('hi GalaxyViMode guifg=' ..
                                          mode_color[vim.fn.mode()])
-                return '  ' .. current_mode[vim.fn.mode()] .. ' '
+                return current_mode[vim.fn.mode()] .. ' '
             end,
             highlight = {colors.red, colors.bg, 'bold'}
         }
@@ -105,6 +111,13 @@ gls.left = {
                 require('galaxyline.provider_fileinfo').get_file_icon_color,
                 colors.bg
             }
+        }
+    }, {
+        BufferType = {
+            provider = 'FileTypeName',
+            separator = ' ',
+            separator_highlight = {'NONE', colors.bg},
+            highlight = {colors.blue, colors.bg, 'bold'}
         }
     }, {
         FileName = {
@@ -202,11 +215,6 @@ gls.right = {
             condition = checkwidth,
             icon = '  ',
             highlight = {colors.red, colors.bg}
-        }
-    }, {
-        RainbowBlue = {
-            provider = function() return ' ▊' end,
-            highlight = {colors.blue, colors.bg}
         }
     }
 }

@@ -42,4 +42,10 @@ function M.ends_with(str, ending)
     return ending == "" or str:sub(-#ending) == ending
 end
 
+--- Check if the platform is windows or not
+function M.is_win()
+    return (vim.fn.has('win32') or vim.fn.has('win64')) and
+               not vim.fn.has('win32unix')
+end
+
 return M

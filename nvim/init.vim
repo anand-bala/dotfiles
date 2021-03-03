@@ -5,8 +5,7 @@ endif
 
 syntax enable
 
-runtime conf.d/plugins.vim
-
+lua require('init')
 
 " -- Sanity settings {{{
 set secure
@@ -91,9 +90,6 @@ augroup END
 " {{{
 au TermOpen * setlocal nonumber norelativenumber
 " }}}
-
-
-lua require('init')
 
 set termguicolors
 colorscheme dracula
