@@ -1,14 +1,10 @@
 # vim: set ft=i3config
 set $mod Mod4
 
-new_window pixel 1
-new_float normal
+default_border pixel 1
+default_floating_border pixel 1
 
 hide_edge_borders none
-
-bindsym $mod+u border none
-bindsym $mod+y border pixel 1
-bindsym $mod+n border normal
 
 font xft:FiraSans-Book 11
 
@@ -64,13 +60,6 @@ bindsym $mod+Shift+s sticky toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
-
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
-
 # navigate workspaces next / previous
 bindsym Mod1+Ctrl+Right workspace next
 bindsym Mod1+Ctrl+Left workspace prev
@@ -106,6 +95,13 @@ bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+
+# move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -204,6 +200,10 @@ for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="Nemo"] floating enable border normal
 for_window [title="Bluetooth"] floating enable border normal
 for_window [class="Thunderbird" window_role="Msgcompose"] floating enable sticky border normal
+for_window [class="Thunderbird" window_role="Msgcompose"] floating enable sticky border normal
+for_window [class="zoom"] floating enable border normal
+for_window [class="Zotero"] move scratchpad
+for_window [class="Slack"] move scratchpad
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
