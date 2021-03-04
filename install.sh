@@ -22,6 +22,30 @@ __ln_at() {
 config_dir=${XDG_CONFIG_HOME:-$HOME/.config}
 SCRIPTPATH="$( cd "$(dirname $(readlink -f "$0"))" ; pwd -P )"
 
+install_polybar() {
+  src=$SCRIPTPATH/polybar
+  dest=$config_dir/polybar
+  rm -rf $dest
+  mkdir -pv $dest
+  __ln_at $dest $src/*
+}
+
+install_i3() {
+  src=$SCRIPTPATH/i3
+  dest=$config_dir/i3
+  rm -rf $dest
+  mkdir -pv $dest
+  __ln_at $dest $src/*
+}
+
+install_rofi() {
+  src=$SCRIPTPATH/rofi
+  dest=$config_dir/rofi
+  rm -rf $dest
+  mkdir -pv $dest
+  __ln_at $dest $src/*
+}
+
 install_alacritty() {
   mkdir -pv $config_dir/alacritty
   __ln_at $config_dir/alacritty $SCRIPTPATH/alacritty/*
@@ -117,6 +141,18 @@ while [[ $# -gt 0 ]]; do
     alacritty )
       echo "Installing config for Alacritty"
       install_alacritty
+      ;;
+    i3 )
+      echo "Installing config for i3"
+      install_i3
+      ;;
+    polybar )
+      echo "Installing config for polybar"
+      install_polybar
+      ;;
+    rofi )
+      echo "Installing config for rofi"
+      install_rofi
       ;;
     *)
       echoerr "'$1'?!? I have no idea what you're talking about?!"

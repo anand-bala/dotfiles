@@ -118,6 +118,7 @@ paq 'ziglang/zig.vim'
 paq 'rust-lang/rust.vim'
 paq 'cespare/vim-toml'
 paq 'dag/vim-fish'
+paq 'mboughaba/i3config.vim'
 
 ---]] Language specific
 
