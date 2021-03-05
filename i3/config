@@ -2,11 +2,11 @@
 set $mod Mod4
 
 default_border pixel 1
-default_floating_border pixel 1
+default_floating_border normal
 
 hide_edge_borders none
 
-font xft:FiraSans-Book 11
+font xft:DelugiaNerdFont-Regular 11
 
 floating_modifier $mod
 
@@ -16,7 +16,9 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+m exec --no-startup-id rofi -show drun
+# start window switcher
+bindsym $mod+Tab exec --no-startup-id rofi -show window
 
 # change focus
 bindsym $mod+Left focus left
@@ -116,7 +118,8 @@ set $i3lockwall $HOME/.config/i3/scripts/lock.sh
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # lock i3
-bindsym $mod+Shift+l exec --no-startup-id $i3lockwall
+bindsym $mod+l exec "$i3lockwall"
+exec xautolock -time 15 -locker "$i3lockwall" &
 
 # Set shut down, restart and locking features
 bindsym $mod+BackSpace mode "$mode_system"
@@ -189,21 +192,24 @@ exec --no-startup-id mate-power-manager
 exec --no-startup-id dex -a
 
 # Open specific applications in floating mode
-for_window [title="alsamixer"] floating enable border pixel 1
+for_window [title="alsamixer"] floating enable border normal
 for_window [class="GParted"] floating enable border normal
-for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [title="i3_help"] floating enable border normal
 for_window [class="Lightdm-gtk-greeter-settings"] floating enable
-for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Nitrogen"] floating enable border normal
 for_window [class="Pavucontrol"] floating enable
 for_window [class="(?i)System-config-printer.py"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="Nemo"] floating enable border normal
 for_window [title="Bluetooth"] floating enable border normal
-for_window [class="Thunderbird" window_role="Msgcompose"] floating enable sticky border normal
-for_window [class="Thunderbird" window_role="Msgcompose"] floating enable sticky border normal
+for_window [class="Thunderbird"] floating enable border normal
 for_window [class="zoom"] floating enable border normal
-for_window [class="Zotero"] move scratchpad
-for_window [class="Slack"] move scratchpad
+for_window [class="Zotero"] floating enable border normal move scratchpad
+for_window [class="Slack"] floating enable border normal move scratchpad
+for_window [class="eu.tiliado.NuvolaAppAppleMusic"] floating enable border normal
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
+
+# Application launcher shortcuts
+bindsym $mod+b exec firefox

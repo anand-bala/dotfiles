@@ -6,9 +6,10 @@ revert() {
 }
 trap revert HUP INT TERM
 xset +dpms dpms 0 0 5
-scrot -d 1 /tmp/locking_screen.png
-convert -blur 0x8 /tmp/locking_screen.png /tmp/screen_blur.png
-convert -composite /tmp/screen_blur.png ~/backgrounds/rick_and_morty_lock.png \
-  -gravity South -geometry -20x1200 /tmp/screen.png
-i3lock -i /tmp/screen.png
+
+scrot -d 1 /tmp/screen_locked.png
+mogrify -scale 10% -scale 1000% /tmp/screen_locked.png
+convert -composite /tmp/screen_locked.png ~/backgrounds/rick_and_morty_lock.png \
+  -gravity South -geometry -20x1200 /tmp/screen_locked.png
+i3lock -i /tmp/screen_locked.png
 revert
