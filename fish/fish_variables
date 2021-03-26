@@ -2,6 +2,20 @@
 # VERSION: 3.0
 SETUVAR __fish_init_2_3_0:\x1d
 SETUVAR __fish_initialized:3100
+SETUVAR _fisher__7E_2F_2E_config_2F_fish_2F_plugins_2F_carla__paths_files:/home/anand/\x2elocal/share/fisher/conf\x2ed/carla_paths\x2efish
+SETUVAR _fisher__7E_2F_2E_config_2F_fish_2F_plugins_2F_cuda_2D_paths_files:/home/anand/\x2elocal/share/fisher/conf\x2ed/cuda\x2dpaths\x2efish
+SETUVAR _fisher__7E_2F_2E_config_2F_fish_2F_plugins_2F_fzf_2D_helpers_files:/home/anand/\x2elocal/share/fisher/functions/__fzf_search_current_dir\x2efish\x1e/home/anand/\x2elocal/share/fisher/functions/__fzf_search_git_log\x2efish\x1e/home/anand/\x2elocal/share/fisher/functions/__fzf_search_history\x2efish\x1e/home/anand/\x2elocal/share/fisher/functions/uninstall\x2efish\x1e/home/anand/\x2elocal/share/fisher/conf\x2ed/fzf\x2efish
+SETUVAR _fisher__7E_2F_2E_config_2F_fish_2F_plugins_2F_gdb_2D_dashboard_2D_helpers_files:/home/anand/\x2elocal/share/fisher/functions/gdb\x2dtmux\x2efish
+SETUVAR _fisher__7E_2F_2E_config_2F_fish_2F_plugins_2F_golang_2D_paths_files:/home/anand/\x2elocal/share/fisher/conf\x2ed/golang\x2dpaths\x2efish
+SETUVAR _fisher__7E_2F_2E_config_2F_fish_2F_plugins_2F_home_2D_binpath_files:/home/anand/\x2elocal/share/fisher/conf\x2ed/home\x2dbinpath\x2efish
+SETUVAR _fisher__7E_2F_2E_config_2F_fish_2F_plugins_2F_luarocks_2D_binpath_files:/home/anand/\x2elocal/share/fisher/conf\x2ed/luarocks\x2dbinpath\x2efish
+SETUVAR _fisher__7E_2F_2E_config_2F_fish_2F_plugins_2F_ruby_2D_gems_2D_path_files:/home/anand/\x2elocal/share/fisher/conf\x2ed/ruby\x2dgems\x2dpath\x2efish
+SETUVAR _fisher__7E_2F_2E_config_2F_fish_2F_plugins_2F_rustup_2D_binpath_files:/home/anand/\x2elocal/share/fisher/conf\x2ed/rustup\x2dbinpath\x2efish
+SETUVAR _fisher__7E_2F_2E_config_2F_fish_2F_plugins_2F_tmux_2D_session_2D_helpers_files:/home/anand/\x2elocal/share/fisher/functions/tm\x2efish
+SETUVAR _fisher_dracula_2F_fish_files:/home/anand/\x2elocal/share/fisher/conf\x2ed/dracula\x2efish
+SETUVAR _fisher_jorgebucaran_2F_bax_2E_fish_files:/home/anand/\x2elocal/share/fisher/functions/replay\x2efish\x1e/home/anand/\x2elocal/share/fisher/completions/replay\x2efish
+SETUVAR _fisher_jorgebucaran_2F_fisher_files:/home/anand/\x2elocal/share/fisher/functions/fisher\x2efish\x1e/home/anand/\x2elocal/share/fisher/completions/fisher\x2efish
+SETUVAR _fisher_plugins:\x7e/\x2econfig/fish/plugins/carla_paths\x1e\x7e/\x2econfig/fish/plugins/home\x2dbinpath\x1e\x7e/\x2econfig/fish/plugins/gdb\x2ddashboard\x2dhelpers\x1e\x7e/\x2econfig/fish/plugins/cuda\x2dpaths\x1e\x7e/\x2econfig/fish/plugins/fzf\x2dhelpers\x1e\x7e/\x2econfig/fish/plugins/tmux\x2dsession\x2dhelpers\x1e\x7e/\x2econfig/fish/plugins/ruby\x2dgems\x2dpath\x1e\x7e/\x2econfig/fish/plugins/rustup\x2dbinpath\x1e\x7e/\x2econfig/fish/plugins/golang\x2dpaths\x1e\x7e/\x2econfig/fish/plugins/luarocks\x2dbinpath\x1ejorgebucaran/bax\x2efish\x1ejorgebucaran/fisher\x1edracula/fish
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:005fd7

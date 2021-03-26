@@ -1,3 +1,4 @@
+~/.config/fish/plugins/carla_paths
 ~/.config/fish/plugins/home-binpath
 ~/.config/fish/plugins/gdb-dashboard-helpers
 ~/.config/fish/plugins/cuda-paths

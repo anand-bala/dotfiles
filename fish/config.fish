@@ -75,6 +75,10 @@ function cdgitroot -d "Change directory to the git root repo"
   end
 end
 
+function bashsource -d "Source a bash file" --wraps=source
+  replay source $argv
+end
+
 # --- Last thing to be set should be the prompt
 set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
 starship init fish | source
