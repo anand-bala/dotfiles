@@ -19,7 +19,6 @@ else
 end
 alias e="$EDITOR"
 
-
 # --- Colorize GCC output
 set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"
 
@@ -44,8 +43,6 @@ end
 
 # --- Setup paths for flatpak
 if command -sq -- flatpak
-  contains -- $HOME/.local/share $XDG_DATA_DIRS
-    or set -gx --path XDG_DATA_DIRS $HOME/.local/share $XDG_DATA_DIRS
 
   contains -- $HOME/.local/share/flatpak/exports/share $XDG_DATA_DIRS
     or set -gx --path XDG_DATA_DIRS $XDG_DATA_DIRS $HOME/.local/share/flatpak/exports/share
