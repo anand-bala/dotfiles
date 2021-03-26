@@ -22,6 +22,14 @@ __ln_at() {
 config_dir=${XDG_CONFIG_HOME:-$HOME/.config}
 SCRIPTPATH="$( cd "$(dirname $(readlink -f "$0"))" ; pwd -P )"
 
+install_gdb() {
+  src=$SCRIPTPATH/gdb
+  dest=$config_dir/gdb
+
+  ln -vs $src $dest
+  echo "source $dest/gdbinit" > $HOME/.gdbinit
+}
+
 install_dunst() {
   src=$SCRIPTPATH/dunst
   dest=$config_dir/dunst
@@ -165,6 +173,10 @@ while [[ $# -gt 0 ]]; do
     dunst )
       echo "Installing config for dunst"
       install_dunst
+      ;;
+    gdb )
+      echo "Installing config for gdb"
+      install_gdb
       ;;
     *)
       echoerr "'$1'?!? I have no idea what you're talking about?!"

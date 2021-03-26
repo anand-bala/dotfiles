@@ -1,0 +1,21 @@
+# vim: filetype=gdb
+
+# Sanity stuff
+set history save
+set verbose off
+set print pretty on
+set print array off
+set print array-indexes on
+set python print-stack full
+
+# Skip stack traces from libc++
+skip -gfi /usr/include/c++/*/*/*
+skip -gfi /usr/include/c++/*/*
+skip -gfi /usr/include/c++/*
+
+# Set a sane history file
+set history filename ~/.local/share/gdb/gdb_history
+
+source ~/.config/gdb/dashboard.py
+
+
