@@ -64,5 +64,5 @@ languages:
   lua:
     - <<: *luafmt
 
-  cpp:
-    - <<: *cppcheck
+  # cpp:
+  #   - <<: *cppcheck

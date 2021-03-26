@@ -75,6 +75,8 @@ function M.lsp_format_sync()
     if format_p ~= nil and format_p == 1 then vim.lsp.buf.formatting_sync() end
 end
 
+vim.cmd("command -nargs=0 Format lua vim.lsp.buf.formatting_sync()")
+
 utils.create_augroup("lspformat", {
     {'BufWritePre', '*', [[lua require'_lsp'.lsp_format_sync()]]}
 })

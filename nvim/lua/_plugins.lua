@@ -34,6 +34,7 @@ paq 'tpope/vim-abolish'
 
 paq 'andymass/vim-matchup'
 paq 'tpope/vim-surround'
+paq 'tpope/vim-repeat'
 
 paq 'tpope/vim-fugitive'
 paq 'tpope/vim-dispatch'
