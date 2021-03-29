@@ -3,7 +3,7 @@ local gls = gl.section
 
 gl.short_line_list = {'Floaterm'}
 
-local bufinfo = require '_statusline/bufinfo'
+local bufinfo = require '_ui/statusline/bufinfo'
 
 local colors = {
     bg = '#202328',

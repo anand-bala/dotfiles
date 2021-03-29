@@ -52,7 +52,6 @@ languages:
   python:
     - <<: *python-black
     - <<: *python-isort
-    - <<: *python-mypy
 
   cmake:
     - <<: *cmake-format

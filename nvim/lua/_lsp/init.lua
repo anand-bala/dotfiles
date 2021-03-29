@@ -59,6 +59,10 @@ utils.create_augroup("lspdiagnostics", {
     {'CursorHoldI', '*', 'silent!', 'lua vim.lsp.buf.signature_help()'}
 })
 
+-- [[ Snippets ]]
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 local conf = {
     on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -67,7 +71,8 @@ local conf = {
             vim.api.nvim_buf_set_var(bufnr, 'nvim_lsp_formatting', 1)
         end
         require'_keymaps'.lsp_mappings(bufnr)
-    end
+    end,
+    capabilities = capabilities
 }
 
 function M.lsp_format_sync()
@@ -94,18 +99,13 @@ setup_lsp(lspconfig.clangd, {
         "--header-insertion=iwyu"
     }
 })
-setup_lsp(lspconfig.pyls, {
-    settings = {
-        python = {workspaceSymbols = {enabled = true}},
-        pyls = {configurationSources = {"flake8"}, pyls_mypy = {enabled = true}}
-    }
-})
+---[[ Python
+setup_lsp(lspconfig.pyright, {})
+setup_lsp(lspconfig.jedi_language_server, {})
+---]]
 setup_lsp(lspconfig.texlab, require '_lsp/texlab')
 setup_lsp(lspconfig.sumneko_lua, require '_lsp/sumneko_lua')
 setup_lsp(lspconfig.vimls, {})
 setup_lsp(lspconfig.efm, require '_lsp/efm')
-
--- [[ Additional plugins for LSP ]]
-require('lspfuzzy').setup {}
 
 return M

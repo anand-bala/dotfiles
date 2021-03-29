@@ -1,3 +1,5 @@
+local utils = require '_utils'
+
 local M = {}
 
 function M.file_readonly()
@@ -11,14 +13,20 @@ function M.file_name()
         return "fugitive "
     elseif vim.bo.filetype == "fugitiveblame" then
         return "git blame "
+    elseif vim.bo.filetype == "floaterm" then
+        return "terminal "
     end
     local file = vim.fn.expand('%:f')
-    if vim.fn.empty(file) == 1 then return '' end
+    if vim.fn.empty(file) == 1 then
+        file = ""
+    elseif utils.starts_with(file, "term://") then
+        file = "terminal"
+    end
     if string.len(M.file_readonly()) ~= 0 then
-        return file .. M.file_readonly()
+        file = file .. M.file_readonly()
     end
     if vim.bo.modifiable then
-        if vim.bo.modified then return file .. '   ' end
+        if vim.bo.modified then file = file .. '   ' end
     end
     return file .. ' '
 end
