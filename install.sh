@@ -22,6 +22,21 @@ __ln_at() {
 config_dir=${XDG_CONFIG_HOME:-$HOME/.config}
 SCRIPTPATH="$( cd "$(dirname $(readlink -f "$0"))" ; pwd -P )"
 
+install_bat() {
+  src=$SCRIPTPATH/bat
+  dest=$config_dir/bat
+  rm -f $dest
+
+  ln -vs $src $dest
+}
+
+install_colcon() {
+  src=$SCRIPTPATH/colcon
+  dest=$config_dir/colcon
+
+  ln -vs $src $dest
+}
+
 install_gdb() {
   src=$SCRIPTPATH/gdb
   dest=$config_dir/gdb
@@ -100,9 +115,10 @@ install_fish() {
 install_nvim() {
   src=$SCRIPTPATH/nvim
   dest=$config_dir/nvim
-  rm -rf $dest
-  mkdir -pv $dest
-  __ln_at $dest $src/*
+
+  rm -f $dest
+
+  ln -vs $src $dest
 }
 
 install_git() {
@@ -177,6 +193,14 @@ while [[ $# -gt 0 ]]; do
     gdb )
       echo "Installing config for gdb"
       install_gdb
+      ;;
+    colcon )
+      echo "Installing config for colcon"
+      install_colcon
+      ;;
+    bat )
+      echo "Installing config for bat"
+      install_bat
       ;;
     *)
       echoerr "'$1'?!? I have no idea what you're talking about?!"
