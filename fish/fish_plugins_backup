@@ -1,3 +1,6 @@
+~/.config/fish/plugins/colcon-paths
+~/.config/fish/plugins/xdg-paths
+~/.config/fish/plugins/carla_paths
 ~/.config/fish/plugins/home-binpath
 ~/.config/fish/plugins/gdb-dashboard-helpers
 ~/.config/fish/plugins/cuda-paths
@@ -7,7 +10,6 @@
 ~/.config/fish/plugins/rustup-binpath
 ~/.config/fish/plugins/golang-paths
 ~/.config/fish/plugins/luarocks-binpath
-~/.config/fish/plugins/carla_paths
 jorgebucaran/bax.fish
 jorgebucaran/fisher
 dracula/fish
