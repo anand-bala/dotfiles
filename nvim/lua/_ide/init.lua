@@ -34,13 +34,14 @@ require'compe'.setup {
         calc = true,
         spell = true,
         tags = true,
-        onmi = true,
-        vsnip = true,
+        onmi = false,
         nvim_lsp = true,
         nvim_lua = true,
+        nvim_treesitter = true,
+        vsnip = true,
         snippets_nvim = false,
         ultisnips = true,
-        nvim_treesitter = true
+        emoji = true
     }
 }
 ---]]
@@ -59,7 +60,7 @@ require'telescope'.setup {
         initial_mode = "insert",
         selection_strategy = "reset",
         sorting_strategy = "ascending",
-        layout_strategy = "horizontal",
+        layout_strategy = "flex",
         layout_defaults = {
             horizontal = {mirror = false},
             vertical = {mirror = false}

@@ -26,6 +26,7 @@ noremap('i', '<Up>', '<C-o>gk')
 noremap('n', '<C-f>', '<cmd>Telescope find_files<cr>')
 noremap('n', '<C-g>', '<cmd>Telescope live_grep<cr>')
 cmd([[command! Helptags Telescope help_tags]])
+cmd([[command! Buffers  Telescope Buffers]])
 -- ]]
 
 ---[[ File Manager
@@ -47,23 +48,22 @@ noremap('i', '<C-e>', "compe#close('<C-e>')", compe_options)
 
 local lsp_mappings = function(bufnr)
 
-    local function lspmap(mode, lhs, rhs)
-        local lsp_map_options = {silent = true}
-        vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, lsp_map_options)
+    local bufmap = vim.api.nvim_buf_set_keymap
+    local function lspmap(mode, lhs, rhs, silent)
+        if silent == nil then silent = true end
+        local lsp_map_options = {silent = (silent == nil and true or silent)}
+        bufmap(bufnr, mode, lhs, rhs, lsp_map_options)
     end
 
     lspmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-    lspmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+    lspmap('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
     lspmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
     lspmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-    lspmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 
     lspmap('n', '<leader>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
     lspmap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 
-    lspmap('n', '<C-s>', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-    lspmap('n', '<leader>gw', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-    lspmap('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+    lspmap('n', '<C-s>', '<cmd>Telescope lsp_document_symbol')
     lspmap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
     lspmap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 
@@ -71,9 +71,10 @@ local lsp_mappings = function(bufnr)
            '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
     lspmap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
     lspmap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-    lspmap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
 
-    cmd [[command! OpenDiagnostic lua vim.lsp.diagnostic.set_loclist()]]
+    cmd [[command! Format         lua vim.lsp.buf.formatting_sync()   ]]
+    cmd [[command! Diagnostics    Telescope lsp_document_diagnostics  ]]
+    cmd [[command! References     Telescope lsp_references            ]]
 
     local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
     if filetype == "tex" or filetype == "latex" then
@@ -88,6 +89,14 @@ noremap('n', '<A-i>', '<cmd>FloatermNew<CR>', {silent = true})
 noremap('t', '<A-i>', '<C-\\><cmd>FloatermNew<CR>', {silent = true})
 noremap('n', '<leader>ft', '<cmd>FloatermToggle<CR>', {silent = true})
 noremap('t', '<leader>ft', '<C-\\><cmd>FloatermToggle<CR>', {silent = true})
+
+-- Launch terminal at bottom of window
+noremap('n', '`', '<cmd>FloatermNew --height=0.2 --wintype=split<CR>',
+        {silent = true})
+
+-- Escape out of terminal mode to normal mode
+noremap('t', '<Esc>', '<C-\\><C-n>', {silent = true})
+
 -- ]]
 
 return {lsp_mappings = lsp_mappings}

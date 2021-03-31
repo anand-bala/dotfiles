@@ -54,16 +54,17 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
         update_in_insert = false
     })
 
-utils.create_augroup("lspdiagnostics", {
-    {'CursorHold', '*', 'lua vim.lsp.diagnostic.show_line_diagnostics()'},
-    {'CursorHoldI', '*', 'silent!', 'lua vim.lsp.buf.signature_help()'}
-})
-
 -- [[ Snippets ]]
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local conf = {
+    on_init = function(client)
+        client.config.flags = {}
+        if client.config.flags then
+            client.config.flags.allow_incremental_sync = true
+        end
+    end,
     on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
         vim.api.nvim_buf_set_var(bufnr, 'nvim_lsp_buf_active', 1)
@@ -71,6 +72,12 @@ local conf = {
             vim.api.nvim_buf_set_var(bufnr, 'nvim_lsp_formatting', 1)
         end
         require'_keymaps'.lsp_mappings(bufnr)
+
+        utils.create_buffer_augroup("lspbehavior", {
+            [[CursorHold  <buffer>  lua vim.lsp.diagnostic.show_line_diagnostics()]],
+            [[CursorHoldI <buffer>  lua vim.lsp.buf.signature_help()]],
+            [[BufWritePre <buffer>  lua vim.lsp.buf.formatting_sync()]]
+        })
     end,
     capabilities = capabilities
 }
@@ -79,12 +86,6 @@ function M.lsp_format_sync()
     local format_p = vim.b.nvim_lsp_formatting
     if format_p ~= nil and format_p == 1 then vim.lsp.buf.formatting_sync() end
 end
-
-vim.cmd("command -nargs=0 Format lua vim.lsp.buf.formatting_sync()")
-
-utils.create_augroup("lspformat", {
-    {'BufWritePre', '*', [[lua require'_lsp'.lsp_format_sync()]]}
-})
 
 --- General interface to setup LSP clients
 local function setup_lsp(client, config)

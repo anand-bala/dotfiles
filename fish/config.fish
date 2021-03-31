@@ -51,32 +51,17 @@ if command -sq -- flatpak
     or set -gx --path XDG_DATA_DIRS $XDG_DATA_DIRS /var/lib/flatpak/exports/share
 end
 
-# -- Custom functions for productivity
 
-function chpwd --on-variable PWD
+# --- Custom prompt (last plugin)
+set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
+starship init fish | source
+
+# -- Custom hooks
+
+function chpwd --on-variable PWD -d "Run ls on cd"
     set -l cursor_pos (commandline --cursor)
     # Only show directory listing in interactive mode when not tab completing
     if test $cursor_pos -eq 0 ;and status --is-interactive
         ll
     end
 end
-
-function cdgitroot -d "Change directory to the git root repo"
-  set -l git_toplevel (git rev-parse --show-toplevel 2> /dev/null)
-  set -l cmd_status $status
-  if test $cmd_status -ne 0
-    echo "Looks like you're not in a git repository" 2>&1
-  else
-    echo Changing directory to $git_toplevel
-    cd $git_toplevel
-  end
-end
-
-function bashsource -d "Source a bash file" --wraps=source
-  replay source $argv
-end
-
-# --- Last thing to be set should be the prompt
-set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
-starship init fish | source
-
