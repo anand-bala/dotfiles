@@ -11,12 +11,13 @@ font xft:DelugiaNerdFont-Regular 11
 floating_modifier $mod
 
 bindsym $mod+Return exec alacritty
+bindsym F1 exec alacritty
 
 # Window kill command
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+m exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id rofi -show drun
 # start window switcher
 bindsym $mod+Tab exec --no-startup-id rofi -show window
 
@@ -99,11 +100,11 @@ bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 
 # move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+grave move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
+bindsym $mod+grave scratchpad show
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
