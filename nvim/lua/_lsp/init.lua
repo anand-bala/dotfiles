@@ -54,6 +54,20 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
         update_in_insert = false
     })
 
+-- [[ Formatting handler ]]
+-- vim.lsp.handlers["textDocument/formatting"] =
+--     function(err, _, result, _, bufnr)
+--         if err ~= nil or result == nil then return end
+--         if not vim.api.nvim_buf_get_option(bufnr, "modified") then
+--             local view = vim.fn.winsaveview()
+--             vim.lsp.util.apply_text_edits(result, bufnr)
+--             vim.fn.winrestview(view)
+--             if bufnr == vim.api.nvim_get_current_buf() then
+--                 vim.api.nvim_command("noautocmd :update")
+--             end
+--         end
+--     end
+
 -- [[ Snippets ]]
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -67,25 +81,20 @@ local conf = {
     end,
     on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        vim.api.nvim_buf_set_var(bufnr, 'nvim_lsp_buf_active', 1)
         if client.resolved_capabilities.document_formatting then
-            vim.api.nvim_buf_set_var(bufnr, 'nvim_lsp_formatting', 1)
+            utils.create_buffer_augroup("LspFormat", {
+                [[BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
+            })
         end
         require'_keymaps'.lsp_mappings(bufnr)
 
         utils.create_buffer_augroup("lspbehavior", {
             [[CursorHold  <buffer>  lua vim.lsp.diagnostic.show_line_diagnostics()]],
-            [[CursorHoldI <buffer>  lua vim.lsp.buf.signature_help()]],
-            [[BufWritePre <buffer>  lua vim.lsp.buf.formatting_sync()]]
+            [[CursorHoldI <buffer>  lua vim.lsp.buf.signature_help()]]
         })
     end,
     capabilities = capabilities
 }
-
-function M.lsp_format_sync()
-    local format_p = vim.b.nvim_lsp_formatting
-    if format_p ~= nil and format_p == 1 then vim.lsp.buf.formatting_sync() end
-end
 
 --- General interface to setup LSP clients
 local function setup_lsp(client, config)

@@ -4,8 +4,5 @@ local efm_config = config_dir .. "/efm-config.yaml"
 return {
     cmd = {'efm-langserver', '-c=' .. efm_config},
     init_options = {documentFormatting = true},
-    filetypes = {
-        'python', 'yaml', 'json', 'html', 'scss', 'css', 'markdown', 'cmake',
-        'lua'
-    }
+    filetypes = {'python', 'cmake', 'markdown', 'lua'}
 }
