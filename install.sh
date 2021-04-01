@@ -30,6 +30,15 @@ install_bat() {
   ln -vs $src $dest
 }
 
+install_direnv() {
+  src=$SCRIPTPATH/direnv
+  dest=$config_dir/direnv
+  rm -f $dest
+
+  ln -vs $src $dest
+}
+
+
 install_colcon() {
   src=$SCRIPTPATH/colcon
   dest=$config_dir/colcon
@@ -82,6 +91,12 @@ install_alacritty() {
   __ln_at $config_dir/alacritty $SCRIPTPATH/alacritty/*
 }
 
+install_tmux() {
+  rm -rf $config_dir/tmux/tmux.conf
+  mkdir -pv $config_dir/tmux
+  __ln_at $config_dir/tmux $SCRIPTPATH/tmux/*
+}
+
 install_starship() {
   rm -rf $config_dir/starship/starship.toml
   mkdir -pv $config_dir/starship
@@ -126,6 +141,10 @@ install_git() {
   dest=$config_dir/git
   mkdir -pv $dest
   __ln_at $dest $src/*
+
+  curl -SL \
+    "https://www.gitignore.io/api/vim,tags,linux,visualstudiocode,direnv" \
+    -o ~/.gitignore
 }
 
 install_conda() {
@@ -201,6 +220,14 @@ while [[ $# -gt 0 ]]; do
     bat )
       echo "Installing config for bat"
       install_bat
+      ;;
+    tmux )
+      echo "Installing config for tmux"
+      install_tmux
+      ;;
+    direnv )
+      echo "Installing config for direnv"
+      install_direnv
       ;;
     *)
       echoerr "'$1'?!? I have no idea what you're talking about?!"
