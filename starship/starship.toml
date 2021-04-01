@@ -35,6 +35,7 @@ symbol = " "
 
 [python]
 symbol = " "
+python_binary = ["python3", "python", "python2"]
 
 [ruby]
 symbol = " "
