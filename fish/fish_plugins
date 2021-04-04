@@ -12,5 +12,5 @@
 ~/.config/fish/plugins/ruby-gems-path
 ~/.config/fish/plugins/luarocks-binpath
 jorgebucaran/bax.fish
-jorgebucaran/fisher
 dracula/fish
+jorgebucaran/fisher

@@ -18,7 +18,7 @@ SETUVAR _fisher__7E_2F_2E_config_2F_fish_2F_plugins_2F_xdg_2D_paths_files:/home/
 SETUVAR _fisher_dracula_2F_fish_files:/home/anand/\x2elocal/share/fisher/conf\x2ed/dracula\x2efish
 SETUVAR _fisher_jorgebucaran_2F_bax_2E_fish_files:/home/anand/\x2elocal/share/fisher/functions/replay\x2efish\x1e/home/anand/\x2elocal/share/fisher/completions/replay\x2efish
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:/home/anand/\x2elocal/share/fisher/functions/fisher\x2efish\x1e/home/anand/\x2elocal/share/fisher/completions/fisher\x2efish
-SETUVAR _fisher_plugins:\x7e/\x2econfig/fish/plugins/home\x2dbinpath\x1e\x7e/\x2econfig/fish/plugins/rustup\x2dbinpath\x1e\x7e/\x2econfig/fish/plugins/golang\x2dpaths\x1e\x7e/\x2econfig/fish/plugins/npm\x2dpaths\x1e\x7e/\x2econfig/fish/plugins/cuda\x2dpaths\x1e\x7e/\x2econfig/fish/plugins/colcon\x2dpaths\x1e\x7e/\x2econfig/fish/plugins/xdg\x2dpaths\x1e\x7e/\x2econfig/fish/plugins/carla_paths\x1e\x7e/\x2econfig/fish/plugins/gdb\x2ddashboard\x2dhelpers\x1e\x7e/\x2econfig/fish/plugins/fzf\x2dhelpers\x1e\x7e/\x2econfig/fish/plugins/tmux\x2dsession\x2dhelpers\x1e\x7e/\x2econfig/fish/plugins/ruby\x2dgems\x2dpath\x1e\x7e/\x2econfig/fish/plugins/luarocks\x2dbinpath\x1ejorgebucaran/bax\x2efish\x1ejorgebucaran/fisher\x1edracula/fish
+SETUVAR _fisher_plugins:\x7e/\x2econfig/fish/plugins/home\x2dbinpath\x1e\x7e/\x2econfig/fish/plugins/rustup\x2dbinpath\x1e\x7e/\x2econfig/fish/plugins/golang\x2dpaths\x1e\x7e/\x2econfig/fish/plugins/npm\x2dpaths\x1e\x7e/\x2econfig/fish/plugins/cuda\x2dpaths\x1e\x7e/\x2econfig/fish/plugins/colcon\x2dpaths\x1e\x7e/\x2econfig/fish/plugins/xdg\x2dpaths\x1e\x7e/\x2econfig/fish/plugins/carla_paths\x1e\x7e/\x2econfig/fish/plugins/gdb\x2ddashboard\x2dhelpers\x1e\x7e/\x2econfig/fish/plugins/fzf\x2dhelpers\x1e\x7e/\x2econfig/fish/plugins/tmux\x2dsession\x2dhelpers\x1e\x7e/\x2econfig/fish/plugins/ruby\x2dgems\x2dpath\x1e\x7e/\x2econfig/fish/plugins/luarocks\x2dbinpath\x1ejorgebucaran/bax\x2efish\x1edracula/fish\x1ejorgebucaran/fisher
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:005fd7
@@ -48,3 +48,4 @@ SETUVAR fish_pager_color_completion:\x1d
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
+SETUVAR fish_user_paths:/home/anand/\x2efzf/bin

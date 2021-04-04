@@ -5,6 +5,10 @@ set -l carla_search_paths /opt
 # /opt/carla-simulator
 set -l carla_root (find $carla_search_paths -maxdepth 1 -type d -name 'carla*' | head -n1)
 
+if test -z "$carla_root"
+  exit 0
+end
+
 # Path to the Pythonroot path for the python API
 set -l carla_pyroot "$carla_root/PythonAPI"
 
