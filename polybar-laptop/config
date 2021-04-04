@@ -1,0 +1,361 @@
+; vim: set ft=dosini
+[colors]
+
+background   = #282a36
+foreground   = #f8f8f2
+comment      = #6272a4
+current_line = #44475a
+cyan         = #8be9fd
+green        = #50fa7b
+orange       = #ffb86c
+pink         = #ff79c6
+purple       = #bd93f9
+red          = #ff5555
+yellow       = #f1fa8c
+
+focused-bg          = #6272A4
+focused-fg          = #F8F8F2
+focused_inactive-bg = #44475A
+focused_inactive-fg = #F8F8F2
+unfocused-bg        = #282A36
+unfocused-fg        = #BFBFBF
+urgent-bg           = #FF5555
+urgent-fg           = #F8F8F2
+placeholder-bg      = #282A36
+placeholder-fg      = #F8F8F2
+
+focused_workspace-bg   = #44475A
+focused_workspace-fg   = #F8F8F2
+active_workspace-bg    = #44475A
+active_workspace-fg    = #F8F8F2
+unfocused_workspace-bg = #282A36
+unfocused_workspace-fg = #BFBFBF
+inactive_workspace-bg  = #282A36
+inactive_workspace-fg  = #BFBFBF
+urgent_workspace-bg    = #FF5555
+urgent_workspace-fg    = #F8F8F2
+binding_mode-bg        = #FF5555
+binding_mode-fg        = #F8F8F2
+
+bar_background = #282A36
+bar_statusline = #F8F8F2
+separator  = #44475A
+
+[bar/defaults]
+monitor      = ${env:MONITORS[0]:eDP-1}
+width        = 100%
+height       = 2.5%
+radius       = 0
+fixed-center = true
+
+background   = ${colors.bar_background}
+foreground   = ${colors.bar_statusline}
+
+line-size    = 1
+line-color   =
+
+border-size  = 0
+border-color =
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = "Source Code Pro Semibold:size=10;1"
+font-1 = "FontAwesome:size=10;1"
+font-2 = "MaterialIcons-Regular:size=10;1"
+font-3 = "Font Awesome 5 Free:style=Solid:size=10;1"
+font-4 = "Font Awesome 5 Brands:size=10;1"
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+wm-restack = i3
+override-redirect = true
+
+[bar/bottom]
+inherit = bar/defaults
+bottom = true
+
+modules-left = i3
+modules-center = wlan filesystem cpu memory nvidia_info
+modules-right =
+
+tray-position = right
+tray-padding = 2
+;tray-transparent = true
+;tray-background = #0063ff
+
+[bar/top]
+inherit = bar/defaults
+bottom = false
+
+modules-right = backlight pulseaudio battery date powermenu
+modules-left =  player-mpris-simple
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-mode-padding = 2
+label-mode-foreground = ${colors.binding_mode-fg}
+label-mode-background = ${colors.binding_mode-bg}
+
+label-focused = %index%
+label-focused-background = ${colors.focused_workspace-bg}
+label-focused-foreground = ${colors.focused_workspace-fg}
+label-focused-padding = 2
+
+label-unfocused = %index%
+label-unfocused-background = ${colors.unfocused_workspace-bg}
+label-unfocused-foreground = ${colors.unfocused_workspace-fg}
+label-unfocused-padding = 2
+
+label-visible = %index%
+label-visible-background = ${colors.active_workspace-bg}
+label-visible-foreground = ${colors.active_workspace-fg}
+label-visible-padding = 2
+
+label-urgent = %index%
+label-urgent-background = ${colors.urgent_workspace-bg}
+label-urgent-foreground = ${colors.urgent_workspace-fg}
+label-urgent-padding = 2
+
+[module/battery]
+type = internal/battery
+full-at = 98
+
+time-format = %H:%M
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+
+label-charging = %percentage%% %time%h
+label-discharging = %percentage%% %time%h 
+label-full = %percentage%% %time%h 
+ramp-capacity-0 = 
+ramp-capacity-0-foreground = #f53c3c
+ramp-capacity-1 = 
+ramp-capacity-1-foreground = #ffa900
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+bar-capacity-width = 10
+bar-capacity-format = %{+u}%{+o}%fill%%empty%%{-u}%{-o}
+bar-capacity-fill = █
+bar-capacity-fill-foreground = #ddffffff
+bar-capacity-fill-font = 3
+bar-capacity-empty = █
+bar-capacity-empty-font = 3
+bar-capacity-empty-foreground = #44ffffff
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+
+format-connected = <ramp-signal> <label-connected>
+format-connected-foreground = ${colors.foreground}
+format-connected-background = ${colors.background}
+label-connected = %essid%
+
+format-disconnected =
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = ${colors.foreground}
+
+[module/eth]
+type = internal/network
+interface = enp4s0
+interval = 3.0
+
+format-connected-foreground = ${colors.foreground}
+format-connected-background = ${colors.background}
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground}
+label-connected = %local_ip%
+
+format-disconnected =
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = " %a, %b %d"
+date-alt = " %Y-%m-%d"
+
+time = %I:%M%p
+time-alt = %H:%M
+
+format-prefix = 
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+label = %date% %time%
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = false
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.foreground}
+label-close =  cancel
+label-close-foreground = ${colors.red}
+label-separator = |
+label-separator-foreground = ${colors.separator}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+menu-0-2 = log off
+menu-0-2-exec = menu-open-3
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = reboot
+
+menu-2-0 = power off
+menu-2-0-exec = poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+menu-3-0 = log off
+menu-3-0-exec = i3 exit logout
+menu-3-1 = cancel
+menu-3-1-exec = menu-open-0
+
+[module/cpu]
+type = internal/cpu
+
+; Seconds to sleep between updates
+interval = 1
+format = <label> <ramp-load>
+label = CPU %percentage%%
+
+ramp-load-0 = ▁
+ramp-load-1 = ▂
+ramp-load-2 = ▃
+ramp-load-3 = ▄
+ramp-load-4 = ▅
+ramp-load-5 = ▆
+ramp-load-6 = ▇
+ramp-load-7 = █
+
+[module/memory]
+type = internal/memory
+
+; Seconds to sleep between updates
+interval = 1
+
+format = <label> <ramp-used>
+label = RAM %gb_used%/%gb_free%
+
+; Only applies if <ramp-used> is used
+ramp-used-0 = ▁
+ramp-used-1 = ▂
+ramp-used-2 = ▃
+ramp-used-3 = ▄
+ramp-used-4 = ▅
+ramp-used-5 = ▆
+ramp-used-6 = ▇
+ramp-used-7 = █
+
+[module/nvidia_info]
+type = custom/script
+tail = true
+exec-if = nvidia-smi
+exec = "nvidia-smi --loop=5 --query-gpu=temperature.gpu,utilization.gpu,utilization.memory --format=csv,noheader,nounits | sed -ur 's|([[:digit:]]+)[^[:digit:]]*([[:digit:]]+)[^[:digit:]]*([[:digit:]]+)|GPU \2% \3% \1°|g'"
+
+[module/filesystem]
+type = internal/fs
+
+; Mountpoints to display
+mount-0 = /
+
+fixed-values = true
+
+format-mounted = <label-mounted>
+label-mounted = %mountpoint%: %percentage_free%%
+
+spacing = 1
+
+[module/backlight]
+type = internal/backlight
+format = <ramp> <label>
+#format = <ramp> <bar>
+
+card =  intel_backlight
+
+label = %percentage%%
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+
+bar-width = 10
+bar-indicator = |
+bar-indicator-font = 3
+bar-indicator-foreground = #ff
+bar-fill = ─
+bar-fill-font = 3
+bar-fill-foreground = #c9665e
+bar-empty = ─
+bar-empty-font = 3
+bar-empty-foreground = #44
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+; sink = alsa_output.pci-0000_12_00.3.analog-stereo
+
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = false
+interval = 5
+format-volume = <ramp-volume> <label-volume>
+label-muted =  %percentage%%
+label-muted-foreground = ${colors.comment}
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+; Right and Middle click
+click-right = pavucontrol
+; click-middle =
+
+[module/player-mpris-simple]
+type = custom/script
+exec = ~/.config/polybar/scripts/player-mpris-simple.sh  
+interval = 1
+click-left = playerctl play-pause &
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
