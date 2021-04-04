@@ -70,6 +70,15 @@ install_polybar() {
   __ln_at $dest $src/*
 }
 
+install_polybar-laptop() {
+  src=$SCRIPTPATH/polybar-laptop
+  dest=$config_dir/polybar
+  rm -rf $dest
+  mkdir -pv $dest
+  __ln_at $dest $src/*
+}
+
+
 install_i3() {
   src=$SCRIPTPATH/i3
   dest=$config_dir/i3
@@ -200,6 +209,10 @@ while [[ $# -gt 0 ]]; do
     polybar )
       echo "Installing config for polybar"
       install_polybar
+      ;;
+    polybar-laptop )
+      echo "Installing config for polybar-laptop"
+      install_polybar-laptop
       ;;
     rofi )
       echo "Installing config for rofi"
