@@ -190,7 +190,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id mate-power-manager
 
 # use dex to launch xdg/autostart
-exec --no-startup-id dex -a
+exec --no-startup-id dex -a -e i3wm
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border normal
