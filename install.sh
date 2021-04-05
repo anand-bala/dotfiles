@@ -26,7 +26,6 @@ install_bat() {
   src=$SCRIPTPATH/bat
   dest=$config_dir/bat
   rm -f $dest
-
   ln -vs $src $dest
 }
 
@@ -34,7 +33,6 @@ install_direnv() {
   src=$SCRIPTPATH/direnv
   dest=$config_dir/direnv
   rm -f $dest
-
   ln -vs $src $dest
 }
 
@@ -42,7 +40,7 @@ install_direnv() {
 install_colcon() {
   src=$SCRIPTPATH/colcon
   dest=$config_dir/colcon
-
+  rm -f $dest
   ln -vs $src $dest
 }
 
