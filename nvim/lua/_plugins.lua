@@ -1,6 +1,6 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
-local g = vim.g
+local utils = require('_utils')
 
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
@@ -11,9 +11,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 local packer = require('packer')
+local compile_path = utils.join_paths(vim.fn.stdpath('data'),
+                                      'site/pack/loader/start/packer/plugin/',
+                                      'packer_compiled.vim')
 
-packer.startup(function()
-    local use = packer.use
+local init = function()
+    local use = require('packer').use
     -- Let packer manage itself
     use 'wbthomason/packer.nvim'
 
@@ -23,7 +26,7 @@ packer.startup(function()
     use {
         'editorconfig/editorconfig-vim',
         config = function()
-            g.EditorConfig_exclude_patterns = {"fugitive://.*"}
+            vim.g.EditorConfig_exclude_patterns = {"fugitive://.*"}
         end
     }
     ---]]
@@ -36,8 +39,8 @@ packer.startup(function()
         'tomtom/tcomment_vim',
         config = function()
             -- Disable secondary mappings for tcomment
-            g.tcomment_mapleader1 = ''
-            g.tcomment_mapleader2 = ''
+            vim.g.tcomment_mapleader1 = ''
+            vim.g.tcomment_mapleader2 = ''
         end
     }
     ---]]
@@ -47,18 +50,21 @@ packer.startup(function()
     use 'tpope/vim-surround'
     use 'tpope/vim-repeat'
 
-    use 'tpope/vim-fugitive'
-    use 'tpope/vim-dispatch'
+    use {'tpope/vim-fugitive', opt = true, cmd = {'Git'}}
+    use {
+        'tpope/vim-dispatch',
+        opt = true,
+        cmd = {'Dispatch', 'Make', 'Focus', 'Start'}
+    }
 
     use 'junegunn/vim-easy-align'
 
     --- Fuzzy search
     ---[[
-    use 'nvim-lua/popup.nvim'
-    use 'nvim-lua/plenary.nvim'
+
     use {
         'nvim-telescope/telescope.nvim',
-        requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'}
+        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
     ---]]
 
@@ -67,22 +73,22 @@ packer.startup(function()
     use {
         'voldikss/vim-floaterm',
         config = function()
-            g.floaterm_shell = 'fish'
-            g.floaterm_autoclose = 2
+            vim.g.floaterm_shell = 'fish'
+            vim.g.floaterm_autoclose = 2
         end
     }
     ---]]
 
     --- File manager
     ---[[
-    use {
-        'mcchrish/nnn.vim',
-        config = function()
-            g["nnn#layout"] = {
-                window = {width = 0.9, height = 0.6, highlight = 'Debug'}
-            }
-        end
-    }
+    -- use {
+    --     'mcchrish/nnn.vim',
+    --     config = function()
+    --         vim.g["nnn#layout"] = {
+    --             window = {width = 0.9, height = 0.6, highlight = 'Debug'}
+    --         }
+    --     end
+    -- }
     ---]]
     ---]] Everyday tools
 
@@ -95,7 +101,7 @@ packer.startup(function()
     ---[[
     use {
         'SirVer/ultisnips',
-        config = function() g.UltiSnipsEditSplit = "vertical" end
+        config = function() vim.g.UltiSnipsEditSplit = "vertical" end
     }
     ---]]
     -- use 'honza/vim-snippets'
@@ -108,9 +114,9 @@ packer.startup(function()
     use {
         'ludovicchabant/vim-gutentags',
         config = function()
-            g.gutentags_ctags_extra_args =
+            vim.g.gutentags_ctags_extra_args =
                 {'--tag-relative=yes', '--fields=+aimS'}
-            g.gutentags_file_list_command =
+            vim.g.gutentags_file_list_command =
                 {
                     markers = {
                         [".latexmkrc"] = 'fd -L -t f',
@@ -124,35 +130,35 @@ packer.startup(function()
     ---]] Completions, Linting, and Snippets
 
     ---[[ Language specific
-    use 'KeitaNakamura/tex-conceal.vim'
+    use {'KeitaNakamura/tex-conceal.vim', ft = {'tex', 'latex', 'bib'}}
     ---[[
     use {
         'plasticboy/vim-markdown',
         ft = 'markdown',
         config = function()
-            g.vim_markdown_auto_insert_bullets = 0
-            g.vim_markdown_autowrite = 1
-            g.vim_markdown_conceal = 1
-            g.vim_markdown_conceal_code_blocks = 0
-            g.vim_markdown_edit_url_in = 'vsplit'
-            g.vim_markdown_folding_disabled = 1
-            g.vim_markdown_follow_anchor = 1
-            g.vim_markdown_frontmatter = 1
-            g.vim_markdown_math = 1
-            g.vim_markdown_new_list_item_indent = 0
-            g.vim_markdown_strikethrough = 1
-            g.vim_markdown_toc_autofit = 1
-            g.vim_markdown_toml_frontmatter = 1
+            vim.g.vim_markdown_auto_insert_bullets = 0
+            vim.g.vim_markdown_autowrite = 1
+            vim.g.vim_markdown_conceal = 1
+            vim.g.vim_markdown_conceal_code_blocks = 0
+            vim.g.vim_markdown_edit_url_in = 'vsplit'
+            vim.g.vim_markdown_folding_disabled = 1
+            vim.g.vim_markdown_follow_anchor = 1
+            vim.g.vim_markdown_frontmatter = 1
+            vim.g.vim_markdown_math = 1
+            vim.g.vim_markdown_new_list_item_indent = 0
+            vim.g.vim_markdown_strikethrough = 1
+            vim.g.vim_markdown_toc_autofit = 1
+            vim.g.vim_markdown_toml_frontmatter = 1
         end,
         requires = 'mzlogin/vim-markdown-toc'
     }
     ---]]
 
-    use 'ziglang/zig.vim'
-    use 'rust-lang/rust.vim'
-    use 'cespare/vim-toml'
-    use 'dag/vim-fish'
-    use 'mboughaba/i3config.vim'
+    use {'ziglang/zig.vim', ft = 'zig'}
+    use {'rust-lang/rust.vim', ft = 'rust'}
+    use {'cespare/vim-toml', ft = 'toml'}
+    use {'dag/vim-fish', ft = 'toml'}
+    use {'mboughaba/i3config.vim', ft = 'i3config'}
 
     ---]] Language specific
 
@@ -164,5 +170,9 @@ packer.startup(function()
     }
     use {'glepnir/galaxyline.nvim', branch = 'main'}
     use {'dracula/vim', as = 'dracula'}
+end
 
-end)
+packer.startup({
+    init,
+    config = {ensure_dependencies = true, compile_path = compile_path}
+})

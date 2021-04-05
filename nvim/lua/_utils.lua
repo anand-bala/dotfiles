@@ -41,6 +41,8 @@ function M.isdir(path)
     return M.exists(path .. "/")
 end
 
+function M.join_paths(...) return table.concat({...}, '/') end
+
 function M.starts_with(str, start) return str:sub(1, #start) == start end
 
 function M.ends_with(str, ending)

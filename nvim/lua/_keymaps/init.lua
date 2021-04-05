@@ -30,13 +30,13 @@ cmd([[command! Buffers  Telescope Buffers]])
 -- ]]
 
 ---[[ File Manager
-vim.g["nnn#set_default_mappings"] = 0
-vim.g["nnn#action"] = {
-    ["<c-t>"] = "tab split",
-    ["<c-x>"] = "split",
-    ["<c-v>"] = "vsplit"
-}
-noremap('n', '<C-n>', '<cmd>NnnPicker %:p:h<CR>', {silent = true})
+-- vim.g["nnn#set_default_mappings"] = 0
+-- vim.g["nnn#action"] = {
+--     ["<c-t>"] = "tab split",
+--     ["<c-x>"] = "split",
+--     ["<c-v>"] = "vsplit"
+-- }
+-- noremap('n', '<C-n>', '<cmd>NnnPicker %:p:h<CR>', {silent = true})
 -- ]]
 
 ---[[ nvim-lsp
