@@ -157,7 +157,7 @@ local init = function()
     use {'ziglang/zig.vim', ft = 'zig'}
     use {'rust-lang/rust.vim', ft = 'rust'}
     use {'cespare/vim-toml', ft = 'toml'}
-    use {'dag/vim-fish', ft = 'toml'}
+    use {'dag/vim-fish', ft = 'fish'}
     use {'mboughaba/i3config.vim', ft = 'i3config'}
 
     ---]] Language specific
