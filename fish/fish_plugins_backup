@@ -1,3 +1,4 @@
+~/.config/fish/plugins/tex-paths
 ~/.config/fish/plugins/npm-paths
 ~/.config/fish/plugins/colcon-paths
 ~/.config/fish/plugins/xdg-paths
