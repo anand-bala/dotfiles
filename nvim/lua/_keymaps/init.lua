@@ -46,7 +46,7 @@ noremap('i', '<C-p>', "compe#complete()", compe_options)
 noremap('i', '<CR>', "compe#confirm('<CR>')", compe_options)
 noremap('i', '<C-e>', "compe#close('<C-e>')", compe_options)
 
-local lsp_mappings = function(bufnr)
+local lsp_mappings = function(client, bufnr)
 
     local bufmap = vim.api.nvim_buf_set_keymap
     local function lspmap(mode, lhs, rhs, silent)
@@ -65,14 +65,17 @@ local lsp_mappings = function(bufnr)
 
     lspmap('n', '<C-s>', '<cmd>Telescope lsp_document_symbol')
     lspmap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-    lspmap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+    if client.resolved_capabilities.document_formatting then
+        lspmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+    elseif client.resolved_capabilities.document_range_formatting then
+        lspmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
+    end
 
     lspmap('n', '<leader>ld',
            '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
     lspmap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
     lspmap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
-    cmd [[command! Format         lua vim.lsp.buf.formatting_sync()   ]]
     cmd [[command! Diagnostics    Telescope lsp_document_diagnostics  ]]
     cmd [[command! References     Telescope lsp_references            ]]
 
@@ -85,8 +88,6 @@ end
 -- ]]
 
 ---[[ Floating Terminal
-noremap('n', '<A-i>', '<cmd>FloatermNew<CR>', {silent = true})
-noremap('t', '<A-i>', '<C-\\><cmd>FloatermNew<CR>', {silent = true})
 noremap('n', '<leader>ft', '<cmd>FloatermToggle<CR>', {silent = true})
 noremap('t', '<leader>ft', '<C-\\><cmd>FloatermToggle<CR>', {silent = true})
 

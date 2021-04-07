@@ -50,7 +50,7 @@ local init = function()
     use 'tpope/vim-surround'
     use 'tpope/vim-repeat'
 
-    use {'tpope/vim-fugitive', opt = true, cmd = {'Git'}}
+    use {'tpope/vim-fugitive', opt = true, cmd = {'Git', 'Gstatus'}}
     use {
         'tpope/vim-dispatch',
         opt = true,
