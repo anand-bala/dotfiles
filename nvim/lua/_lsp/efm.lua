@@ -3,6 +3,6 @@ local efm_config = config_dir .. "/efm-config.yaml"
 
 return {
     cmd = {'efm-langserver', '-c', efm_config},
-    init_options = {documentFormatting = true},
-    filetypes = {'python', 'cmake', 'lua'}
+    init_options = {documentFormatting = true, documentRangeFormatting = true},
+    filetypes = {'python', 'cmake', 'lua', 'xml'}
 }

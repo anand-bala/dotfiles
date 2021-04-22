@@ -23,6 +23,11 @@ function M.noremap(mode, lhs, rhs, opts)
                             vim.tbl_extend("keep", opts, default_option))
 end
 
+function M.map(mode, lhs, rhs, opts)
+    if opts == nil then opts = {} end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
+end
+
 --- Check if a file or directory exists in this path
 function M.exists(file)
     local ok, err, code = os.rename(file, file)

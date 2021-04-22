@@ -137,9 +137,7 @@ install_fish() {
 install_nvim() {
   src=$SCRIPTPATH/nvim
   dest=$config_dir/nvim
-
   rm -f $dest
-
   ln -vs $src $dest
 }
 

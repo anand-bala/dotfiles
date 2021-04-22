@@ -2,6 +2,7 @@
 local cmd = vim.cmd
 local utils = require '_utils'
 local noremap = utils.noremap
+local map = utils.map
 
 -- First, we set the leader character.
 -- Personally, I like backslash
@@ -63,7 +64,7 @@ local lsp_mappings = function(client, bufnr)
     lspmap('n', '<leader>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
     lspmap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 
-    lspmap('n', '<C-s>', '<cmd>Telescope lsp_document_symbol')
+    lspmap('n', '<C-s>', '<cmd>Telescope lsp_document_symbol<CR>')
     lspmap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
     if client.resolved_capabilities.document_formatting then
         lspmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
@@ -76,6 +77,7 @@ local lsp_mappings = function(client, bufnr)
     lspmap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
     lspmap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
+    cmd [[command! Format         lua vim.lsp.buf.formatting()  ]]
     cmd [[command! Diagnostics    Telescope lsp_document_diagnostics  ]]
     cmd [[command! References     Telescope lsp_references            ]]
 
@@ -99,5 +101,10 @@ noremap('n', '`', '<cmd>FloatermNew --height=0.2 --wintype=split<CR>',
 noremap('t', '<Esc>', '<C-\\><C-n>', {silent = true})
 
 -- ]]
+
+---[[ Aligning
+map('n', 'ga', '<Plug>(EasyAlign)')
+map('x', 'ga', '<Plug>(EasyAlign)')
+---]]
 
 return {lsp_mappings = lsp_mappings}

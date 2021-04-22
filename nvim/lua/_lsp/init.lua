@@ -112,7 +112,7 @@ setup_lsp(lspconfig.clangd, {
 })
 ---[[ Python
 setup_lsp(lspconfig.pyright, {})
-setup_lsp(lspconfig.jedi_language_server, {})
+-- setup_lsp(lspconfig.jedi_language_server, {})
 ---]]
 setup_lsp(lspconfig.texlab, require '_lsp/texlab')
 setup_lsp(lspconfig.sumneko_lua, require '_lsp/sumneko_lua')

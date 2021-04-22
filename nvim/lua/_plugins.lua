@@ -11,8 +11,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 local packer = require('packer')
-local compile_path = utils.join_paths(vim.fn.stdpath('data'),
-                                      'site/pack/loader/start/packer/plugin/',
+local compile_path = utils.join_paths(vim.fn.stdpath('data'), 'site', 'plugin',
                                       'packer_compiled.vim')
 
 local init = function()
@@ -96,7 +95,10 @@ local init = function()
 
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/nvim-compe'
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate',
+    }
 
     ---[[
     use {
@@ -150,7 +152,7 @@ local init = function()
             vim.g.vim_markdown_toc_autofit = 1
             vim.g.vim_markdown_toml_frontmatter = 1
         end,
-        requires = 'mzlogin/vim-markdown-toc'
+        requires = {{'mzlogin/vim-markdown-toc', opt = true}}
     }
     ---]]
 

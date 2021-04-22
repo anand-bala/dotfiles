@@ -25,6 +25,10 @@ tools:
     format-command: 'lua-format'
     format-stdin: true
 
+  xmllint: &xmllint
+    format-command: 'xmllint --format -'
+    format-stdin: true
+
 languages:
   python:
     - <<: *python-black
@@ -36,3 +40,6 @@ languages:
 
   lua:
     - <<: *luafmt
+
+  xml:
+    - <<: *xmllint
