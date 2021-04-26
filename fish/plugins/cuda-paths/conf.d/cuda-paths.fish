@@ -1,5 +1,5 @@
 # --- CUDA config
-if not set -q CUDA_HOME; test -d "/usr/local/cuda"
+if not set -q CUDA_HOME; and test -d "/usr/local/cuda"
   set -gx CUDA_HOME           /usr/local/cuda
 end
 

@@ -4,5 +4,7 @@ if [ $CARGO_HOME ]
   set rustup_path $CARGO_HOME/bin
 end
 
-contains -- $rustup_path $PATH
+if test -d $rustup_path
+  contains -- $rustup_path $PATH
   or set -gx PATH $rustup_path $PATH
+end

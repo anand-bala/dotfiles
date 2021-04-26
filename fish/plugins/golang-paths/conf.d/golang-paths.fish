@@ -6,5 +6,7 @@ end
 
 set -l go_binpath $golang_root/bin
 
-contains -- $go_binpath $PATH
+if test -d $go_binpath
+  contains -- $go_binpath $PATH
   or set -gx PATH $go_binpath $PATH
+end
