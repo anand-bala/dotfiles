@@ -2,9 +2,6 @@
 success_symbol = "[λ](bold green)"
 error_symbol = "[λ](bold red)"
 
-[haskell]
-disabled = true
-
 [aws]
 disabled = true
 
@@ -13,7 +10,7 @@ symbol = " "
 ignore_base = false
 
 [gcloud]
-disable = true
+disabled = true
 
 [git_branch]
 symbol = " "
@@ -28,7 +25,7 @@ symbol = " "
 symbol = " "
 
 [openstack]
-disable = true
+disabled = true
 
 [package]
 symbol = " "
