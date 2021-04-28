@@ -93,12 +93,16 @@ end
 noremap('n', '<leader>ft', '<cmd>FloatermToggle<CR>', {silent = true})
 noremap('t', '<leader>ft', '<C-\\><cmd>FloatermToggle<CR>', {silent = true})
 
+-- Escape out of terminal mode to normal mode
+noremap('t', '<Esc>', '<C-\\><C-n>', {silent = true})
+
 -- Launch terminal at bottom of window
 noremap('n', '`', '<cmd>FloatermNew --height=0.2 --wintype=split<CR>',
         {silent = true})
 
--- Escape out of terminal mode to normal mode
-noremap('t', '<Esc>', '<C-\\><C-n>', {silent = true})
+-- Create new terminal vsplit
+noremap('n', '<C-w>|', '<cmd>FloatermNew --width=0.5 --wintype=vsplit<CR>',
+        {silent = true})
 
 -- ]]
 
