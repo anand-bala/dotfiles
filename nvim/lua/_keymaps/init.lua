@@ -1,20 +1,20 @@
 --- Keybindings for nvim
 local cmd = vim.cmd
 local utils = require '_utils'
-local noremap = utils.noremap
 local map = utils.map
+local noremap = utils.noremap
 
 -- First, we set the leader character.
 -- Personally, I like backslash
 vim.g.mapleader = '\\'
 
 -- shifting visual block should keep it selected
-noremap('v', '<', '<gv')
-noremap('v', '>', '>gv')
+noremap('v','<', '<gv')
+noremap('v','>', '>gv')
 
 -- go up/down on visual line
-noremap('n', '<Down>', 'gj')
-noremap('n', '<Up>', 'gk')
+noremap('n','<Down>', 'gj')
+noremap('n','<Up>', 'gk')
 noremap('v', '<Down>', 'gj')
 noremap('v', '<Up>', 'gk')
 noremap('i', '<Down>', '<C-o>gj')
@@ -78,13 +78,22 @@ local lsp_mappings = function(client, bufnr)
     lspmap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
     cmd [[command! Format         lua vim.lsp.buf.formatting()  ]]
-    cmd [[command! Diagnostics    Telescope lsp_document_diagnostics  ]]
-    cmd [[command! References     Telescope lsp_references            ]]
+    cmd [[command! Diagnostics    LspTrouble lsp_document_diagnostics  ]]
+    cmd [[command! References     LspTrouble lsp_references            ]]
 
     local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
     if filetype == "tex" or filetype == "latex" then
-        lspmap('n', '<leader>lv', '<cmd>lua TexlabForwardSearch()<CR>')
+        lspmap('n', '<leader>lv', '<cmd>TexlabForward<CR>')
     end
+
+    lspmap("n", "<leader>xx", "<cmd>LspTroubleToggle<cr>")
+    lspmap("n", "<leader>xw",
+           "<cmd>LspTroubleToggle lsp_workspace_diagnostics<cr>")
+    lspmap("n", "<leader>xd",
+           "<cmd>LspTroubleToggle lsp_document_diagnostics<cr>")
+    lspmap("n", "<leader>xl", "<cmd>LspTroubleToggle loclist<cr>")
+    lspmap("n", "<leader>xq", "<cmd>LspTroubleToggle quickfix<cr>")
+    lspmap("n", "gR", "<cmd>LspTrouble lsp_references<cr>")
 end
 
 -- ]]

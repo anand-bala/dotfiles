@@ -1,0 +1,95 @@
+fileExtensionPreference:
+    .tex: 1
+
+# preferences for information displayed in the log file
+logFilePreferences:
+    showEveryYamlRead: 1
+    showAmalgamatedSettings: 0
+    endLogFileWith: '--------------' 
+    showGitHubInfoFooter: 1
+
+#  verbatim environments- environments specified 
+#  in this hash table will not be changed at all!
+verbatimEnvironments:
+    verbatim: 1
+    lstlisting: 1
+
+#  verbatim commands such as \verb! body !, \lstinline$something else$
+verbatimCommands:
+    verb: 1
+    lstinline: 1
+
+#  no indent blocks (not necessarily verbatim 
+#  environments) which are marked as %\begin{noindent}
+#  or anything else that the user puts in this hash
+#  table
+noIndentBlock:
+    nolatexindent: 1
+
+# remove trailing whitespace from all lines 
+removeTrailingWhitespace:
+    beforeProcessing: 1
+    afterProcessing: 1
+
+# \begin{document} and \end{document} are treated differently
+# by latexindent within filecontents environments
+fileContentsEnvironments:
+    filecontents: 1
+    filecontents*: 1
+
+# indent preamble
+indentPreamble: 0
+
+# assume no preamble in cls, sty, by default
+lookForPreamble:
+    .tex: 1
+
+# some preambles can contain \begin and \end statements
+# that are not in their 'standard environment block', for example,
+# consider the following key = values:
+#    preheadhook={\begin{mdframed}[style=myframedstyle]},
+#    postfoothook=\end{mdframed},
+preambleCommandsBeforeEnvironments: 0
+
+# Default value of indentation
+defaultIndent: "  "
+
+# if you want the script to look for \item commands 
+# and format it, as follows (for example),
+#       \begin{itemize}
+#           \item content here
+#                 next line is indented
+#                 next line is indented
+#           \item another item
+#       \end{itemize}
+# then populate indentAfterItems. See also itemNames
+indentAfterItems:
+    itemize: 1
+    enumerate: 1
+    etaremune: 1
+    list: 1
+
+# if you want to add indentation after
+# a heading, such as \part, \chapter, etc
+# then populate it in here - you can add 
+# an indent rule to indentRules if you would 
+# like something other than defaultIndent
+#
+# you can also change the level if you like, 
+# or add your own title command
+indentAfterHeadings:
+    part:
+       indentAfterThisHeading: 0
+       level: 1
+    chapter: 
+       indentAfterThisHeading: 0
+       level: 2
+    section:
+       indentAfterThisHeading: 0
+       level: 3
+
+    specialBeginEnd:
+        SpecialBeginStartsOnOwnLine: 0
+        SpecialBodyStartsOnOwnLine: 0
+        SpecialEndStartsOnOwnLine: 0 
+        SpecialEndFinishesWithLineBreak: 0

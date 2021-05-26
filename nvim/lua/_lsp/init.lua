@@ -55,18 +55,18 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
     })
 
 -- [[ Formatting handler ]]
--- vim.lsp.handlers["textDocument/formatting"] =
---     function(err, _, result, _, bufnr)
---         if err ~= nil or result == nil then return end
---         if not vim.api.nvim_buf_get_option(bufnr, "modified") then
---             local view = vim.fn.winsaveview()
---             vim.lsp.util.apply_text_edits(result, bufnr)
---             vim.fn.winrestview(view)
---             if bufnr == vim.api.nvim_get_current_buf() then
---                 vim.api.nvim_command("noautocmd :update")
---             end
---         end
---     end
+vim.lsp.handlers["textDocument/formatting"] =
+    function(err, _, result, _, bufnr)
+        if err ~= nil or result == nil then return end
+        if not vim.api.nvim_buf_get_option(bufnr, "modified") then
+            local view = vim.fn.winsaveview()
+            vim.lsp.util.apply_text_edits(result, bufnr)
+            vim.fn.winrestview(view)
+            if bufnr == vim.api.nvim_get_current_buf() then
+                vim.api.nvim_command("noautocmd :update")
+            end
+        end
+    end
 
 -- [[ Snippets ]]
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -81,18 +81,21 @@ local conf = {
     end,
     on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        if client.resolved_capabilities.document_formatting or
-            client.resolved_capabilities.document_range_formatting then
-            utils.create_buffer_augroup("LspFormat", {
-                [[BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
-            })
-        end
+        -- if client.resolved_capabilities.document_formatting or
+        --     client.resolved_capabilities.document_range_formatting then
+        --     utils.create_buffer_augroup("lspformat", {
+        --         [[BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
+        --     })
+        -- end
         require'_keymaps'.lsp_mappings(client, bufnr)
 
-        utils.create_buffer_augroup("lspbehavior", {
-            [[CursorHold  <buffer>  lua vim.lsp.diagnostic.show_line_diagnostics()]],
-            [[CursorHoldI <buffer>  lua vim.lsp.buf.signature_help()]]
-        })
+        local lsp_autocmds = {
+            [[CursorHold  <buffer>  lua vim.lsp.diagnostic.show_line_diagnostics()]]
+        }
+        utils.create_buffer_augroup("lspbehavior", lsp_autocmds)
+        -- {
+        --         [[CursorHoldI <buffer>  lua vim.lsp.buf.signature_help()]]
+        --     })
     end,
     capabilities = capabilities
 }
@@ -118,5 +121,6 @@ setup_lsp(lspconfig.texlab, require '_lsp/texlab')
 setup_lsp(lspconfig.sumneko_lua, require '_lsp/sumneko_lua')
 setup_lsp(lspconfig.vimls, {})
 setup_lsp(lspconfig.efm, require '_lsp/efm')
+setup_lsp(lspconfig.zls, {})
 
 return M

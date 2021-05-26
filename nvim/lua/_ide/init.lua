@@ -47,6 +47,7 @@ require'compe'.setup {
 ---]]
 
 ---[[ Fuzzy finder
+local trouble = require("trouble.providers.telescope")
 require'telescope'.setup {
     defaults = {
         vimgrep_arguments = {
