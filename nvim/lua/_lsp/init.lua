@@ -81,12 +81,12 @@ local conf = {
     end,
     on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        -- if client.resolved_capabilities.document_formatting or
-        --     client.resolved_capabilities.document_range_formatting then
-        --     utils.create_buffer_augroup("lspformat", {
-        --         [[BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
-        --     })
-        -- end
+        if client.resolved_capabilities.document_formatting or
+            client.resolved_capabilities.document_range_formatting then
+            utils.create_buffer_augroup("lspformat", {
+                [[BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, 1000)]] -- Run all formatters at 1000ms timeout
+            })
+        end
         require'_keymaps'.lsp_mappings(client, bufnr)
 
         local lsp_autocmds = {
