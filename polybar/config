@@ -100,22 +100,22 @@ label-mode-padding = 2
 label-mode-foreground = ${colors.binding_mode-fg}
 label-mode-background = ${colors.binding_mode-bg}
 
-label-focused = %index%
+label-focused = %name%
 label-focused-background = ${colors.focused_workspace-bg}
 label-focused-foreground = ${colors.focused_workspace-fg}
 label-focused-padding = 2
 
-label-unfocused = %index%
+label-unfocused = %name%
 label-unfocused-background = ${colors.unfocused_workspace-bg}
 label-unfocused-foreground = ${colors.unfocused_workspace-fg}
 label-unfocused-padding = 2
 
-label-visible = %index%
+label-visible = %name%
 label-visible-background = ${colors.active_workspace-bg}
 label-visible-foreground = ${colors.active_workspace-fg}
 label-visible-padding = 2
 
-label-urgent = %index%
+label-urgent = %name%
 label-urgent-background = ${colors.unfocused_workspace-bg}
 label-urgent-foreground = ${colors.unfocused_workspace-fg}
 label-urgent-padding = 2
@@ -228,7 +228,7 @@ type = internal/memory
 interval = 1
 
 format = <label> <ramp-used>
-label = RAM %gb_used%/%gb_free%
+label = RAM %gb_used%/%gb_total%
 
 ; Only applies if <ramp-used> is used
 ramp-used-0 = ▁
