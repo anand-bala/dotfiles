@@ -128,8 +128,8 @@ local init = function()
     ---[[ Language specific
     use {
         'lervag/vimtex',
-        config = function() 
-          vim.g.vimtex_mappings_enabled = 0 
+        config = function()
+          vim.g.vimtex_mappings_enabled = 0
           vim.g.vimtex_complete_enabled = 0
           vim.g.vimtex_view_enabled = 0
           vim.g.vimtex_format_enabled = 1
