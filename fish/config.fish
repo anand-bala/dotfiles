@@ -51,6 +51,10 @@ if command -sq -- flatpak
     or set -gx --path XDG_DATA_DIRS $XDG_DATA_DIRS /var/lib/flatpak/exports/share
 end
 
+# --- setup direnv
+if command -sq -- direnv
+  direnv hook fish | source
+end
 
 # --- Custom prompt (last plugin)
 set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
