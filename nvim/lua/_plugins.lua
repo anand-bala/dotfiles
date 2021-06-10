@@ -18,7 +18,12 @@ local init = function()
         packer.init({
             disable_commands = true,
             ensure_dependencies = true,
-            compile_path = compile_path
+            compile_path = compile_path,
+            display = {
+                open_fn = function()
+                    return require('packer.util').float({border = 'single'})
+                end
+            }
         })
     end
 
@@ -37,6 +42,7 @@ local init = function()
     ---]]
 
     ---[[ Everyday tools
+    use 'tpope/vim-eunuch'
     use 'tpope/vim-obsession'
     use 'tpope/vim-abolish'
     use 'andymass/vim-matchup'
@@ -108,18 +114,18 @@ local init = function()
     use {
         'ludovicchabant/vim-gutentags',
         config = function()
-            vim.g.gutentags_ctags_extra_args =
-                {'--tag-relative=yes', '--fields=+aimS'}
-            vim.g.gutentags_file_list_command =
-                {
-                    markers = {
-                        ["root.tex"] = 'fd -L -t f',
-                        ["main.tex"] = 'fd -L -t f',
-                        [".latexmkrc"] = 'fd -L -t f',
-                        ['.git'] = 'fd -L -t f',
-                        ['.hg'] = 'fd -L -t f'
-                    }
+            vim.g.gutentags_ctags_extra_args = {
+                '--tag-relative=yes', '--fields=+aimS'
+            }
+            vim.g.gutentags_file_list_command = {
+                markers = {
+                    ["root.tex"] = 'fd -L -t f',
+                    ["main.tex"] = 'fd -L -t f',
+                    [".latexmkrc"] = 'fd -L -t f',
+                    ['.git'] = 'fd -L -t f',
+                    ['.hg'] = 'fd -L -t f'
                 }
+            }
         end
     }
     ---]]
@@ -129,10 +135,10 @@ local init = function()
     use {
         'lervag/vimtex',
         config = function()
-          vim.g.vimtex_mappings_enabled = 0
-          vim.g.vimtex_complete_enabled = 0
-          vim.g.vimtex_view_enabled = 0
-          vim.g.vimtex_format_enabled = 1
+            vim.g.vimtex_mappings_enabled = 0
+            vim.g.vimtex_complete_enabled = 0
+            vim.g.vimtex_view_enabled = 0
+            vim.g.vimtex_format_enabled = 1
         end
     }
     -- use 'KeitaNakamura/tex-conceal.vim'
