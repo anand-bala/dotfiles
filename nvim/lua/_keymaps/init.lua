@@ -9,12 +9,12 @@ local noremap = utils.noremap
 vim.g.mapleader = '\\'
 
 -- shifting visual block should keep it selected
-noremap('v','<', '<gv')
-noremap('v','>', '>gv')
+noremap('v', '<', '<gv')
+noremap('v', '>', '>gv')
 
 -- go up/down on visual line
-noremap('n','<Down>', 'gj')
-noremap('n','<Up>', 'gk')
+noremap('n', '<Down>', 'gj')
+noremap('n', '<Up>', 'gk')
 noremap('v', '<Down>', 'gj')
 noremap('v', '<Up>', 'gk')
 noremap('i', '<Down>', '<C-o>gj')

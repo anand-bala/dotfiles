@@ -33,12 +33,7 @@ local init = function()
 
     ---[[ Sanity stuff
     use 'ciaranm/securemodelines'
-    use {
-        'editorconfig/editorconfig-vim',
-        config = function()
-            vim.g.EditorConfig_exclude_patterns = {"fugitive://.*"}
-        end
-    }
+    use 'tjdevries/astronauta.nvim'
     ---]]
 
     ---[[ Everyday tools
@@ -47,7 +42,6 @@ local init = function()
     use 'tpope/vim-abolish'
     use 'andymass/vim-matchup'
     use 'tpope/vim-surround'
-    use 'tpope/vim-repeat'
     use 'tpope/vim-fugitive'
     use 'tpope/vim-dispatch'
     use 'junegunn/vim-easy-align'
@@ -66,19 +60,6 @@ local init = function()
         'nvim-telescope/telescope.nvim',
         requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
-    ---[[ LSP Diagnostics
-    use {
-        "folke/lsp-trouble.nvim",
-        requires = "kyazdani42/nvim-web-devicons",
-        config = function()
-            require("trouble").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end
-    }
-    ---]]
     ---]]
     ---[[ Floating Terminals
     use {
@@ -96,6 +77,14 @@ local init = function()
     ---[[ Completions, Linting, and Snippets
 
     use 'neovim/nvim-lspconfig'
+    use {
+        'kabouzeid/nvim-lspinstall',
+        config = function()
+            require'lspinstall'.setup() -- important
+        end,
+        opt = true,
+        cmd = {"LspInstall", "LspUninstall"}
+    }
     use 'hrsh7th/nvim-compe'
     use {
         'nvim-treesitter/nvim-treesitter',
