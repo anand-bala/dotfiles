@@ -1,3 +1,8 @@
+local lspconfig = require('lspconfig')
+local setup_lsp = require('_lsp')._setup_lsp
+
+local M = {}
+
 local util = require 'lspconfig/util'
 
 local forwardSearchConfig
@@ -17,7 +22,7 @@ elseif has('win32') or (has('unix') and os.getenv('WSLENV')) then
     }
 end
 
-return {
+local conf = {
     root_dir = function(fname)
         for _, pat in pairs({'root.tex', 'main.tex'}) do
             local match = util.root_pattern(pat)(fname)
@@ -33,3 +38,8 @@ return {
         }
     }
 }
+
+function M.setup() setup_lsp(lspconfig.texlab, conf) end
+
+return M
+

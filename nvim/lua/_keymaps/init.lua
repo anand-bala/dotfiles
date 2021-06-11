@@ -78,22 +78,11 @@ local lsp_mappings = function(client, bufnr)
     lspmap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
     cmd [[command! Format         lua vim.lsp.buf.formatting()  ]]
-    cmd [[command! Diagnostics    LspTrouble lsp_document_diagnostics  ]]
-    cmd [[command! References     LspTrouble lsp_references            ]]
 
     local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
     if filetype == "tex" or filetype == "latex" then
         lspmap('n', '<leader>lv', '<cmd>TexlabForward<CR>')
     end
-
-    lspmap("n", "<leader>xx", "<cmd>LspTroubleToggle<cr>")
-    lspmap("n", "<leader>xw",
-           "<cmd>LspTroubleToggle lsp_workspace_diagnostics<cr>")
-    lspmap("n", "<leader>xd",
-           "<cmd>LspTroubleToggle lsp_document_diagnostics<cr>")
-    lspmap("n", "<leader>xl", "<cmd>LspTroubleToggle loclist<cr>")
-    lspmap("n", "<leader>xq", "<cmd>LspTroubleToggle quickfix<cr>")
-    lspmap("n", "gR", "<cmd>LspTrouble lsp_references<cr>")
 end
 
 -- ]]

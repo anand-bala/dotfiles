@@ -1,5 +1,7 @@
 --- Configure the in-built nvim LSP
 local lspconfig = require 'lspconfig'
+local lspinstall = require("lspinstall")
+lspinstall.setup {}
 
 local utils = require '_utils'
 
@@ -89,38 +91,28 @@ local conf = {
         end
         require'_keymaps'.lsp_mappings(client, bufnr)
 
-        local lsp_autocmds = {
+        utils.create_buffer_augroup("lspbehavior", {
             [[CursorHold  <buffer>  lua vim.lsp.diagnostic.show_line_diagnostics()]]
-        }
-        utils.create_buffer_augroup("lspbehavior", lsp_autocmds)
-        -- {
-        --         [[CursorHoldI <buffer>  lua vim.lsp.buf.signature_help()]]
-        --     })
+        })
     end,
     capabilities = capabilities
 }
 
 --- General interface to setup LSP clients
-local function setup_lsp(client, config)
+function M._setup_lsp(client, config)
     local lsp_config = vim.tbl_extend("keep", config, conf)
     client.setup(lsp_config)
 end
 
-setup_lsp(lspconfig.clangd, {
-    init_options = {clangdFileStatus = true},
-    cmd = {
-        "clangd", "--background-index", "--clang-tidy",
-        "--header-insertion=iwyu"
-    }
-})
----[[ Python
-setup_lsp(lspconfig.pyright, {})
--- setup_lsp(lspconfig.jedi_language_server, {})
----]]
-setup_lsp(lspconfig.texlab, require '_lsp/texlab')
-setup_lsp(lspconfig.sumneko_lua, require '_lsp/sumneko_lua')
-setup_lsp(lspconfig.vimls, {})
-setup_lsp(lspconfig.efm, require '_lsp/efm')
-setup_lsp(lspconfig.zls, {})
+--- Initialize the LSPs
+function M.setup()
+    require("_lsp/clangd").setup {}
+    require("_lsp/pyright").setup {}
+    require("_lsp/texlab").setup {}
+    require("_lsp/sumneko_lua").setup {}
+    require("_lsp/vimls").setup {}
+    require("_lsp/efm").setup {}
+    require("_lsp/zls").setup {}
+end
 
 return M

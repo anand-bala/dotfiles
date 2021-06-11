@@ -82,8 +82,6 @@ local init = function()
         config = function()
             require'lspinstall'.setup() -- important
         end,
-        opt = true,
-        cmd = {"LspInstall", "LspUninstall"}
     }
     use 'hrsh7th/nvim-compe'
     use {
