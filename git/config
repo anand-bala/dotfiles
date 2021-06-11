@@ -6,7 +6,7 @@
   st = status
 
 [core]
-  pager = delta
+  # pager = delta
   excludesfile = ~/.gitignore
 
 [diff]
