@@ -75,6 +75,7 @@ set $ws4 4
 set $ws5 5
 set $ws6 6
 set $ws_msgs "messages"
+set $ws_zotero "zotero"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -84,6 +85,7 @@ bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+m workspace $ws_msgs
+bindsym $mod+0 workspace $ws_zotero
 
 # Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
@@ -207,13 +209,15 @@ for_window [class="Nemo"] floating enable border normal
 for_window [title="Bluetooth"] floating enable border normal
 # for_window [class="Thunderbird"] floating enable border normal
 for_window [class="zoom"] floating enable
-for_window [class="Zotero"] floating enable border normal move scratchpad
+# for_window [class="Zotero"] floating enable border normal move scratchpad
 # for_window [class="Slack"] floating enable border normal
 for_window [class="eu.tiliado.NuvolaAppAppleMusic"] floating enable border normal
 
 # Assign applications to specific workspaces
 assign [class="Thunderbird"] $ws_msgs
 assign [class="Slack"] $ws_msgs
+assign [class="discord"] $ws_msgs
+assign [class="Zotero"] $ws_zotero
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
