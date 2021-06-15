@@ -1,9 +1,11 @@
 -- Disable some built-in plugins we don't want
 local disabled_built_ins = {
-    'gzip', 'man', 'matchit', 'matchparen', 'shada_plugin', 'tarPlugin', 'tar',
-    'zipPlugin', 'zip', 'netrwPlugin'
+    'matchit', 'matchparen', 'shada_plugin', 'tarPlugin', 'tar', 'netrwPlugin'
 }
-for i = 1, 10 do vim.g['loaded_' .. disabled_built_ins[i]] = 1 end
+
+for _, disabled_plugin in ipairs(disabled_built_ins) do
+    vim.g['loaded_' .. disabled_plugin] = 1
+end
 
 -- Fishshell fixes
 if string.match(vim.o.shell, "fish$") then vim.o.shell = "sh" end
