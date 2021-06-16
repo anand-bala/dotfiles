@@ -1,6 +1,6 @@
 --- Keybindings for nvim
 local cmd = vim.cmd
-local utils = require '_utils'
+local utils = require('_utils')
 local map = utils.map
 local noremap = utils.noremap
 
@@ -21,23 +21,10 @@ noremap('i', '<Down>', '<C-o>gj')
 noremap('i', '<Up>', '<C-o>gk')
 
 ---[[ Searching stuff
--- noremap('n', '<C-f>', '<cmd>Files<CR>')
--- noremap('n', '<C-g>', '<cmd>Rg<CR>')
--- noremap('v', '<C-g>', 'y<cmd>Rg <C-R>"<CR>')
 noremap('n', '<C-f>', '<cmd>Telescope find_files<cr>')
 noremap('n', '<C-g>', '<cmd>Telescope live_grep<cr>')
 cmd([[command! Helptags Telescope help_tags]])
 cmd([[command! Buffers  Telescope Buffers]])
--- ]]
-
----[[ File Manager
--- vim.g["nnn#set_default_mappings"] = 0
--- vim.g["nnn#action"] = {
---     ["<c-t>"] = "tab split",
---     ["<c-x>"] = "split",
---     ["<c-v>"] = "vsplit"
--- }
--- noremap('n', '<C-n>', '<cmd>NnnPicker %:p:h<CR>', {silent = true})
 -- ]]
 
 ---[[ nvim-lsp
@@ -57,31 +44,25 @@ local lsp_mappings = function(client, bufnr)
     end
 
     lspmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-    lspmap('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
-    lspmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-    lspmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+    lspmap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+    lspmap('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+    lspmap('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
 
     lspmap('n', '<leader>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
     lspmap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 
-    lspmap('n', '<C-s>', '<cmd>Telescope lsp_document_symbol<CR>')
+    lspmap('n', '<C-s>', '<cmd>Telescope lsp_document_symbols<CR>')
     lspmap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-    if client.resolved_capabilities.document_formatting then
-        lspmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-    elseif client.resolved_capabilities.document_range_formatting then
-        lspmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
-    end
 
     lspmap('n', '<leader>ld',
            '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
     lspmap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
     lspmap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
-    cmd [[command! Format         lua vim.lsp.buf.formatting()  ]]
-
-    local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
-    if filetype == "tex" or filetype == "latex" then
-        lspmap('n', '<leader>lv', '<cmd>TexlabForward<CR>')
+    if client.resolved_capabilities.document_formatting then
+        lspmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+    elseif client.resolved_capabilities.document_range_formatting then
+        lspmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
     end
 end
 
