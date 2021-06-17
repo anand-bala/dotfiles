@@ -1,6 +1,3 @@
-local lspconfig = require('lspconfig')
-local setup_lsp = require('_lsp')._setup_lsp
-
 local python_black = {formatCommand = 'black --quiet -', formatStdin = true}
 local python_isort = {formatCommand = 'isort --quiet -', formatStdin = true}
 
@@ -15,21 +12,22 @@ local luafmt = {formatCommand = 'lua-format', formatStdin = true}
 
 local xmllint = {formatCommand = 'xmllint --format -', formatStdin = true}
 
-local conf = {
-    init_options = {documentFormatting = true, documentRangeFormatting = true},
-    filetypes = {'python', 'cmake', 'lua', 'xml'},
-    settings = {
-        languages = {
-            python = {python_black, python_isort},
-            cmake = {cmake_format, cmake_lint},
-            lua = {luafmt},
-            xml = {xmllint}
+return {
+    setup = function()
+        return {
+            init_options = {
+                documentFormatting = true,
+                documentRangeFormatting = true
+            },
+            filetypes = {'python', 'cmake', 'lua', 'xml'},
+            settings = {
+                languages = {
+                    python = {python_black, python_isort},
+                    cmake = {cmake_format, cmake_lint},
+                    lua = {luafmt},
+                    xml = {xmllint}
+                }
+            }
         }
-    }
+    end
 }
-
-local M = {}
-
-function M.setup() setup_lsp(lspconfig.efm, conf) end
-
-return M

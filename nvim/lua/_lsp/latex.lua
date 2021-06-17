@@ -1,8 +1,3 @@
-local lspconfig = require('lspconfig')
-local setup_lsp = require('_lsp')._setup_lsp
-
-local M = {}
-
 local util = require 'lspconfig/util'
 
 local forwardSearchConfig
@@ -39,7 +34,4 @@ local conf = {
     }
 }
 
-function M.setup() setup_lsp(lspconfig.texlab, conf) end
-
-return M
-
+return {setup = function() return conf end}

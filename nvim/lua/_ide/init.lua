@@ -4,13 +4,13 @@
 --
 ---[[ Setup treesitter
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"c", "cpp", "python", "rust", "lua"},
+    ensure_installed = {"c", "cpp", "python", "rust", "lua", "html", "zig"},
     highlight = {enable = true},
     indent = {enable = true}
 }
 ---]]
 ---[[ Initialize the Built-in LSP
-require'_lsp'.setup {}
+require '_lsp'
 ---]]
 
 ---[[ Configuration for nvim-compe

@@ -80,8 +80,10 @@ local init = function()
     use {
         'kabouzeid/nvim-lspinstall',
         config = function()
+            -- Register custom servers
+            require'_lsp/lemminx'.register_custom()
             require'lspinstall'.setup() -- important
-        end,
+        end
     }
     use 'hrsh7th/nvim-compe'
     use {
