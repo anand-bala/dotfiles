@@ -43,8 +43,12 @@ local init = function()
     use 'andymass/vim-matchup'
     use 'tpope/vim-surround'
     use 'tpope/vim-fugitive'
-    use 'tpope/vim-dispatch'
-    use 'junegunn/vim-easy-align'
+    use {
+        'tpope/vim-dispatch',
+        opt = true,
+        cmd = {'Dispatch', 'Make', 'Focus', 'Start'}
+    }
+    use {'junegunn/vim-easy-align', opt = true, cmd = {'EasyAlign'}}
 
     use {
         'tomtom/tcomment_vim',
@@ -77,14 +81,8 @@ local init = function()
     ---[[ Completions, Linting, and Snippets
 
     use 'neovim/nvim-lspconfig'
-    use {
-        'kabouzeid/nvim-lspinstall',
-        config = function()
-            -- Register custom servers
-            require'_lsp/lemminx'.register_custom()
-            require'lspinstall'.setup() -- important
-        end
-    }
+    use 'kabouzeid/nvim-lspinstall'
+
     use 'hrsh7th/nvim-compe'
     use {
         'nvim-treesitter/nvim-treesitter',
@@ -128,7 +126,8 @@ local init = function()
             vim.g.vimtex_complete_enabled = 0
             vim.g.vimtex_view_enabled = 0
             vim.g.vimtex_format_enabled = 1
-        end
+        end,
+        ft = {'tex', 'latex', 'bib', 'bibtex'}
     }
     -- use 'KeitaNakamura/tex-conceal.vim'
     use {
@@ -147,7 +146,8 @@ local init = function()
             vim.g.vim_markdown_strikethrough = 1
             vim.g.vim_markdown_toc_autofit = 1
             vim.g.vim_markdown_toml_frontmatter = 1
-        end
+        end,
+        ft = {'markdown'}
     }
 
     use 'ziglang/zig.vim'
@@ -169,9 +169,6 @@ local init = function()
         requires = {'kyazdani42/nvim-web-devicons'}
     }
     use {'dracula/vim', as = 'dracula'}
-
-    -- Configuration writing helper
-    use 'svermeulen/vimpeccable'
 end
 
 _G.Plugins = setmetatable({}, {

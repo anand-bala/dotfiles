@@ -34,14 +34,14 @@ require'compe'.setup {
         calc = true,
         spell = true,
         tags = true,
-        onmi = false,
         nvim_lsp = true,
         nvim_lua = true,
         nvim_treesitter = true,
         vsnip = true,
         snippets_nvim = false,
         ultisnips = true,
-        emoji = true
+        emoji = true,
+        omni = {filetypes = {'tex'}}
     }
 }
 ---]]
@@ -49,10 +49,7 @@ require'compe'.setup {
 ---[[ Fuzzy finder
 require'telescope'.setup {
     defaults = {
-        vimgrep_arguments = {
-            'rg', '--color=never', '--no-heading', '--with-filename',
-            '--line-number', '--column', '--smart-case', '--follow'
-        },
+        vimgrep_arguments = {'rg', '--vimgrep', '--smart-case', '--follow'},
         prompt_position = "top",
         prompt_prefix = "> ",
         selection_caret = "> ",

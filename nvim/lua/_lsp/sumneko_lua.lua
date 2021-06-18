@@ -7,7 +7,7 @@ return {
                         version = 'LuaJIT',
                         path = vim.split(package.path, ';')
                     },
-                    diagnostics = {globals = {'vim', 'vimp'}},
+                    diagnostics = {globals = {'vim'}},
                     workspace = {
                         library = {
                             [vim.fn.expand('$VIMRUNTIME/lua')] = true,

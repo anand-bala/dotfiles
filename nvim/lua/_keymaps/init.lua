@@ -1,93 +1,98 @@
 --- Keybindings for nvim
+require('astronauta.keymap')
 local cmd = vim.cmd
-local utils = require('_utils')
-local map = utils.map
-local noremap = utils.noremap
+local nnoremap = vim.keymap.nnoremap
+local vnoremap = vim.keymap.vnoremap
+local inoremap = vim.keymap.inoremap
+local tnoremap = vim.keymap.tnoremap
+local nmap = vim.keymap.nmap
+local xmap = vim.keymap.xmap
 
 -- First, we set the leader character.
 -- Personally, I like backslash
 vim.g.mapleader = '\\'
 
 -- shifting visual block should keep it selected
-noremap('v', '<', '<gv')
-noremap('v', '>', '>gv')
+vnoremap {"<", "<gv"}
+vnoremap {">", ">gv"}
 
 -- go up/down on visual line
-noremap('n', '<Down>', 'gj')
-noremap('n', '<Up>', 'gk')
-noremap('v', '<Down>', 'gj')
-noremap('v', '<Up>', 'gk')
-noremap('i', '<Down>', '<C-o>gj')
-noremap('i', '<Up>', '<C-o>gk')
+nnoremap {'<Down>', 'gj'}
+nnoremap {'<Up>', 'gk'}
+vnoremap {'<Down>', 'gj'}
+vnoremap {'<Up>', 'gk'}
+inoremap {'<Down>', '<C-o>gj'}
+inoremap {'<Up>', '<C-o>gk'}
 
 ---[[ Searching stuff
-noremap('n', '<C-f>', '<cmd>Telescope find_files<cr>')
-noremap('n', '<C-g>', '<cmd>Telescope live_grep<cr>')
+nnoremap {'<C-f>', '<cmd>Telescope find_files<cr>'}
+nnoremap {'<C-g>', '<cmd>Telescope live_grep<cr>'}
 cmd([[command! Helptags Telescope help_tags]])
-cmd([[command! Buffers  Telescope Buffers]])
+cmd([[command! Buffers  Telescope buffers]])
 -- ]]
 
 ---[[ nvim-lsp
-local compe_options = {silent = true, expr = true}
-
-noremap('i', '<C-p>', "compe#complete()", compe_options)
-noremap('i', '<CR>', "compe#confirm('<CR>')", compe_options)
-noremap('i', '<C-e>', "compe#close('<C-e>')", compe_options)
+inoremap {'<C-p>', "compe#complete()", silent = true, expr = true}
+inoremap {'<CR>', "compe#confirm('<CR>')", silent = true, expr = true}
+inoremap {'<C-e>', "compe#close('<C-e>')", silent = true, expr = true}
 
 local lsp_mappings = function(client, bufnr)
 
-    local bufmap = vim.api.nvim_buf_set_keymap
-    local function lspmap(mode, lhs, rhs, silent)
-        if silent == nil then silent = true end
-        local lsp_map_options = {silent = (silent == nil and true or silent)}
-        bufmap(bufnr, mode, lhs, rhs, lsp_map_options)
+    local lspmap = function(opts)
+        local lsp_map_opts = {buffer = bufnr, silent = true}
+        nnoremap(vim.tbl_extend("keep", opts, lsp_map_opts))
     end
 
-    lspmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-    lspmap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-    lspmap('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-    lspmap('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+    lspmap {'K', vim.lsp.buf.hover}
+    lspmap {'<leader>gd', vim.lsp.buf.definition}
+    lspmap {'<leader>gD', vim.lsp.buf.declaration}
+    lspmap {'<leader>gi', vim.lsp.buf.implementation}
 
-    lspmap('n', '<leader>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-    lspmap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+    lspmap {'<leader>s', vim.lsp.buf.signature_help}
+    lspmap {'<leader>D', vim.lsp.buf.type_definition}
 
-    lspmap('n', '<C-s>', '<cmd>Telescope lsp_document_symbols<CR>')
-    lspmap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+    lspmap {'<C-s>', '<cmd>Telescope lsp_document_symbols<CR>'}
+    lspmap {'<leader>rn', vim.lsp.buf.rename}
 
-    lspmap('n', '<leader>ld',
-           '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-    lspmap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-    lspmap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+    lspmap {'<leader>ld', vim.lsp.diagnostic.show_line_diagnostics}
+    lspmap {'[d', vim.lsp.diagnostic.goto_prev}
+    lspmap {']d', vim.lsp.diagnostic.goto_next}
 
     if client.resolved_capabilities.document_formatting then
-        lspmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+        lspmap {"<leader>f", vim.lsp.buf.formatting}
     elseif client.resolved_capabilities.document_range_formatting then
-        lspmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
+        lspmap {"<leader>f", vim.lsp.buf.range_formatting}
     end
 end
 
 -- ]]
 
 ---[[ Floating Terminal
-noremap('n', '<leader>ft', '<cmd>FloatermToggle<CR>', {silent = true})
-noremap('t', '<leader>ft', '<C-\\><cmd>FloatermToggle<CR>', {silent = true})
+nnoremap {'<leader>ft', '<cmd>FloatermToggle<CR>', silent = true}
+tnoremap {'<leader>ft', '<C-\\><cmd>FloatermToggle<CR>', silent = true}
 
 -- Escape out of terminal mode to normal mode
-noremap('t', '<Esc>', '<C-\\><C-n>', {silent = true})
+tnoremap {'<Esc>', '<C-\\><C-n>', silent = true}
 
 -- Launch terminal at bottom of window
-noremap('n', '`', '<cmd>FloatermNew --height=0.2 --wintype=split<CR>',
-        {silent = true})
+nnoremap {
+    '`',
+    '<cmd>FloatermNew --height=0.2 --wintype=split<CR>',
+    silent = true
+}
 
 -- Create new terminal vsplit
-noremap('n', '<C-w>|', '<cmd>FloatermNew --width=0.5 --wintype=vsplit<CR>',
-        {silent = true})
+nnoremap {
+    '<C-w>|',
+    '<cmd>FloatermNew --width=0.5 --wintype=vsplit<CR>',
+    silent = true
+}
 
 -- ]]
 
 ---[[ Aligning
-map('n', 'ga', '<Plug>(EasyAlign)')
-map('x', 'ga', '<Plug>(EasyAlign)')
----]]
+nmap {'ga', '<Plug>(EasyAlign)'}
+xmap {'ga', '<Plug>(EasyAlign)'}
+---]
 
 return {lsp_mappings = lsp_mappings}
