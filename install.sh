@@ -22,6 +22,14 @@ __ln_at() {
 config_dir=${XDG_CONFIG_HOME:-$HOME/.config}
 SCRIPTPATH="$( cd "$(dirname $(readlink -f "$0"))" ; pwd -P )"
 
+
+install_fd() {
+  src=$SCRIPTPATH/fd
+  dest=$config_dir/fd
+  rm -f $dest
+  ln -vs $src $dest
+}
+
 install_bat() {
   src=$SCRIPTPATH/bat
   dest=$config_dir/bat
@@ -229,6 +237,10 @@ while [[ $# -gt 0 ]]; do
     bat )
       echo "Installing config for bat"
       install_bat
+      ;;
+    fd )
+      echo "Installing config for fd"
+      install_fd
       ;;
     tmux )
       echo "Installing config for tmux"
