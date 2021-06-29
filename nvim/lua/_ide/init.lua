@@ -47,9 +47,11 @@ require'compe'.setup {
 ---]]
 
 ---[[ Fuzzy finder
-require'telescope'.setup {
+require("telescope").setup {
     defaults = {
-        vimgrep_arguments = {'rg', '--vimgrep', '--smart-case', '--follow'},
+        vimgrep_arguments = {
+            'rg', '--vimgrep', '--smart-case', '--follow', '--hidden'
+        },
         prompt_position = "top",
         prompt_prefix = "> ",
         selection_caret = "> ",
@@ -84,4 +86,5 @@ require'telescope'.setup {
         buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
     }
 }
+
 ---]]

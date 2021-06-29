@@ -25,7 +25,11 @@ inoremap {'<Down>', '<C-o>gj'}
 inoremap {'<Up>', '<C-o>gk'}
 
 ---[[ Searching stuff
-nnoremap {'<C-f>', '<cmd>Telescope find_files<cr>'}
+nnoremap {
+    '<C-f>', function()
+        require("telescope.builtin").find_files({follow = true, hidden = true})
+    end
+}
 nnoremap {'<C-g>', '<cmd>Telescope live_grep<cr>'}
 cmd([[command! Helptags Telescope help_tags]])
 cmd([[command! Buffers  Telescope buffers]])
