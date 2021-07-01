@@ -26,7 +26,14 @@ require'compe'.setup {
     max_abbr_width = 100,
     max_kind_width = 100,
     max_menu_width = 100,
-    documentation = true,
+    documentation = {
+        border = {'', '', '', ' ', '', '', '', ' '}, -- the border option is the same as `|help nvim_open_win|`
+        winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+        max_width = 120,
+        min_width = 60,
+        max_height = math.floor(vim.o.lines * 0.3),
+        min_height = 1
+    },
 
     source = {
         path = true,
@@ -52,7 +59,6 @@ require("telescope").setup {
         vimgrep_arguments = {
             'rg', '--vimgrep', '--smart-case', '--follow', '--hidden'
         },
-        prompt_position = "top",
         prompt_prefix = "> ",
         selection_caret = "> ",
         entry_prefix = "  ",
@@ -60,19 +66,22 @@ require("telescope").setup {
         selection_strategy = "reset",
         sorting_strategy = "ascending",
         layout_strategy = "flex",
-        layout_defaults = {
-            horizontal = {mirror = false},
-            vertical = {mirror = false}
+        layout_config = {
+            prompt_position = "top",
+            horizontal = {mirror = false, preview_width = 0.5},
+            vertical = {
+                mirror = false,
+                preview_cutoff = 120,
+                preview_height = 0.6
+            },
+            width = 0.8,
+            height = 0.6
         },
         file_sorter = require'telescope.sorters'.get_fuzzy_file,
         file_ignore_patterns = {},
         generic_sorter = require'telescope.sorters'.get_generic_fuzzy_sorter,
         shorten_path = true,
         winblend = 0,
-        width = 0.8,
-        preview_cutoff = 120,
-        results_height = 0.6,
-        results_width = 0.8,
         border = {},
         borderchars = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
         color_devicons = true,

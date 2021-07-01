@@ -46,16 +46,17 @@ local lsp_mappings = function(client, bufnr)
         local lsp_map_opts = {buffer = bufnr, silent = true}
         nnoremap(vim.tbl_extend("keep", opts, lsp_map_opts))
     end
+    local te = require("telescope.builtin")
 
     lspmap {'K', vim.lsp.buf.hover}
-    lspmap {'<leader>gd', vim.lsp.buf.definition}
-    lspmap {'<leader>gD', vim.lsp.buf.declaration}
-    lspmap {'<leader>gi', vim.lsp.buf.implementation}
-
-    lspmap {'<leader>s', vim.lsp.buf.signature_help}
+    lspmap {'<C-k>', vim.lsp.buf.signature_help}
+    lspmap {'gd', vim.lsp.buf.definition}
+    lspmap {'gD', vim.lsp.buf.declaration}
+    lspmap {'gi', vim.lsp.buf.implementation}
     lspmap {'<leader>D', vim.lsp.buf.type_definition}
 
-    lspmap {'<C-s>', '<cmd>Telescope lsp_document_symbols<CR>'}
+    lspmap {'<C-s>', te.lsp_document_symbols}
+    lspmap {'<leader><Space>', te.lsp_code_actions}
     lspmap {'<leader>rn', vim.lsp.buf.rename}
 
     lspmap {'<leader>ld', vim.lsp.diagnostic.show_line_diagnostics}
