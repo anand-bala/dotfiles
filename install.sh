@@ -23,31 +23,10 @@ config_dir=${XDG_CONFIG_HOME:-$HOME/.config}
 SCRIPTPATH="$( cd "$(dirname $(readlink -f "$0"))" ; pwd -P )"
 
 
-install_fd() {
-  src=$SCRIPTPATH/fd
-  dest=$config_dir/fd
-  rm -f $dest
-  ln -vs $src $dest
-}
-
-install_bat() {
-  src=$SCRIPTPATH/bat
-  dest=$config_dir/bat
-  rm -f $dest
-  ln -vs $src $dest
-}
-
-install_direnv() {
-  src=$SCRIPTPATH/direnv
-  dest=$config_dir/direnv
-  rm -f $dest
-  ln -vs $src $dest
-}
-
-
-install_colcon() {
-  src=$SCRIPTPATH/colcon
-  dest=$config_dir/colcon
+_default_install() {
+  name="$1"
+  src=$SCRIPTPATH/$name
+  dest=$config_dir/$name
   rm -f $dest
   ln -vs $src $dest
 }
@@ -60,93 +39,10 @@ install_gdb() {
   echo "source $dest/gdbinit" > $HOME/.gdbinit
 }
 
-install_dunst() {
-  src=$SCRIPTPATH/dunst
-  dest=$config_dir/dunst
-  rm -rf $dest
-  mkdir -pv $dest
-  __ln_at $dest $src/*
-}
-
-install_polybar() {
-  src=$SCRIPTPATH/polybar
-  dest=$config_dir/polybar
-  rm -rf $dest
-  mkdir -pv $dest
-  __ln_at $dest $src/*
-}
-
-install_polybar-laptop() {
-  src=$SCRIPTPATH/polybar-laptop
-  dest=$config_dir/polybar
-  rm -rf $dest
-  mkdir -pv $dest
-  __ln_at $dest $src/*
-}
-
-
-install_i3() {
-  src=$SCRIPTPATH/i3
-  dest=$config_dir/i3
-  rm -rf $dest
-  mkdir -pv $dest
-  __ln_at $dest $src/*
-}
-
-install_rofi() {
-  src=$SCRIPTPATH/rofi
-  dest=$config_dir/rofi
-  rm -rf $dest
-  mkdir -pv $dest
-  __ln_at $dest $src/*
-}
-
-install_alacritty() {
-  mkdir -pv $config_dir/alacritty
-  __ln_at $config_dir/alacritty $SCRIPTPATH/alacritty/*
-}
-
 install_tmux() {
   rm -rf $config_dir/tmux/tmux.conf
   mkdir -pv $config_dir/tmux
   __ln_at $config_dir/tmux $SCRIPTPATH/tmux/*
-}
-
-install_starship() {
-  rm -rf $config_dir/starship/starship.toml
-  mkdir -pv $config_dir/starship
-  __ln_at $config_dir/starship $SCRIPTPATH/starship/*
-}
-
-install_kitty() {
-  rm -rf "$config_dir/kitty/*"
-  mkdir -pv $config_dir/kitty
-  __ln_at $config_dir/kitty $SCRIPTPATH/kitty/*
-}
-
-install_fish() {
-  src=$SCRIPTPATH/fish
-  dest=$config_dir/fish
-  mkdir -pv $dest
-  for node in $src/*; do
-    if [[ -d "$node" ]]; then
-      mkdir -pv $dest/$(basename $node)
-      for f in $node/*; do
-        __ln_at $dest/$(basename $node) $(readlink -f $f)
-      done
-
-    elif [[ -f "$node" ]]; then
-      __ln_at $dest $(readlink -f $node) 
-    fi
-  done
-  # __ln_at $dest $src/*
-}
-
-install_nvim() {
-  src=$SCRIPTPATH/nvim
-  dest=$config_dir/nvim
-  rm -f $dest
-  ln -vs $src $dest
 }
 
 install_git() {
@@ -178,17 +74,22 @@ fi
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    neovim|nvim )
-      echo "Install config for Neovim"
-      install_nvim
-      ;;
-    fish )
-      echo "Install config for Fish Shell"
-      install_fish
-      ;;
-    kitty )
-      echo "Install config for kitty terminal"
-      install_kitty
+    bat \
+      | direnv \
+      | fd \
+      | colcon \
+      | dunst \
+      | polybar \
+      | polybar-laptop \
+      | i3 \
+      | rofi \
+      | alacritty \
+      | starship \
+      | kitty \
+      | fish \
+      | neovim | nvim )
+      echo "Installing config for $1"
+      _default_install $1
       ;;
     git )
       echo "Install config for git (global)"
@@ -198,57 +99,13 @@ while [[ $# -gt 0 ]]; do
       echo "Install config for conda"
       install_conda
       ;;
-    starship )
-      echo "Installing config for starship prompt"
-      install_starship
-      ;;
-    alacritty )
-      echo "Installing config for Alacritty"
-      install_alacritty
-      ;;
-    i3 )
-      echo "Installing config for i3"
-      install_i3
-      ;;
-    polybar )
-      echo "Installing config for polybar"
-      install_polybar
-      ;;
-    polybar-laptop )
-      echo "Installing config for polybar-laptop"
-      install_polybar-laptop
-      ;;
-    rofi )
-      echo "Installing config for rofi"
-      install_rofi
-      ;;
-    dunst )
-      echo "Installing config for dunst"
-      install_dunst
-      ;;
     gdb )
       echo "Installing config for gdb"
       install_gdb
       ;;
-    colcon )
-      echo "Installing config for colcon"
-      install_colcon
-      ;;
-    bat )
-      echo "Installing config for bat"
-      install_bat
-      ;;
-    fd )
-      echo "Installing config for fd"
-      install_fd
-      ;;
     tmux )
       echo "Installing config for tmux"
       install_tmux
-      ;;
-    direnv )
-      echo "Installing config for direnv"
-      install_direnv
       ;;
     *)
       echoerr "'$1'?!? I have no idea what you're talking about?!"

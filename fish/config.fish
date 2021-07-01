@@ -1,10 +1,7 @@
-# -----------------------------------------------------------------------------
-# Setup PATH from scratch
-# -----------------------------------------------------------------------------
+# -- Remove the intro
+set -g fish_greeting "🐟"
 
-# Setup macOS specific paths: use https://github.com/oh-my-fish/plugin-osx/
-
-# Common directories to add, if they exist
+# -- Common directories to add, if they exist
 for p in "$HOME/bin" "$HOME/.local/bin"
   if test -d $p
     and not contains -- $p $PATH
@@ -18,6 +15,11 @@ else
   set -gx EDITOR vim
 end
 alias e="$EDITOR"
+
+if command -sq -- exa
+  alias ls "exa"
+  alias ll "exa -l"
+end
 
 # --- Colorize GCC output
 set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"

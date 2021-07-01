@@ -12,6 +12,7 @@
 ~/.config/fish/plugins/rustup-binpath
 ~/.config/fish/plugins/golang-paths
 ~/.config/fish/plugins/luarocks-binpath
-jorgebucaran/bax.fish
 dracula/fish
 jorgebucaran/fisher
+jorgebucaran/replay.fish
+~/.config/fish/plugins/ros-helpers
