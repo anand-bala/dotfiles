@@ -1,14 +1,6 @@
-local myconfigs = {
-    efm = require("_lsp/efm").setup(),
-    lua = require("_lsp/sumneko_lua").setup(),
-    clangd = require("_lsp/clangd").setup(),
-    latex = require("_lsp/latex").setup(),
-    lemminx = require("_lsp/lemminx").setup()
-}
-setmetatable(myconfigs, {__index = function() return {} end})
-
 -- Register custom servers
 require("_lsp/lemminx").register_custom()
+require("_lsp/zig").register_custom()
 --- Load lspinstall
 local lspinstall = require("lspinstall")
 lspinstall.setup()
@@ -113,12 +105,21 @@ M.pre_setup()
 
 --- Initialize the LSPs
 function M.setup()
+    local myconfigs = {
+        efm = require("_lsp/efm").setup(),
+        lua = require("_lsp/sumneko_lua").setup(),
+        clangd = require("_lsp/clangd").setup(),
+        latex = require("_lsp/latex").setup(),
+        lemminx = require("_lsp/lemminx").setup()
+    }
+    setmetatable(myconfigs, {__index = function() return {} end})
+
     -- get all installed servers
     local servers = lspinstall.installed_servers()
     -- ... and add manually installed servers
     table.insert(servers, "clangd")
     table.insert(servers, "efm")
-    table.insert(servers, "zls")
+    -- table.insert(servers, "zls")
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true

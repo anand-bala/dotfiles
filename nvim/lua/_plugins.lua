@@ -88,6 +88,7 @@ local init = function()
         'nvim-treesitter/nvim-treesitter',
         run = function() vim.cmd [[TSUpdate]] end
     }
+    use {'nvim-treesitter/playground', cmd = {"TSPlaygroundToggle"}}
 
     use 'rafamadriz/friendly-snippets'
     use 'honza/vim-snippets'
@@ -101,18 +102,18 @@ local init = function()
     use {
         'ludovicchabant/vim-gutentags',
         config = function()
-            vim.g.gutentags_ctags_extra_args = {
-                '--tag-relative=yes', '--fields=+aimS'
-            }
-            vim.g.gutentags_file_list_command = {
-                markers = {
-                    ["root.tex"] = 'fd -L -t f',
-                    ["main.tex"] = 'fd -L -t f',
-                    [".latexmkrc"] = 'fd -L -t f',
-                    ['.git'] = 'fd -L -t f',
-                    ['.hg'] = 'fd -L -t f'
+            vim.g.gutentags_ctags_extra_args =
+                {'--tag-relative=yes', '--fields=+aimS'}
+            vim.g.gutentags_file_list_command =
+                {
+                    markers = {
+                        ["root.tex"] = 'fd -L -t f',
+                        ["main.tex"] = 'fd -L -t f',
+                        [".latexmkrc"] = 'fd -L -t f',
+                        ['.git'] = 'fd -L -t f',
+                        ['.hg'] = 'fd -L -t f'
+                    }
                 }
-            }
         end
     }
     ---]]
