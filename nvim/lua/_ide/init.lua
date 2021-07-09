@@ -45,12 +45,7 @@ require'compe'.setup {
     max_kind_width = 100,
     max_menu_width = 100,
     documentation = {
-        border = {'', '', '', ' ', '', '', '', ' '}, -- the border option is the same as `|help nvim_open_win|`
-        winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-        max_width = 120,
-        min_width = 60,
-        max_height = math.floor(vim.o.lines * 0.3),
-        min_height = 1
+        border = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'}
     },
 
     source = {
@@ -74,43 +69,31 @@ require'compe'.setup {
 ---[[ Fuzzy finder
 require("telescope").setup {
     defaults = {
+        borderchars = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
         vimgrep_arguments = {
             'rg', '--vimgrep', '--smart-case', '--follow', '--hidden'
         },
         prompt_prefix = "> ",
         selection_caret = "> ",
-        entry_prefix = "  ",
         initial_mode = "insert",
         selection_strategy = "reset",
         sorting_strategy = "ascending",
         layout_strategy = "flex",
         layout_config = {
             prompt_position = "top",
-            horizontal = {mirror = false, preview_width = 0.5},
-            vertical = {
-                mirror = false,
-                preview_cutoff = 120,
-                preview_height = 0.6
-            },
+            vertical = {prompt_position = "top"},
+            horizontal = {prompt_position = "top"},
             width = 0.8,
-            height = 0.6
+            height = 0.8
         },
         file_sorter = require'telescope.sorters'.get_fuzzy_file,
         file_ignore_patterns = {},
         generic_sorter = require'telescope.sorters'.get_generic_fuzzy_sorter,
-        shorten_path = true,
+        path_display = {"absolute"},
         winblend = 0,
-        border = {},
-        borderchars = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
         color_devicons = true,
         use_less = true,
-        set_env = {['COLORTERM'] = 'truecolor'}, -- default = nil,
-        file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-        grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-        qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
-
-        -- Developer configurations: Not meant for general override
-        buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
+        set_env = {['COLORTERM'] = 'truecolor'} -- default = nil,
     }
 }
 
