@@ -109,7 +109,7 @@ function M.setup()
         efm = require("_lsp/efm").setup(),
         lua = require("_lsp/sumneko_lua").setup(),
         clangd = require("_lsp/clangd").setup(),
-        latex = require("_lsp/latex").setup(),
+        texlab = require("_lsp/latex").setup(),
         lemminx = require("_lsp/lemminx").setup()
     }
     setmetatable(myconfigs, {__index = function() return {} end})
@@ -119,7 +119,7 @@ function M.setup()
     -- ... and add manually installed servers
     table.insert(servers, "clangd")
     table.insert(servers, "efm")
-    -- table.insert(servers, "zls")
+    table.insert(servers, "texlab")
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true

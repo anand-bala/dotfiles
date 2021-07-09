@@ -1,35 +1,36 @@
 local util = require 'lspconfig/util'
 
-local forwardSearchConfig
-local has = vim.fn.has
-local check_exe = vim.fn.executable
-if has('unix') then
-    if check_exe('zathura') then
-        forwardSearchConfig = {
-            executable = "zathura",
-            args = {"--synctex-forward", "%l:1:%f", "%p"}
+local function forwardSearchConfig()
+    local has = vim.fn.has
+    local check_exe = vim.fn.executable
+    if has('unix') then
+        if check_exe('zathura') then
+            return {
+                executable = "zathura",
+                args = {"--synctex-forward", "%l:1:%f", "%p"}
+            }
+        end
+    elseif has('win32') or has('wsl') or (has('unix') and os.getenv('WSLENV')) then
+        return {
+            executable = "SumatraPDF.exe",
+            args = {"-reuse-instance", "%p", "-forward-search", "%f", "%l"}
         }
     end
-elseif has('win32') or (has('unix') and os.getenv('WSLENV')) then
-    forwardSearchConfig = {
-        executable = "SumatraPDF.exe",
-        args = {"-reuse-instance", "%p", "-forward-search", "%f", "%l"}
-    }
 end
 
 local conf = {
     root_dir = function(fname)
-        for _, pat in pairs({'root.tex', 'main.tex'}) do
+        for _, pat in pairs({'root.tex', 'main.tex', '.latexmkrc'}) do
             local match = util.root_pattern(pat)(fname)
             if match then return match end
         end
         return vim.fn.getcwd()
     end,
     settings = {
-        latex = {
-            build = {onSave = false},
+        texlab = {
+            build = {onSave = true},
             lint = {onChange = true},
-            forwardSearch = forwardSearchConfig
+            forwardSearch = forwardSearchConfig()
         }
     }
 }
