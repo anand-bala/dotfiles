@@ -11,6 +11,8 @@ end
 
 if type -q nvim
   set -gx EDITOR nvim
+  set -gx MANPAGER 'nvim +Man!'
+  set -gx MANWIDTH 999
 else
   set -gx EDITOR vim
 end
