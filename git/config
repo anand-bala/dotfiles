@@ -8,16 +8,5 @@
 [core]
   excludesfile = ~/.gitignore
 
-[diff]
-  colorMoved = zebra
-
-[delta]
-  syntax-theme = Dracula
-  plus-style = "syntax #012800"
-  minus-style = "syntax #340001"
-
-[interactive]
-  diffFilter = delta --color-only
-
 [init]
   defaultBranch = dev
