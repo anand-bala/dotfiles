@@ -50,9 +50,10 @@ local lsp_mappings = function(client, bufnr)
 
     lspmap {'K', vim.lsp.buf.hover}
     lspmap {'<C-k>', vim.lsp.buf.signature_help}
-    lspmap {'gd', vim.lsp.buf.definition}
+    lspmap {'gd', te.lsp_definitions}
     lspmap {'gD', vim.lsp.buf.declaration}
-    lspmap {'gi', vim.lsp.buf.implementation}
+    lspmap {'gi', te.lsp_implementations}
+    lspmap {'gr', te.lsp_references}
     lspmap {'<leader>D', vim.lsp.buf.type_definition}
 
     lspmap {'<C-s>', te.lsp_document_symbols}
@@ -62,11 +63,14 @@ local lsp_mappings = function(client, bufnr)
     lspmap {'<leader>ld', vim.lsp.diagnostic.show_line_diagnostics}
     lspmap {'[d', vim.lsp.diagnostic.goto_prev}
     lspmap {']d', vim.lsp.diagnostic.goto_next}
+    cmd([[command! Diagnostics Telescope lsp_document_diagnostics]])
 
     if client.resolved_capabilities.document_formatting then
         lspmap {"<leader>f", vim.lsp.buf.formatting}
+        cmd([[command! Format <cmd> lua vim.lsp.buf.formatting()]])
     elseif client.resolved_capabilities.document_range_formatting then
         lspmap {"<leader>f", vim.lsp.buf.range_formatting}
+        cmd([[command! Format <cmd> lua vim.lsp.buf.range_formatting()]])
     end
 end
 
