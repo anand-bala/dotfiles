@@ -11,7 +11,6 @@ font xft:DelugiaNerdFont-Regular 11
 floating_modifier $mod
 
 bindsym $mod+Return exec alacritty
-bindsym F1 exec alacritty
 
 # Window kill command
 bindsym $mod+Shift+q kill
