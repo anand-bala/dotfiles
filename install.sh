@@ -46,10 +46,7 @@ install_tmux() {
 }
 
 install_git() {
-  src=$SCRIPTPATH/git
-  dest=$config_dir/git
-  mkdir -pv $dest
-  __ln_at $dest $src/*
+  _default_install git
 
   curl -SL \
     "https://www.gitignore.io/api/vim,tags,linux,visualstudiocode,direnv" \
