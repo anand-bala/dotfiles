@@ -26,9 +26,8 @@ inoremap {'<Up>', '<C-o>gk'}
 
 ---[[ Searching stuff
 nnoremap {
-    '<C-f>', function()
-        require("telescope.builtin").find_files({follow = true, hidden = true})
-    end
+  '<C-f>',
+  function() require("telescope.builtin").find_files({follow = true, hidden = true}) end
 }
 nnoremap {'<C-g>', '<cmd>Telescope live_grep<cr>'}
 cmd([[command! Helptags Telescope help_tags]])
@@ -42,36 +41,36 @@ inoremap {'<C-e>', "compe#close('<C-e>')", silent = true, expr = true}
 
 local lsp_mappings = function(client, bufnr)
 
-    local lspmap = function(opts)
-        local lsp_map_opts = {buffer = bufnr, silent = true}
-        nnoremap(vim.tbl_extend("keep", opts, lsp_map_opts))
-    end
-    local te = require("telescope.builtin")
+  local lspmap = function(opts)
+    local lsp_map_opts = {buffer = bufnr, silent = true}
+    nnoremap(vim.tbl_extend("keep", opts, lsp_map_opts))
+  end
+  local te = require("telescope.builtin")
 
-    lspmap {'K', vim.lsp.buf.hover}
-    lspmap {'<C-k>', vim.lsp.buf.signature_help}
-    lspmap {'gd', te.lsp_definitions}
-    lspmap {'gD', vim.lsp.buf.declaration}
-    lspmap {'gi', te.lsp_implementations}
-    lspmap {'gr', te.lsp_references}
-    lspmap {'<leader>D', vim.lsp.buf.type_definition}
+  lspmap {'K', vim.lsp.buf.hover}
+  lspmap {'<C-k>', vim.lsp.buf.signature_help}
+  lspmap {'gd', te.lsp_definitions}
+  lspmap {'gD', vim.lsp.buf.declaration}
+  lspmap {'gi', te.lsp_implementations}
+  lspmap {'gr', te.lsp_references}
+  lspmap {'<leader>D', vim.lsp.buf.type_definition}
 
-    lspmap {'<C-s>', te.lsp_document_symbols}
-    lspmap {'<leader><Space>', te.lsp_code_actions}
-    lspmap {'<leader>rn', vim.lsp.buf.rename}
+  lspmap {'<C-s>', te.lsp_document_symbols}
+  lspmap {'<leader><Space>', te.lsp_code_actions}
+  lspmap {'<leader>rn', vim.lsp.buf.rename}
 
-    lspmap {'<leader>ld', vim.lsp.diagnostic.show_line_diagnostics}
-    lspmap {'[d', vim.lsp.diagnostic.goto_prev}
-    lspmap {']d', vim.lsp.diagnostic.goto_next}
-    cmd([[command! Diagnostics Telescope lsp_document_diagnostics]])
+  lspmap {'<leader>ld', vim.lsp.diagnostic.show_line_diagnostics}
+  lspmap {'[d', vim.lsp.diagnostic.goto_prev}
+  lspmap {']d', vim.lsp.diagnostic.goto_next}
+  cmd([[command! Diagnostics Telescope lsp_document_diagnostics]])
 
-    if client.resolved_capabilities.document_formatting then
-        lspmap {"<leader>f", vim.lsp.buf.formatting}
-        cmd([[command! Format <cmd> lua vim.lsp.buf.formatting()]])
-    elseif client.resolved_capabilities.document_range_formatting then
-        lspmap {"<leader>f", vim.lsp.buf.range_formatting}
-        cmd([[command! Format <cmd> lua vim.lsp.buf.range_formatting()]])
-    end
+  if client.resolved_capabilities.document_formatting then
+    lspmap {"<leader>f", vim.lsp.buf.formatting}
+    cmd([[command! Format <cmd> lua vim.lsp.buf.formatting()]])
+  elseif client.resolved_capabilities.document_range_formatting then
+    lspmap {"<leader>f", vim.lsp.buf.range_formatting}
+    cmd([[command! Format <cmd> lua vim.lsp.buf.range_formatting()]])
+  end
 end
 
 -- ]]
@@ -84,18 +83,10 @@ tnoremap {'<leader>ft', '<C-\\><cmd>FloatermToggle<CR>', silent = true}
 tnoremap {'<Esc>', '<C-\\><C-n>', silent = true}
 
 -- Launch terminal at bottom of window
-nnoremap {
-    '`',
-    '<cmd>FloatermNew --height=0.2 --wintype=split<CR>',
-    silent = true
-}
+nnoremap {'`', '<cmd>FloatermNew --height=0.2 --wintype=split<CR>', silent = true}
 
 -- Create new terminal vsplit
-nnoremap {
-    '<C-w>|',
-    '<cmd>FloatermNew --width=0.5 --wintype=vsplit<CR>',
-    silent = true
-}
+nnoremap {'<C-w>|', '<cmd>FloatermNew --width=0.5 --wintype=vsplit<CR>', silent = true}
 
 -- ]]
 
