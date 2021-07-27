@@ -1,40 +1,44 @@
 -- Separators
-local left_separator = '|'
-local right_separator = '|'
+local left_separator = "|"
+local right_separator = "|"
 -- Blank Between Components
-local space = ' '
+local space = " "
 
 -- The provided api nvim_is_buf_loaded filters out all hidden buffers
 local is_valid = function(buf_num)
-  if not buf_num or buf_num < 1 then return false end
+  if not buf_num or buf_num < 1 then
+    return false
+  end
   local listed = vim.fn.getbufvar(buf_num, "&buflisted") == 1
   local exists = vim.api.nvim_buf_is_valid(buf_num)
   return listed and exists
 end
 
 local TrimmedDirectory = function(dir)
-  local home = os.getenv("HOME")
+  local home = os.getenv "HOME"
   local _, index = string.find(dir, home, 1)
   if index ~= nil and index ~= string.len(dir) then
     -- TODO Trimmed Home Directory
-    return string.gsub(dir, home, '~')
+    return string.gsub(dir, home, "~")
   end
   return dir
 end
 
 local get_file_icon = function(name, ext)
-  local icon = ''
-  if vim.fn.exists("*WebDevIconsGetFileTypeSymbol") == 1 then
+  local icon = ""
+  if vim.fn.exists "*WebDevIconsGetFileTypeSymbol" == 1 then
     icon = vim.fn.WebDevIconsGetFileTypeSymbol(name)
     return icon
   end
-  local ok, devicons = pcall(require, 'nvim-web-devicons')
+  local ok, devicons = pcall(require, "nvim-web-devicons")
   if not ok then
-    print('No icon plugin found. Please install \'kyazdani42/nvim-web-devicons\'')
-    return ''
+    print "No icon plugin found. Please install 'kyazdani42/nvim-web-devicons'"
+    return ""
   end
   icon = devicons.get_icon(name, ext)
-  if icon == nil then icon = '' end
+  if icon == nil then
+    icon = ""
+  end
   return icon
 end
 
@@ -44,15 +48,21 @@ local getTabLabel = function(n)
   local file_path = vim.fn.bufname(current_buf)
   local file_name = vim.fn.fnamemodify(file_path, ":f:t")
   local file_ext = vim.fn.fnamemodify(file_name, ":e")
-  if string.find(file_name, 'term://') ~= nil then return ' Term' end
-  if file_name == '' then return "No Name" end
+  if string.find(file_name, "term://") ~= nil then
+    return " Term"
+  end
+  if file_name == "" then
+    return "No Name"
+  end
   local icon = get_file_icon(file_name, file_ext)
-  if icon ~= nil then return icon .. space .. file_name end
+  if icon ~= nil then
+    return icon .. space .. file_name
+  end
   return file_name
 end
 
 function _G.TabLine()
-  local tabline = ''
+  local tabline = ""
   local tab_list = vim.api.nvim_list_tabpages()
   local current_tab = vim.api.nvim_get_current_tabpage()
   for _, val in ipairs(tab_list) do
@@ -76,4 +86,3 @@ function _G.TabLine()
   -- tabline = tabline .. space
   return tabline
 end
-
