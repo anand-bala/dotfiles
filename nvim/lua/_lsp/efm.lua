@@ -16,7 +16,10 @@ local xmllint = { formatCommand = "xmllint --format -", formatStdin = true }
 return {
   setup = function()
     return {
-      init_options = { documentFormatting = true, documentRangeFormatting = true },
+      init_options = {
+        documentFormatting = true,
+        documentRangeFormatting = true,
+      },
       filetypes = { "python", "cmake", "lua", "xml" },
       root_dir = function(_)
         return vim.fn.getcwd()
@@ -25,7 +28,7 @@ return {
         languages = {
           python = { python_black, python_isort },
           cmake = { cmake_format, cmake_lint },
-          lua = { luafmt, stylua },
+          lua = { stylua },
           xml = { xmllint },
         },
       },
