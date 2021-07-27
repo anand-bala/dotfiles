@@ -103,21 +103,12 @@ gls.left = {
       highlight = { colors.red, colors.bg, "bold" },
     },
   },
-  {
-    FileSize = {
-      provider = bufinfo.get_file_size,
-      condition = buffer_not_empty,
-      highlight = { colors.fg, colors.bg },
-    },
-  },
+  { FileSize = { provider = bufinfo.get_file_size, condition = buffer_not_empty, highlight = { colors.fg, colors.bg } } },
   {
     FileIcon = {
       provider = "FileIcon",
       condition = buffer_not_empty,
-      highlight = {
-        require("galaxyline.provider_fileinfo").get_file_icon_color,
-        colors.bg,
-      },
+      highlight = { require("galaxyline.provider_fileinfo").get_file_icon_color, colors.bg },
     },
   },
   {
@@ -151,34 +142,10 @@ gls.left = {
       highlight = { colors.fg, colors.bg, "bold" },
     },
   },
-  {
-    DiagnosticError = {
-      provider = "DiagnosticError",
-      icon = "  ",
-      highlight = { colors.red, colors.bg },
-    },
-  },
-  {
-    DiagnosticWarn = {
-      provider = "DiagnosticWarn",
-      icon = "  ",
-      highlight = { colors.yellow, colors.bg },
-    },
-  },
-  {
-    DiagnosticHint = {
-      provider = "DiagnosticHint",
-      icon = "  ",
-      highlight = { colors.cyan, colors.bg },
-    },
-  },
-  {
-    DiagnosticInfo = {
-      provider = "DiagnosticInfo",
-      icon = "  ",
-      highlight = { colors.blue, colors.bg },
-    },
-  },
+  { DiagnosticError = { provider = "DiagnosticError", icon = "  ", highlight = { colors.red, colors.bg } } },
+  { DiagnosticWarn = { provider = "DiagnosticWarn", icon = "  ", highlight = { colors.yellow, colors.bg } } },
+  { DiagnosticHint = { provider = "DiagnosticHint", icon = "  ", highlight = { colors.cyan, colors.bg } } },
+  { DiagnosticInfo = { provider = "DiagnosticInfo", icon = "  ", highlight = { colors.blue, colors.bg } } },
 }
 
 gls.right = {
@@ -216,14 +183,7 @@ gls.right = {
       highlight = { colors.violet, colors.bg, "bold" },
     },
   },
-  {
-    DiffAdd = {
-      provider = "DiffAdd",
-      condition = checkwidth,
-      icon = "  ",
-      highlight = { colors.green, colors.bg },
-    },
-  },
+  { DiffAdd = { provider = "DiffAdd", condition = checkwidth, icon = "  ", highlight = { colors.green, colors.bg } } },
   {
     DiffModified = {
       provider = "DiffModified",
@@ -268,6 +228,4 @@ gls.short_line_left = {
   },
 }
 
-gls.short_line_right = {
-  { BufferIcon = { provider = "BufferIcon", highlight = { colors.fg, colors.bg } } },
-}
+gls.short_line_right = { { BufferIcon = { provider = "BufferIcon", highlight = { colors.fg, colors.bg } } } }

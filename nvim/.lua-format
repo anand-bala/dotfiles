@@ -12,8 +12,8 @@ align_args: true
 align_parameter: true
 align_table_field: true
 
-break_after_functioncall_lp: false
-break_after_functiondef_lp: false
+break_after_functioncall_lp: true
+break_after_functiondef_lp: true
 break_after_operator: false 
 break_after_table_lb: true
 break_before_functioncall_rp: true
@@ -26,6 +26,9 @@ chop_down_table: true
 
 extra_sep_at_table_end: true
 single_quote_to_double_quote: true
+
+spaces_inside_table_braces: true
+spaces_before_call: 1
 
 table_sep: ','
 # vim: set ft=yaml

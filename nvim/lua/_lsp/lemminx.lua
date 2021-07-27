@@ -13,13 +13,7 @@ local download_url = string.format(
 
 local custom_config = {
   default_config = {
-    cmd = {
-      "java",
-      "-noverify",
-      "-cp",
-      string.format("./%s", server_file),
-      "org.eclipse.lemminx.XMLServerLauncher",
-    },
+    cmd = { "java", "-noverify", "-cp", string.format("./%s", server_file), "org.eclipse.lemminx.XMLServerLauncher" },
     filetypes = { "xml", "xsd", "svg" },
     root_dir = function(filename)
       return util.root_pattern ".git"(filename) or util.path.dirname(filename)

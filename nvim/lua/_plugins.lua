@@ -2,12 +2,7 @@ local utils = require "_utils"
 
 local pm_repo = "https://github.com/wbthomason/packer.nvim"
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
-local compile_path = utils.join_paths(
-  vim.fn.stdpath "data",
-  "site",
-  "plugin",
-  "packer_compiled.vim"
-)
+local compile_path = utils.join_paths(vim.fn.stdpath "data", "site", "plugin", "packer_compiled.vim")
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd(table.concat({ "!git clone", pm_repo, install_path }, " "))
@@ -65,10 +60,7 @@ local init = function()
       vim.fn["fzf#install"]()
     end,
   }
-  use {
-    "nvim-telescope/telescope.nvim",
-    requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
-  }
+  use { "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } } }
   ---]]
   ---[[ Floating Terminals
   use {
@@ -173,11 +165,7 @@ local init = function()
       require("gitsigns").setup()
     end,
   }
-  use {
-    "glepnir/galaxyline.nvim",
-    branch = "main",
-    requires = { "kyazdani42/nvim-web-devicons" },
-  }
+  use { "glepnir/galaxyline.nvim", branch = "main", requires = { "kyazdani42/nvim-web-devicons" } }
   use { "dracula/vim", as = "dracula" }
 end
 

@@ -9,10 +9,5 @@ vim.g.tex_flavor = "latex"
 
 -- Some custom keybindings
 if vim.fn.exists ":TexlabForward" then
-  vim.keymap.nnoremap {
-    "<leader>lv",
-    "<cmd>TexlabForward<CR>",
-    silent = false,
-    buffer = true,
-  }
+  vim.keymap.nnoremap { "<leader>lv", "<cmd>TexlabForward<CR>", silent = false, buffer = true }
 end

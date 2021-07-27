@@ -14,9 +14,10 @@ augroup("spellceck_ft_specific", {
 augroup("ft_mappings", { [[BufRead,BufNewFile *.tex,*.latex  set filetype=tex]] })
 
 -- Make the cursor vertically centered
-augroup("vertical_center_cursor", {
-  [[BufEnter,WinEnter,WinNew,VimResized *,*.* let &scrolloff=winheight(win_getid())/2]],
-})
+augroup(
+  "vertical_center_cursor",
+  { [[BufEnter,WinEnter,WinNew,VimResized *,*.* let &scrolloff=winheight(win_getid())/2]] }
+)
 
 -- Terminal
 augroup("terminal_settings", { [[TermOpen * setlocal nonumber norelativenumber]] })
