@@ -24,18 +24,16 @@ urgent-fg           = #F8F8F2
 placeholder-bg      = #282A36
 placeholder-fg      = #F8F8F2
 
-focused_workspace-bg   = #44475A
-focused_workspace-fg   = #F8F8F2
-active_workspace-bg    = #44475A
-active_workspace-fg    = #F8F8F2
-unfocused_workspace-bg = #282A36
-unfocused_workspace-fg = #BFBFBF
-inactive_workspace-bg  = #282A36
-inactive_workspace-fg  = #BFBFBF
-urgent_workspace-bg    = #FF5555
-urgent_workspace-fg    = #F8F8F2
-binding_mode-bg        = #FF5555
-binding_mode-fg        = #F8F8F2
+focused_workspace-bg  = #44475A
+focused_workspace-fg  = #F8F8F2
+active_workspace-bg   = #44475A
+active_workspace-fg   = #F8F8F2
+inactive_workspace-bg = #282A36
+inactive_workspace-fg = #BFBFBF
+urgent_workspace-bg   = #FF5555
+urgent_workspace-fg   = #F8F8F2
+binding_mode-bg       = #FF5555
+binding_mode-fg       = #F8F8F2
 
 bar_background = #282A36
 bar_statusline = #F8F8F2
@@ -98,31 +96,31 @@ modules-left =  player-mpris-simple
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
-index-sort = true
+index-sort = false
 wrapping-scroll = false
 
 label-mode-padding = 2
 label-mode-foreground = ${colors.binding_mode-fg}
 label-mode-background = ${colors.binding_mode-bg}
 
-label-focused = %index%
+label-focused = %name%
 label-focused-background = ${colors.focused_workspace-bg}
 label-focused-foreground = ${colors.focused_workspace-fg}
 label-focused-padding = 2
 
-label-unfocused = %index%
+label-unfocused = %name%
 label-unfocused-background = ${colors.unfocused_workspace-bg}
 label-unfocused-foreground = ${colors.unfocused_workspace-fg}
 label-unfocused-padding = 2
 
-label-visible = %index%
+label-visible = %name%
 label-visible-background = ${colors.active_workspace-bg}
 label-visible-foreground = ${colors.active_workspace-fg}
 label-visible-padding = 2
 
-label-urgent = %index%
-label-urgent-background = ${colors.urgent_workspace-bg}
-label-urgent-foreground = ${colors.urgent_workspace-fg}
+label-urgent = %name%
+label-urgent-background = ${colors.unfocused_workspace-bg}
+label-urgent-foreground = ${colors.unfocused_workspace-fg}
 label-urgent-padding = 2
 
 [module/battery]

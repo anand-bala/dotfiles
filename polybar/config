@@ -37,13 +37,13 @@ binding_mode-fg       = #F8F8F2
 
 bar_background = #282A36
 bar_statusline = #F8F8F2
-bat_separator  = #44475A
+separator  = #44475A
 
 [bar/defaults]
 width        = 100%
 height       = 27
 radius       = 0
-fixed-center = false
+fixed-center = true
 
 background = ${colors.bar_background}
 foreground = ${colors.bar_statusline}
