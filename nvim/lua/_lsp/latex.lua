@@ -1,5 +1,30 @@
 local util = require "lspconfig/util"
 
+local function buildConfig()
+  local check_exe = vim.fn.executable
+
+  if check_exe "latexmk" then
+    return {
+      onSave = true,
+      executable = "latexmk",
+      args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+    }
+  elseif check_exe "tectonic" then
+    return {
+      onSave = true,
+      executable = "tectonic",
+      args = {
+        -- Input
+        "%f",
+        -- Flags
+        "--synctex",
+        "--keep-logs",
+        "--keep-intermediates",
+      },
+    }
+  end
+end
+
 local function forwardSearchConfig()
   local has = vim.fn.has
   local check_exe = vim.fn.executable
@@ -22,7 +47,13 @@ local conf = {
     end
     return vim.fn.getcwd()
   end,
-  settings = { texlab = { build = { onSave = true }, lint = { onChange = true }, forwardSearch = forwardSearchConfig() } },
+  settings = {
+    texlab = {
+      build = buildConfig(),
+      lint = { onChange = true },
+      forwardSearch = forwardSearchConfig(),
+    },
+  },
 }
 
 return {
