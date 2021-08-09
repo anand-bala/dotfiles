@@ -6,7 +6,7 @@
   st = status
 
 [core]
-  excludesfile = ~/.gitignore
+  excludesfile = ~/.config/git/ignore
 
 [init]
   defaultBranch = dev

@@ -1,0 +1,79 @@
+.cache/
+
+# Created by https://www.toptal.com/developers/gitignore/api/vim,tags,linux,visualstudiocode,direnv
+# Edit at https://www.toptal.com/developers/gitignore?templates=vim,tags,linux,visualstudiocode,direnv
+
+### direnv ###
+.direnv
+.envrc
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+### Tags ###
+# Ignore tags created by etags, ctags, gtags (GNU global) and cscope
+TAGS
+.TAGS
+!TAGS/
+tags
+.tags
+!tags/
+gtags.files
+GTAGS
+GRTAGS
+GPATH
+GSYMS
+cscope.files
+cscope.out
+cscope.in.out
+cscope.po.out
+
+
+### Vim ###
+# Swap
+[._]*.s[a-v][a-z]
+!*.svg  # comment out if you don't need vector files
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+Sessionx.vim
+
+# Temporary
+.netrwhist
+# Auto-generated tag files
+# Persistent undo
+[._]*.un~
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+# End of https://www.toptal.com/developers/gitignore/api/vim,tags,linux,visualstudiocode,direnv
