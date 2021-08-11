@@ -13,14 +13,54 @@ local stylua = { formatCommand = "stylua --verify -- -", formatStdin = true }
 
 local xmllint = { formatCommand = "xmllint --format -", formatStdin = true }
 
+local function get_spell_lang()
+  local spelllang = vim.opt.spelllang:get()[1]
+  if string.match(spelllang, "en_gb$") then
+    return "en_UK"
+  else
+    return spelllang
+  end
+end
+
+local textidote = {
+  lintCommand = table.concat({
+    "textidote",
+    "--no-color",
+    "--output",
+    "singleline",
+    "--check",
+    get_spell_lang(),
+  }, " "),
+  lintStdin = false,
+  lintIgnoreExitCode = true,
+  lintFormats = {
+    '%f(L%lC%c-%.%\\+): %m"%-G%.%#"',
+  },
+}
+
+local latexindent = {
+  formatCommand = "latexindent.pl -m -",
+  formatStdin = true,
+}
+
+local efm_logfile = tostring(Path:new(vim.fn.stdpath "cache", "efm.log"))
+
 return {
   setup = function()
     return {
+      cmd = { "efm-langserver", "-logfile", efm_logfile, "-loglevel", "4" },
       init_options = {
         documentFormatting = true,
         documentRangeFormatting = true,
       },
-      filetypes = { "python", "cmake", "lua", "xml" },
+      filetypes = {
+        "python",
+        "cmake",
+        "lua",
+        "xml",
+        "tex",
+        "latex",
+      },
       root_dir = function(_)
         return vim.fn.getcwd()
       end,
@@ -30,6 +70,8 @@ return {
           cmake = { cmake_format, cmake_lint },
           lua = { stylua },
           xml = { xmllint },
+          tex = { textidote },
+          latex = { textidote },
         },
       },
     }

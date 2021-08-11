@@ -93,3 +93,9 @@ indentAfterHeadings:
         SpecialBodyStartsOnOwnLine: 0
         SpecialEndStartsOnOwnLine: 0 
         SpecialEndFinishesWithLineBreak: 0
+
+modifyLineBreaks:
+    preserveBlankLines: 1
+    textWrapOptions:
+        columns: 88
+        alignAtAmpersandTakesPriority: 0
