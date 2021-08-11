@@ -2,7 +2,12 @@ local utils = require "_utils"
 
 local pm_repo = "https://github.com/wbthomason/packer.nvim"
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
-local compile_path = utils.join_paths(vim.fn.stdpath "data", "site", "plugin", "packer_compiled.vim")
+local compile_path = utils.join_paths(
+  vim.fn.stdpath "data",
+  "site",
+  "plugin",
+  "packer_compiled.vim"
+)
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd(table.concat({ "!git clone", pm_repo, install_path }, " "))
@@ -61,7 +66,10 @@ local init = function()
       vim.fn["fzf#install"]()
     end,
   }
-  use { "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } } }
+  use {
+    "nvim-telescope/telescope.nvim",
+    requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
+  }
   ---]]
   ---[[ Floating Terminals
   use {
@@ -163,7 +171,7 @@ local init = function()
     "lewis6991/gitsigns.nvim",
     requires = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("gitsigns").setup()
+      require("gitsigns").setup {}
     end,
   }
 
@@ -171,15 +179,15 @@ local init = function()
     "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
     config = function()
-      require("todo-comments").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
+      require("todo-comments").setup {}
     end,
   }
 
-  use { "glepnir/galaxyline.nvim", branch = "main", requires = { "kyazdani42/nvim-web-devicons" } }
+  use {
+    "glepnir/galaxyline.nvim",
+    branch = "main",
+    requires = { "kyazdani42/nvim-web-devicons" },
+  }
   use { "dracula/vim", as = "dracula" }
 end
 

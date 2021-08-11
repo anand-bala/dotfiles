@@ -3,24 +3,17 @@ local util = require "lspconfig/util"
 local function buildConfig()
   local check_exe = vim.fn.executable
 
-  if check_exe "latexmk" then
+  if check_exe "tectonic" then
+    return {
+      onSave = true,
+      executable = "tectonic",
+      args = { "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
+    }
+  elseif check_exe "latexmk" then
     return {
       onSave = true,
       executable = "latexmk",
       args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-    }
-  elseif check_exe "tectonic" then
-    return {
-      onSave = true,
-      executable = "tectonic",
-      args = {
-        -- Input
-        "%f",
-        -- Flags
-        "--synctex",
-        "--keep-logs",
-        "--keep-intermediates",
-      },
     }
   end
 end
@@ -33,7 +26,10 @@ local function forwardSearchConfig()
       return { executable = "zathura", args = { "--synctex-forward", "%l:1:%f", "%p" } }
     end
   elseif has "win32" or has "wsl" or (has "unix" and os.getenv "WSLENV") then
-    return { executable = "SumatraPDF.exe", args = { "-reuse-instance", "%p", "-forward-search", "%f", "%l" } }
+    return {
+      executable = "SumatraPDF.exe",
+      args = { "-reuse-instance", "%p", "-forward-search", "%f", "%l" },
+    }
   end
 end
 
