@@ -1,3 +1,5 @@
+local Path = require("plenary").path
+
 local python_black = { formatCommand = "black --quiet -", formatStdin = true }
 local python_isort = { formatCommand = "isort --quiet -", formatStdin = true }
 

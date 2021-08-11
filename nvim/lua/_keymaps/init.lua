@@ -67,10 +67,10 @@ local lsp_mappings = function(client, bufnr)
 
   if client.resolved_capabilities.document_formatting then
     lspmap { "<leader>f", vim.lsp.buf.formatting }
-    cmd [[command! Format <cmd> lua vim.lsp.buf.formatting()]]
+    cmd [[command! Format lua vim.lsp.buf.formatting()]]
   elseif client.resolved_capabilities.document_range_formatting then
     lspmap { "<leader>f", vim.lsp.buf.range_formatting }
-    cmd [[command! Format <cmd> lua vim.lsp.buf.range_formatting()]]
+    cmd [[command! Format lua vim.lsp.buf.range_formatting()]]
   end
 end
 
