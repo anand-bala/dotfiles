@@ -3,17 +3,17 @@ local util = require "lspconfig/util"
 local function buildConfig()
   local check_exe = vim.fn.executable
 
-  if check_exe "tectonic" then
-    return {
-      onSave = true,
-      executable = "tectonic",
-      args = { "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
-    }
-  elseif check_exe "latexmk" then
+  if check_exe "latexmk" then
     return {
       onSave = true,
       executable = "latexmk",
       args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+    }
+  elseif check_exe "tectonic" then
+    return {
+      onSave = true,
+      executable = "tectonic",
+      args = { "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
     }
   end
 end
@@ -48,6 +48,10 @@ local conf = {
       build = buildConfig(),
       lint = { onChange = true },
       forwardSearch = forwardSearchConfig(),
+      latexFormatter = "texlab",
+      latexindent = {
+        modifyLineBreaks = false,
+      },
     },
   },
 }

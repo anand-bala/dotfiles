@@ -14,6 +14,12 @@ local luafmt = { formatCommand = "lua-format", formatStdin = true }
 local stylua = { formatCommand = "stylua --verify -- -", formatStdin = true }
 
 local xmllint = { formatCommand = "xmllint --format -", formatStdin = true }
+local yamllint = { lintCommand = "yamllint -f parsable -", lintStdin = true }
+
+local bibtextidy = {
+  formatCommand = "bibtex-tidy --curly --numeric --space=2 --tab --align=13 --sort=key --duplicates=key,doi --merge=combine --strip-enclosing-braces --sort-fields=title,shorttitle,author,year,month,day,journal,booktitle,location,on,publisher,address,series,volume,number,pages,doi,isbn,issn,url,urldate,copyright,category,note,metadata --trailing-commas --encode-urls --remove-empty-fields --quiet -",
+  formatStdin = true,
+}
 
 local function get_spell_lang()
   local spelllang = vim.opt.spelllang:get()[1]
@@ -60,8 +66,10 @@ return {
         "cmake",
         "lua",
         "xml",
+        "yaml",
         "tex",
         "latex",
+        "bib",
       },
       root_dir = function(_)
         return vim.fn.getcwd()
@@ -72,8 +80,10 @@ return {
           cmake = { cmake_format, cmake_lint },
           lua = { stylua },
           xml = { xmllint },
-          tex = { textidote },
-          latex = { textidote },
+          yaml = { yamllint },
+          tex = { latexindent },
+          latex = { latexindent },
+          bib = { bibtextidy },
         },
       },
     }
