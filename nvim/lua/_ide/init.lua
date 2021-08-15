@@ -35,17 +35,10 @@ require "_lsp"
 require("compe").setup {
   enabled = true,
   autocomplete = true,
-  debug = false,
-  min_length = 1,
   preselect = "enable",
   throttle_time = 80,
   source_timeout = 200,
-  incomplete_delay = 400,
-  max_abbr_width = 100,
-  max_kind_width = 100,
-  max_menu_width = 100,
   documentation = { border = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" } },
-
   source = {
     path = true,
     buffer = true,
@@ -59,7 +52,8 @@ require("compe").setup {
     snippets_nvim = false,
     ultisnips = true,
     emoji = true,
-    omni = { filetypes = { "tex" } },
+    omni = false,
+    -- omni = { filetypes = { "tex" } },
   },
 }
 ---]]
@@ -85,7 +79,7 @@ require("telescope").setup {
     file_sorter = require("telescope.sorters").get_fuzzy_file,
     file_ignore_patterns = {},
     generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-    path_display = { "absolute" },
+    path_display = { "shorten" },
     winblend = 0,
     color_devicons = true,
     use_less = true,
