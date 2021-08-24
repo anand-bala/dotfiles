@@ -46,7 +46,7 @@ local getTabLabel = function(n)
   local current_win = vim.api.nvim_tabpage_get_win(n)
   local current_buf = vim.api.nvim_win_get_buf(current_win)
   local file_path = vim.fn.bufname(current_buf)
-  local file_name = vim.fn.fnamemodify(file_path, ":f:t")
+  local file_name = vim.fn.fnamemodify(file_path, ":.")
   local file_ext = vim.fn.fnamemodify(file_name, ":e")
   if string.find(file_name, "term://") ~= nil then
     return " Term"

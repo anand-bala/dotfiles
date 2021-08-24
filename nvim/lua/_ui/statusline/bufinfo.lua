@@ -20,7 +20,7 @@ function M.file_name()
   elseif vim.bo.filetype == "floaterm" then
     return "terminal "
   end
-  local file = vim.fn.expand "%:f"
+  local file = vim.fn.expand "%:."
   if vim.fn.empty(file) == 1 then
     file = ""
   elseif utils.starts_with(file, "term://") then
@@ -82,7 +82,21 @@ local icons = {
   Brown = { "" },
   Aqua = { "" },
   LightBlue = { "", "" },
-  Blue = { "", "", "", "", "", "", "", "", "", "", "", "", "" },
+  Blue = {
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  },
   Darkblue = { "", "" },
   Purple = { "", "", "", "", "" },
   Red = { "", "", "", "", "", "" },

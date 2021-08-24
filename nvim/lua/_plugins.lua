@@ -1,12 +1,12 @@
-local utils = require "_utils"
+local Path = require("plenary").path
 
 local pm_repo = "https://github.com/wbthomason/packer.nvim"
-local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
-local compile_path = utils.join_paths(
-  vim.fn.stdpath "data",
-  "site",
-  "plugin",
-  "packer_compiled.vim"
+local install_path = tostring(
+  Path:new(vim.fn.stdpath "data", "site", "pack", "packer", "opt", "packer.nvim")
+)
+
+local compile_path = tostring(
+  Path:new(vim.fn.stdpath "data", "site", "plugin", "packer_compiled.vim")
 )
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -36,7 +36,13 @@ local init = function()
 
   ---[[ Sanity stuff
   use "ciaranm/securemodelines"
-  use "tjdevries/astronauta.nvim"
+  use {
+    "tjdevries/astronauta.nvim",
+    config = function()
+      require "astronauta.keymap"
+    end,
+  }
+
   ---]]
 
   ---[[ Everyday tools

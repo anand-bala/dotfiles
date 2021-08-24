@@ -1,5 +1,12 @@
 -- Disable some built-in plugins we don't want
-local disabled_built_ins = { "matchit", "matchparen", "shada_plugin", "tarPlugin", "tar", "netrwPlugin" }
+local disabled_built_ins = {
+  "matchit",
+  "matchparen",
+  "shada_plugin",
+  "tarPlugin",
+  "tar",
+  "netrwPlugin",
+}
 
 for _, disabled_plugin in ipairs(disabled_built_ins) do
   vim.g["loaded_" .. disabled_plugin] = 1
@@ -47,7 +54,13 @@ vim.o.hidden = true -- Allow hidden buffers
 vim.o.laststatus = 2 -- Status bar
 
 vim.o.list = true -- Show non-printable characters.
-vim.opt.listchars = { tab = "▸ ", extends = "❯", precedes = "❮", nbsp = "±", trail = "·" }
+vim.opt.listchars = {
+  tab = "▸ ",
+  extends = "❯",
+  precedes = "❮",
+  nbsp = "±",
+  trail = "·",
+}
 
 -- Searching
 vim.o.ignorecase = true
