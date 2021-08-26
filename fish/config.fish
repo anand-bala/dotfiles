@@ -21,6 +21,7 @@ alias e="$EDITOR"
 if command -sq -- exa
   alias ls "exa"
   alias ll "exa -l"
+  alias tree "exa --tree"
 end
 
 # --- Colorize GCC output
