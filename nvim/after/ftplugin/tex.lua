@@ -6,4 +6,11 @@ vim.g.tex_flavor = "latex"
 
 vim.opt_local.spellfile = "project.utf-8.add"
 
-require "_keymaps/tex"
+if vim.fn.exists ":TexlabForward" then
+  vim.keymap.nnoremap {
+    "<leader>lv",
+    "<cmd>TexlabForward<CR>",
+    silent = true,
+    buffer = true,
+  }
+end

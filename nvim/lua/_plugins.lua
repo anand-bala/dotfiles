@@ -144,6 +144,10 @@ local init = function()
     end,
     ft = { "tex", "latex", "bib", "bibtex" },
   }
+  use {
+    "brymer-meneses/grammar-guard.nvim",
+    requires = "neovim/nvim-lspconfig",
+  }
   -- use 'KeitaNakamura/tex-conceal.vim'
   use {
     "plasticboy/vim-markdown",
@@ -170,6 +174,7 @@ local init = function()
   use "cespare/vim-toml"
   use "dag/vim-fish"
   use "mboughaba/i3config.vim"
+  use "JuliaEditorSupport/julia-vim"
 
   ---]] Language specific
 

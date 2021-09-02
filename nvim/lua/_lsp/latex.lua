@@ -48,10 +48,6 @@ local conf = {
       build = buildConfig(),
       lint = { onChange = true },
       forwardSearch = forwardSearchConfig(),
-      latexFormatter = "texlab",
-      latexindent = {
-        modifyLineBreaks = false,
-      },
     },
   },
 }

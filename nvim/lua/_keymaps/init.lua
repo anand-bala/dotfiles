@@ -8,10 +8,17 @@ local inoremap = vim.keymap.inoremap
 local tnoremap = vim.keymap.tnoremap
 local nmap = vim.keymap.nmap
 local xmap = vim.keymap.xmap
+local noremap = vim.keymap.noremap
 
 -- First, we set the leader character.
 -- Personally, I like backslash
 vim.g.mapleader = "\\"
+
+-- Disable 'hjkl' for movements
+noremap { "h", "<nop>" }
+noremap { "j", "<nop>" }
+noremap { "k", "<nop>" }
+noremap { "l", "<nop>" }
 
 -- shifting visual block should keep it selected
 vnoremap { "<", "<gv" }
@@ -60,9 +67,6 @@ nnoremap { "<C-w>|", "<cmd>FloatermNew --width=0.5 --wintype=vsplit<CR>", silent
 nmap { "ga", "<Plug>(EasyAlign)" }
 xmap { "ga", "<Plug>(EasyAlign)" }
 ---]
-
-local utils = require "_utils"
-local augroup = utils.create_augroup
 
 -- augroup("tex_keymaps", {
 --   [[FileType tex,latex lua require"_keymaps/tex"]],
