@@ -1,3 +1,4 @@
+~/.config/fish/plugins/ros-helpers
 ~/.config/fish/plugins/tex-paths
 ~/.config/fish/plugins/npm-paths
 ~/.config/fish/plugins/colcon-paths
@@ -15,4 +16,4 @@
 dracula/fish
 jorgebucaran/fisher
 jorgebucaran/replay.fish
-~/.config/fish/plugins/ros-helpers
+~/.config/fish/plugins/julialang-paths
