@@ -7,18 +7,6 @@ function M.register_custom()
   require("grammar-guard").init()
 end
 
-local function get_spellfile()
-  local spellfile = vim.opt.spellfile:get()
-  if spellfile == nil then
-    return {}
-  elseif utils.starts_with(spellfile, "./") then
-    return { ":" .. tostring(Path:new(vim.fn.getcwd(), spellfile):absolute()) }
-  elseif utils.starts_with(spellfile, "/") then
-    return { ":" .. spellfile }
-  end
-  -- Check if ./spell/spellfile.
-end
-
 function M.setup()
   return {
     settings = {
@@ -32,7 +20,7 @@ function M.setup()
           motherTongue = "en",
         },
         trace = { server = "verbose" },
-        dictionary = { ["en-US"] = get_spellfile() },
+        dictionary = { ["en-US"] = {} },
         disabledRules = { ["en-US"] = { "WHITESPACE_RULE" } },
         hiddenFalsePositives = {},
       },

@@ -1,12 +1,12 @@
-local Path = require("plenary").path
-
 local pm_repo = "https://github.com/wbthomason/packer.nvim"
-local install_path = tostring(
-  Path:new(vim.fn.stdpath "data", "site", "pack", "packer", "opt", "packer.nvim")
+local install_path = table.concat(
+  { vim.fn.stdpath "data", "site", "pack", "packer", "opt", "packer.nvim" },
+  "/"
 )
 
-local compile_path = tostring(
-  Path:new(vim.fn.stdpath "data", "site", "plugin", "packer_compiled.vim")
+local compile_path = table.concat(
+  { vim.fn.stdpath "data", "site", "plugin", "packer_compiled.vim" },
+  "/"
 )
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
