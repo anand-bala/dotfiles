@@ -1,7 +1,7 @@
 -- Register custom servers
 require("_lsp/lemminx").register_custom()
 require("_lsp/zig").register_custom()
-require("_lsp/grammar-guard").register_custom()
+require("_lsp/ltex").register_custom()
 --- Load lspinstall
 local lspinstall = require "lspinstall"
 lspinstall.setup()
@@ -110,7 +110,7 @@ function M.setup()
     clangd = require("_lsp/clangd").setup(),
     texlab = require("_lsp/latex").setup(),
     lemminx = require("_lsp/lemminx").setup(),
-    grammar_guard = require("_lsp/grammar-guard").setup(),
+    ltex = require("_lsp/ltex").setup(),
   }
   setmetatable(myconfigs, {
     __index = function()
@@ -124,7 +124,6 @@ function M.setup()
   table.insert(servers, "clangd")
   table.insert(servers, "efm")
   table.insert(servers, "texlab")
-  table.insert(servers, "grammar_guard")
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true

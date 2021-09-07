@@ -1,6 +1,8 @@
+local augroup = require("_utils").create_augroup
+
 local pm_repo = "https://github.com/wbthomason/packer.nvim"
 local install_path = table.concat(
-  { vim.fn.stdpath "data", "site", "pack", "packer", "opt", "packer.nvim" },
+  { vim.fn.stdpath "data", "site", "pack", "packer", "start", "packer.nvim" },
   "/"
 )
 
@@ -13,26 +15,24 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd(table.concat({ "!git clone", pm_repo, install_path }, " "))
 end
 
-local packer = nil
+augroup("Packer", {
+  [[BufWritePost init.lua PackerCompile]],
+})
 
-local init = function()
-  if packer == nil then
-    packer = require "packer"
-    packer.init {
-      disable_commands = true,
-      ensure_dependencies = true,
-      compile_path = compile_path,
-      display = {
-        open_fn = function()
-          return require("packer.util").float { border = "single" }
-        end,
-      },
-    }
-  end
+local packer = require "packer"
+local packer_config = {
+  compile_path = compile_path,
+  display = {
+    open_fn = function()
+      return require("packer.util").float { border = "single" }
+    end,
+  },
+}
 
+local packer_init = function()
   local use = packer.use
   -- Let packer manage itself
-  use { "wbthomason/packer.nvim", opt = true }
+  use { "wbthomason/packer.nvim" }
 
   ---[[ Sanity stuff
   use "ciaranm/securemodelines"
@@ -144,10 +144,6 @@ local init = function()
     end,
     ft = { "tex", "latex", "bib", "bibtex" },
   }
-  use {
-    "brymer-meneses/grammar-guard.nvim",
-    requires = "neovim/nvim-lspconfig",
-  }
   -- use 'KeitaNakamura/tex-conceal.vim'
   use {
     "plasticboy/vim-markdown",
@@ -202,16 +198,7 @@ local init = function()
   use { "dracula/vim", as = "dracula" }
 end
 
-_G.Plugins = setmetatable({}, {
-  __index = function(_, key)
-    vim.cmd [[packadd packer.nvim]]
-    init()
-    return packer[key]
-  end,
-})
-
-vim.cmd [[command! PackerInstall lua Plugins.install()]]
-vim.cmd [[command! PackerUpdate  lua Plugins.update()]]
-vim.cmd [[command! PackerSync    lua Plugins.sync()]]
-vim.cmd [[command! PackerClean   lua Plugins.clean()]]
-vim.cmd [[command! PackerCompile lua Plugins.compile()]]
+packer.startup {
+  packer_init,
+  config = packer_config,
+}
