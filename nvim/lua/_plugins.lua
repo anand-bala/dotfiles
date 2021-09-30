@@ -141,6 +141,9 @@ local packer_init = function()
       vim.g.vimtex_complete_enabled = 0
       vim.g.vimtex_view_enabled = 0
       vim.g.vimtex_format_enabled = 1
+      vim.g.vimtex_toc_config = {
+        split_pos = "botright",
+      }
     end,
     ft = { "tex", "latex", "bib", "bibtex" },
   }
