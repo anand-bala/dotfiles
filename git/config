@@ -1,12 +1,15 @@
 # vim: ft=gitconfig
 [alias]
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  recent = !git reflog show --pretty=format:'%gs ~ %gd' --date=relative | grep 'checkout:' | grep -oE '[^ ]+ ~ .*' | awk -F~ '!seen[$1]++' | head -n 10 | awk -F' ~ HEAD@{' '{printf(\"  \\033[33m%s: \\033[37m %s\\033[0m\\n\", substr($2, 1, length($2)-1), $1)}'
   ignore = "!gi() { curl -sL https://www.gitignore.io/api/$@ ;}; gi"
   st = status
+  lg = lg-specific --all
+  lg-long = lg-long-specific --all
+  lg-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+  lg-long-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)%ar%C(reset) %C(auto)(%d%C)(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)%n''          - %C(bold cyan)%aD%C(reset) %C(bold cyan)(committed: %cD)%C(reset)'
 
 [core]
   excludesfile = ~/.config/git/ignore
+  autocrlf = input
 
 [init]
   defaultBranch = dev

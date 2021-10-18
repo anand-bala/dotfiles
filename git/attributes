@@ -1,8 +1,7 @@
 # Common settings that generally should always be used with your language specific settings
 
 # Auto detect text files and perform LF normalization
-# https://www.davidlaing.com/2012/09/19/customise-your-gitattributes-to-become-a-git-ninja/
-*          text=auto
+# *          text=auto
 
 #
 # The above will handle all files NOT found below
@@ -30,7 +29,6 @@
 *.tsv      text
 *.txt      text
 *.sql      text
-*.ps1      text eol=crlf
 
 # Graphics
 *.png      binary
@@ -51,9 +49,11 @@
 *.bash     text eol=lf
 *.fish     text eol=lf
 *.sh       text eol=lf
+*.zsh      text eol=lf
 # These are explicitly windows files and should use crlf
 *.bat      text eol=crlf
 *.cmd      text eol=crlf
+*.ps1      text eol=crlf
 
 # Serialisation
 *.json     text
