@@ -57,40 +57,36 @@ local latexindent = {
 local efm_logfile = tostring(Path:new(vim.fn.stdpath "cache", "efm.log"))
 
 return {
-  setup = function()
-    return {
-      cmd = { "efm-langserver", "-logfile", efm_logfile, "-loglevel", "4" },
-      init_options = {
-        documentFormatting = true,
-        documentRangeFormatting = true,
-      },
-      filetypes = {
-        "html",
-        "python",
-        "cmake",
-        "lua",
-        "xml",
-        "yaml",
-        "tex",
-        "latex",
-        "bib",
-      },
-      root_dir = function(_)
-        return vim.fn.getcwd()
-      end,
-      settings = {
-        languages = {
-          html = { htmlprettier },
-          python = { python_black, python_isort },
-          cmake = { cmake_format, cmake_lint },
-          lua = { stylua },
-          xml = { xmllint },
-          yaml = { yamllint },
-          tex = { latexindent },
-          latex = { latexindent },
-          bib = { bibtextidy },
-        },
-      },
-    }
+  cmd = { "efm-langserver", "-logfile", efm_logfile, "-loglevel", "4" },
+  init_options = {
+    documentFormatting = true,
+    documentRangeFormatting = true,
+  },
+  filetypes = {
+    "html",
+    "python",
+    "cmake",
+    "lua",
+    "xml",
+    "yaml",
+    "tex",
+    "latex",
+    "bib",
+  },
+  root_dir = function(_)
+    return vim.fn.getcwd()
   end,
+  settings = {
+    languages = {
+      html = { htmlprettier },
+      python = { python_black, python_isort },
+      cmake = { cmake_format, cmake_lint },
+      lua = { stylua },
+      xml = { xmllint },
+      yaml = { yamllint },
+      tex = { latexindent },
+      latex = { latexindent },
+      bib = { bibtextidy },
+    },
+  },
 }

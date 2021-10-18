@@ -1,8 +1,6 @@
 local util = require "lspconfig/util"
 local Path = require("plenary").path
 
-local M = {}
-
 local server_version = "0.16.2"
 local server_file = string.format("org.eclipse.lemminx-%s-uber.jar", server_version)
 local download_url = string.format(
@@ -13,7 +11,13 @@ local download_url = string.format(
 
 local custom_config = {
   default_config = {
-    cmd = { "java", "-noverify", "-cp", string.format("./%s", server_file), "org.eclipse.lemminx.XMLServerLauncher" },
+    cmd = {
+      "java",
+      "-noverify",
+      "-cp",
+      string.format("./%s", server_file),
+      "org.eclipse.lemminx.XMLServerLauncher",
+    },
     filetypes = { "xml", "xsd", "svg" },
     root_dir = function(filename)
       return util.root_pattern ".git"(filename) or util.path.dirname(filename)
@@ -41,19 +45,13 @@ Features:
   install_script = string.format([[curl -LO %s]], download_url),
 }
 
-function M.register_custom()
-  require("lspinstall/servers").lemminx = custom_config
-end
+require("lspinstall/servers").lemminx = custom_config
 
-function M.setup()
-  return {
-    settings = {
-      xml = {
-        java = { home = "/usr/lib/jvm/default-java" },
-        server = { workDir = tostring(Path:new(vim.fn.stdpath "cache", "lemminx")) },
-      },
+return {
+  settings = {
+    xml = {
+      java = { home = "/usr/lib/jvm/default-java" },
+      server = { workDir = tostring(Path:new(vim.fn.stdpath "cache", "lemminx")) },
     },
-  }
-end
-
-return M
+  },
+}

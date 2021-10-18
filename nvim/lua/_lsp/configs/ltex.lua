@@ -1,6 +1,5 @@
 local util = require "lspconfig/util"
-
-local M = {}
+local Path = require("plenary").path
 
 local server_version = "13.0.0"
 local server_file = string.format("ltex-ls-%s-linux-x64.tar.gz", server_version)
@@ -54,29 +53,42 @@ fi
   ),
 }
 
-function M.register_custom()
-  require("lspinstall/servers").ltex = custom_config
+require("lspinstall/servers").ltex = custom_config
+
+local function check_local_spellfile()
+  local local_spellfile = Path:new "project.utf-8.add"
+  if local_spellfile:exists() then
+    return ":" .. local_spellfile:normalize(vim.fn.getcwd())
+  end
 end
 
-function M.setup()
-  return {
-    settings = {
-      ltex = {
-        enabled = { "latex", "tex", "bib", "markdown" },
-        language = "en-US",
-        diagnosticSeverity = "information",
-        setenceCacheSize = 2000,
-        additionalRules = {
-          enablePickyRules = true,
-          motherTongue = "en",
-        },
-        trace = { server = "verbose" },
-        dictionary = { ["en-US"] = {} },
-        disabledRules = { ["en-US"] = { "WHITESPACE_RULE" } },
-        hiddenFalsePositives = {},
+return {
+  root_dir = function(fname)
+    for _, pat in pairs { "root.tex", "main.tex", ".latexmkrc" } do
+      local match = util.root_pattern(pat)(fname)
+      if match then
+        return match
+      end
+    end
+    return vim.fn.getcwd()
+  end,
+
+  settings = {
+    ltex = {
+      enabled = { "latex", "tex", "bib", "markdown" },
+      language = "en-US",
+      diagnosticSeverity = "information",
+      setenceCacheSize = 2000,
+      additionalRules = {
+        enablePickyRules = true,
+        motherTongue = "en",
       },
+      trace = { server = "verbose" },
+      dictionary = { ["en-US"] = { check_local_spellfile() } },
+      disabledRules = { ["en-US"] = { "WHITESPACE_RULE", "EN_QUOTES" } },
+      hiddenFalsePositives = {},
     },
-  }
-end
 
-return M
+  },
+
+}

@@ -52,8 +52,4 @@ local conf = {
   },
 }
 
-return {
-  setup = function()
-    return conf
-  end,
-}
+return conf

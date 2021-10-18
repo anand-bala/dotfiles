@@ -28,7 +28,7 @@ require("nvim-treesitter.configs").setup {
 }
 ---]]
 ---[[ Initialize the Built-in LSP
-require "_lsp"
+require("_lsp").setup()
 ---]]
 
 ---[[ Configuration for nvim-compe
@@ -38,7 +38,9 @@ require("compe").setup {
   preselect = "enable",
   throttle_time = 80,
   source_timeout = 200,
-  documentation = { border = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" } },
+  documentation = {
+    border = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+  },
   source = {
     path = true,
     buffer = true,

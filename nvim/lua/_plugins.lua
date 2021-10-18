@@ -52,7 +52,11 @@ local packer_init = function()
   use "andymass/vim-matchup"
   use "tpope/vim-surround"
   use "tpope/vim-fugitive"
-  use { "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } }
+  use {
+    "tpope/vim-dispatch",
+    opt = true,
+    cmd = { "Dispatch", "Make", "Focus", "Start" },
+  }
   use { "junegunn/vim-easy-align", opt = true, cmd = { "EasyAlign" } }
 
   use {
