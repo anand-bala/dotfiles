@@ -57,7 +57,6 @@ local latexindent = {
 local efm_logfile = tostring(Path:new(vim.fn.stdpath "cache", "efm.log"))
 
 return {
-  cmd = { "efm-langserver", "-logfile", efm_logfile, "-loglevel", "4" },
   init_options = {
     documentFormatting = true,
     documentRangeFormatting = true,

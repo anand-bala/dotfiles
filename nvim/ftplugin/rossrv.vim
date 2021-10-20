@@ -1,2 +1,0 @@
-runtime! ftplugin/rosmsg.vim
-

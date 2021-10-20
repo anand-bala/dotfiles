@@ -20,9 +20,6 @@ end
 vim.cmd "syntax enable"
 
 require "_plugins"
-require "_ide"
-require "_ui"
-require "_keymaps"
 
 ---[[ Sanity settings
 vim.o.secure = true
@@ -97,6 +94,9 @@ vim.g.dracula_colorterm = 1
 vim.cmd [[colorscheme dracula]]
 ---]]
 
+require "_keymaps"
+require "_ide"
+
 --- Register some custom behavior via autocmds
 local augroup = require("_utils").create_augroup
 
@@ -111,10 +111,9 @@ augroup("spellceck_ft_specific", {
 augroup("ft_mappings", { [[BufRead,BufNewFile *.tex,*.latex  set filetype=tex]] })
 
 -- Make the cursor vertically centered
-augroup(
-  "vertical_center_cursor",
-  { [[BufEnter,WinEnter,WinNew,VimResized *,*.* let &scrolloff=winheight(win_getid())/2]] }
-)
+augroup("vertical_center_cursor", {
+  [[BufEnter,WinEnter,WinNew,VimResized *,*.* let &scrolloff=winheight(win_getid())/2]],
+})
 
 -- Terminal
 augroup("terminal_settings", { [[TermOpen * setlocal nonumber norelativenumber]] })

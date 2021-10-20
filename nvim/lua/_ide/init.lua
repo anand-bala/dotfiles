@@ -4,9 +4,10 @@
 --
 ---[[ Setup treesitter
 require("nvim-treesitter.configs").setup {
-  ensure_installed = { "c", "cpp", "python", "rust", "lua", "html", "zig" },
-  highlight = { enable = true },
+  ensure_installed = { "c", "cpp", "python", "rust", "lua", "html", "zig", "latex" },
+  highlight = { enable = true, disable = { "latex", "tex" } },
   indent = { enable = true },
+  matchup = { enable = true },
   playground = {
     enable = true,
     disable = {},
@@ -28,14 +29,15 @@ require("nvim-treesitter.configs").setup {
 }
 ---]]
 ---[[ Initialize the Built-in LSP
-require("_lsp")
+require "_lsp"
 ---]]
 
 ---[[ Configuration for nvim-cmp and snippets
 local luasnip = require "luasnip"
 local cmp = require "cmp"
+local cmp_mappings = require "_keymaps/cmp"
 cmp.setup {
-  mapping = require "_keymaps/cmp",
+  mapping = cmp_mappings,
   documentation = {
     border = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
   },
@@ -99,3 +101,9 @@ require("telescope").setup {
 }
 
 ---]]
+
+require "_ide/statusline"
+require "_ide/tabline"
+
+vim.o.showtabline = 1
+vim.o.tabline = "%!v:lua.TabLine()"

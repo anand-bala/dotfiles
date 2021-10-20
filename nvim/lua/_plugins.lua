@@ -32,7 +32,7 @@ local packer_config = {
 local packer_init = function()
   local use = packer.use
   -- Let packer manage itself
-  use { "wbthomason/packer.nvim" }
+  use "wbthomason/packer.nvim"
 
   ---[[ Sanity stuff
   use "ciaranm/securemodelines"
@@ -60,11 +60,9 @@ local packer_init = function()
   use { "junegunn/vim-easy-align", opt = true, cmd = { "EasyAlign" } }
 
   use {
-    "tomtom/tcomment_vim",
+    "numToStr/Comment.nvim",
     config = function()
-      -- Disable secondary mappings for tcomment
-      vim.g.tcomment_mapleader1 = ""
-      vim.g.tcomment_mapleader2 = ""
+      require("Comment").setup()
     end,
   }
 
@@ -104,8 +102,10 @@ local packer_init = function()
     run = function()
       vim.cmd [[TSUpdate]]
     end,
+    requires = {
+      { "nvim-treesitter/playground", cmd = { "TSPlaygroundToggle" } },
+    },
   }
-  use { "nvim-treesitter/playground", cmd = { "TSPlaygroundToggle" } }
   use { "L3MON4D3/LuaSnip", requires = { "rafamadriz/friendly-snippets" } }
 
   use {
@@ -156,7 +156,7 @@ local packer_init = function()
     end,
     ft = { "tex", "latex", "bib", "bibtex" },
   }
-  -- use 'KeitaNakamura/tex-conceal.vim'
+  use "KeitaNakamura/tex-conceal.vim"
   use {
     "plasticboy/vim-markdown",
     config = function()
@@ -203,9 +203,11 @@ local packer_init = function()
   }
 
   use {
-    "glepnir/galaxyline.nvim",
-    branch = "main",
-    requires = { "kyazdani42/nvim-web-devicons" },
+    "famiu/feline.nvim",
+    requires = { "kyazdani42/nvim-web-devicons", "SmiteshP/nvim-gps" },
+    config = function()
+      require("nvim-gps").setup()
+    end,
   }
   use { "dracula/vim", as = "dracula" }
 end
