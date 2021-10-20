@@ -82,4 +82,17 @@ function M.on_attach(client, bufnr)
   )
 end
 
+function M.ensure_installed()
+  local lsp_installer = require "nvim-lsp-installer"
+  local ensure_installed_servers = { "vimls", "sumneko_lua" }
+  for _, name in ipairs(ensure_installed_servers) do
+    local ok, server = lsp_installer.get_server(name)
+    -- Check that the server is supported in nvim-lsp-installer
+    if ok and not server:is_installed() then
+      print("Installing " .. name)
+      server:install()
+    end
+  end
+end
+
 return M

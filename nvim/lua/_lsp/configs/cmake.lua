@@ -1,5 +1,3 @@
-local M = {}
-
 local util = require "lspconfig/util"
 
 return {

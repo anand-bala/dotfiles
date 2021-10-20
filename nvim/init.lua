@@ -77,7 +77,7 @@ vim.o.mouse = "a"
 vim.o.showmode = false
 
 -- vim.o.completeopt to have a better completion experience
-vim.opt.completeopt = { "menuone", "noselect" }
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Avoid showing message extra message when using completion
 vim.opt.shortmess:append({ c = true }, { I = true })
@@ -97,4 +97,24 @@ vim.g.dracula_colorterm = 1
 vim.cmd [[colorscheme dracula]]
 ---]]
 
-require "_custom_behavior"
+--- Register some custom behavior via autocmds
+local augroup = require("_utils").create_augroup
+
+-- Spell check on for the following
+augroup("spellceck_ft_specific", {
+  [[FileType markdown   setlocal spell]],
+  [[FileType gitcommit  setlocal spell]],
+  [[FileType tex,latex  setlocal spell]],
+})
+
+-- Custom filetype mappings
+augroup("ft_mappings", { [[BufRead,BufNewFile *.tex,*.latex  set filetype=tex]] })
+
+-- Make the cursor vertically centered
+augroup(
+  "vertical_center_cursor",
+  { [[BufEnter,WinEnter,WinNew,VimResized *,*.* let &scrolloff=winheight(win_getid())/2]] }
+)
+
+-- Terminal
+augroup("terminal_settings", { [[TermOpen * setlocal nonumber norelativenumber]] })

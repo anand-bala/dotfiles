@@ -28,36 +28,45 @@ require("nvim-treesitter.configs").setup {
 }
 ---]]
 ---[[ Initialize the Built-in LSP
-require("_lsp").setup()
+require("_lsp")
 ---]]
 
----[[ Configuration for nvim-compe
-require("compe").setup {
-  enabled = true,
-  autocomplete = true,
-  preselect = "enable",
-  throttle_time = 80,
-  source_timeout = 200,
+---[[ Configuration for nvim-cmp and snippets
+local luasnip = require "luasnip"
+local cmp = require "cmp"
+cmp.setup {
+  mapping = require "_keymaps/cmp",
   documentation = {
     border = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
   },
-  source = {
-    path = true,
-    buffer = true,
-    calc = true,
-    spell = true,
-    tags = true,
-    nvim_lsp = true,
-    nvim_lua = true,
-    nvim_treesitter = true,
-    vsnip = true,
-    snippets_nvim = false,
-    ultisnips = true,
-    emoji = true,
-    omni = false,
-    -- omni = { filetypes = { "tex" } },
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  sources = {
+    { name = "nvim_lua" },
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
+    { name = "treesitter" },
+    { name = "emoji" },
+    { name = "buffer" },
+    { name = "path" },
+    { name = "spell" },
+    { name = "tags" },
   },
 }
+
+luasnip.filetype_extend("cpp", { "c" })
+luasnip.filetype_extend("tex", { "latex" })
+luasnip.filetype_set("latex", { "latex", "tex" })
+luasnip.filetype_extend("markdown", { "latex", "tex" })
+
+luasnip.snippets = {
+  tex = require "_snippets/tex",
+}
+
+require("luasnip/loaders/from_vscode").lazy_load()
 ---]]
 
 ---[[ Fuzzy finder

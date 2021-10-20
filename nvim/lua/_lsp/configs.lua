@@ -1,18 +1,24 @@
-local myconfigs = {
-  efm = require "_lsp/configs/efm",
-  lua = require "_lsp/configs/sumneko_lua",
-  clangd = require "_lsp/configs/clangd",
-  texlab = require "_lsp/configs/latex",
-  lemminx = require "_lsp/configs/lemminx",
-  ltex = require "_lsp/configs/ltex",
-  zls = require "_lsp/configs/zls",
-}
+local myconfigs = {}
 
-setmetatable(myconfigs, {
+function myconfigs.__index(table, key)
+  -- If key already in table, then return it
+  if rawget(table, key) ~= nil then
+    return rawget(table, key)
+  end
 
-  __index = function()
-    return {}
-  end,
-})
+  -- Otherwise, try load the correct submodule
+  local ok, conf = pcall(require, "_lsp/configs/" .. key)
+  if ok then
+    -- Store the conf in the table so we don't have to pcall again.
+    rawset(table, key, conf)
+    return conf
+  end
 
-return myconfigs
+  -- Otherwise, store an empty table (as we don't have a specific configuration for this
+  -- server)
+  table[key] = {}
+
+  return {}
+end
+
+return setmetatable({}, myconfigs)

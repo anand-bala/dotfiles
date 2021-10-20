@@ -44,10 +44,6 @@ cmd [[command! Helptags Telescope help_tags]]
 cmd [[command! Buffers  Telescope buffers]]
 -- ]]
 
-inoremap { "<C-p>", "compe#complete()", silent = true, expr = true }
-inoremap { "<CR>", "compe#confirm('<CR>')", silent = true, expr = true }
-inoremap { "<C-e>", "compe#close('<C-e>')", silent = true, expr = true }
-
 ---[[ Floating Terminal
 nnoremap { "<leader>ft", "<cmd>FloatermToggle<CR>", silent = true }
 tnoremap { "<leader>ft", "<C-\\><cmd>FloatermToggle<CR>", silent = true }
@@ -59,7 +55,11 @@ tnoremap { "<Esc>", "<C-\\><C-n>", silent = true }
 nnoremap { "`", "<cmd>FloatermNew --height=0.2 --wintype=split<CR>", silent = true }
 
 -- Create new terminal vsplit
-nnoremap { "<C-w>|", "<cmd>FloatermNew --width=0.5 --wintype=vsplit<CR>", silent = true }
+nnoremap {
+  "<C-w>|",
+  "<cmd>FloatermNew --width=0.5 --wintype=vsplit<CR>",
+  silent = true,
+}
 
 -- ]]
 

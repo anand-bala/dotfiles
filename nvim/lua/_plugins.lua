@@ -97,9 +97,8 @@ local packer_init = function()
   ---[[ Completions, Linting, and Snippets
 
   use "neovim/nvim-lspconfig"
-  use "kabouzeid/nvim-lspinstall"
+  use "williamboman/nvim-lsp-installer"
 
-  use "hrsh7th/nvim-compe"
   use {
     "nvim-treesitter/nvim-treesitter",
     run = function()
@@ -107,17 +106,23 @@ local packer_init = function()
     end,
   }
   use { "nvim-treesitter/playground", cmd = { "TSPlaygroundToggle" } }
+  use { "L3MON4D3/LuaSnip", requires = { "rafamadriz/friendly-snippets" } }
 
-  use "rafamadriz/friendly-snippets"
-  use "honza/vim-snippets"
   use {
-    "SirVer/ultisnips",
-    config = function()
-      vim.g.UltiSnipsEditSplit = "vertical"
-    end,
+    "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-buffer",
+      "f3fora/cmp-spell",
+      "quangnguyen30192/cmp-nvim-tags",
+      "saadparwaiz1/cmp_luasnip",
+      "ray-x/cmp-treesitter",
+      "hrsh7th/cmp-emoji",
+    },
   }
-  use "hrsh7th/vim-vsnip"
-  use "hrsh7th/vim-vsnip-integ"
+
   ---[[ ctags
   use {
     "ludovicchabant/vim-gutentags",

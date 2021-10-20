@@ -1,53 +1,30 @@
-local M = {}
-
+local lsp_installer = require "nvim-lsp-installer"
 local myconfigs = require "_lsp/configs"
 local settings = require "_lsp/settings"
 
---- Initialize the LSPs
-function M.setup()
-  --- Load lspinstall
-  local lspinstall = require "lspinstall"
-  lspinstall.setup()
+settings.ensure_installed()
+settings.setup_diagnostic_signs()
+settings.setup_custom_handlers()
 
-  settings.setup_diagnostic_signs()
-  settings.setup_custom_handlers()
-  -- Ensure that the following LSP's are installed.
-  local ensure_installed_servers = { "vim", "lua" }
-  for _, server in ipairs(ensure_installed_servers) do
-    if not lspinstall.is_server_installed(server) then
-      lspinstall.install_server(server)
+local capabilities = require("cmp_nvim_lsp").update_capabilities(
+  vim.lsp.protocol.make_client_capabilities()
+)
+
+local default_conf = {
+  on_init = function(client)
+    client.config.flags = {}
+    if client.config.flags then
+      client.config.flags.allow_incremental_sync = true
     end
-  end
+  end,
+  on_attach = settings.on_attach,
+  capabilities = capabilities,
+}
 
-  -- get all installed servers
-  local servers = lspinstall.installed_servers()
-  -- ... and add manually installed servers
-  table.insert(servers, "clangd")
-  table.insert(servers, "efm")
-  table.insert(servers, "texlab")
+lsp_installer.on_server_ready(function(server)
+  local opts = vim.tbl_extend("force", default_conf, myconfigs[server.name])
 
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  local default_conf = {
-    on_init = function(client)
-      client.config.flags = {}
-      if client.config.flags then
-        client.config.flags.allow_incremental_sync = true
-      end
-    end,
-    on_attach = settings.on_attach,
-    capabilities = capabilities,
-  }
-  for _, server in ipairs(servers) do
-    local conf = vim.tbl_extend("force", default_conf, myconfigs[server])
-    require("lspconfig")[server].setup(conf)
-  end
+  server:setup(opts)
 
-  -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-  lspinstall.post_install_hook = function()
-    M.setup() -- reload installed servers
-    vim.cmd "bufdo e"
-  end
-end
-
-return M
+  vim.cmd [[ do User LspAttachBuffers ]]
+end)
