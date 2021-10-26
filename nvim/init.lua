@@ -83,6 +83,16 @@ vim.opt.shortmess:append({ c = true }, { I = true })
 -- Right and bottom splits as opposed to left and top
 vim.o.splitbelow = true
 vim.o.splitright = true
+
+--Enable break indent
+vim.o.breakindent = true
+
+--Save undo history
+vim.opt.undofile = true
+
+--Decrease update time
+vim.o.updatetime = 250
+vim.wo.signcolumn = "yes"
 ---]]
 
 ---[[ GUI options

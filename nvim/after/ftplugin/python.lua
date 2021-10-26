@@ -2,3 +2,7 @@ vim.opt_local.tabstop = 4
 vim.opt_local.shiftwidth = 4
 vim.opt_local.softtabstop = 4
 vim.opt_local.textwidth = 88
+
+if vim.fn.exists ":FloatermNew" then
+  vim.cmd [[command! -buffer -nargs=0 Repl FloatermNew --wintype=vsplit --width=0.5 ipython]]
+end

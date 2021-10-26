@@ -40,6 +40,7 @@ nnoremap {
   end,
 }
 nnoremap { "<C-g>", "<cmd>Telescope live_grep<cr>" }
+nnoremap { "<C-b>", "<cmd>Telescope buffers<cr>" }
 cmd [[command! Helptags Telescope help_tags]]
 cmd [[command! Buffers  Telescope buffers]]
 -- ]]
@@ -60,14 +61,13 @@ nnoremap {
   "<cmd>FloatermNew --width=0.5 --wintype=vsplit<CR>",
   silent = true,
 }
-
 -- ]]
+
+local tabline = require "tabline"
+nnoremap { "bt", tabline.buffer_next, silent = true }
+nnoremap { "bT", tabline.buffer_previous, silent = true }
 
 ---[[ Aligning
 nmap { "ga", "<Plug>(EasyAlign)" }
 xmap { "ga", "<Plug>(EasyAlign)" }
 ---]
-
--- augroup("tex_keymaps", {
---   [[FileType tex,latex lua require"_keymaps/tex"]],
--- })

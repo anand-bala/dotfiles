@@ -1,5 +1,3 @@
-local augroup = require("_utils").create_augroup
-
 local pm_repo = "https://github.com/wbthomason/packer.nvim"
 local install_path = table.concat(
   { vim.fn.stdpath "data", "site", "pack", "packer", "start", "packer.nvim" },
@@ -14,10 +12,6 @@ local compile_path = table.concat(
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd(table.concat({ "!git clone", pm_repo, install_path }, " "))
 end
-
-augroup("Packer", {
-  [[BufWritePost init.lua PackerCompile]],
-})
 
 local packer = require "packer"
 local packer_config = {
@@ -52,11 +46,6 @@ local packer_init = function()
   use "andymass/vim-matchup"
   use "tpope/vim-surround"
   use "tpope/vim-fugitive"
-  use {
-    "tpope/vim-dispatch",
-    opt = true,
-    cmd = { "Dispatch", "Make", "Focus", "Start" },
-  }
   use { "junegunn/vim-easy-align", opt = true, cmd = { "EasyAlign" } }
 
   use {
@@ -76,7 +65,16 @@ local packer_init = function()
   }
   use {
     "nvim-telescope/telescope.nvim",
-    requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
+    requires = {
+      "folke/trouble.nvim",
+      "folke/todo-comments.nvim",
+      "nvim-lua/popup.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      require("trouble").setup {}
+      require("todo-comments").setup {}
+    end,
   }
   ---]]
   ---[[ Floating Terminals
@@ -102,12 +100,7 @@ local packer_init = function()
     run = function()
       vim.cmd [[TSUpdate]]
     end,
-    requires = {
-      { "nvim-treesitter/playground", cmd = { "TSPlaygroundToggle" } },
-    },
   }
-  use { "L3MON4D3/LuaSnip", requires = { "rafamadriz/friendly-snippets" } }
-
   use {
     "hrsh7th/nvim-cmp",
     requires = {
@@ -120,26 +113,10 @@ local packer_init = function()
       "saadparwaiz1/cmp_luasnip",
       "ray-x/cmp-treesitter",
       "hrsh7th/cmp-emoji",
+      "L3MON4D3/LuaSnip",
+      "rafamadriz/friendly-snippets",
     },
   }
-
-  ---[[ ctags
-  use {
-    "ludovicchabant/vim-gutentags",
-    config = function()
-      vim.g.gutentags_ctags_extra_args = { "--tag-relative=yes", "--fields=+aimS" }
-      vim.g.gutentags_file_list_command = {
-        markers = {
-          ["root.tex"] = "fd -L -t f",
-          ["main.tex"] = "fd -L -t f",
-          [".latexmkrc"] = "fd -L -t f",
-          [".git"] = "fd -L -t f",
-          [".hg"] = "fd -L -t f",
-        },
-      }
-    end,
-  }
-  ---]]
   ---]] Completions, Linting, and Snippets
 
   ---[[ Language specific
@@ -153,10 +130,22 @@ local packer_init = function()
       vim.g.vimtex_toc_config = {
         split_pos = "botright",
       }
+      vim.g.vimtex_syntax_conceal = {
+        accents = 1,
+        cites = 1,
+        fancy = 1,
+        greek = 1,
+        math_bounds = 1,
+        math_delimiters = 1,
+        math_fracs = 1,
+        math_super_sub = 1,
+        math_symbols = 1,
+        sections = 0,
+        styles = 1,
+      }
     end,
     ft = { "tex", "latex", "bib", "bibtex" },
   }
-  use "KeitaNakamura/tex-conceal.vim"
   use {
     "plasticboy/vim-markdown",
     config = function()
@@ -179,10 +168,6 @@ local packer_init = function()
 
   use "ziglang/zig.vim"
   use "rust-lang/rust.vim"
-  use "cespare/vim-toml"
-  use "dag/vim-fish"
-  use "mboughaba/i3config.vim"
-  use "JuliaEditorSupport/julia-vim"
 
   ---]] Language specific
 
@@ -203,10 +188,15 @@ local packer_init = function()
   }
 
   use {
-    "famiu/feline.nvim",
-    requires = { "kyazdani42/nvim-web-devicons", "SmiteshP/nvim-gps" },
+    "nvim-lualine/lualine.nvim",
+    requires = {
+      "kyazdani42/nvim-web-devicons",
+      "SmiteshP/nvim-gps",
+      "kdheepak/tabline.nvim",
+    },
     config = function()
       require("nvim-gps").setup()
+      require("tabline").setup { enable = false }
     end,
   }
   use { "dracula/vim", as = "dracula" }
