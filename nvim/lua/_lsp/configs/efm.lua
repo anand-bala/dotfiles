@@ -1,5 +1,3 @@
-local Path = require("plenary").path
-
 local python_black = { formatCommand = "black --quiet -", formatStdin = true }
 local python_isort = { formatCommand = "isort --quiet -", formatStdin = true }
 
@@ -10,7 +8,6 @@ local cmake_lint = {
   lintFormats = { "%f:%l: %m" },
 }
 
-local luafmt = { formatCommand = "lua-format", formatStdin = true }
 local stylua = { formatCommand = "stylua --verify -- -", formatStdin = true }
 
 local xmllint = { formatCommand = "xmllint --format -", formatStdin = true }
@@ -23,38 +20,6 @@ local bibtextidy = {
   formatCommand = "bibtex-tidy --curly --numeric --space=2 --tab --align=13 --sort=key --duplicates=key,doi --merge=combine --strip-enclosing-braces --sort-fields=title,shorttitle,author,year,month,day,journal,booktitle,location,on,publisher,address,series,volume,number,pages,doi,isbn,issn,url,urldate,copyright,category,note,metadata --trailing-commas --encode-urls --remove-empty-fields --quiet -",
   formatStdin = true,
 }
-
-local function get_spell_lang()
-  local spelllang = vim.opt.spelllang:get()[1]
-  if string.match(spelllang, "en_gb$") then
-    return "en_UK"
-  else
-    return spelllang
-  end
-end
-
-local textidote = {
-  lintCommand = table.concat({
-    "textidote",
-    "--no-color",
-    "--output",
-    "singleline",
-    "--check",
-    get_spell_lang(),
-  }, " "),
-  lintStdin = false,
-  lintIgnoreExitCode = true,
-  lintFormats = {
-    '%f(L%lC%c-%.%\\+): %m"%-G%.%#"',
-  },
-}
-
-local latexindent = {
-  formatCommand = "latexindent.pl -m -",
-  formatStdin = true,
-}
-
-local efm_logfile = tostring(Path:new(vim.fn.stdpath "cache", "efm.log"))
 
 return {
   init_options = {
@@ -83,8 +48,6 @@ return {
       lua = { stylua },
       xml = { xmllint },
       yaml = { yamllint },
-      tex = { latexindent },
-      latex = { latexindent },
       bib = { bibtextidy },
     },
   },

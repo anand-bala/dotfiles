@@ -7,13 +7,13 @@ local function buildConfig()
     return {
       onSave = true,
       executable = "latexmk",
-      args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+      args = { "-pdf", "-interaction=nonstopmode", "-synctex=1" },
     }
   elseif check_exe "tectonic" then
     return {
       onSave = true,
       executable = "tectonic",
-      args = { "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
+      args = { "--synctex", "--keep-logs", "--keep-intermediates" },
     }
   end
 end
@@ -35,7 +35,7 @@ end
 
 local conf = {
   root_dir = function(fname)
-    for _, pat in pairs { "root.tex", "main.tex", ".latexmkrc" } do
+    for _, pat in pairs { "root.tex", "main.tex", ".latexmkrc", ".git" } do
       local match = util.root_pattern(pat)(fname)
       if match then
         return match
@@ -48,6 +48,8 @@ local conf = {
       build = buildConfig(),
       lint = { onChange = true },
       forwardSearch = forwardSearchConfig(),
+      latexFormatter = "latexindent",
+      latexindent = { modifyLineBreaks = true },
     },
   },
 }

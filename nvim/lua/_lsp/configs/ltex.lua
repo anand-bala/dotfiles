@@ -1,12 +1,37 @@
 local util = require "lspconfig/util"
+local configs = require "lspconfig/configs"
+
 local Path = require("plenary").path
 
-local function check_local_spellfile()
-  local local_spellfile = Path:new "project.utf-8.add"
-  if local_spellfile:exists() then
-    return ":" .. local_spellfile:normalize(vim.fn.getcwd())
-  end
-end
+local dictionary_files = {
+  ["en"] = {
+    Path:new(vim.fn.getcwd(), "project.utf-8.add"),
+  },
+}
+
+local disabledrules_files = {
+  ["en"] = {
+    Path:new(vim.fn.getcwd(), "disable.ltex"),
+  },
+}
+
+local falsepositive_files = {
+  ["en"] = {
+    Path:new(vim.fn.getcwd(), "falsepositives.ltex"),
+  },
+}
+
+local new_defaults = {
+  dictionary_files = dictionary_files,
+  disabledrules_files = disabledrules_files,
+  falsepositive_files = falsepositive_files,
+}
+
+configs.ltex.default_config = vim.tbl_extend(
+  "force",
+  configs.ltex.default_config,
+  new_defaults
+)
 
 return {
   root_dir = function(fname)
@@ -28,7 +53,6 @@ return {
         motherTongue = "en",
       },
       trace = { server = "verbose" },
-      dictionary = { ["en-US"] = { check_local_spellfile() } },
       disabledRules = { ["en-US"] = { "WHITESPACE_RULE", "EN_QUOTES" } },
       hiddenFalsePositives = {},
     },

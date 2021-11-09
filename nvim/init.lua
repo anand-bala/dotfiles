@@ -91,7 +91,7 @@ vim.o.breakindent = true
 vim.opt.undofile = true
 
 --Decrease update time
-vim.o.updatetime = 250
+-- vim.o.updatetime = 250
 vim.wo.signcolumn = "yes"
 ---]]
 

@@ -14,7 +14,7 @@ modifyLineBreaks:
     perCodeBlockBasis: 1            # per-code-block wrap
     beforeFindingChildCodeBlocks: 1 # wrap *before* finding child code blocks
     masterDocument: 1               # apply to main document
-    items: 0
+    items: 1
   items:
     ItemStartsOnOwnLine: 1
   environments:
@@ -26,4 +26,6 @@ modifyLineBreaks:
   oneSentencePerLine:
     manipulateSentences: 1
     removeSentenceLineBreaks: 0
+    sentencesFollow:
+      rightBrace: 0
 

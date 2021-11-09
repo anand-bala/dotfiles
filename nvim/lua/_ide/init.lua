@@ -73,11 +73,6 @@ require("luasnip/loaders/from_vscode").lazy_load()
 require("telescope").setup {
   defaults = {
     borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-    vimgrep_arguments = { "rg", "--vimgrep", "--smart-case", "--follow", "--hidden" },
-    prompt_prefix = "> ",
-    selection_caret = "> ",
-    initial_mode = "insert",
-    selection_strategy = "reset",
     sorting_strategy = "ascending",
     layout_strategy = "flex",
     layout_config = {
@@ -87,13 +82,8 @@ require("telescope").setup {
       width = 0.8,
       height = 0.8,
     },
-    file_sorter = require("telescope.sorters").get_fuzzy_file,
-    file_ignore_patterns = {},
-    generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
     path_display = { shorten = 5 },
-    winblend = 0,
     color_devicons = true,
-    use_less = true,
     set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
     mappings = {
       i = {
