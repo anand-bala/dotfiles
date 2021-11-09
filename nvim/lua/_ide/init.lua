@@ -93,8 +93,11 @@ require("telescope").setup {
     },
   },
 }
+require("telescope").load_extension "fzf"
 
 ---]]
 
 require "_ide/statusline"
 require "_ide/diagnostics"
+
+require("term-helper").setup {}

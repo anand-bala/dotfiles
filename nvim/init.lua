@@ -14,6 +14,7 @@ end
 
 -- Fishshell fixes
 if string.match(vim.o.shell, "fish$") then
+  vim.g.terminal_shell = "fish"
   vim.o.shell = "sh"
 end
 

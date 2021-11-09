@@ -66,25 +66,12 @@ local packer_init = function()
   use {
     "nvim-telescope/telescope.nvim",
     requires = {
-      "folke/trouble.nvim",
       "folke/todo-comments.nvim",
-      "nvim-lua/popup.nvim",
       "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
     },
     config = function()
-      require("trouble").setup {}
       require("todo-comments").setup {}
-    end,
-  }
-  ---]]
-  ---[[ Floating Terminals
-  use {
-    "voldikss/vim-floaterm",
-    config = function()
-      if string.find(os.getenv "SHELL", "fish") ~= nil then
-        vim.g.floaterm_shell = "fish"
-      end
-      vim.g.floaterm_autoclose = 2
     end,
   }
   ---]]

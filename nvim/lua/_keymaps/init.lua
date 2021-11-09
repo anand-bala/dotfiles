@@ -45,22 +45,14 @@ cmd [[command! Helptags Telescope help_tags]]
 cmd [[command! Buffers  Telescope buffers]]
 -- ]]
 
----[[ Floating Terminal
-nnoremap { "<leader>ft", "<cmd>FloatermToggle<CR>", silent = true }
-tnoremap { "<leader>ft", "<C-\\><cmd>FloatermToggle<CR>", silent = true }
-
+---[[ Terminal
 -- Escape out of terminal mode to normal mode
 tnoremap { "<Esc>", "<C-\\><C-n>", silent = true }
 
 -- Launch terminal at bottom of window
-nnoremap { "`", "<cmd>FloatermNew --height=0.2 --wintype=split<CR>", silent = true }
-
+nnoremap { "`", "<cmd>Term<CR>", silent = true }
 -- Create new terminal vsplit
-nnoremap {
-  "<C-w>|",
-  "<cmd>FloatermNew --width=0.5 --wintype=vsplit<CR>",
-  silent = true,
-}
+nnoremap { "<C-w>|", "<cmd>VTerm<CR>", silent = true }
 -- ]]
 
 local tabline = require "tabline"
