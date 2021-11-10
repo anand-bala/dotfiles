@@ -42,11 +42,6 @@ local function on_attach(client, bufnr)
     })
   end
   require("_keymaps/lsp").setup(client, bufnr)
-
-  -- utils.create_buffer_augroup(
-  --   "lspbehavior",
-  --   { [[CursorHold  <buffer>  lua vim.lsp.diagnostic.show_line_diagnostics()]] }
-  -- )
 end
 
 ensure_installed()

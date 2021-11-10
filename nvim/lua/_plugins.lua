@@ -67,11 +67,13 @@ local packer_init = function()
     "nvim-telescope/telescope.nvim",
     requires = {
       "folke/todo-comments.nvim",
+      "folke/trouble.nvim",
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
     },
     config = function()
       require("todo-comments").setup {}
+      require("trouble").setup {}
     end,
   }
   ---]]
@@ -107,6 +109,7 @@ local packer_init = function()
   ---]] Completions, Linting, and Snippets
 
   ---[[ Language specific
+  use "folke/lua-dev.nvim"
   use {
     "lervag/vimtex",
     config = function()
