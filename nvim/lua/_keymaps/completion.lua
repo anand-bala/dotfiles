@@ -21,13 +21,6 @@ local mapping = {
       fallback()
     end
   end,
-  ["<C-k>"] = function(fallback)
-    if luasnip.jumpable(-1) then
-      luasnip.jump(-1)
-    else
-      fallback()
-    end
-  end,
 }
 
 return mapping

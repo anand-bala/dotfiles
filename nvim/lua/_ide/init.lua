@@ -68,6 +68,7 @@ luasnip.filetype_extend("markdown", { "latex", "tex" })
 
 luasnip.snippets = {
   tex = require "_snippets/tex",
+  c = require "_snippets/c",
 }
 
 require("luasnip/loaders/from_vscode").lazy_load()
