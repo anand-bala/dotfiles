@@ -110,6 +110,7 @@ local packer_init = function()
 
   ---[[ Language specific
   use "folke/lua-dev.nvim"
+  use { "rafcamlet/nvim-luapad", opt = true, cmd = { "Luapad" } }
   use {
     "lervag/vimtex",
     config = function()

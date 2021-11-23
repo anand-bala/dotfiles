@@ -1,5 +1,7 @@
-local lsp_installer = require "nvim-lsp-installer"
 local myconfigs = require "_lsp/configs"
+require "_lsp/servers"
+
+local lsp_installer = require "nvim-lsp-installer"
 
 local function ensure_installed()
   local ensure_installed_servers = { "vimls", "sumneko_lua" }

@@ -27,6 +27,9 @@ require("nvim-treesitter.configs").setup {
     },
   },
 }
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 ---]]
 ---[[ Initialize the Built-in LSP
 require "_lsp"
@@ -54,6 +57,7 @@ require("cmp").setup {
     { name = "path" },
     { name = "spell" },
     { name = "tags" },
+    { name = "calc" },
   },
 }
 
