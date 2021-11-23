@@ -31,6 +31,8 @@ set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:qu
 if test -e $HOME/.fzf/bin/fzf
   contains -- $HOME/.fzf/bin $PATH
   or set -gx   PATH  $HOME/.fzf/bin $PATH
+
+  set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
 end
 
 # --- Golang config

@@ -3,7 +3,6 @@ jorgebucaran/fisher
 jorgebucaran/replay.fish
 ~/.config/fish/plugins/colcon-paths
 ~/.config/fish/plugins/cuda-paths
-~/.config/fish/plugins/fzf-helpers
 ~/.config/fish/plugins/gdb-dashboard-helpers
 ~/.config/fish/plugins/golang-paths
 ~/.config/fish/plugins/home-binpath
@@ -15,3 +14,4 @@ jorgebucaran/replay.fish
 ~/.config/fish/plugins/tex-paths
 ~/.config/fish/plugins/tmux-session-helpers
 ~/.config/fish/plugins/xdg-paths
+PatrickF1/fzf.fish
