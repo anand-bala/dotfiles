@@ -35,13 +35,14 @@ configs.ltex.default_config = vim.tbl_extend(
 
 return {
   root_dir = function(fname)
-    for _, pat in pairs { "root.tex", "main.tex", ".latexmkrc" } do
-      local match = util.root_pattern(pat)(fname)
-      if match then
-        return match
-      end
-    end
-    return vim.fn.getcwd()
+    return (
+        util.root_pattern {
+          "root.tex",
+          "main.tex",
+          ".latexmkrc",
+          "main.md",
+        }(fname)
+      ) or vim.fn.getcwd()
   end,
 
   settings = {

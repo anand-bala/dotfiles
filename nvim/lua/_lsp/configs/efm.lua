@@ -33,7 +33,6 @@ return {
     "lua",
     "xml",
     "yaml",
-    "tex",
     "latex",
     "bib",
   },

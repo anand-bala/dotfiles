@@ -5,13 +5,13 @@ local function buildConfig()
 
   if check_exe "latexmk" then
     return {
-      onSave = true,
+      onSave = false,
       executable = "latexmk",
       args = { "-pdf", "-interaction=nonstopmode", "-synctex=1" },
     }
   elseif check_exe "tectonic" then
     return {
-      onSave = true,
+      onSave = false,
       executable = "tectonic",
       args = { "--synctex", "--keep-logs", "--keep-intermediates" },
     }
@@ -23,7 +23,10 @@ local function forwardSearchConfig()
   local check_exe = vim.fn.executable
   if has "unix" then
     if check_exe "zathura" then
-      return { executable = "zathura", args = { "--synctex-forward", "%l:1:%f", "%p" } }
+      return {
+        executable = "zathura",
+        args = { "--synctex-forward", "%l:1:%f", "%p" },
+      }
     end
   elseif has "win32" or has "wsl" or (has "unix" and os.getenv "WSLENV") then
     return {
@@ -46,7 +49,6 @@ local conf = {
   settings = {
     texlab = {
       build = buildConfig(),
-      lint = { onChange = true },
       forwardSearch = forwardSearchConfig(),
       latexFormatter = "latexindent",
       latexindent = { modifyLineBreaks = true },
