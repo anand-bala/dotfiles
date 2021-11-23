@@ -223,3 +223,6 @@ for_window [urgent=latest] focus
 
 # Application launcher shortcuts
 bindsym $mod+b exec firefox
+
+# Moving windows between monitors.
+bindsym $mod+p move workspace to output left
