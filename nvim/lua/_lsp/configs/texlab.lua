@@ -38,14 +38,10 @@ end
 
 local conf = {
   root_dir = function(fname)
-    for _, pat in pairs { "root.tex", "main.tex", ".latexmkrc", ".git" } do
-      local match = util.root_pattern(pat)(fname)
-      if match then
-        return match
-      end
-    end
-    return vim.fn.getcwd()
+    return util.root_pattern { "root.tex", "main.tex", ".latexmkrc" }(fname)
+      or vim.fn.getcwd()
   end,
+  single_file_support = false,
   settings = {
     texlab = {
       build = buildConfig(),

@@ -17,7 +17,7 @@ local htmlprettier = {
 }
 
 local bibtextidy = {
-  formatCommand = "bibtex-tidy --curly --numeric --space=2 --tab --align=13 --sort=key --duplicates=key,doi --merge=combine --strip-enclosing-braces --sort-fields=title,shorttitle,author,year,month,day,journal,booktitle,location,on,publisher,address,series,volume,number,pages,doi,isbn,issn,url,urldate,copyright,category,note,metadata --trailing-commas --encode-urls --remove-empty-fields --quiet -",
+  formatCommand = "bibtex-tidy --omit=abstract,keywords --curly --numeric --space=2 --align=13 --sort=key --duplicates=key,doi --merge=combine --strip-enclosing-braces --sort-fields=title,shorttitle,author,year,month,day,journal,booktitle,location,on,publisher,address,series,volume,number,pages,doi,isbn,issn,url,urldate,copyright,category,note,metadata --strip-comments --trailing-commas --encode-urls --remove-empty-fields --quiet -",
   formatStdin = true,
 }
 
