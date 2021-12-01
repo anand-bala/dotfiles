@@ -32,6 +32,9 @@ vnoremap { "<Up>", "gk" }
 inoremap { "<Down>", "<C-o>gj" }
 inoremap { "<Up>", "<C-o>gk" }
 
+-- Yank entire line on Y
+nnoremap { "Y", "yy" }
+
 ---[[ Searching stuff
 nnoremap {
   "<C-f>",

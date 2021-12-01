@@ -26,15 +26,14 @@ require "_plugins"
 vim.opt.secure = true
 vim.opt.modelines = 0 -- Disable Modelines
 vim.opt.number = true -- Show line numbers
-vim.opt.ruler = true -- Show file stats
 vim.opt.visualbell = true -- Blink cursor on error instead of beeping (grr)
 vim.opt.encoding = "utf-8" -- Encoding
 
 vim.opt.wrap = true
 vim.opt.linebreak = true
-vim.opt.textwidth = 88 -- Use 88 because 80 is outdated
+vim.opt.textwidth = 120
 
-vim.opt.formatoptions = "cqrn"
+vim.opt.formatoptions = "tcqrnj"
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -53,9 +52,6 @@ vim.opt.fillchars = "fold: "
 vim.o.foldtext =
   [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
 
-vim.opt.hidden = true -- Allow hidden buffers
-vim.opt.laststatus = 2 -- Status bar
-
 vim.opt.list = true -- Show non-printable characters.
 vim.opt.listchars = {
   tab = "▸ ",
@@ -64,6 +60,10 @@ vim.opt.listchars = {
   nbsp = "±",
   trail = "·",
 }
+
+vim.opt.breakindent = true
+vim.opt.breakindentopt = "sbr"
+vim.opt.showbreak = " "
 
 -- Searching
 vim.opt.ignorecase = true
