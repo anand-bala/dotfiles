@@ -44,7 +44,6 @@ local packer_init = function()
   use "tpope/vim-obsession"
   use "tpope/vim-abolish"
   use "andymass/vim-matchup"
-  use "tpope/vim-surround"
   use "tpope/vim-fugitive"
   use { "junegunn/vim-easy-align", opt = true, cmd = { "EasyAlign" } }
 
@@ -157,6 +156,8 @@ local packer_init = function()
     end,
     ft = { "markdown" },
   }
+
+  use "tpope/vim-liquid"
 
   use "ziglang/zig.vim"
   use "rust-lang/rust.vim"
