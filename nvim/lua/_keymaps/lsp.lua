@@ -24,9 +24,14 @@ function M.setup(client, bufnr)
   lspmap { "<leader><Space>", te.lsp_code_actions }
   lspmap { "<leader>rn", vim.lsp.buf.rename }
 
-  lspmap { "<leader>ld", vim.lsp.diagnostic.show_line_diagnostics }
-  lspmap { "[d", vim.lsp.diagnostic.goto_prev }
-  lspmap { "]d", vim.lsp.diagnostic.goto_next }
+  lspmap {
+    "<leader>ld",
+    function()
+      vim.diagnostic.open_float(nil, { source = "always" })
+    end,
+  }
+  lspmap { "[d", vim.diagnostic.goto_prev }
+  lspmap { "]d", vim.diagnostic.goto_next }
   cmd [[command! Diagnostics Telescope lsp_document_diagnostics]]
 
   if client.resolved_capabilities.document_formatting then
