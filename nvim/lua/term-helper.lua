@@ -61,7 +61,7 @@ function M.vsplit_term(args, count)
 end
 
 function M.tab_term(args)
-  M.open_term(args, { tab = true })
+  M.open_term(args, { tab = true, vertical = false })
 end
 
 function M.setup(config)
