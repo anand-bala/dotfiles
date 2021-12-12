@@ -46,7 +46,7 @@ local conf = {
     texlab = {
       build = buildConfig(),
       forwardSearch = forwardSearchConfig(),
-      latexFormatter = "latexindent",
+      latexFormatter = "texlab",
       latexindent = { modifyLineBreaks = true },
     },
   },
