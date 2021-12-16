@@ -159,7 +159,12 @@ local packer_init = function()
 
   use "tpope/vim-liquid"
 
-  use "ziglang/zig.vim"
+  use {
+    "ziglang/zig.vim",
+    config = function()
+      vim.g.zig_fmt_autosave = 0
+    end,
+  }
   use "rust-lang/rust.vim"
 
   ---]] Language specific

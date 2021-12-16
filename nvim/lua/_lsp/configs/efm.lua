@@ -21,6 +21,11 @@ local bibtextidy = {
   formatStdin = true,
 }
 
+local zig_fmt = {
+  formatCommand = "zig fmt --stdin",
+  formatStdin = true,
+}
+
 return {
   init_options = {
     documentFormatting = true,
@@ -34,7 +39,7 @@ return {
     "xml",
     "yaml",
     "latex",
-    "bib",
+    "zig",
   },
   root_dir = function(_)
     return vim.fn.getcwd()
@@ -48,6 +53,7 @@ return {
       xml = { xmllint },
       yaml = { yamllint },
       bib = { bibtextidy },
+      zig = { zig_fmt },
     },
   },
 }
