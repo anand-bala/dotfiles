@@ -1,19 +1,46 @@
 local util = require "lspconfig/util"
 
+vim.g.texlab_builder = "tectonic"
+
 local function buildConfig()
   local check_exe = vim.fn.executable
 
-  if check_exe "latexmk" then
+  local exec = vim.g.texlab_builder
+
+  if not exec then
+    return {}
+  end
+
+  if not check_exe(exec) then
+    error("Specified LaTeX builder doesn't exist: " .. exec)
+  end
+
+  if exec == "latexmk" then
     return {
       onSave = false,
       executable = "latexmk",
       args = { "-pdf", "-interaction=nonstopmode", "-synctex=1" },
     }
-  elseif check_exe "tectonic" then
+  elseif exec == "tectonic" then
     return {
       onSave = false,
       executable = "tectonic",
-      args = { "--synctex", "--keep-logs", "--keep-intermediates" },
+      args = {
+        "-X",
+        "compile",
+        -- Input
+        "%f",
+        -- Flags
+        "--synctex",
+        "--keep-logs",
+        "--keep-intermediates",
+        -- Options
+        -- OPTIONAL: If you want a custom out directory,
+        -- uncomment the following line.
+        --"--outdir out",
+        "-Z",
+        "search-path=" .. (os.getenv "HOME" .. "/texmf"),
+      },
     }
   end
 end
