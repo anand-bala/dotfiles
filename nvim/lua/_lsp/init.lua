@@ -35,6 +35,7 @@ end
 local function on_attach(client, bufnr)
   local utils = require "_utils"
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
   if
     client.resolved_capabilities.document_formatting
     or client.resolved_capabilities.document_range_formatting
