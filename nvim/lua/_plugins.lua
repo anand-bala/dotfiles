@@ -40,7 +40,6 @@ local packer_init = function()
   ---]]
 
   ---[[ Everyday tools
-  use "tpope/vim-eunuch"
   use "tpope/vim-obsession"
   use "tpope/vim-abolish"
   use "andymass/vim-matchup"
@@ -85,9 +84,7 @@ local packer_init = function()
 
   use {
     "nvim-treesitter/nvim-treesitter",
-    run = function()
-      vim.cmd [[TSUpdate]]
-    end,
+    run = [[:TSUpdate]],
   }
   use {
     "hrsh7th/nvim-cmp",
@@ -156,8 +153,6 @@ local packer_init = function()
     end,
     ft = { "markdown" },
   }
-
-  use "tpope/vim-liquid"
 
   use {
     "ziglang/zig.vim",
