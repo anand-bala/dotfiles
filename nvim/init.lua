@@ -43,14 +43,17 @@ vim.opt.shiftround = false
 
 vim.opt.conceallevel = 2
 
-vim.opt.foldenable = false
-vim.opt.foldminlines = 1
+vim.opt.foldenable = true
+vim.opt.foldminlines = 2
 vim.opt.foldnestmax = 3
-vim.opt.foldlevel = 1
--- vim.opt.foldmethod = "syntax"
-vim.opt.fillchars = "fold: "
-vim.o.foldtext =
+vim.opt.foldlevel = 0
+vim.opt.foldlevelstart = 0
+vim.opt.fillchars = { fold = " ", foldopen = "", foldclose = "" }
+vim.opt.foldcolumn = "auto:3"
+vim.opt.foldtext =
   [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
+vim.opt.foldopen = "all"
+vim.opt.foldclose = "all"
 
 vim.opt.list = true -- Show non-printable characters.
 vim.opt.listchars = {
@@ -132,6 +135,11 @@ augroup("textwidth_ft_specific", {
 
 -- Custom filetype mappings
 augroup("ft_mappings", { [[BufRead,BufNewFile *.tex,*.latex  set filetype=tex]] })
+
+-- Update folds on startup
+augroup("update_folds", {
+  [[BufEnter * :normal zx]],
+})
 
 -- Make the cursor vertically centered
 augroup("vertical_center_cursor", {
