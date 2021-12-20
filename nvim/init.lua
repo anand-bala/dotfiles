@@ -43,7 +43,7 @@ vim.opt.shiftround = false
 
 vim.opt.conceallevel = 2
 
-vim.opt.foldenable = true
+vim.opt.foldenable = false
 vim.opt.foldminlines = 1
 vim.opt.foldnestmax = 3
 vim.opt.foldlevel = 1
