@@ -1,24 +1,51 @@
-# vim: set ft=i3config
+# vim: set ft=i3config foldmethod=marker
+
 set $mod Mod4
-
-default_border pixel 1
-default_floating_border normal
-
-hide_edge_borders none
-
-font xft:DelugiaNerdFont-Regular 11
-
 floating_modifier $mod
 
-bindsym $mod+Return exec alacritty
+font pango:JetBrainsMono Nerd Font Regular 11
 
-# Window kill command
+set $SCRIPTDIR $HOME/.config/i3/scripts
+
+# Global Keybindings {{{
+# kill focused window
 bindsym $mod+Shift+q kill
+# reload the configuration file
+bindsym $mod+Shift+c reload
 
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# set custom locking script
+# set $i3lockwall $SCRIPTDIR/lock.sh
+# lock i3
+# bindsym $mod+l exec "$i3lockwall"
+# exec xautolock -time 15 -locker "$i3lockwall" &
+
+# Set shut down, restart and locking features
+bindsym Control+$mod+Delete exec $SCRIPTDIR/shutdown_menu.sh
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec $SCRIPTDIR/logout.sh
+# }}}
+
+# Default applications {{{
+set $default_terminal alacritty
+set $default_launcher fish -c "rofi -show drun"
+set $default_window_switcher fish -c "rofi -show window"
+# }}}
+
+# Application keybindings {{{
+
+# Start default terminal
+bindsym $mod+Return exec $default_terminal
 # start program launcher
-bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id $default_launcher
 # start window switcher
-bindsym $mod+Tab exec --no-startup-id rofi -show window
+bindsym $mod+Tab exec --no-startup-id $default_window_switcher
+
+# }}}
+
+# Window Movement and layout {{{
 
 # change focus
 bindsym $mod+Left focus left
@@ -40,31 +67,28 @@ bindsym $mod+Shift+Right move right
 # split orientation
 bindsym $mod+h split h;exec notify-send 'tile horizontally'
 bindsym $mod+v split v;exec notify-send 'tile vertically'
-bindsym $mod+q split toggle
 
 # toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
-
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-# toggle sticky
-bindsym $mod+Shift+s sticky toggle
-
 # focus the parent container
 bindsym $mod+a focus parent
+# focus the child container
+bindsym $mod+c focus child
 
-# navigate workspaces next / previous
-bindsym Mod1+Ctrl+Right workspace next
-bindsym Mod1+Ctrl+Left workspace prev
+# }}}
+
+# Workspaces {{{
 
 # workspaces
 set $ws1 1
@@ -73,8 +97,8 @@ set $ws3 3
 set $ws4 4
 set $ws5 5
 set $ws6 6
-set $ws_msgs "messages"
-set $ws_zotero "zotero"
+set $ws_msgs " Messages"
+set $ws_zotero " Papers"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -87,95 +111,81 @@ bindsym $mod+m workspace $ws_msgs
 bindsym $mod+0 workspace $ws_zotero
 
 # Move focused container to workspace
-bindsym $mod+Ctrl+1 move container to workspace $ws1
-bindsym $mod+Ctrl+2 move container to workspace $ws2
-bindsym $mod+Ctrl+3 move container to workspace $ws3
-bindsym $mod+Ctrl+4 move container to workspace $ws4
-bindsym $mod+Ctrl+5 move container to workspace $ws5
-bindsym $mod+Ctrl+6 move container to workspace $ws6
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
 
-# Move to workspace with focused container
-bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+# navigate workspaces next / previous
+bindsym Mod1+Ctrl+Right workspace next
+bindsym Mod1+Ctrl+Left workspace prev
 
-# move the currently focused window to the scratchpad
-bindsym $mod+Shift+grave move scratchpad
+# Assign applications to specific workspaces
+assign [class="(?i)thunderbird"] → $ws_msgs
+assign [class="(?i)slack"] $ws_msgs
+assign [class="(?i)discord"] $ws_msgs
+assign [class="(?i)zotero"] $ws_zotero
 
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+grave scratchpad show
+# Open specific applications in floating mode
+for_window [class="(?i)thunar"] floating enable
+for_window [title="(?i)alsamixer"] floating enableg
+for_window [class="(?i)nitrogen"] floating enableg
+for_window [class="(?i)pavucontrol"] floating enable
+for_window [class="(?i)system-config-printer.py"] floating enableg
+for_window [class="(?i)timeset-gui"] floating enableg
+for_window [class="(?i)nemo"] floating enableg
+for_window [class="(?i)zoom"] floating enableg
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
 
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+# }}}
 
-# set custom locking script
-set $i3lockwall $HOME/.config/i3/scripts/lock.sh
+# Miscellaneous Keybindings {{{
 
-# exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
-# lock i3
-bindsym $mod+l exec "$i3lockwall"
-exec xautolock -time 15 -locker "$i3lockwall" &
-
-# Set shut down, restart and locking features
-bindsym $mod+BackSpace mode "$mode_system"
-set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
-mode "$mode_system" {
-    bindsym y exec --no-startup-id i3exit lock, mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
-
-    # exit system mode: "Enter" or "Escape"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
-# Resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize"
+# resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+        # These bindings trigger as soon as you enter the resize mod
+
         # Pressing left will shrink the window’s width.
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym j resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym l resize shrink height 5 px or 5 ppt
+        bindsym semicolon resize grow width 5 px or 5 ppt
 
-        # exit resize mode: Enter or Escape
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
+
+        # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
 
-# Gaps
-# gaps inner 
-# gaps outer 20
-gaps bottom 27
-gaps top 27
-
-# smart_gaps on
+bindsym $mod+r mode "resize"
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
-# Theme colors
+# Music Next, Prev, Pause/Play
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# }}}
+
+# Theme and Appearance {{{
 # class                 border  bground text    indicator child_border
 client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
 client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
@@ -185,44 +195,50 @@ client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
 client.background       #F8F8F2
 
-# Autostart applications
-exec --no-startup-id nitrogen --restore; sleep 1; compton -b
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# Gaps/ borders
+default_border none               # Opens new windows without borders
+gaps inner 7
+gaps outer 7
 
+bindsym $mod+u border toggle
+# }}}
+
+# Status Bar {{{
+bar {
+  status_command          i3blocks
+
+  tray_output             None
+  separator_symbol        "|"
+  workspace_buttons       yes
+  # strip_workspace_numbers yes
+  position                top
+
+  colors {
+    background #282A36
+    statusline #F8F8F2
+    separator  #44475A
+
+    focused_workspace  #44475A #44475A #F8F8F2
+    active_workspace   #282A36 #44475A #F8F8F2
+    inactive_workspace #282A36 #282A36 #BFBFBF
+    urgent_workspace   #FF5555 #FF5555 #F8F8F2
+    binding_mode       #FF5555 #FF5555 #F8F8F2
+  }
+}
+
+# }}}
+
+# Autostart applications {{{
+
+exec --no-startup-id picom -b
 # set power-manager
-exec --no-startup-id mate-power-manager
-
+exec --no-startup-id xfce4-power-manager
 # use dex to launch xdg/autostart
 exec --no-startup-id dex -a -e i3wm
+# Use conky
+exec --no-startup-id conky
 
-# Open specific applications in floating mode
-for_window [title="alsamixer"] floating enable border normal
-for_window [class="GParted"] floating enable border normal
-for_window [title="i3_help"] floating enable border normal
-for_window [class="Lightdm-gtk-greeter-settings"] floating enable
-for_window [class="Nitrogen"] floating enable border normal
-for_window [class="Pavucontrol"] floating enable
-for_window [class="(?i)System-config-printer.py"] floating enable border normal
-for_window [class="Timeset-gui"] floating enable border normal
-for_window [class="Nemo"] floating enable border normal
-for_window [title="Bluetooth"] floating enable border normal
-# for_window [class="Thunderbird"] floating enable border normal
-for_window [class="zoom"] floating enable border normal
-# for_window [class="Zotero"] floating enable border normal move scratchpad
-# for_window [class="Slack"] floating enable border normal
-for_window [class="eu.tiliado.NuvolaAppAppleMusic"] floating enable border normal
+# }}}
 
-# Assign applications to specific workspaces
-assign [class="Thunderbird"] $ws_msgs
-assign [class="Slack"] $ws_msgs
-assign [class="discord"] $ws_msgs
-assign [class="Zotero"] $ws_zotero
-
-# switch to workspace with urgent window automatically
-for_window [urgent=latest] focus
-
-# Application launcher shortcuts
-bindsym $mod+b exec firefox
-
-# Moving windows between monitors.
-bindsym $mod+p move workspace to output left
+# Set some custom keymaps
+exec --no-startup-id $SCRIPTDIR/xkbconfig.sh
