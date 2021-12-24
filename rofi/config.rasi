@@ -2,13 +2,11 @@
 
 configuration {
   modi: "window,drun,run";
-  theme: "dracula";
-  font: "DelugiaNerdFont-Regular 14";
-  icon-theme: "Papirus";
+  font: "JetBrainsMono Nerd Font 12";
   show-icons: true;
 
   width: 50;
   lines: 10;
 }
 
-
+@theme "dracula"
