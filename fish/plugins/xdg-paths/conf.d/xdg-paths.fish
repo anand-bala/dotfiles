@@ -1,6 +1,13 @@
 # Set default XDG variables
 # See: https://specifications.freedesktop.org/basedir-spec/latest/ar01s03.html
 
+if test -n "$XDG_DATA_DIRS"
+  set -gx --path XDG_DATA_DIRS "/usr/local/share" "/usr/share"
+end
+if test -n "$XDG_CONFIG_DIRS"
+  set -gx --path XDG_CONFIG_DIRS "/etc/xdg"
+end
+
 set -l data_home    $HOME/.local/share
 set -l config_home  $HOME/.config
 set -l cache_home   $HOME/.cache

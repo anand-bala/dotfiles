@@ -1,5 +1,5 @@
-dracula/fish
 jorgebucaran/fisher
+dracula/fish
 jorgebucaran/replay.fish
 ~/.config/fish/plugins/colcon-paths
 ~/.config/fish/plugins/cuda-paths

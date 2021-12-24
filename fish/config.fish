@@ -1,13 +1,16 @@
 # -- Remove the intro
 set -g fish_greeting "🐟"
 
-# -- Common directories to add, if they exist
+# -- Common directories to add to PATH, if they exist
 for p in "$HOME/bin" "$HOME/.local/bin"
   if test -d $p
     and not contains -- $p $PATH
       set -gx PATH $p $PATH
   end
 end
+
+# -- Common XDG directories
+
 
 if type -q nvim
   set -gx EDITOR nvim
@@ -34,9 +37,8 @@ set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:qu
 if test -e $HOME/.fzf/bin/fzf
   contains -- $HOME/.fzf/bin $PATH
   or set -gx   PATH  $HOME/.fzf/bin $PATH
-
-  set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
 end
+set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
 
 # --- Golang config
 if test -d /usr/local/go
