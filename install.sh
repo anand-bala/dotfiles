@@ -78,7 +78,11 @@ while [[ $# -gt 0 ]]; do
       | dunst \
       | polybar \
       | polybar-laptop \
+      | conky \
+      | xkb \
       | i3 \
+      | i3blocks \
+      | i3status \
       | rofi \
       | alacritty \
       | starship \
