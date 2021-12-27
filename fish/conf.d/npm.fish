@@ -3,6 +3,5 @@ if not set -q NPM_CONFIG_PREFIX
 end
 
 if test -d $NPM_CONFIG_PREFIX
-  contains -- "$NPM_CONFIG_PREFIX/bin" $PATH
-  or set -gx PATH   $NPM_CONFIG_PREFIX/bin $PATH
+  fish_add_path $NPM_CONFIG_PREFIX/bin
 end

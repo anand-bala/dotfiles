@@ -3,14 +3,8 @@ set -g fish_greeting "🐟"
 
 # -- Common directories to add to PATH, if they exist
 for p in "$HOME/bin" "$HOME/.local/bin"
-  if test -d $p
-    and not contains -- $p $PATH
-      set -gx PATH $p $PATH
-  end
+  fish_add_path $p
 end
-
-# -- Common XDG directories
-
 
 if type -q nvim
   set -gx EDITOR nvim
@@ -35,8 +29,7 @@ set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:qu
 
 # --- FZF config
 if test -e $HOME/.fzf/bin/fzf
-  contains -- $HOME/.fzf/bin $PATH
-  or set -gx   PATH  $HOME/.fzf/bin $PATH
+  fish_add_path $HOME/.fzf/bin/
 end
 set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
 
@@ -44,8 +37,8 @@ set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --previ
 if test -d /usr/local/go
   set -x GOROOT   /usr/local/go
   set -x GOHOME   $HOME/go
-  contains -- $GOROOT/bin $PATH; or set -gx PATH $GOROOT/bin $PATH
-  contains -- $GOHOME/bin $PATH; or set -gx PATH $GOHOME/bin $PATH
+  fish_add_path $GOROOT/bin
+  fish_add_path $GOHOME/bin
 end
 
 # --- Miniconda config

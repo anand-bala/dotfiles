@@ -4,8 +4,7 @@ if not set -q CUDA_HOME; and test -d "/usr/local/cuda"
 end
 
 if set -q CUDA_HOME
-  not contains -- "$CUDA_HOME/bin" $PATH;
-    and set -gx PATH                $CUDA_HOME/bin $PATH
+  fish_add_path   $CUDA_HOME/bin
 
   not contains -- "$CUDA_HOME/lib" $DYLD_LIBRARY_PATH;
     and set -gx DYLD_LIBRARY_PATH   $DYLD_LIBRARY_PATH $CUDA_HOME/lib
