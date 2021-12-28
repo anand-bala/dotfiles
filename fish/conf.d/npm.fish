@@ -3,5 +3,5 @@ if not set -q NPM_CONFIG_PREFIX
 end
 
 if test -d $NPM_CONFIG_PREFIX
-  fish_add_path $NPM_CONFIG_PREFIX/bin
+  fish_add_path -gP $NPM_CONFIG_PREFIX/bin
 end

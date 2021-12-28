@@ -5,5 +5,6 @@ else
 end
 
 if test -d $rustup_path
-  fish_add_path $rustup_path
+  set -gx CARGO_HOME $rustup_path
+  fish_add_path -gP $rustup_path
 end

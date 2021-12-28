@@ -7,5 +7,5 @@ end
 set -l gem_bin_path $GEM_HOME/bin
 
 if test -d $gem_bin_path
-  fish_add_path $gem_bin_path
+  fish_add_path -gP $gem_bin_path
 end

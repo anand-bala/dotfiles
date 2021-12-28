@@ -3,7 +3,7 @@ set -g fish_greeting "🐟"
 
 # -- Common directories to add to PATH, if they exist
 for p in "$HOME/bin" "$HOME/.local/bin"
-  fish_add_path $p
+  fish_add_path -gP $p
 end
 
 if type -q nvim
@@ -29,31 +29,14 @@ set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:qu
 
 # --- FZF config
 if test -e $HOME/.fzf/bin/fzf
-  fish_add_path $HOME/.fzf/bin/
+  fish_add_path -gP $HOME/.fzf/bin/
 end
 set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
 
-# --- Golang config
-if test -d /usr/local/go
-  set -x GOROOT   /usr/local/go
-  set -x GOHOME   $HOME/go
-  fish_add_path $GOROOT/bin
-  fish_add_path $GOHOME/bin
-end
 
 # --- Miniconda config
 if test -e $HOME/miniconda3/etc/fish/conf.d/conda.fish
   source $HOME/miniconda3/etc/fish/conf.d/conda.fish
-end
-
-# --- Setup paths for flatpak
-if command -sq -- flatpak
-
-  contains -- $HOME/.local/share/flatpak/exports/share $XDG_DATA_DIRS
-    or set -gx --path XDG_DATA_DIRS $XDG_DATA_DIRS $HOME/.local/share/flatpak/exports/share
-
-  contains -- /var/lib/flatpak/exports/share $XDG_DATA_DIRS
-    or set -gx --path XDG_DATA_DIRS $XDG_DATA_DIRS /var/lib/flatpak/exports/share
 end
 
 # --- setup direnv

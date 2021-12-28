@@ -23,3 +23,14 @@ contains -- $config_home $XDG_CONFIG_HOME
 
 contains -- $cache_home $XDG_CACHE_HOME
   or set -gx --path XDG_CACHE_HOME $cache_home $XDG_CACHE_HOME
+
+
+# --- Setup paths for flatpak
+if command -sq -- flatpak
+
+  contains -- $HOME/.local/share/flatpak/exports/share $XDG_DATA_DIRS
+    or set -gx --path XDG_DATA_DIRS $XDG_DATA_DIRS $HOME/.local/share/flatpak/exports/share
+
+  contains -- /var/lib/flatpak/exports/share $XDG_DATA_DIRS
+    or set -gx --path XDG_DATA_DIRS $XDG_DATA_DIRS /var/lib/flatpak/exports/share
+end
