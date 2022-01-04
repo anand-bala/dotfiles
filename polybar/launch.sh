@@ -3,11 +3,14 @@
 # Terminate already running bar instances
 killall -q polybar
 
+uid=${UID:-$(id -u)}
 # Wait until the processes have been shut down
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+while pgrep -u $uid -x polybar >/dev/null; do sleep 1; done
 
-# Launch bar1 and bar2
+# Set up the required environment variables
 MONITORS=$(xrandr --query | grep " connected" | cut -d" " -f1)
+WIFI_DEVS=$(iw dev | grep Interface | awk '{print $2}')
 
-MONITORS=$MONITORS polybar top &
-MONITOR=$MONITORS polybar bottom &
+echo "MONITORS = $MONITORS"
+echo "WIFI_DEVS = $WIFI_DEVS"
+MONITORS=$MONITORS WIFI_DEVS=$WIFI_DEVS polybar main
