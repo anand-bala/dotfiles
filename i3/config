@@ -16,22 +16,17 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
-# set custom locking script
-# set $i3lockwall $SCRIPTDIR/lock.sh
 # lock i3
-# bindsym $mod+l exec "$i3lockwall"
-# exec xautolock -time 15 -locker "$i3lockwall" &
+bindsym $mod+l exec $SCRIPTDIR/lock.sh
 
 # Set shut down, restart and locking features
-bindsym Control+$mod+Delete exec $SCRIPTDIR/shutdown_menu.sh
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec $SCRIPTDIR/logout.sh
+bindsym $mod+Shift+e exec $SCRIPTDIR/shutdown_menu.sh
 # }}}
 
 # Default applications {{{
 set $default_terminal alacritty
-set $default_launcher fish -c "rofi -show drun"
-set $default_window_switcher fish -c "rofi -show window"
+set $default_launcher bash -c "rofi -no-disable-history -sort -show drun"
+set $default_window_switcher bash -c "rofi -show window"
 # }}}
 
 # Application keybindings {{{
@@ -97,8 +92,8 @@ set $ws3 3
 set $ws4 4
 set $ws5 5
 set $ws6 6
-set $ws_msgs " Messages"
-set $ws_zotero " Papers"
+set $ws_msgs "messages"
+set $ws_zotero "papers"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -204,40 +199,41 @@ bindsym $mod+u border toggle
 # }}}
 
 # Status Bar {{{
-bar {
-  status_command          i3blocks
-
-  tray_output             None
-  separator_symbol        "|"
-  workspace_buttons       yes
-  # strip_workspace_numbers yes
-  position                top
-
-  colors {
-    background #282A36
-    statusline #F8F8F2
-    separator  #44475A
-
-    focused_workspace  #44475A #44475A #F8F8F2
-    active_workspace   #282A36 #44475A #F8F8F2
-    inactive_workspace #282A36 #282A36 #BFBFBF
-    urgent_workspace   #FF5555 #FF5555 #F8F8F2
-    binding_mode       #FF5555 #FF5555 #F8F8F2
-  }
-}
+# bar {
+#   status_command          i3blocks
+#
+#   tray_output             None
+#   separator_symbol        "|"
+#   workspace_buttons       yes
+#   # strip_workspace_numbers yes
+#   position                top
+#
+#   colors {
+#     background #282A36
+#     statusline #F8F8F2
+#     separator  #44475A
+#
+#     focused_workspace  #44475A #44475A #F8F8F2
+#     active_workspace   #282A36 #44475A #F8F8F2
+#     inactive_workspace #282A36 #282A36 #BFBFBF
+#     urgent_workspace   #FF5555 #FF5555 #F8F8F2
+#     binding_mode       #FF5555 #FF5555 #F8F8F2
+#   }
+# }
 
 # }}}
 
 # Autostart applications {{{
-
-exec --no-startup-id picom -b
-# set power-manager
-exec --no-startup-id xfce4-power-manager
-# use dex to launch xdg/autostart
-exec --no-startup-id dex -a -e i3wm
+# Launch compositor
+exec_always picom
 # Use conky
 exec --no-startup-id conky
-
+# Set the wallpaper
+exec --no-startup-id nitrogen --set-auto $HOME/.config/i3/backgrounds/losangeles.png
+# use dex to launch xdg/autostart
+exec --no-startup-id $SCRIPTDIR/autostart.sh
+# Launch polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # }}}
 
 # Set some custom keymaps

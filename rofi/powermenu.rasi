@@ -1,0 +1,98 @@
+/* vim: set ft=css */
+/*
+ * ROFI Powermenu template
+ * Author: @BaptisteBdn
+ */
+
+configuration {
+    modi: "window,run,drun";
+    show-icons: true;
+    font: "Fira Sans 10";
+    window-format: "{c}";
+    icon-theme: "Papirus";
+}
+
+@theme "dracula"
+
+* {
+
+}
+
+window {
+    transparency : "real";
+    width: 600px;
+    height: 120px;
+    background-color: @alternate-normal-background;
+    border-radius : 5px;
+    padding: 5px;
+}
+
+mainbox {
+    border:  0;
+    padding: 0;
+    children: [listview];
+    background-color: transparent;
+}
+
+listview {
+    columns: 5;
+    layout: vertical;
+    background-color: transparent;
+}
+
+element {
+    margin: 8px;
+    padding: 10px;
+    border-radius: 5px;
+    orientation: vertical;
+}
+
+element-icon {
+    size: 48px;
+    margin: 2px;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    background-color: transparent;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    background-color: transparent;
+    text-color:       @foreground;
+}
+
+element.normal.normal {
+    background-color: rgba(0, 0, 0, 0);
+    text-color:       @foreground;
+}
+
+element.selected.normal {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+    border-color: #d07ef2;
+}
+
+element.alternate.normal {
+    background-color: rgba(0,0,0,0);
+    text-color:       @foreground;
+}
+
+element-text.selected.normal {
+    text-color:       @selected-normal-foreground;
+}
+
+mode-switcher {
+    border:       0px 0px 0px ;
+    border-color: @separatorcolor;
+}
+
+button {
+    spacing:    0;
+    text-color: @foreground;
+}
+
+button.selected {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
