@@ -13,3 +13,11 @@
 
 [init]
   defaultBranch = dev
+
+[merge]
+  tool = nvim
+[mergetool]
+  prompt = false
+[mergetool "nvim"]
+  cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+
