@@ -64,13 +64,11 @@ local packer_init = function()
   use {
     "nvim-telescope/telescope.nvim",
     requires = {
-      "folke/todo-comments.nvim",
       "folke/trouble.nvim",
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
     },
     config = function()
-      require("todo-comments").setup {}
       require("trouble").setup {}
     end,
   }
@@ -169,14 +167,6 @@ local packer_init = function()
     requires = { "nvim-lua/plenary.nvim" },
     config = function()
       require("gitsigns").setup {}
-    end,
-  }
-
-  use {
-    "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("todo-comments").setup {}
     end,
   }
 
