@@ -79,6 +79,7 @@ while [[ $# -gt 0 ]]; do
       | polybar \
       | polybar-laptop \
       | conky \
+      | picom \
       | xkb \
       | i3 \
       | i3blocks \
