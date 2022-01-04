@@ -17,7 +17,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # lock i3
-bindsym $mod+l exec $SCRIPTDIR/lock.sh
+bindsym $mod+l exec xflock4
 
 # Set shut down, restart and locking features
 bindsym $mod+Shift+e exec $SCRIPTDIR/shutdown_menu.sh
