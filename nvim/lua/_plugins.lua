@@ -77,6 +77,9 @@ local packer_init = function()
   use {
     "nvim-treesitter/nvim-treesitter",
     run = [[:TSUpdate]],
+    requires = {
+      { "nvim-treesitter/playground", opt = true, cmd = { "TSPlaygroundToggle" } },
+    },
   }
   use {
     "hrsh7th/nvim-cmp",
