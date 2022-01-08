@@ -30,12 +30,6 @@ local packer_init = function()
 
   ---[[ Sanity stuff
   use "ciaranm/securemodelines"
-  use {
-    "tjdevries/astronauta.nvim",
-    config = function()
-      require "astronauta.keymap"
-    end,
-  }
 
   ---]]
 
