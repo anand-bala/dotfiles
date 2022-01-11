@@ -89,6 +89,7 @@ while [[ $# -gt 0 ]]; do
       | starship \
       | kitty \
       | fish \
+      | tint2 \
       | neovim | nvim )
       echo "Installing config for $1"
       _default_install $1
