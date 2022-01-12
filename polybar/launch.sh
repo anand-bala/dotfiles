@@ -8,9 +8,9 @@ uid=${UID:-$(id -u)}
 while pgrep -u $uid -x polybar >/dev/null; do sleep 1; done
 
 # Set up the required environment variables
-MONITORS=$(xrandr --query | grep " connected" | cut -d" " -f1)
-WIFI_DEVS=$(iw dev | grep Interface | awk '{print $2}')
+export MONITORS=$(xrandr --query | grep " connected" | cut -d" " -f1 | head -n1)
+export WIFI_DEVS=$(iw dev | grep Interface | awk '{print $2}' | head -n1)
 
 echo "MONITORS = $MONITORS"
 echo "WIFI_DEVS = $WIFI_DEVS"
-MONITORS=$MONITORS WIFI_DEVS=$WIFI_DEVS polybar main
+polybar main
