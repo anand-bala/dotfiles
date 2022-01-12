@@ -1,5 +1,7 @@
 # Common settings that generally should always be used with your language specific settings
 
+*.ipynb filter=nbstrip_full
+
 # Auto detect text files and perform LF normalization
 # *          text=auto
 
