@@ -225,15 +225,25 @@ bindsym $mod+u border toggle
 
 # Autostart applications {{{
 # Launch compositor
-exec_always picom
+exec_always --no-startup-id picom
 # Use conky
 exec --no-startup-id conky
 # Set the wallpaper
 exec --no-startup-id nitrogen --set-auto $HOME/.config/i3/backgrounds/losangeles.png
+# Start the network manager applet
+exec --no-startup-id nm-applet
+# Start the power manager
+exec --no-startup-id xfce4-power-manager
+# Start the Xsettings daemon
+# FIXME: Starting the xfsettingsd messes with the workspace names
+# exec --no-startup-id xfsettingsd -D &
+# Start the polkit authenticator
+exec --no-startup-id lxpolkit
 # use dex to launch xdg/autostart
 exec --no-startup-id $SCRIPTDIR/autostart.sh
-# Launch polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# Launch status bar
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id tint2
 # }}}
 
 # Set some custom keymaps

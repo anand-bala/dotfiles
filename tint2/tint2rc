@@ -36,8 +36,8 @@ border_width = 0
 border_sides = 
 border_content_tint_weight = 0
 background_content_tint_weight = 0
-background_color = #44475a 100
-border_color = #000000 0
+background_color = #282a36 33
+border_color = #8be9fd 100
 background_color_hover = #000000 0
 border_color_hover = #000000 0
 background_color_pressed = #000000 0
@@ -75,7 +75,7 @@ border_color_pressed = #000000 0
 # }}}
 
 # Panel {{{
-panel_items = TSC
+panel_items = P:TSC
 panel_monitor = primary
 panel_position = bottom center horizontal
 panel_dock = 0
@@ -93,7 +93,7 @@ font_shadow = 0
 panel_background_id = 1
 disable_transparency = 0
 
-wm_menu = 0
+wm_menu = 1
 panel_window_name = tint2
 
 autohide = 0
@@ -107,7 +107,7 @@ mouse_pressed_icon_asb = 100 0 0
 # }}}
 
 # Taskbar {{{
-taskbar_mode = single_desktop
+taskbar_mode = multi_desktop
 taskbar_hide_if_empty = 0
 taskbar_padding = 4 3 8
 taskbar_background_id = 1
@@ -118,13 +118,13 @@ taskbar_hide_different_monitor = 0
 taskbar_hide_different_desktop = 0
 taskbar_always_show_all_desktop_tasks = 0
 
-taskbar_name = 0
+taskbar_name = 1
 taskbar_name_padding = 8 4
 taskbar_name_background_id = 3
 taskbar_name_active_background_id = 3
-taskbar_name_font = Noto Sans 8
-taskbar_name_font_color = #a1a8b9 100
-taskbar_name_active_font_color = #131c26 100
+taskbar_name_font = JetBrainsMono Nerd Font Mono 10
+taskbar_name_font_color = #f8f8f2 100
+taskbar_name_active_font_color = #ff79c6 100
 
 taskbar_distribute_size = 0
 taskbar_sort_order = none
@@ -134,10 +134,10 @@ task_align = left
 
 # Task {{{
 task_icon = 1
-task_text = 1
+task_text = 0
 task_centered = 1
 urgent_nb_of_blink = 0
-task_maximum_size = 150 0
+task_maximum_size = 25 0
 task_padding = 10 4 10
 task_font = JetBrainsMono Nerd Font Mono 10
 task_tooltip = 0
@@ -166,7 +166,7 @@ systray_name_filter =
 # }}}
 
 # Clock {{{
-time1_format = %a %d // %H:%M
+time1_format = %a, %b %d // %H:%M
 time2_format = 
 time1_font = JetBrainsMono Nerd Font Mono 10
 time1_timezone = 
@@ -181,4 +181,28 @@ clock_rclick_command =
 clock_mclick_command = 
 clock_uwheel_command = 
 clock_dwheel_command = 
+# }}}
+
+# Power Button {{{
+button = new
+button_icon = system-shutdown
+button_text = 
+button_lclick_command = bash ~/.config/i3/scripts/shutdown_menu.sh
+button_rclick_command = 
+button_mclick_command = 
+button_uwheel_command = 
+button_dwheel_command = 
+button_font_color = #000000 100
+button_padding = 2 2
+button_background_id = 1
+button_centered = 1
+button_max_icon_size = 0
+# }}}
+
+# Separator 1 {{{
+separator = new
+separator_background_id = 1
+separator_color = #000000 0
+separator_style = empty
+separator_size = 10
 # }}}
