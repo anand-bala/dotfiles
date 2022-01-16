@@ -122,16 +122,17 @@ assign [class="(?i)thunderbird"] → $ws_msgs
 assign [class="(?i)slack"] $ws_msgs
 assign [class="(?i)discord"] $ws_msgs
 assign [class="(?i)zotero"] $ws_zotero
+assign [class="Microsoft Teams - Preview"] $ws_msgs
 
 # Open specific applications in floating mode
-for_window [class="(?i)thunar"] floating enable
-for_window [title="(?i)alsamixer"] floating enableg
-for_window [class="(?i)nitrogen"] floating enableg
+for_window [title="(?i)alsamixer"] floating enable
+for_window [class="(?i)nitrogen"] floating enable
 for_window [class="(?i)pavucontrol"] floating enable
-for_window [class="(?i)system-config-printer.py"] floating enableg
-for_window [class="(?i)timeset-gui"] floating enableg
-for_window [class="(?i)nemo"] floating enableg
-for_window [class="(?i)zoom"] floating enableg
+for_window [class="(?i)system-config-printer.py"] floating enable
+for_window [class="(?i)timeset-gui"] floating enable
+for_window [class="(?i)nemo"] floating enable
+for_window [class="(?i)thunar"] floating enable
+for_window [class="(?i)zoom"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
