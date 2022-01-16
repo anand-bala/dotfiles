@@ -1,8 +1,0 @@
-# vim: set filetype=sh
-
-if [[ -d "/usr/local/cuda" ]]; then
-  export CUDADIR=/usr/local/cuda
-  export PATH=$CUDADIR/bin:$PATH
-  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}$CUDADIR/lib64:$CUDADIR/extras/CUPTI/lib64
-fi
-
