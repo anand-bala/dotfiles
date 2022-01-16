@@ -52,6 +52,9 @@ def _install_module_dir(module: str, dryrun=False):
 
     dest_dir = CONFIG_DIR / module
     if dest_dir.is_symlink():
+        if dest_dir.readlink() == module_dir:
+            LOG.info(f"`{module}` already installed: {dest_dir} -> {dest_dir.readlink()}")
+            return
         LOG.info(f"Removing this symlink: {dest_dir} -> {dest_dir.readlink()}")
         if not dryrun:
             dest_dir.unlink()
