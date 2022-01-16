@@ -16,9 +16,27 @@ local htmlprettier = {
   formatCommand = "./node_modules/.bin/prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --parser html",
 }
 
+local bibtextidy_cmd = {
+  "bibtex-tidy",
+  "--omit=abstract,keywords",
+  "--curly",
+  "--numeric",
+  "--space=2",
+  "--align=14",
+  "--sort",
+  "--duplicates=key,doi",
+  "--merge=combine",
+  "--drop-all-caps",
+  "--escape",
+  "--sort-fields=title,shorttitle,author,year,month,day,journal,booktitle,location,on,publisher,address,series,volume,number,pages,doi,isbn,issn,url,urldate,copyright,category,note,metadata",
+  "--strip-comments",
+  "--trailing-commas",
+  "--encode-urls",
+  "--remove-empty-fields",
+}
 local bibtextidy = {
-  formatCommand = "bibtex-tidy --omit=abstract,keywords --curly --numeric --space=2 --align=13 --sort=key --duplicates=key,doi --merge=combine --strip-enclosing-braces --sort-fields=title,shorttitle,author,year,month,day,journal,booktitle,location,on,publisher,address,series,volume,number,pages,doi,isbn,issn,url,urldate,copyright,category,note,metadata --strip-comments --trailing-commas --encode-urls --remove-empty-fields --quiet -",
-  formatStdin = true,
+  formatCommand = table.concat(bibtextidy_cmd, " "),
+  formatStdin = false,
 }
 
 local zig_fmt = {

@@ -30,8 +30,8 @@ function M.setup(client, bufnr)
   cmd [[command! Diagnostics Telescope lsp_document_diagnostics]]
 
   if client.resolved_capabilities.document_formatting then
-    lspmap("<leader>f", vim.lsp.buf.formatting)
-    cmd [[command! Format lua vim.lsp.buf.formatting()]]
+    lspmap("<leader>f", vim.lsp.buf.formatting_seq_sync)
+    cmd [[command! Format lua vim.lsp.buf.formatting_seq_sync()]]
   elseif client.resolved_capabilities.document_range_formatting then
     lspmap("<leader>f", vim.lsp.buf.range_formatting)
     cmd [[command! Format lua vim.lsp.buf.range_formatting()]]

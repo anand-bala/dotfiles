@@ -47,7 +47,7 @@ return {
 
   settings = {
     ltex = {
-      enabled = { "latex", "tex", "bib", "markdown" },
+      enabled = { "latex", "tex", "markdown" },
       language = "en-US",
       additionalRules = {
         enablePickyRules = true,
