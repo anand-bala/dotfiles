@@ -27,7 +27,8 @@ function M.setup(client, bufnr)
   end)
   lspmap("[d", vim.diagnostic.goto_prev)
   lspmap("]d", vim.diagnostic.goto_next)
-  cmd [[command! Diagnostics Telescope lsp_document_diagnostics]]
+  cmd [[command! Diagnostics Telescope diagnostics bufnr=0]]
+  cmd [[command! WorkspaceDiagnostics Telescope diagnostics]]
 
   if client.resolved_capabilities.document_formatting then
     lspmap("<leader>f", vim.lsp.buf.formatting_seq_sync)

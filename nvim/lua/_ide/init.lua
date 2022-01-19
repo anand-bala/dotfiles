@@ -67,8 +67,6 @@ require("telescope").setup {
       prompt_position = "top",
       vertical = { prompt_position = "top" },
       horizontal = { prompt_position = "top" },
-      width = 0.8,
-      height = 0.8,
     },
     path_display = { shorten = 5 },
     color_devicons = true,
