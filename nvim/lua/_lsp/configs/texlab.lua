@@ -33,7 +33,7 @@ local function buildConfig()
         -- Flags
         "--synctex",
         -- "--keep-logs",
-        -- "--keep-intermediates",
+        "--keep-intermediates",
         -- Options
         -- OPTIONAL: If you want a custom out directory,
         -- uncomment the following line.
