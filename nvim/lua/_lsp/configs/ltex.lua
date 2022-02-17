@@ -1,37 +1,20 @@
 local util = require "lspconfig/util"
-local configs = require "lspconfig/configs"
-
 local Path = require("plenary").path
 
-local dictionary_files = {
-  ["en"] = {
-    Path:new(vim.fn.getcwd(), "project.utf-8.add"),
-  },
-}
+LTEX_DICTIONARY = {}
 
-local disabledrules_files = {
-  ["en"] = {
-    Path:new(vim.fn.getcwd(), "disable.ltex"),
-  },
-}
+local global_dict_files = vim.api.nvim_get_runtime_file("spell/en*utf-8..add", true)
+if #LTEX_DICTIONARY == 0 then
+  for _, filename in ipairs(global_dict_files) do
+    local f = assert(io.open(filename, "r"))
+    
+    f:close()
+  end
+end
 
-local falsepositive_files = {
-  ["en"] = {
-    Path:new(vim.fn.getcwd(), "falsepositives.ltex"),
-  },
-}
-
-local new_defaults = {
-  dictionary_files = dictionary_files,
-  disabledrules_files = disabledrules_files,
-  falsepositive_files = falsepositive_files,
-}
-
-configs.ltex.default_config = vim.tbl_extend(
-  "force",
-  configs.ltex.default_config,
-  new_defaults
-)
+local spellfiles = vim.opt.spellfile:get()
+if #spellfiles > 0 then
+end
 
 return {
   root_dir = function(fname)
@@ -51,11 +34,21 @@ return {
       language = "en-US",
       additionalRules = {
         enablePickyRules = true,
-        motherTongue = "en",
+        motherTongue = "en-GB",
       },
-      trace = { server = "verbose" },
-      disabledRules = { ["en-US"] = { "WHITESPACE_RULE", "EN_QUOTES" } },
-      hiddenFalsePositives = {},
+      disabledRules = {
+        ["en-US"] = {
+          "WHITESPACE_RULE",
+          "EN_QUOTES",
+        },
+      },
+      dictionary = {
+        ["en-US"] = {
+          "Anand",
+          "Balakrishnan",
+          ":" .. tostring(Path:new(vim.fn.getcwd(), "project.utf-8.add")),
+        },
+      },
     },
   },
 }

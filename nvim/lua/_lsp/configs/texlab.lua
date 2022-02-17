@@ -1,6 +1,6 @@
 local util = require "lspconfig/util"
 
-vim.g.texlab_builder = "tectonic"
+vim.g.texlab_builder = "latexmk"
 
 local function buildConfig()
   local check_exe = vim.fn.executable
@@ -31,9 +31,9 @@ local function buildConfig()
         -- Input
         "%f",
         -- Flags
-        "--synctex",
+        -- "--synctex",
         -- "--keep-logs",
-        "--keep-intermediates",
+        -- "--keep-intermediates",
         -- Options
         -- OPTIONAL: If you want a custom out directory,
         -- uncomment the following line.
