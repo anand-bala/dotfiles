@@ -1,4 +1,3 @@
-local myconfigs = require "_lsp/configs"
 require "_lsp/servers"
 
 local lsp_installer = require "nvim-lsp-installer"
@@ -33,17 +32,16 @@ local function setup_custom_handlers()
 end
 
 local function on_attach(client, bufnr)
-  local utils = require "_utils"
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
-  if
-    client.resolved_capabilities.document_formatting
-    or client.resolved_capabilities.document_range_formatting
-  then
-    utils.create_buffer_augroup("lspformat", {
-      [[BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, 1000)]], -- Run all formatters at 1000ms timeout
-    })
-  end
+  -- if
+  --   client.resolved_capabilities.document_formatting
+  --   or client.resolved_capabilities.document_range_formatting
+  -- then
+  -- utils.create_buffer_augroup("lspformat", {
+  --   [[BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, 1000)]], -- Run all formatters at 1000ms timeout
+  -- })
+  -- end
   require("_keymaps/lsp").setup(client, bufnr)
 end
 
@@ -66,6 +64,7 @@ local default_conf = {
 }
 
 lsp_installer.on_server_ready(function(server)
+  local myconfigs = require "_lsp/configs"
   local opts = vim.tbl_extend("force", default_conf, myconfigs[server.name])
 
   server:setup(opts)
