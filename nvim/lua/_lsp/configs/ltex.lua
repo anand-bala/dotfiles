@@ -7,13 +7,26 @@ local global_dict_files = vim.api.nvim_get_runtime_file("spell/en*utf-8..add", t
 if #LTEX_DICTIONARY == 0 then
   for _, filename in ipairs(global_dict_files) do
     local f = assert(io.open(filename, "r"))
-    
+    while true do
+      local line = f:read("*l")
+      if line == nil then break end
+      table.insert(LTEX_DICTIONARY, line)
+    end
     f:close()
   end
 end
 
 local spellfiles = vim.opt.spellfile:get()
 if #spellfiles > 0 then
+  for _, filename in ipairs(spellfiles) do
+    local f = assert(io.open(filename, "r"))
+    while true do
+      local line = f:read("*l")
+      if line == nil then break end
+      table.insert(LTEX_DICTIONARY, line)
+    end
+    f:close()
+  end
 end
 
 return {
@@ -43,11 +56,7 @@ return {
         },
       },
       dictionary = {
-        ["en-US"] = {
-          "Anand",
-          "Balakrishnan",
-          ":" .. tostring(Path:new(vim.fn.getcwd(), "project.utf-8.add")),
-        },
+        ["en-US"] = LTEX_DICTIONARY,
       },
     },
   },
