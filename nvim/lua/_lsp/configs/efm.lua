@@ -39,6 +39,11 @@ local bibtextidy = {
   formatStdin = false,
 }
 
+local latexindent = {
+  formatCommand = "latexindent.pl -l -m",
+  formatStdin = false,
+}
+
 local zig_fmt = {
   formatCommand = "zig fmt --stdin",
   formatStdin = true,
@@ -72,6 +77,8 @@ return {
       yaml = { yamllint },
       bib = { bibtextidy },
       zig = { zig_fmt },
+      latex = {latexindent},
+      tex = {latexindent},
     },
   },
 }

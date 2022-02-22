@@ -6,6 +6,9 @@ end
 local gps = require "nvim-gps"
 local tb = require "tabline"
 
+gps.setup()
+tb.setup { enable = false }
+
 lualine.setup {
   options = {
     theme = "dracula",

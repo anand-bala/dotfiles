@@ -1,3 +1,5 @@
+local M = {}
+
 require "_lsp/servers"
 
 local lsp_installer = require "nvim-lsp-installer"
@@ -42,32 +44,36 @@ local function on_attach(client, bufnr)
   --   [[BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, 1000)]], -- Run all formatters at 1000ms timeout
   -- })
   -- end
-  require("_keymaps/lsp").setup(client, bufnr)
+  require("_keymaps").lsp_mappings(client, bufnr)
 end
 
-ensure_installed()
-setup_custom_handlers()
+function M.setup()
+  ensure_installed()
+  setup_custom_handlers()
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
+  local capabilities = require("cmp_nvim_lsp").update_capabilities(
+    vim.lsp.protocol.make_client_capabilities()
+  )
 
-local default_conf = {
-  on_init = function(client)
-    client.config.flags = {}
-    if client.config.flags then
-      client.config.flags.allow_incremental_sync = true
-    end
-  end,
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
+  local default_conf = {
+    on_init = function(client)
+      client.config.flags = {}
+      if client.config.flags then
+        client.config.flags.allow_incremental_sync = true
+      end
+    end,
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
 
-lsp_installer.on_server_ready(function(server)
-  local myconfigs = require "_lsp/configs"
-  local opts = vim.tbl_extend("force", default_conf, myconfigs[server.name])
+  lsp_installer.on_server_ready(function(server)
+    local myconfigs = require "_lsp/configs"
+    local opts = vim.tbl_extend("force", default_conf, myconfigs[server.name])
 
-  server:setup(opts)
+    server:setup(opts)
 
-  vim.cmd [[ do User LspAttachBuffers ]]
-end)
+    vim.cmd [[ do User LspAttachBuffers ]]
+  end)
+end
+
+return M

@@ -73,8 +73,7 @@ local conf = {
     texlab = {
       build = buildConfig(),
       forwardSearch = forwardSearchConfig(),
-      latexFormatter = "latexindent",
-      latexindent = { modifyLineBreaks = true },
+      latexFormatter = "texlab",
     },
   },
 }
