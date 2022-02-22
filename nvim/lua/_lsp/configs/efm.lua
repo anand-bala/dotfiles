@@ -62,6 +62,7 @@ return {
     "xml",
     "yaml",
     "latex",
+    "tex",
     "zig",
   },
   root_dir = function(_)

@@ -28,7 +28,7 @@ local texlab = server.Server:new {
   installer = install,
   default_options = {
     cmd = {
-      tostring(Path:new { root_dir, "texlab/target/release/texlab"  }),
+      "texlab",
       "-vvvv",
       "--log-file",
       tostring(Path:new { vim.fn.stdpath "cache", "texlab.log" }),
