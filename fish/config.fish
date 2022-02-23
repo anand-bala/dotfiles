@@ -57,3 +57,14 @@ function chpwd --on-variable PWD -d "Run ls on cd"
         ll
     end
 end
+
+# -- Custom secrets
+
+if functions -q replay
+    and test -d "$XDG_CONFIG_HOME/secrets"
+
+  for f in (fd -t f . $XDG_CONFIG_HOME/secrets/)
+    # echo "Sourcing $f"
+    replay source $f
+  end
+end
