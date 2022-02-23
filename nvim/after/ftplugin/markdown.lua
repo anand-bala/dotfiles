@@ -1,3 +1,5 @@
+vim.opt_local.textwidth = 88
+
 vim.g.vim_markdown_auto_insert_bullets = 0
 vim.g.vim_markdown_autowrite = 1
 vim.g.vim_markdown_conceal = 1

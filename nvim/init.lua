@@ -43,9 +43,7 @@ augroup("spellceck_ft_specific", {
 
 -- Make textwidth smaller for these filetypes
 augroup("textwidth_ft_specific", {
-  [[FileType markdown   setlocal textwidth=88]],
   [[FileType gitcommit  setlocal textwidth=79]],
-  [[FileType tex,latex  setlocal textwidth=88]],
 })
 
 -- Custom filetype mappings
