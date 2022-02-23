@@ -15,3 +15,7 @@ set -l go_binpath $golang_root/bin
 if test -d $go_binpath
   fish_add_path -gP $go_binpath
 end
+
+if test -d $GOHOME/bin
+  fish_add_path -gP $GOHOME/bin
+end
