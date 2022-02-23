@@ -33,7 +33,7 @@ local function setup_custom_handlers()
   end
 end
 
-local function on_attach(client, bufnr)
+local function default_on_attach(client, bufnr)
   -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   -- vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
   -- if
@@ -45,6 +45,22 @@ local function on_attach(client, bufnr)
   -- })
   -- end
   require("_keymaps").lsp_mappings(client, bufnr)
+end
+
+local function on_attach_chain(callbacks)
+  vim.validate {
+    callbacks = { callbacks, "table" },
+  }
+
+  for _, cb in ipairs(callbacks) do
+    vim.validate { cb = { cb, "function" } }
+  end
+  table.insert(callbacks, 1, default_on_attach)
+  return function(client, bufnr)
+    for _, cb in ipairs(callbacks) do
+      cb(client, bufnr)
+    end
+  end
 end
 
 function M.setup()
@@ -62,14 +78,17 @@ function M.setup()
         client.config.flags.allow_incremental_sync = true
       end
     end,
-    on_attach = on_attach,
     capabilities = capabilities,
   }
 
   lsp_installer.on_server_ready(function(server)
     local myconfigs = require "_lsp/configs"
     local opts = vim.tbl_extend("force", default_conf, myconfigs[server.name])
-
+    local on_attach_callbacks = {}
+    if opts.on_attach ~= nil then
+      table.insert(on_attach_callbacks, opts.on_attach)
+    end
+    opts.on_attach = on_attach_chain(on_attach_callbacks)
     server:setup(opts)
 
     vim.cmd [[ do User LspAttachBuffers ]]
