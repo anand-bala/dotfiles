@@ -23,27 +23,30 @@ cmp.setup {
   formatting = {
     format = function(entry, vim_item)
       vim_item.menu = ({
-        omni = "[Omni]",
-        luasnip = "[LuaSnip]",
         buffer = "[Buffer]",
+        calc = "[Calc]",
+        luasnip = "[LuaSnip]",
         nvim_lsp = "[LSP]",
-        treesitter = "[TS]",
+        nvim_lua = "[API]",
+        path = "[Path]",
+        omni = "[Omni]",
         spell = "[Spell]",
+        tags = "[Tag]",
+        treesitter = "[TS]",
       })[entry.source.name] .. str_check(vim_item.menu)
       return vim_item
     end,
   },
   sources = {
-    { name = "nvim_lua" },
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
-    { name = "treesitter" },
-    { name = "emoji" },
     { name = "buffer" },
+    { name = "calc" },
+    { name = "luasnip" },
+    { name = "nvim_lsp" },
+    { name = "nvim_lua" },
     { name = "path" },
     { name = "spell" },
     { name = "tags" },
-    { name = "calc" },
+    { name = "treesitter" },
   },
 }
 

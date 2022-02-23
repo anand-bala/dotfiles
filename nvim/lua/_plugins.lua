@@ -92,7 +92,6 @@ local packer_init = function()
       "quangnguyen30192/cmp-nvim-tags",
       "saadparwaiz1/cmp_luasnip",
       "ray-x/cmp-treesitter",
-      "hrsh7th/cmp-emoji",
       "L3MON4D3/LuaSnip",
       "rafamadriz/friendly-snippets",
     },
