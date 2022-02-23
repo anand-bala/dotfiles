@@ -1,6 +1,14 @@
 --- Configuration for nvim-cmp and snippets
 local luasnip = require "luasnip"
-local cmp = require("cmp")
+local cmp = require "cmp"
+
+local function str_check(str)
+  if str == nil then
+    return ""
+  else
+    return " -> " .. str
+  end
+end
 
 cmp.setup {
   mapping = require("_keymaps").cmp_mappings(),
@@ -10,6 +18,19 @@ cmp.setup {
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
+    end,
+  },
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item.menu = ({
+        omni = "[Omni]",
+        luasnip = "[LuaSnip]",
+        buffer = "[Buffer]",
+        nvim_lsp = "[LSP]",
+        treesitter = "[TS]",
+        spell = "[Spell]",
+      })[entry.source.name] .. str_check(vim_item.menu)
+      return vim_item
     end,
   },
   sources = {
