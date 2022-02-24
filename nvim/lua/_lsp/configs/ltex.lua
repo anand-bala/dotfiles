@@ -4,24 +4,27 @@ local debug = require "_utils/debug"
 local uv = vim.loop
 
 LTEX_DICTIONARY = {}
-local global_dict_files = vim.api.nvim_get_runtime_file("spell/en*.add", true)
-if #LTEX_DICTIONARY == 0 then
-  for _, filename in ipairs(global_dict_files) do
-    local f = assert(io.open(filename, "r"))
-    while true do
-      local line = f:read "*l"
-      if line == nil then
-        break
+
+local function load_global_dict()
+  local global_dict_files = vim.api.nvim_get_runtime_file("spell/en*.add", true)
+  if #LTEX_DICTIONARY == 0 then
+    for _, filename in ipairs(global_dict_files) do
+      local f = assert(io.open(filename, "r"))
+      while true do
+        local line = f:read "*l"
+        if line == nil then
+          break
+        end
+        table.insert(LTEX_DICTIONARY, line)
       end
-      table.insert(LTEX_DICTIONARY, line)
+      f:close()
     end
-    f:close()
   end
+  return LTEX_DICTIONARY
 end
 
 local ltex_ctx = {
   watchers = {},
-  spellfiles = {},
   client = nil,
 }
 
@@ -43,7 +46,7 @@ function ltex_ctx:readSpellfile(fullpath, out_dict)
   f:close()
 end
 
-function ltex_ctx:on_spellfile_change(err, fname, status)
+function ltex_ctx:on_spellfile_change(_, fname)
   local fullpath = vim.fn.fnamemodify(fname, ":p")
   local words = vim.deepcopy(LTEX_DICTIONARY)
   self:readSpellfile(fullpath, words)
@@ -54,11 +57,10 @@ function ltex_ctx:attach(client)
   self.client = client
   --- Add the new spellfiles and the corresponding watcher.
   local spellfiles = vim.opt.spellfile:get()
-  local words = vim.deepcopy(LTEX_DICTIONARY)
+  local words = vim.deepcopy(load_global_dict())
   for _, filename in ipairs(spellfiles) do
     local watcher = uv.new_fs_event()
     local fullpath = vim.fn.fnamemodify(filename, ":p")
-    table.insert(self.spellfiles, fullpath)
     self.watchers[fullpath] = watcher
     watcher:start(
       fullpath,
@@ -132,7 +134,7 @@ return {
   handlers = {
     ["workspace/executeCommand"] = on_execute_command,
   },
-  on_attach = function(client, bufnr)
+  on_attach = function(client)
     local ctx = ltex_ctx:new()
     client.ltex_ctx = ctx
     ctx:attach(client)
