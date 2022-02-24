@@ -28,8 +28,6 @@ require("_settings").setup()
 require("_keymaps").setup()
 --- Initialize the built-in LSP
 require("_lsp").setup()
---- Minimal helpers for built-in terminal
-require("term-helper").setup {}
 
 --- Register some custom behavior via autocmds
 local augroup = require("_utils").create_augroup

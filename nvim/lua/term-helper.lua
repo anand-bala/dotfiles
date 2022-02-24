@@ -1,3 +1,5 @@
+--- Minimal helpers for built-in terminal
+
 local M = {}
 
 --- Default shell to use when opening the terminal
@@ -62,19 +64,6 @@ end
 
 function M.tab_term(args)
   M.open_term(args, { tab = true, vertical = false })
-end
-
-function M.setup(config)
-  if config then
-    assert(type(config) == "table", "Setup config must be a table")
-  end
-  if config.shell and type(config.shell) == "string" then
-    default_shell = config.shell
-  end
-
-  vim.cmd [[command! -count -nargs=* Term lua require("term-helper").split_term(<q-args>, <count>)]]
-  vim.cmd [[command! -count -nargs=* VTerm lua require("term-helper").vsplit_term(<q-args>, <count>)]]
-  vim.cmd [[command! -nargs=* TTerm lua require("term-helper").tab_term(<q-args>)]]
 end
 
 return M
