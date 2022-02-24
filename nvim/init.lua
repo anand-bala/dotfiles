@@ -1,10 +1,5 @@
 -- Disable some built-in plugins we don't want
 local disabled_built_ins = {
-  -- "matchit",
-  -- "matchparen",
-  "shada_plugin",
-  "tarPlugin",
-  "tar",
   "netrwPlugin",
 }
 
