@@ -2,9 +2,6 @@
 
 local M = {}
 
---- Default shell to use when opening the terminal
-local default_shell = vim.g.terminal_shell or vim.o.shell
-
 function M.open_buffer(opts)
   local defaults = {
     vertical = true,
@@ -43,8 +40,10 @@ end
 function M.open_term(args, opts)
   M.open_buffer(opts)
 
+  --- Default shell to use when opening the terminal
+  local shell = vim.g.terminal_shell or vim.o.shell
   local prev_shell = vim.o.shell
-  vim.o.shell = default_shell
+  vim.o.shell = shell
 
   assert(type(args) == "string")
 
