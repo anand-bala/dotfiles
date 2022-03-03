@@ -52,12 +52,6 @@ local packer_init = function()
 
   ---[[ Fuzzy search
   use {
-    "junegunn/fzf",
-    run = function()
-      vim.fn["fzf#install"]()
-    end,
-  }
-  use {
     "nvim-telescope/telescope.nvim",
     requires = {
       "nvim-lua/plenary.nvim",
