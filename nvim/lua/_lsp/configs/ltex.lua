@@ -1,7 +1,10 @@
 local util = require "lspconfig/util"
 local handlers = require "vim.lsp.handlers"
 local debug = require "_utils/debug"
+local Path = require "plenary.path"
 local uv = vim.loop
+
+vim.g.ltex_ngram_data = "~/opt/ngrams"
 
 LTEX_DICTIONARY = {}
 
@@ -21,6 +24,18 @@ local function load_global_dict()
     end
   end
   return LTEX_DICTIONARY
+end
+
+function _G.find_ngram_model()
+  local ngrams_path = Path:new(vim.g.ltex_ngram_data)
+
+  -- if not ngrams_path:is_dir() then
+  --   return
+  -- end
+
+  ngrams_path = Path:new(ngrams_path:expand())
+
+  return ngrams_path:absolute()
 end
 
 local ltex_ctx = {
@@ -48,8 +63,9 @@ end
 
 function ltex_ctx:on_spellfile_change(_, fname)
   local fullpath = vim.fn.fnamemodify(fname, ":p")
-  local words = vim.deepcopy(LTEX_DICTIONARY)
+  local words = {}
   self:readSpellfile(fullpath, words)
+  words = vim.tbl_flatten { words, load_global_dict() }
   self:replaceDictionary { ["en-US"] = vim.fn.uniq(vim.fn.sort(words)) }
 end
 
@@ -57,7 +73,7 @@ function ltex_ctx:attach(client)
   self.client = client
   --- Add the new spellfiles and the corresponding watcher.
   local spellfiles = vim.opt.spellfile:get()
-  local words = vim.deepcopy(load_global_dict())
+  local words = {}
   for _, filename in ipairs(spellfiles) do
     local watcher = uv.new_fs_event()
     local fullpath = vim.fn.fnamemodify(filename, ":p")
@@ -72,6 +88,7 @@ function ltex_ctx:attach(client)
     self:readSpellfile(fullpath, words)
   end
 
+  words = vim.tbl_flatten { words, load_global_dict() }
   self:updateDictionary { ["en-US"] = vim.fn.uniq(vim.fn.sort(words)) }
 end
 
@@ -146,6 +163,7 @@ return {
       additionalRules = {
         enablePickyRules = true,
         motherTongue = "en-GB",
+        languageModel = find_ngram_model(),
       },
       disabledRules = {
         ["en-US"] = {

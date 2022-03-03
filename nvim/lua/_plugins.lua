@@ -82,17 +82,17 @@ local packer_init = function()
   use {
     "hrsh7th/nvim-cmp",
     requires = {
-      "hrsh7th/cmp-omni",
+      "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-calc",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-omni",
       "hrsh7th/cmp-path",
-      "hrsh7th/cmp-buffer",
       "f3fora/cmp-spell",
       "quangnguyen30192/cmp-nvim-tags",
-      "saadparwaiz1/cmp_luasnip",
       "ray-x/cmp-treesitter",
       "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
     },
   }

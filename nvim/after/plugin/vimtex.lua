@@ -4,7 +4,9 @@ vim.g.vimtex_view_enabled = 0
 vim.g.vimtex_format_enabled = 1
 vim.g.vimtex_toc_config = {
   split_pos = "botright",
+  fold_enable = 1,
 }
+vim.g.vimtex_toc_show_preamble = 0
 vim.g.vimtex_syntax_conceal = {
   accents = 1,
   cites = 1,

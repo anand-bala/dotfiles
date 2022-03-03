@@ -22,7 +22,7 @@ cmp.setup {
   },
   formatting = {
     format = function(entry, vim_item)
-      vim_item.menu = ({
+      local menu_names = {
         buffer = "[Buffer]",
         calc = "[Calc]",
         luasnip = "[LuaSnip]",
@@ -33,7 +33,9 @@ cmp.setup {
         spell = "[Spell]",
         tags = "[Tag]",
         treesitter = "[TS]",
-      })[entry.source.name] .. str_check(vim_item.menu)
+      }
+      local txt = menu_names[entry.source.name] or entry.source.name
+      vim_item.menu = txt .. str_check(vim_item.menu)
       return vim_item
     end,
   },
@@ -50,6 +52,7 @@ cmp.setup {
   },
 }
 
+--- LuaSnip setup
 luasnip.filetype_extend("cpp", { "c" })
 luasnip.filetype_extend("tex", { "latex" })
 luasnip.filetype_set("latex", { "latex", "tex" })

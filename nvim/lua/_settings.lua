@@ -50,9 +50,9 @@ function M.visual_text()
   }
 
   -- Enable break indent
-  vim.opt.breakindent = true
-  vim.opt.breakindentopt = "sbr"
-  vim.opt.showbreak = " "
+  -- vim.opt.breakindent = true
+  -- vim.opt.breakindentopt = {"sbr", mi
+  -- vim.opt.showbreak = " "
 end
 
 function M.search_settings()
