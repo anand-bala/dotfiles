@@ -1,0 +1,7 @@
+push @extra_pdflatex_options, '-synctex=1 -interaction=nonstopmode' ;
+$pdf_previewer = 'zathura %O %S';
+$pdf_mode = 1;
+$clean_ext = 'acn acr alg aux bcf blg brf fdb_latexmk glg glo gls idx ilg ind ist lof log lot out run.xml toc dvi sta';
+
+$dvi_mode = 0;
+$ps_mode = 0;
