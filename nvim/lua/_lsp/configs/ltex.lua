@@ -75,17 +75,20 @@ function ltex_ctx:attach(client)
   local spellfiles = vim.opt.spellfile:get()
   local words = {}
   for _, filename in ipairs(spellfiles) do
-    local watcher = uv.new_fs_event()
-    local fullpath = vim.fn.fnamemodify(filename, ":p")
-    self.watchers[fullpath] = watcher
-    watcher:start(
-      fullpath,
-      {},
-      vim.schedule_wrap(function(...)
-        self:on_spellfile_change(...)
-      end)
-    )
-    self:readSpellfile(fullpath, words)
+    local file = Path:new(filename)
+    if file:exists() and file:is_file() then
+      local watcher = uv.new_fs_event()
+      local fullpath = vim.fn.fnamemodify(filename, ":p")
+      self.watchers[fullpath] = watcher
+      watcher:start(
+        fullpath,
+        {},
+        vim.schedule_wrap(function(...)
+          self:on_spellfile_change(...)
+        end)
+      )
+      self:readSpellfile(fullpath, words)
+    end
   end
 
   words = vim.tbl_flatten { words, load_global_dict() }
