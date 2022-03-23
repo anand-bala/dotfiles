@@ -83,13 +83,30 @@ function M.setup()
 
   lsp_installer.on_server_ready(function(server)
     local myconfigs = require "_lsp/configs"
-    local opts = vim.tbl_extend("force", default_conf, myconfigs[server.name])
+    local opts = vim.tbl_deep_extend("force", default_conf, myconfigs[server.name])
     local on_attach_callbacks = {}
     if opts.on_attach ~= nil then
       table.insert(on_attach_callbacks, opts.on_attach)
     end
     opts.on_attach = on_attach_chain(on_attach_callbacks)
-    server:setup(opts)
+
+    if server.name == "rust_analyzer" then
+      -- Initialize the LSP via rust-tools instead
+      require("rust-tools").setup {
+        -- The "server" property provided in rust-tools setup function are the
+        -- settings rust-tools will provide to lspconfig during init.            --
+        -- We merge the necessary settings from nvim-lsp-installer (server:get_default_options())
+        -- with the user's own settings (opts).
+        server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
+      }
+      if not (opts.autostart == false) then
+        server:attach_buffers()
+      end
+      -- Only if standalone support is needed
+      require("rust-tools").start_standalone_if_required()
+    else
+      server:setup(opts)
+    end
 
     vim.cmd [[ do User LspAttachBuffers ]]
   end)

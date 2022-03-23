@@ -100,6 +100,7 @@ local packer_init = function()
   use { "plasticboy/vim-markdown", ft = { "markdown" } }
   -- Rust
   use "rust-lang/rust.vim"
+  use "simrat39/rust-tools.nvim"
   ---]] Language specific
 
   use {
