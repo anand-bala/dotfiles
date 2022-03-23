@@ -31,3 +31,9 @@ cmp.setup.buffer {
     { name = "spell" },
   },
 }
+
+if vim.fn.exists ":VimtexTocToggle" then
+  vim.keymap.set("n", "<C-t>", "<cmd>VimtexTocToggle<CR>", {
+    buffer = true,
+  })
+end
