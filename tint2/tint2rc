@@ -106,6 +106,10 @@ mouse_hover_icon_asb = 100 0 10
 mouse_pressed_icon_asb = 100 0 0
 # }}}
 
+# Launcher {{{
+launcher_icon_theme = Papirus
+# }}}
+
 # Taskbar {{{
 taskbar_mode = multi_desktop
 taskbar_hide_if_empty = 0
@@ -169,6 +173,7 @@ systray_name_filter =
 time1_format = %a, %b %d // %H:%M
 time2_format = 
 time1_font = JetBrainsMono Nerd Font Mono 10
+time2_font = JetBrainsMono Nerd Font Mono 10
 time1_timezone = 
 time2_timezone = 
 clock_font_color = #F8F8F2 100
