@@ -1,4 +1,4 @@
-local command = vim.api.nvim_add_user_command
+local command = vim.api.nvim_create_user_command
 
 command("Term", function(args)
   require("term-helper").split_term(args.args, args.count)
