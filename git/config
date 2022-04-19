@@ -1,12 +1,4 @@
 # vim: ft=gitconfig
-[alias]
-  ignore = "!gi() { curl -sL https://www.gitignore.io/api/$@ ;}; gi"
-  st = status
-  lg = lg-specific --all
-  lg-long = lg-long-specific --all
-  lg-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
-  lg-long-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)%ar%C(reset) %C(auto)(%d%C)(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)%n''          - %C(bold cyan)%aD%C(reset) %C(bold cyan)(committed: %cD)%C(reset)'
-
 [core]
   excludesfile = ~/.config/git/ignore
   autocrlf = input
@@ -21,6 +13,13 @@
 [mergetool "nvim"]
   cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 
+[alias]
+  ignore = "!gi() { curl -sL https://www.gitignore.io/api/$@ ;}; gi"
+  st = status
+  lg = lg-specific --all
+  lg-long = lg-long-specific --all
+  lg-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+  lg-long-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)%ar%C(reset) %C(auto)(%d%C)(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)%n''          - %C(bold cyan)%aD%C(reset) %C(bold cyan)(committed: %cD)%C(reset)'
 
 [filter "nbstrip_full"]
 clean = "jq --indent 1 \
