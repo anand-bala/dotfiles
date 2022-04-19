@@ -6,9 +6,9 @@ add_pip_as_python_depencency: true
 use_pip: true
 
 channels:
-  - defaults
   - conda-forge
-channel_priority: flexible
+  - defaults
+channel_priority: strict
 
 create_default_packages:
   - ipython
