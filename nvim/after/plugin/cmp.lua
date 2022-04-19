@@ -12,8 +12,8 @@ end
 
 cmp.setup {
   mapping = require("_keymaps").cmp_mappings(),
-  documentation = {
-    border = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+  window = {
+    documentation = "native",
   },
   snippet = {
     expand = function(args)
