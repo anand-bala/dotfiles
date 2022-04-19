@@ -6,6 +6,8 @@
 [init]
   defaultBranch = dev
 
+[diff]
+  algorithm = patience
 [merge]
   tool = nvim
 [mergetool]
