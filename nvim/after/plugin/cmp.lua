@@ -2,18 +2,39 @@
 local luasnip = require "luasnip"
 local cmp = require "cmp"
 
-local function str_check(str)
-  if str == nil then
-    return ""
-  else
-    return " -> " .. str
-  end
-end
+local kind_icons = {
+  Text = "",
+  Method = "",
+  Function = "",
+  Constructor = "",
+  Field = "",
+  Variable = "",
+  Class = "ﴯ",
+  Interface = "",
+  Module = "",
+  Property = "ﰠ",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "",
+  Event = "",
+  Operator = "",
+  TypeParameter = "",
+}
 
 cmp.setup {
   mapping = require("_keymaps").cmp_mappings(),
   window = {
-    documentation = "native",
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
   },
   snippet = {
     expand = function(args)
@@ -22,7 +43,10 @@ cmp.setup {
   },
   formatting = {
     format = function(entry, vim_item)
-      local menu_names = {
+      -- Kind icons
+      vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+      -- Source
+      vim_item.menu = ({
         buffer = "[Buffer]",
         calc = "[Calc]",
         luasnip = "[LuaSnip]",
@@ -33,9 +57,7 @@ cmp.setup {
         spell = "[Spell]",
         tags = "[Tag]",
         treesitter = "[TS]",
-      }
-      local txt = menu_names[entry.source.name] or entry.source.name
-      vim_item.menu = txt .. str_check(vim_item.menu)
+      })[entry.source.name]
       return vim_item
     end,
   },
@@ -58,9 +80,5 @@ luasnip.filetype_extend("tex", { "latex" })
 luasnip.filetype_set("latex", { "latex", "tex" })
 luasnip.filetype_extend("markdown", { "latex", "tex" })
 
-luasnip.snippets = {
-  tex = require "_snippets/tex",
-  c = require "_snippets/c",
-}
-
-require("luasnip/loaders/from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_lua").lazy_load()
