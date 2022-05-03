@@ -1,6 +1,6 @@
 local M = {}
 
---- Keybindings for nvim
+local command = vim.api.nvim_create_user_command
 local cmd = vim.cmd
 local map = vim.keymap.set
 
@@ -16,24 +16,21 @@ function M.cmp_mappings()
   local luasnip = require "luasnip"
   local cmp = require "cmp"
 
-  local mapping = {
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-u>"] = cmp.mapping.scroll_docs(4),
-    ["<C-e>"] = cmp.mapping.close(),
-    ["<CR>"] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-    },
-    ["<Tab>"] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ["<C-j>"] = function(fallback)
+  local mapping = cmp.mapping.preset.insert {
+    ["<CR>"] = cmp.mapping.confirm { select = false },
+    ["<C-j>"] = cmp.mapping(function()
       if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
+      end
+    end, { "i", "s" }),
+
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
       else
         fallback()
       end
-    end,
+    end, { "i", "s" }),
   }
 
   return mapping
@@ -67,7 +64,7 @@ function M.lsp_mappings(client, bufnr)
   lspmap("<leader>D", vim.lsp.buf.type_definition)
 
   lspmap("<C-s>", te.lsp_document_symbols)
-  lspmap("<leader><Space>", te.lsp_code_actions)
+  lspmap("<leader><Space>", vim.lsp.buf.code_action)
   lspmap("<leader>rn", vim.lsp.buf.rename)
 
   lspmap("<leader>ld", function()
@@ -75,16 +72,17 @@ function M.lsp_mappings(client, bufnr)
   end)
   lspmap("[d", vim.diagnostic.goto_prev)
   lspmap("]d", vim.diagnostic.goto_next)
-  cmd [[command! Diagnostics Telescope diagnostics bufnr=0]]
-  cmd [[command! WorkspaceDiagnostics Telescope diagnostics]]
+  vim.api.nvim_buf_create_user_command(0, "Diagnostics", "Telescope diagnostics", {
+    force = true,
+  })
+  command("WorkspaceDiagnostics", "Telescope diagnostics", {
+    force = true,
+  })
 
-  if client.resolved_capabilities.document_formatting then
-    lspmap("<leader>f", vim.lsp.buf.formatting_seq_sync)
-    cmd [[command! Format lua vim.lsp.buf.formatting_seq_sync()]]
-  elseif client.resolved_capabilities.document_range_formatting then
-    lspmap("<leader>f", vim.lsp.buf.range_formatting)
-    cmd [[command! Format lua vim.lsp.buf.range_formatting()]]
-  end
+  lspmap("<leader>f", vim.lsp.buf.format)
+  command("Format", function()
+    vim.lsp.buf.format()
+  end, { force = true })
 end
 
 function M.setup()

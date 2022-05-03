@@ -45,7 +45,7 @@ local packer_init = function()
   use {
     "numToStr/Comment.nvim",
     config = function()
-      require("Comment").setup()
+      require("Comment").setup(nil)
     end,
   }
   use "nvim-lua/plenary.nvim"
@@ -56,6 +56,7 @@ local packer_init = function()
     requires = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+      { "nvim-telescope/telescope-ui-select.nvim" },
     },
   }
   ---]]
@@ -88,6 +89,7 @@ local packer_init = function()
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
+      "onsails/lspkind.nvim",
     },
   }
   ---]] Completions, Linting, and Snippets

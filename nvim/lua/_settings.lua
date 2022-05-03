@@ -68,7 +68,11 @@ end
 
 function M.completion()
   -- vim.opt.completeopt to have a better completion experience
-  vim.opt.completeopt = { "menu", "menuone", "noselect" }
+  vim.opt.completeopt = {
+    "menu",
+    "menuone",
+    "noselect",
+  }
 
   -- Avoid showing message extra message when using completion
   vim.opt.shortmess:append({ c = true }, { I = true })
