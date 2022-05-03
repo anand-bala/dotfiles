@@ -1,6 +1,24 @@
-return require("lua-dev").setup {
-  -- add any options here, or leave empty to use the default settings
-  -- lspconfig = {
-  --   cmd = {"lua-language-server"}
-  -- },
+local luadev = require("lua-dev").setup {
+  lspconfig = {
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = {
+            "vim",
+            -- AwesomeWM globals
+            "awesome",
+            "client",
+            "screen",
+            "root",
+            "terminal"
+          },
+        },
+      },
+    },
+  },
 }
+
+-- Setup for AwesomeWM
+luadev.settings.Lua.workspace.library["/usr/share/awesome/lib"] = true
+
+return luadev
