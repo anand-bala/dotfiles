@@ -15,42 +15,45 @@ end
 
 vim.cmd "syntax enable"
 
---- Setup plugins
+-- Setup plugins
 require("_plugins").setup()
---- Initialize default settings
+-- Initialize default settings
 require("_settings").setup()
---- Initialize global mappings
+-- Initialize global mappings
 require("_keymaps").setup()
---- Initialize the built-in LSP
-require("_lsp").setup()
 
---- Register some custom behavior via autocmds
-local augroup = require("_utils").create_augroup
+-- Register some custom behavior via autocmds
 
--- Spell check on for the following
-augroup("spellceck_ft_specific", {
-  [[FileType markdown   setlocal spell]],
-  [[FileType gitcommit  setlocal spell]],
-  [[FileType tex,latex  setlocal spell]],
-})
-
--- Make textwidth smaller for these filetypes
-augroup("textwidth_ft_specific", {
-  [[FileType gitcommit  setlocal textwidth=79]],
-})
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 
 -- Custom filetype mappings
-augroup("ft_mappings", { [[BufRead,BufNewFile *.tex,*.latex  set filetype=tex]] })
+do
+  local ft_mappings = augroup("ft_mappings", {})
+  autocmd({ "BufRead", "BufNewFile" }, {
+    group = ft_mappings,
+    pattern = { "*.tex", "*.latex" },
+    callback = function()
+      vim.opt.filetype = "tex"
+    end,
+  })
+end
 
 -- Update folds on startup
-augroup("update_folds", {
-  [[BufEnter * :normal zx]],
-})
-
--- Make the cursor vertically centered
-augroup("vertical_center_cursor", {
-  [[BufEnter,WinEnter,WinNew,VimResized *,*.* let &scrolloff=winheight(win_getid())/2]],
-})
+do
+  local update_folds = augroup("update_folds", {})
+  autocmd("BufEnter", {
+    group = update_folds,
+    pattern = "*",
+    command = ":normal zx",
+  })
+end
 
 -- Terminal
-augroup("terminal_settings", { [[TermOpen * setlocal nonumber norelativenumber]] })
+autocmd("TermOpen", {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+  end,
+})
