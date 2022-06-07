@@ -24,6 +24,6 @@ else
     elif [ "$1" = "Hybrid-sleep" ]; then
         systemctl hybrid-sleep
     elif [ "$1" = "Lock" ]; then
-        bash $SCRIPT_DIR/lock.sh
+        xflock4
     fi
 fi
