@@ -99,7 +99,7 @@ local packer_init = function()
   use "folke/lua-dev.nvim"
   -- Tex/Markdown
   use { "lervag/vimtex", ft = { "tex", "latex", "bib", "bibtex" } }
-  use { "plasticboy/vim-markdown", ft = { "markdown" } }
+  use { "preservim/vim-markdown", ft = { "markdown" } }
   -- Rust
   use "rust-lang/rust.vim"
   use "simrat39/rust-tools.nvim"
