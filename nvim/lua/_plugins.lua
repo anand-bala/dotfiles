@@ -38,7 +38,12 @@ local packer_init = function()
   ---[[ Everyday tools
   use "tpope/vim-obsession"
   use "tpope/vim-abolish"
-  use "andymass/vim-matchup"
+  use {
+    "andymass/vim-matchup",
+    config = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end,
+  }
   use "tpope/vim-fugitive"
   use { "junegunn/vim-easy-align", opt = true, cmd = { "EasyAlign" } }
 

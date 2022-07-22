@@ -91,6 +91,9 @@ function M.gui()
   -- Turn on sign column
   vim.wo.signcolumn = "yes"
 
+  -- Turn on global statusline
+  vim.opt.laststatus = 3
+
   vim.cmd [[let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"]]
   vim.cmd [[let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"]]
   vim.opt.termguicolors = true
