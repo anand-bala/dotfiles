@@ -50,7 +50,7 @@ local packer_init = function()
   use {
     "numToStr/Comment.nvim",
     config = function()
-      require("Comment").setup(nil)
+      require("Comment").setup()
     end,
   }
   use "nvim-lua/plenary.nvim"
@@ -127,6 +127,12 @@ local packer_init = function()
     },
   }
   use { "dracula/vim", as = "dracula" }
+  use {
+    "olimorris/onedarkpro.nvim",
+    config = function()
+      require("onedarkpro").setup()
+    end,
+  }
 end
 
 function M.setup()
