@@ -30,11 +30,6 @@ local packer_init = function()
   -- Let packer manage itself
   use "wbthomason/packer.nvim"
 
-  ---[[ Sanity stuff
-  use "ciaranm/securemodelines"
-
-  ---]]
-
   ---[[ Everyday tools
   use "tpope/vim-obsession"
   use "tpope/vim-abolish"
