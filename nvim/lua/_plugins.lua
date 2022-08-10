@@ -108,6 +108,8 @@ local packer_init = function()
   -- Rust
   use "rust-lang/rust.vim"
   use "simrat39/rust-tools.nvim"
+  -- Kitty.conf
+  use "fladson/vim-kitty"
   ---]] Language specific
 
   use {
@@ -126,13 +128,8 @@ local packer_init = function()
       "kdheepak/tabline.nvim",
     },
   }
-  use { "dracula/vim", as = "dracula" }
-  use {
-    "olimorris/onedarkpro.nvim",
-    config = function()
-      require("onedarkpro").setup()
-    end,
-  }
+  use "olimorris/onedarkpro.nvim"
+  use "shaunsingh/solarized.nvim"
 end
 
 function M.setup()

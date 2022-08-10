@@ -33,8 +33,7 @@ function M.visual_text()
   vim.opt.foldlevelstart = -1
   vim.opt.fillchars = { fold = " ", foldopen = "", foldclose = "" }
   vim.opt.foldcolumn = "auto:3"
-  vim.opt.foldtext =
-    [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
+  vim.opt.foldtext = [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
   vim.opt.foldopen = "all"
   vim.opt.foldclose = "all"
   vim.opt.foldmethod = "expr"
@@ -96,8 +95,18 @@ function M.gui()
   vim.cmd [[let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"]]
   vim.cmd [[let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"]]
   vim.opt.termguicolors = true
-  vim.opt.background="light"
-  vim.cmd [[colorscheme onedarkpro]]
+  vim.opt.background = "light"
+
+  -- do
+  --   local colors = require("onedarkpro").get_colors "onelight"
+  --   require("onedarkpro").setup {
+  --     hlgroups = {
+  --       Conceal = { bg = colors.bg, fg = colors.fg },
+  --     },
+  --   }
+  -- end
+  vim.g.solarized_borders = true
+  vim.cmd [[colorscheme solarized]]
 end
 
 function M.setup()

@@ -49,8 +49,6 @@ for _, server in ipairs(to_be_configured) do
     require("rust-tools").setup {
       server = opts,
     }
-    -- Only if standalone support is needed
-    require("rust-tools").start_standalone_if_required()
   else
     require("lspconfig")[server].setup(opts)
   end
