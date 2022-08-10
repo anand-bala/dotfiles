@@ -12,6 +12,9 @@ if set -q CUDA_HOME
   not contains -- "$CUDA_HOME/lib64" $LD_LIBRARY_PATH;
     and set -gx LD_LIBRARY_PATH     $LD_LIBRARY_PATH $CUDA_HOME/lib64
 
+  not contains -- "/usr/lib/nvidia" $LD_LIBRARY_PATH;
+    and set -gx LD_LIBRARY_PATH     $LD_LIBRARY_PATH /usr/lib/nvidia
+
   if test -d $CUDA_HOME/extras/CUPTI/lib64
     not contains -- "$CUDA_HOME/extras/CUPTI/lib64" $LD_LIBRARY_PATH;
       and set -gx LD_LIBRARY_PATH   $LD_LIBRARY_PATH $CUDA_HOME/extras/CUPTI/lib64
