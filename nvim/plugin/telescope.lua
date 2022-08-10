@@ -15,6 +15,11 @@ telescope.setup {
     set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
     mappings = require("_keymaps").telescope_mappings(),
   },
+  pickers = {
+    find_files = {
+      find_command = {"fd", "--hidden", "-L", "--type", "file"},
+    },
+  },
   extensions = {
     fzf = {
       fuzzy = true, -- false will only do exact matching

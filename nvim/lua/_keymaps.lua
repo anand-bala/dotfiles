@@ -113,7 +113,7 @@ function M.setup()
 
   ---[[ Searching stuff
   map("n", "<C-f>", function()
-    require("telescope.builtin").find_files { follow = true, hidden = true }
+    require("telescope.builtin").find_files()
   end, { remap = false })
 
   map("n", "<C-g>", "<cmd>Telescope live_grep<cr>", { remap = false })
