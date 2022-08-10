@@ -11,7 +11,7 @@ tb.setup { enable = false }
 
 lualine.setup {
   options = {
-    theme = "onedarkpro",
+    theme = "auto",
     component_separators = "|",
     section_separators = "",
   },

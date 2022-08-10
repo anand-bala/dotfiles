@@ -112,6 +112,15 @@ local packer_init = function()
   use "fladson/vim-kitty"
   ---]] Language specific
 
+  ---[[ Writing Helpers
+  use {
+    "folke/zen-mode.nvim",
+    config = function()
+      require("zen-mode").setup()
+    end,
+  }
+  ---]] Writing Helpers
+
   use {
     "lewis6991/gitsigns.nvim",
     requires = { "nvim-lua/plenary.nvim" },

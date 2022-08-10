@@ -77,6 +77,18 @@ function M.completion()
   vim.opt.shortmess:append({ c = true }, { I = true })
 end
 
+function M.set_dark_mode()
+  vim.cmd [[colorscheme onedarkpro]]
+  vim.opt.background = "dark"
+  vim.cmd [[doautocmd ColorScheme onedarkpro]]
+end
+
+function M.set_light_mode()
+  vim.cmd [[colorscheme solarized]]
+  vim.opt.background = "light"
+  vim.cmd [[doautocmd ColorScheme solarized]]
+end
+
 function M.gui()
   vim.opt.mouse = "a"
   vim.opt.showmode = false
@@ -95,18 +107,18 @@ function M.gui()
   vim.cmd [[let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"]]
   vim.cmd [[let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"]]
   vim.opt.termguicolors = true
-  vim.opt.background = "light"
 
-  -- do
-  --   local colors = require("onedarkpro").get_colors "onelight"
-  --   require("onedarkpro").setup {
-  --     hlgroups = {
-  --       Conceal = { bg = colors.bg, fg = colors.fg },
-  --     },
-  --   }
-  -- end
+  local colors = require("onedarkpro").get_colors "onedark"
+
+  require("onedarkpro").setup {
+    hlgroups = {
+      Conceal = { bg = colors.bg, fg = colors.fg },
+    },
+  }
   vim.g.solarized_borders = true
-  vim.cmd [[colorscheme solarized]]
+
+  vim.opt.background = "light"
+  M.set_light_mode()
 end
 
 function M.setup()
