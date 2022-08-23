@@ -1,4 +1,4 @@
-require("nvim-lsp-installer").setup {
+require("mason-lspconfig").setup {
   ensure_installed = { "vimls", "sumneko_lua" },
 }
 
@@ -23,7 +23,7 @@ local function on_attach_chain(callbacks)
 end
 
 local to_be_configured = {
-  "efm",
+  -- "efm",
   "vimls",
   "sumneko_lua",
   "ltex",

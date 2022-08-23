@@ -39,6 +39,22 @@ do
   })
 end
 
+-- Custom spellfile for filetypes
+do
+  local function set_spellfile()
+    vim.opt_local.spell = true
+    vim.opt_local.spellfile = "project.utf-8.add"
+    vim.opt_local.textwidth = 88
+  end
+
+  local ft_spellfile = augroup("ft_spellfile", {})
+  autocmd({ "FileType" }, {
+    group = ft_spellfile,
+    pattern = "markdown,tex",
+    callback = set_spellfile,
+  })
+end
+
 -- Update folds on startup
 do
   local update_folds = augroup("update_folds", {})

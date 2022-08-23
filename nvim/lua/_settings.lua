@@ -111,7 +111,7 @@ function M.gui()
   local colors = require("onedarkpro").get_colors "onedark"
 
   require("onedarkpro").setup {
-    hlgroups = {
+    highlights = {
       Conceal = { bg = colors.bg, fg = colors.fg },
     },
   }

@@ -1,10 +1,6 @@
 vim.g.tex_conceal = "abdgm"
 vim.g.tex_flavor = "latex"
 
-vim.opt_local.spell = true
-vim.opt_local.spellfile = "project.utf-8.add"
-vim.opt_local.textwidth = 88
-
 if vim.fn.exists ":TexlabForward" then
   vim.keymap.set("n", "<leader>lv", "<cmd>TexlabForward<CR>", {
     silent = false,

@@ -6,10 +6,8 @@ local install_path = table.concat(
   "/"
 )
 
-local compile_path = table.concat(
-  { vim.fn.stdpath "data", "site", "plugin", "packer_compiled.vim" },
-  "/"
-)
+local compile_path =
+table.concat({ vim.fn.stdpath "data", "site", "plugin", "packer_compiled.vim" }, "/")
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd(table.concat({ "!git clone", pm_repo, install_path }, " "))
@@ -65,7 +63,13 @@ local packer_init = function()
   ---[[ Completions, Linting, and Snippets
 
   use "neovim/nvim-lspconfig"
-  use "williamboman/nvim-lsp-installer"
+  use {
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
+    end,
+  }
+  use { "williamboman/mason-lspconfig.nvim" }
 
   use {
     "nvim-treesitter/nvim-treesitter",
@@ -92,6 +96,12 @@ local packer_init = function()
       "onsails/lspkind.nvim",
     },
   }
+
+  use {
+    "jose-elias-alvarez/null-ls.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
+  }
+
   ---]] Completions, Linting, and Snippets
 
   ---[[ Language specific
@@ -134,6 +144,8 @@ local packer_init = function()
   }
   use "olimorris/onedarkpro.nvim"
   use "shaunsingh/solarized.nvim"
+
+  use { "edluffy/hologram.nvim" }
 end
 
 function M.setup()
