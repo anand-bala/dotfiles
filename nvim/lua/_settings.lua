@@ -1,5 +1,19 @@
 local M = {}
 
+function M.treesitter_setup()
+  local ok, ts_configs = pcall(require, "nvim-treesitter.configs")
+  if not ok then
+    return
+  end
+  ts_configs.setup {
+    ensure_installed = { "c", "cpp", "python", "rust", "lua", "html", "zig" },
+    highlight = { enable = true, disable = { "latex", "tex" } },
+    indent = { enable = true, disable = { "python" } },
+    matchup = { enable = true },
+    playground = { enable = true },
+  }
+end
+
 function M.sane_defaults()
   vim.opt.secure = true
   vim.opt.modelines = 0 -- Disable Modelines
@@ -108,9 +122,15 @@ function M.gui()
   vim.cmd [[let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"]]
   vim.opt.termguicolors = true
 
-  local colors = require("onedarkpro").get_colors "onedark"
 
-  require("onedarkpro").setup {
+  local ok, odp = pcall(require, "onedarkpro")
+  if not ok then
+    return
+  end
+
+  local colors = odp.get_colors "onedark"
+
+  odp.setup {
     highlights = {
       Conceal = { bg = colors.bg, fg = colors.fg },
     },
@@ -128,6 +148,7 @@ function M.setup()
   M.search_settings()
   M.spelling()
   M.completion()
+  M.treesitter_setup()
   M.gui()
 end
 

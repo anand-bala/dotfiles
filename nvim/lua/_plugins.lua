@@ -13,7 +13,10 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd(table.concat({ "!git clone", pm_repo, install_path }, " "))
 end
 
-local packer = require "packer"
+local ok, packer = pcall(require, "packer")
+if not ok then
+  return
+end
 local packer_config = {
   compile_path = compile_path,
   display = {

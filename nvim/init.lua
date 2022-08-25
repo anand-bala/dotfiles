@@ -65,6 +65,20 @@ do
   })
 end
 
+-- BUG: Looks like Neovim doesn't run a lot of things on VimEnter with a file arg. Fix that
+do
+  local edit_arg_file = augroup("edit_arg_file", {})
+  autocmd("VimEnter", {
+    group = edit_arg_file,
+    pattern = "*",
+    callback = function()
+      for _, buf in ipairs(vim.fn.argv()) do
+        vim.cmd((":e %s"):format(buf))
+      end
+    end,
+  })
+end
+
 -- Terminal
 autocmd("TermOpen", {
   pattern = "*",
