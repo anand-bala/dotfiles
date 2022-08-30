@@ -100,10 +100,10 @@ local packer_init = function()
     },
   }
 
-  use {
-    "jose-elias-alvarez/null-ls.nvim",
-    requires = { "nvim-lua/plenary.nvim" },
-  }
+  -- use {
+  --   "jose-elias-alvarez/null-ls.nvim",
+  --   requires = { "nvim-lua/plenary.nvim" },
+  -- }
 
   ---]] Completions, Linting, and Snippets
 

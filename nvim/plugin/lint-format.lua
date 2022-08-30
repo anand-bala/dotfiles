@@ -1,10 +1,12 @@
+-- NOTE: Until https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1052 is fixed, don't use
+--[[
 local null_ls = require "null-ls"
 local h = require "null-ls.helpers"
 
 local formatters = {
   "black",
   "isort",
-  "stylua",
+  -- "stylua",
   "cmake_format",
 }
 
@@ -19,8 +21,6 @@ end
 for _, diag in ipairs(diagnostics) do
   table.insert(sources, null_ls.builtins.diagnostics[diag])
 end
-
----[[ Custom sources
 
 local latexindent = h.make_builtin {
   name = "latexindent.pl",
@@ -40,8 +40,8 @@ local latexindent = h.make_builtin {
 
 table.insert(sources, latexindent)
 
----]] Custom sources
 
 null_ls.setup {
   sources = sources,
 }
+--]]
