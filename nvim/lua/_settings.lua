@@ -39,6 +39,7 @@ end
 
 function M.visual_text()
   vim.opt.conceallevel = 2
+  vim.opt.concealcursor = 'nc'
 
   vim.opt.foldenable = true
   vim.opt.foldminlines = 2
