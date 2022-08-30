@@ -113,6 +113,13 @@ local packer_init = function()
   -- Tex/Markdown
   use { "lervag/vimtex", ft = { "tex", "latex", "bib", "bibtex" } }
   use { "preservim/vim-markdown", ft = { "markdown" } }
+  -- Orgmode
+  use {
+    "nvim-orgmode/orgmode",
+    config = function()
+      require("orgmode").setup {}
+    end,
+  }
   -- Rust
   use "rust-lang/rust.vim"
   use "simrat39/rust-tools.nvim"
