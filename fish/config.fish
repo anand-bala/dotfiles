@@ -7,11 +7,11 @@ for p in "$HOME/bin" "$HOME/.local/bin"
 end
 
 if type -q nvim
-  set -gx EDITOR nvim
-  set -gx MANPAGER 'nvim +Man!'
-  set -gx MANWIDTH 999
-else
-  set -gx EDITOR vim
+  if type -q nvr
+    set -gx EDITOR "nvr -s"
+  else
+    set -gx EDITOR nvim
+  end
 end
 alias e="$EDITOR"
 
@@ -21,8 +21,9 @@ if command -sq -- exa
   alias tree "exa --tree"
 end
 
-alias less "less -r"
-set -gx PAGER "less -r"
+alias less "less -R --use-color"
+set -gx PAGER "less -R --use-color -Dd+r -Du+b"
+set -gx MANPAGER "less -R --use-color -Dd+r -Du+b"
 
 # --- Colorize GCC output
 set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"
