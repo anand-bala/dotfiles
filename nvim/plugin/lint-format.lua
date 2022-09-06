@@ -1,5 +1,3 @@
--- NOTE: Until https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1052 is fixed, don't use
---[[
 local null_ls = require "null-ls"
 local h = require "null-ls.helpers"
 
@@ -40,8 +38,6 @@ local latexindent = h.make_builtin {
 
 table.insert(sources, latexindent)
 
-
 null_ls.setup {
   sources = sources,
 }
---]]
