@@ -117,7 +117,9 @@ local packer_init = function()
   use {
     "nvim-orgmode/orgmode",
     config = function()
-      require("orgmode").setup {}
+      local orgmode = require("orgmode")
+      orgmode.setup_ts_grammar()
+      orgmode.setup {}
     end,
   }
   -- Rust

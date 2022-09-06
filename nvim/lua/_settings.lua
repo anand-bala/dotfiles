@@ -7,7 +7,9 @@ function M.treesitter_setup()
   end
   ts_configs.setup {
     ensure_installed = { "c", "cpp", "python", "rust", "lua", "html", "zig" },
-    highlight = { enable = true, disable = { "latex", "tex" } },
+    highlight = { enable = true, disable = { "latex", "tex" },
+      additional_vim_regex_highlighting = { 'org' }, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
+    },
     indent = { enable = true, disable = { "python" } },
     matchup = { enable = true },
     playground = { enable = true },
