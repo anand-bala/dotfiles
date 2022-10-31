@@ -44,7 +44,6 @@ do
   local function set_spellfile()
     vim.opt_local.spell = true
     vim.opt_local.spellfile = "project.utf-8.add"
-    vim.opt_local.textwidth = 88
   end
 
   local ft_spellfile = augroup("ft_spellfile", {})
