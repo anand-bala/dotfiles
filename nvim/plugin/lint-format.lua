@@ -8,7 +8,13 @@ local formatters = {
   "cmake_format",
 }
 
-local diagnostics = {}
+local diagnostics = {
+  "alex",
+  "cspell",
+  "proselint",
+  "write_good",
+  "vale",
+}
 
 local sources = {}
 
