@@ -94,6 +94,8 @@ set $ws5 5
 set $ws6 6
 set $ws_msgs "inbox"
 set $ws_zotero "papers"
+set $ws_music "music"
+set $ws_gamedev "gamedev"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -104,6 +106,8 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+m workspace $ws_msgs
 bindsym $mod+0 workspace $ws_zotero
+bindsym $mod+8 workspace $ws_music
+bindsym $mod+9 workspace $ws_gamedev
 
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -112,6 +116,8 @@ bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+8 move container to workspace $ws_music
+bindsym $mod+Shift+9 move container to workspace $ws_gamedev
 
 # navigate workspaces next / previous
 bindsym Mod1+Ctrl+Right workspace next
@@ -123,6 +129,9 @@ assign [class="(?i)slack"] $ws_msgs
 assign [class="(?i)discord"] $ws_msgs
 assign [class="(?i)zotero"] $ws_zotero
 assign [class="Microsoft Teams - Preview"] $ws_msgs
+assign [class="(?i)spotify"] $ws_music
+assign [class="UnrealEditor"] $ws_gamedev
+assign [class="(?i)qjackctl"] $ws_music
 
 # Open specific applications in floating mode
 for_window [title="(?i)alsamixer"] floating enable
@@ -134,9 +143,13 @@ for_window [class="(?i)nemo"] floating enable
 for_window [class="(?i)thunar"] floating enable
 for_window [class="(?i)zoom"] floating enable
 for_window [class="(?i)bitwarden"] floating enable
+for_window [class="(?i)qjackctl"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
+
+# Set gamedev window to floating by default
+for_window [workspace=$ws_gamedev] floating enable
 
 # }}}
 
