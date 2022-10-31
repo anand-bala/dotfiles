@@ -109,7 +109,7 @@ local packer_init = function()
 
   ---[[ Language specific
   -- Lua Dev
-  use "folke/lua-dev.nvim"
+  use "folke/neodev.nvim"
   -- Tex/Markdown
   use { "lervag/vimtex", ft = { "tex", "latex", "bib", "bibtex" } }
   use { "preservim/vim-markdown", ft = { "markdown" } }
