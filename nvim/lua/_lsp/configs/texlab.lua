@@ -1,6 +1,6 @@
 local util = require "lspconfig/util"
 
-vim.g.texlab_builder = "latexmk"
+vim.g.texlab_builder = "arara"
 
 local function buildConfig()
   local check_exe = vim.fn.executable
@@ -42,6 +42,15 @@ local function buildConfig()
         "search-path=" .. (os.getenv "HOME" .. "/texmf"),
       },
     }
+  elseif exec == "arara" then
+    return {
+      onSave = false,
+      executable = "arara",
+      args = {
+        -- Input
+        "%f",
+      },
+    }
   end
 end
 
@@ -65,8 +74,8 @@ end
 
 local conf = {
   root_dir = function(fname)
-    return util.root_pattern { "root.tex", "main.tex", ".latexmkrc" }(fname)
-      or vim.fn.getcwd()
+    return util.root_pattern { "root.tex", "main.tex", ".latexmkrc" } (fname)
+        or vim.fn.getcwd()
   end,
   single_file_support = false,
   settings = {
