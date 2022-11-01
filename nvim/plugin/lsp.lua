@@ -32,6 +32,7 @@ local to_be_configured = {
   "rust_analyzer",
   "texlab",
   "clangd",
+  "marksman",
 }
 
 local myconfigs = require "_lsp/configs"
