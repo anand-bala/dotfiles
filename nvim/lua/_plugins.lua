@@ -113,6 +113,13 @@ local packer_init = function()
   -- Tex/Markdown
   use { "lervag/vimtex", ft = { "tex", "latex", "bib", "bibtex" } }
   use { "preservim/vim-markdown", ft = { "markdown" } }
+  use {
+    "euclio/vim-markdown-composer",
+    run = "cargo build --release --locked",
+    config = function()
+      vim.g.markdown_composer_autostart = 0
+    end,
+  }
   -- Orgmode
   use {
     "nvim-orgmode/orgmode",
