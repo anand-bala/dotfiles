@@ -1,3 +1,4 @@
+--[[
 local null_ls = require "null-ls"
 local h = require "null-ls.helpers"
 
@@ -10,10 +11,8 @@ local formatters = {
 
 local diagnostics = {
   "alex",
-  "cspell",
   "proselint",
   "write_good",
-  "vale",
 }
 
 local sources = {}
@@ -47,3 +46,4 @@ table.insert(sources, latexindent)
 null_ls.setup {
   sources = sources,
 }
+--]]
