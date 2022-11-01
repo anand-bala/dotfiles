@@ -143,13 +143,13 @@ end
 return {
   root_dir = function(fname)
     return (
-        util.root_pattern {
-          "root.tex",
-          "main.tex",
-          ".latexmkrc",
-          "main.md",
-        }(fname)
-      ) or vim.fn.getcwd()
+      util.root_pattern {
+        "root.tex",
+        "main.tex",
+        ".latexmkrc",
+        "main.md",
+      }(fname)
+    ) or vim.fn.getcwd()
   end,
   handlers = {
     ["workspace/executeCommand"] = on_execute_command,

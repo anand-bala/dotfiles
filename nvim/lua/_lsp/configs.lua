@@ -14,7 +14,6 @@ local default_conf = {
   capabilities = default_capabilities,
 }
 
-
 function myconfigs.__index(table, key)
   -- If key already in table, then return it
   if rawget(table, key) ~= nil then

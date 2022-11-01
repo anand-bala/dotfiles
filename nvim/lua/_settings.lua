@@ -7,8 +7,10 @@ function M.treesitter_setup()
   end
   ts_configs.setup {
     ensure_installed = { "c", "cpp", "python", "rust", "lua", "html", "zig" },
-    highlight = { enable = true, disable = { "latex", "tex" },
-      additional_vim_regex_highlighting = { 'org' }, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
+    highlight = {
+      enable = true,
+      disable = { "latex", "tex" },
+      additional_vim_regex_highlighting = { "org" }, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
     },
     indent = { enable = true, disable = { "python" } },
     matchup = { enable = true },
@@ -49,7 +51,8 @@ function M.visual_text()
   vim.opt.foldlevelstart = -1
   vim.opt.fillchars = { fold = " ", foldopen = "", foldclose = "" }
   vim.opt.foldcolumn = "auto:3"
-  vim.opt.foldtext = [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
+  vim.opt.foldtext =
+    [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
   vim.opt.foldopen = "all"
   vim.opt.foldclose = "all"
   vim.opt.foldmethod = "expr"
@@ -123,7 +126,6 @@ function M.gui()
   vim.cmd [[let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"]]
   vim.cmd [[let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"]]
   vim.opt.termguicolors = true
-
 
   local ok, odp = pcall(require, "onedarkpro")
   if not ok then

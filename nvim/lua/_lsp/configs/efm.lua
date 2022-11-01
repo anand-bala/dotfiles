@@ -78,8 +78,8 @@ return {
       yaml = { yamllint },
       bib = { bibtextidy },
       zig = { zig_fmt },
-      latex = {latexindent},
-      tex = {latexindent},
+      latex = { latexindent },
+      tex = { latexindent },
     },
   },
 }

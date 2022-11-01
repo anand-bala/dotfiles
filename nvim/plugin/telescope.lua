@@ -17,7 +17,7 @@ telescope.setup {
   },
   pickers = {
     find_files = {
-      find_command = {"fd", "--hidden", "-L", "--type", "file"},
+      find_command = { "fd", "--hidden", "-L", "--type", "file" },
     },
   },
   extensions = {
@@ -31,7 +31,7 @@ telescope.setup {
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {
         -- even more opts
-      }
+      },
 
       -- pseudo code / specification for writing custom displays, like the one
       -- for "codeactions"
@@ -46,7 +46,7 @@ telescope.setup {
       --      do the following
       --   codeactions = false,
       -- }
-    }
+    },
   },
 }
 

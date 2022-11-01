@@ -10,7 +10,7 @@ local luadev = require("neodev").setup {
             "client",
             "screen",
             "root",
-            "terminal"
+            "terminal",
           },
         },
       },

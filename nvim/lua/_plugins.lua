@@ -7,7 +7,7 @@ local install_path = table.concat(
 )
 
 local compile_path =
-table.concat({ vim.fn.stdpath "data", "site", "plugin", "packer_compiled.vim" }, "/")
+  table.concat({ vim.fn.stdpath "data", "site", "plugin", "packer_compiled.vim" }, "/")
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd(table.concat({ "!git clone", pm_repo, install_path }, " "))
@@ -117,7 +117,7 @@ local packer_init = function()
   use {
     "nvim-orgmode/orgmode",
     config = function()
-      local orgmode = require("orgmode")
+      local orgmode = require "orgmode"
       orgmode.setup_ts_grammar()
       orgmode.setup {}
     end,
