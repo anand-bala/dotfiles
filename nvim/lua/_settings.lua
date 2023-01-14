@@ -1,23 +1,5 @@
 local M = {}
 
-function M.treesitter_setup()
-  local ok, ts_configs = pcall(require, "nvim-treesitter.configs")
-  if not ok then
-    return
-  end
-  ts_configs.setup {
-    ensure_installed = { "c", "cpp", "python", "rust", "lua", "html", "zig" },
-    highlight = {
-      enable = true,
-      disable = { "latex", "tex" },
-      additional_vim_regex_highlighting = { "org" }, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
-    },
-    indent = { enable = true, disable = { "python" } },
-    matchup = { enable = true },
-    playground = { enable = true },
-  }
-end
-
 function M.sane_defaults()
   vim.opt.secure = true
   vim.opt.modelines = 0 -- Disable Modelines
@@ -52,7 +34,7 @@ function M.visual_text()
   vim.opt.fillchars = { fold = " ", foldopen = "", foldclose = "" }
   vim.opt.foldcolumn = "auto:3"
   vim.opt.foldtext =
-    [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
+  [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
   vim.opt.foldopen = "all"
   vim.opt.foldclose = "all"
   vim.opt.foldmethod = "expr"
@@ -132,7 +114,7 @@ function M.gui()
     return
   end
 
-  local colors = odp.get_colors "onedark"
+  local colors = require("onedarkpro.helpers").get_colors "onedark"
 
   odp.setup {
     highlights = {
@@ -152,7 +134,6 @@ function M.setup()
   M.search_settings()
   M.spelling()
   M.completion()
-  M.treesitter_setup()
   M.gui()
 end
 

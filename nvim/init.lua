@@ -1,12 +1,3 @@
--- Disable some built-in plugins we don't want
-local disabled_built_ins = {
-  "netrwPlugin",
-}
-
-for _, disabled_plugin in ipairs(disabled_built_ins) do
-  vim.g["loaded_" .. disabled_plugin] = 1
-end
-
 -- Fishshell fixes
 if string.match(vim.o.shell, "fish$") then
   vim.g.terminal_shell = "fish"
@@ -15,8 +6,12 @@ end
 
 vim.cmd "syntax enable"
 
+-- Set the leader character.
+-- Personally, I like backslash
+vim.g.mapleader = "\\"
+
 -- Setup plugins
-require("_plugins").setup()
+require "_plugins"
 -- Initialize default settings
 require("_settings").setup()
 -- Initialize global mappings
