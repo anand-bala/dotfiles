@@ -2,30 +2,19 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-calc",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-omni",
       "hrsh7th/cmp-path",
-      "f3fora/cmp-spell",
-      "quangnguyen30192/cmp-nvim-tags",
       "ray-x/cmp-treesitter",
       "L3MON4D3/LuaSnip",
     },
     opts = function()
       local cmp = require "cmp"
       return {
-        completion = {
-          completeopt = "menu,menuone,noinsert",
-        },
         mapping = require("_keymaps").cmp_mappings(),
-        window = {
-          -- completion = cmp.config.window.bordered(),
-          -- documentation = cmp.config.window.bordered(),
-        },
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
@@ -41,15 +30,12 @@ return {
           end,
         },
         sources = cmp.config.sources {
-          { name = "buffer" },
-          { name = "calc" },
-          { name = "luasnip" },
           { name = "nvim_lsp" },
           { name = "nvim_lua" },
           { name = "path" },
-          { name = "spell" },
-          { name = "tags" },
+          { name = "buffer" },
           { name = "treesitter" },
+          { name = "luasnip" },
         },
       }
     end,
