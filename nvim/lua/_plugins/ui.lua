@@ -19,7 +19,7 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
-    event = "BufReadPre",
+    event = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = true,
   },

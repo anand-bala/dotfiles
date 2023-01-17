@@ -64,50 +64,7 @@ function M.formatting()
   vim.opt.shiftround = false
 end
 
-function M.visual_text()
-  vim.opt.conceallevel = 2
-
-  vim.opt.foldenable = true
-  vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-  vim.opt.foldlevelstart = 99
-  vim.opt.fillchars = { fold = " ", foldopen = "", foldclose = "" }
-  vim.opt.foldcolumn = "auto:3"
-
-  -- Turn on global statusline
-  vim.opt.laststatus = 3
-  -- Turn on sign column
-  vim.wo.signcolumn = "auto"
-
-  vim.opt.statuscolumn = "%= "
-    .. "%s"
-    .. "%{%" -- evaluate this, and then evaluate what it returns
-    .. "&number ? "
-    .. 'printf("%"..len(line("$")).."s", v:lnum)'
-    .. ":"
-    .. '""'
-    .. " " -- space between lines and fold
-    .. "%}"
-    .. "%= "
-    .. "%#FoldColumn#" -- highlight group for fold
-    .. "%{" -- expression for showing fold expand/colapse
-    .. "foldlevel(v:lnum) > foldlevel(v:lnum - 1)" -- any folds?
-    .. "? (foldclosed(v:lnum) == -1" -- currently open?
-    .. '? ""' -- point down
-    .. ':  ""' -- point to right
-    .. ")"
-    .. ': " "' -- blank for no fold, or inside fold
-    .. "}"
-    .. "%= " -- spacing between end of column and start of text
-
-  vim.opt.list = true -- Show non-printable characters.
-  vim.opt.listchars = {
-    tab = "▸ ",
-    extends = "❯",
-    precedes = "❮",
-    nbsp = "±",
-    trail = "·",
-  }
-end
+function M.visual_text() end
 
 function M.search_settings()
   vim.opt.ignorecase = true
@@ -153,25 +110,63 @@ function M.gui()
   vim.opt.splitbelow = true
   vim.opt.splitright = true
 
+  -- Conceal text completely and substiture with custom character
+  vim.opt.conceallevel = 2
+
+  -- Setup folds
+  vim.opt.foldenable = true
+  vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+  vim.opt.foldlevelstart = 99
+  vim.opt.fillchars = { fold = " ", foldopen = "", foldclose = "" }
+  vim.opt.foldcolumn = "auto:3"
+
+  -- Turn on global statusline
+  vim.opt.laststatus = 3
+  -- Turn on sign column
+  vim.wo.signcolumn = "yes"
+  -- Customize left column
+  vim.opt.statuscolumn = "%= "
+      .. "%#SignColumn#"
+      .. "%s"
+      .. "%= "
+      .. "%*"
+      .. "%#LineNr#"
+      .. "%{%"
+      .. "&number ? "
+      .. 'printf("%"..len(line("$")).."s", v:lnum)'
+      .. ":"
+      .. '""'
+      .. "%}"
+      .. "%= "
+      .. "%*"
+      .. "%#FoldColumn#" -- highlight group for fold
+      .. "%{" -- expression for showing fold expand/colapse
+      .. "foldlevel(v:lnum) > foldlevel(v:lnum - 1)" -- any folds?
+      .. "? (foldclosed(v:lnum) == -1" -- currently open?
+      .. '? ""' -- point down
+      .. ':  ""' -- point to right
+      .. ")"
+      .. ': " "' -- blank for no fold, or inside fold
+      .. "}"
+      .. "%="
+      .. "%*"
+
+  -- Show non-printable characters.
+  vim.opt.list = true
+  vim.opt.listchars = {
+    tab = "▸ ",
+    extends = "❯",
+    precedes = "❮",
+    nbsp = "±",
+    trail = "·",
+  }
+
+  -- Setup terminal colors correctly
   vim.cmd [[let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"]]
   vim.cmd [[let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"]]
   vim.opt.termguicolors = true
 
-  local ok, odp = pcall(require, "onedarkpro")
-  if not ok then
-    return
-  end
-
-  local colors = require("onedarkpro.helpers").get_colors "onedark"
-
-  odp.setup {
-    highlights = {
-      Conceal = { bg = colors.bg, fg = colors.fg },
-    },
-  }
-  vim.g.solarized_borders = true
-
-  vim.opt.background = "light"
+  -- Turn on light mode
   M.set_light_mode()
 end
 

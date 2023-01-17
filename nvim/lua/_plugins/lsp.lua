@@ -7,17 +7,15 @@ local function lsp_mappings(_, bufnr)
     local lsp_map_opts = { buffer = bufnr, silent = true }
     map("n", lhs, rhs, lsp_map_opts)
   end
-  local te = require "telescope.builtin"
-
   lspmap("K", vim.lsp.buf.hover)
   lspmap("<C-k>", vim.lsp.buf.signature_help)
-  lspmap("gd", te.lsp_definitions)
+  lspmap("gd", "<cmd>Telescope lsp_definitions<cr>")
   lspmap("gD", vim.lsp.buf.declaration)
-  lspmap("gi", te.lsp_implementations)
-  lspmap("gr", te.lsp_references)
+  lspmap("gi", "<cmd>Telescope lsp_implementations<cr>")
+  lspmap("gr", "<cmd>Telescope lsp_references<cr>")
   lspmap("<leader>D", vim.lsp.buf.type_definition)
 
-  lspmap("<C-s>", te.lsp_document_symbols)
+  lspmap("<C-s>", "<cmd>Telescope lsp_document_symbols<cr>")
   lspmap("<leader><Space>", vim.lsp.buf.code_action)
   lspmap("<leader>rn", vim.lsp.buf.rename)
 
@@ -60,7 +58,6 @@ local function on_attach_chain(callbacks)
 end
 
 local servers = {
-  "efm",
   "vimls",
   "sumneko_lua",
   "ltex",
@@ -86,7 +83,6 @@ return {
           ensure_installed = { "stylua", "black", "ruff" },
         },
       },
-      "nvim-telescope/telescope.nvim",
     },
     opts = {
       -- options for vim.diagnostic.config()

@@ -48,7 +48,7 @@ return {
   {
     "kevinhwang91/nvim-ufo",
     dependencies = { "kevinhwang91/promise-async" },
-    event = "VeryLazy",
+    lazy = false,
     keys = {
       {
         "zr",
@@ -94,13 +94,13 @@ return {
         end
 
         return require("ufo")
-            .getFolds(bufnr, "lsp")
-            :catch(function(err)
-              return handleFallbackException(err, "treesitter")
-            end)
-            :catch(function(err)
-              return handleFallbackException(err, "indent")
-            end)
+          .getFolds(bufnr, "lsp")
+          :catch(function(err)
+            return handleFallbackException(err, "treesitter")
+          end)
+          :catch(function(err)
+            return handleFallbackException(err, "indent")
+          end)
       end
 
       require("ufo").setup {
@@ -112,11 +112,25 @@ return {
   },
 
   -- Colorscheme
-  { "olimorris/onedarkpro.nvim" },
+  {
+    "olimorris/onedarkpro.nvim",
+    config = function()
+      local odp = require "onedarkpro"
+      local colors = require("onedarkpro.helpers").get_colors "onedark"
+      odp.setup {
+        highlights = {
+          Conceal = { bg = colors.bg, fg = colors.fg },
+        },
+      }
+    end,
+  },
   {
     "shaunsingh/solarized.nvim",
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000,
+    config = function()
+      vim.g.solarized_borders = true
+    end,
   },
 
   -- Treesitter
