@@ -1,11 +1,52 @@
 local M = {}
 
+--- Global keymap settings
+function M.keymap()
+  local map = vim.keymap.set
+
+  -- Set the leader character.
+  -- Personally, I like backslash
+  vim.g.mapleader = "\\"
+
+  -- Disable 'hjkl' for movements
+  map("", "h", "<nop>", { remap = false })
+  map("", "j", "<nop>", { remap = false })
+  map("", "k", "<nop>", { remap = false })
+  map("", "l", "<nop>", { remap = false })
+
+  -- shifting visual block should keep it selected
+  map("v", "<", "<gv", { remap = false })
+  map("v", ">", ">gv", { remap = false })
+
+  -- go up/down on visual line
+  map("n", "<Down>", "gj", { remap = false })
+  map("n", "<Up>", "gk", { remap = false })
+  map("v", "<Down>", "gj", { remap = false })
+  map("v", "<Up>", "gk", { remap = false })
+  map("i", "<Down>", "<C-o>gj", { remap = false })
+  map("i", "<Up>", "<C-o>gk", { remap = false })
+
+  -- Yank entire line on Y
+  map("n", "Y", "yy", { remap = false })
+
+  -- Escape out of terminal mode to normal mode
+  map("t", "<Esc>", "<C-\\><C-n>", { silent = true, remap = false })
+end
+
 function M.sane_defaults()
   vim.opt.secure = true
   vim.opt.modelines = 0 -- Disable Modelines
   vim.opt.number = true -- Show line numbers
   vim.opt.visualbell = true -- Blink cursor on error instead of beeping (grr)
   vim.opt.undofile = true -- Save undo history
+
+  -- Fishshell fixes
+  if string.match(vim.o.shell, "fish$") then
+    vim.g.terminal_shell = "fish"
+    vim.opt.shell = "sh"
+  end
+
+  vim.cmd "syntax enable"
 end
 
 function M.formatting()
@@ -127,8 +168,12 @@ function M.gui()
   M.set_light_mode()
 end
 
-function M.setup()
+function M.defaults()
   M.sane_defaults()
+  M.keymap()
+end
+
+function M.post_plugin()
   M.formatting()
   M.visual_text()
   M.search_settings()

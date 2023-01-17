@@ -1,5 +1,15 @@
 return {
   {
+    "rcarriga/nvim-notify",
+    config = function()
+      local notify = require "notify"
+      notify.setup {
+        top_down = false,
+      }
+      vim.notify = notify
+    end,
+  },
+  {
     "lewis6991/gitsigns.nvim",
     event = "BufReadPre",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -14,6 +24,8 @@ return {
     },
     opts = function()
       local tb = require "tabline"
+      vim.keymap.set("n", "bt", tb.buffer_next, { silent = true, remap = false })
+      vim.keymap.set("n", "bT", tb.buffer_previous, { silent = true, remap = false })
       return {
         options = {
           theme = "auto",

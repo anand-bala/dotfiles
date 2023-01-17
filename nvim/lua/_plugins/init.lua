@@ -36,7 +36,13 @@ return {
   },
   { "tpope/vim-fugitive", cmd = "Git" },
   { "junegunn/vim-easy-align", lazy = true, cmd = { "EasyAlign" } },
-  { "numToStr/Comment.nvim", config = true },
+  {
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
+    config = function(_, opts)
+      require("mini.comment").setup(opts or {})
+    end,
+  },
   { "nvim-lua/plenary.nvim" },
 
   ---]] Everyday tools

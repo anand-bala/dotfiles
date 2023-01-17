@@ -1,4 +1,23 @@
 --- Fuzzy search
+local map = vim.keymap.set
+local cmd = vim.cmd
+
+--- Mappings for telescope.nvim
+local function telescope_mappings()
+  local mappings = {
+    i = {
+      ["<C-u>"] = false,
+      ["<C-d>"] = false,
+    },
+  }
+  map("n", "<C-f>", "<cmd>Telescope find_files<cr>", { remap = false })
+  map("n", "<C-g>", "<cmd>Telescope live_grep<cr>", { remap = false })
+  map("n", "<C-b>", "<cmd>Telescope buffers<cr>", { remap = false })
+  cmd [[command! Helptags Telescope help_tags]]
+  cmd [[command! Buffers  Telescope buffers]]
+  return mappings
+end
+
 return {
   {
     "nvim-telescope/telescope.nvim",
@@ -6,12 +25,11 @@ return {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       { "nvim-telescope/telescope-ui-select.nvim" },
+      { "folke/noice.nvim" },
     },
     cmd = "Telescope",
-    config = function(_, opts)
-      local telescope = require "telescope"
-
-      telescope.setup {
+    opts = function()
+      return {
         defaults = {
           sorting_strategy = "ascending",
           layout_strategy = "flex",
@@ -23,7 +41,7 @@ return {
           path_display = { shorten = 5 },
           color_devicons = true,
           set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
-          mappings = require("_keymaps").telescope_mappings(),
+          mappings = telescope_mappings(),
         },
         pickers = {
           find_files = {
@@ -43,9 +61,13 @@ return {
           },
         },
       }
-
+    end,
+    config = function(_, opts)
+      local telescope = require "telescope"
+      telescope.setup(opts)
       telescope.load_extension "fzf"
       telescope.load_extension "ui-select"
+      telescope.load_extension "noice"
     end,
   },
 }

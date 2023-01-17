@@ -1,4 +1,32 @@
 --- Completions, Linting, and Snippets
+
+--- Mappings for nvim-cmp
+local function cmp_mappings()
+  local luasnip = require "luasnip"
+  local cmp = require "cmp"
+
+  local mapping = cmp.mapping.preset.insert {
+    ["<CR>"] = cmp.mapping.confirm { select = false },
+    ["<C-j>"] = cmp.mapping(function()
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      end
+    end, { "i", "s" }),
+
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif cmp.visible() then
+        cmp.confirm()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+  }
+
+  return mapping
+end
+
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -14,7 +42,7 @@ return {
     opts = function()
       local cmp = require "cmp"
       return {
-        mapping = require("_keymaps").cmp_mappings(),
+        mapping = cmp_mappings(),
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)

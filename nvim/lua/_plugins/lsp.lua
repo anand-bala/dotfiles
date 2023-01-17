@@ -1,5 +1,47 @@
+local command = vim.api.nvim_create_user_command
+local cmd = vim.cmd
+local map = vim.keymap.set
+
+--- Mappings for built-in LSP client
+local function lsp_mappings(_, bufnr)
+  local lspmap = function(lhs, rhs)
+    local lsp_map_opts = { buffer = bufnr, silent = true }
+    map("n", lhs, rhs, lsp_map_opts)
+  end
+  local te = require "telescope.builtin"
+
+  lspmap("K", vim.lsp.buf.hover)
+  lspmap("<C-k>", vim.lsp.buf.signature_help)
+  lspmap("gd", te.lsp_definitions)
+  lspmap("gD", vim.lsp.buf.declaration)
+  lspmap("gi", te.lsp_implementations)
+  lspmap("gr", te.lsp_references)
+  lspmap("<leader>D", vim.lsp.buf.type_definition)
+
+  lspmap("<C-s>", te.lsp_document_symbols)
+  lspmap("<leader><Space>", vim.lsp.buf.code_action)
+  lspmap("<leader>rn", vim.lsp.buf.rename)
+
+  lspmap("<leader>ld", function()
+    vim.diagnostic.open_float(nil, { source = "always" })
+  end)
+  lspmap("[d", vim.diagnostic.goto_prev)
+  lspmap("]d", vim.diagnostic.goto_next)
+  vim.api.nvim_buf_create_user_command(0, "Diagnostics", "Telescope diagnostics", {
+    force = true,
+  })
+  command("WorkspaceDiagnostics", "Telescope diagnostics", {
+    force = true,
+  })
+
+  lspmap("<leader>f", vim.lsp.buf.format)
+  command("Format", function()
+    vim.lsp.buf.format()
+  end, { force = true })
+end
+
 local function default_on_attach(client, bufnr)
-  require("_keymaps").lsp_mappings(client, bufnr)
+  lsp_mappings(client, bufnr)
 end
 
 local function on_attach_chain(callbacks)
@@ -45,6 +87,7 @@ return {
           ensure_installed = { "stylua", "black", "ruff" },
         },
       },
+      "nvim-telescope/telescope.nvim",
     },
     opts = {
       -- options for vim.diagnostic.config()
@@ -69,6 +112,8 @@ return {
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
       vim.diagnostic.config(opts.diagnostics)
+
+      -- Disable some handlers
 
       -- Configure servers
       local myconfigs = require "_lsp/configs"
