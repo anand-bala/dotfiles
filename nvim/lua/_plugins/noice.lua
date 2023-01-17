@@ -1,71 +1,81 @@
-vim.lsp.handlers["window/showMessage"] = nil
-
-return {
+local M = {
   "folke/noice.nvim",
   dependencies = {
     "MunifTanjim/nui.nvim",
   },
   event = "VeryLazy",
-  opts = {
-    messages = {
-      enabled = true,
-      view = "notify", -- default view for messages
-      view_error = "notify", -- view for errors
-      view_warn = "notify", -- view for warnings
-      view_history = "messages", -- view for :messages
-    },
+}
+
+function M.config()
+  vim.lsp.handlers["window/showMessage"] = nil
+
+  local focused = true
+  vim.api.nvim_create_autocmd("FocusGained", {
+    callback = function()
+      focused = true
+    end,
+  })
+  vim.api.nvim_create_autocmd("FocusLost", {
+    callback = function()
+      focused = false
+    end,
+  })
+  require("noice").setup {
     lsp = {
-      progress = { enabled = false },
-      override = {},
-      hover = { enabled = false },
-      signature = { enabled = false },
-      message = { enabled = false },
-    },
-    presets = {
-      bottom_search = false, -- use a classic bottom cmdline for search
-      command_palette = true, -- position the cmdline and popupmenu together
-      long_message_to_split = false, -- long messages will be sent to a split
-      inc_rename = false, -- enables an input dialog for inc-rename.nvim
-      lsp_doc_border = false, -- add a border to hover docs and signature help
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
+      },
     },
     routes = {
-      { -- route long messages to split
+      {
+        filter = {
+          cond = function()
+            return not focused
+          end,
+        },
+        view = "notify_send",
+        opts = { stop = false },
+      },
+      {
         filter = {
           event = "msg_show",
-          any = { { min_height = 5 }, { min_length = 200 } },
+          find = "%d+L, %d+B",
         },
-        view = "messages",
-        opts = { stop = true },
+        view = "mini",
       },
     },
-    views = {
-      cmdline_popup = {
-        position = "50%",
-        size = {
-          width = 60,
-          height = "auto",
-        },
-      },
-      popupmenu = {
-        relative = "window",
-        position = "50%",
-        size = {
-          width = 60,
-          height = 10,
-        },
-        border = {
-          style = "rounded",
-          padding = { 0, 1 },
-        },
-        win_options = {
-          winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
-        },
-      },
-      split = {
-        win_options = { wrap = false },
-        size = 16,
-        close = { keys = { "q", "<CR>", "<Esc>" } },
+    presets = {
+      bottom_search = false,
+      command_palette = true,
+      long_message_to_split = true,
+      inc_rename = true,
+      cmdline_output_to_split = false,
+    },
+    commands = {
+      all = {
+        -- options for the message history that you get with `:Noice`
+        view = "split",
+        opts = { enter = true, format = "details" },
+        filter = {},
       },
     },
-  },
-}
+    format = {
+      level = {
+        icons = false,
+      },
+    },
+  }
+
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function(event)
+      vim.schedule(function()
+        require("noice.text.markdown").keys(event.buf)
+      end)
+    end,
+  })
+end
+
+return M

@@ -1,20 +1,17 @@
 --- Fuzzy search
-local map = vim.keymap.set
-local cmd = vim.cmd
 
 --- Mappings for telescope.nvim
 local function telescope_mappings()
+  local command = vim.api.nvim_create_user_command
+
   local mappings = {
     i = {
       ["<C-u>"] = false,
       ["<C-d>"] = false,
     },
   }
-  map("n", "<C-f>", "<cmd>Telescope find_files<cr>", { remap = false })
-  map("n", "<C-g>", "<cmd>Telescope live_grep<cr>", { remap = false })
-  map("n", "<C-b>", "<cmd>Telescope buffers<cr>", { remap = false })
-  cmd [[command! Helptags Telescope help_tags]]
-  cmd [[command! Buffers  Telescope buffers]]
+  command("Helptags", "Telescope help_tags", { force = true })
+  command("Buffers", "Telescope buffers", { force = true })
   return mappings
 end
 
@@ -27,7 +24,12 @@ return {
       { "nvim-telescope/telescope-ui-select.nvim" },
       { "folke/noice.nvim" },
     },
-    cmd = "Telescope",
+    cmd = { "Telescope", "Helptags", "Buffers" },
+    keys = {
+      { "<C-f>", "<cmd>Telescope find_files<cr>", "n", remap = false },
+      { "<C-g>", "<cmd>Telescope live_grep<cr>", "n", remap = false },
+      { "<C-b>", "<cmd>Telescope buffers<cr>", "n", remap = false },
+    },
     opts = function()
       return {
         defaults = {

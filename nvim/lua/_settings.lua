@@ -68,18 +68,36 @@ function M.visual_text()
   vim.opt.conceallevel = 2
 
   vim.opt.foldenable = true
-  vim.opt.foldminlines = 2
-  vim.opt.foldnestmax = 3
-  vim.opt.foldlevel = 0
-  vim.opt.foldlevelstart = -1
-  vim.opt.fillchars = { fold = " ", foldopen = "", foldclose = "" }
+  vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+  vim.opt.foldlevelstart = 99
+  vim.opt.fillchars = { fold = " ", foldopen = "", foldclose = "" }
   vim.opt.foldcolumn = "auto:3"
-  vim.opt.foldtext =
-  [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
-  vim.opt.foldopen = "all"
-  vim.opt.foldclose = "all"
-  vim.opt.foldmethod = "expr"
-  vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+  -- Turn on global statusline
+  vim.opt.laststatus = 3
+  -- Turn on sign column
+  vim.wo.signcolumn = "auto"
+
+  vim.opt.statuscolumn = "%= "
+    .. "%s"
+    .. "%{%" -- evaluate this, and then evaluate what it returns
+    .. "&number ? "
+    .. 'printf("%"..len(line("$")).."s", v:lnum)'
+    .. ":"
+    .. '""'
+    .. " " -- space between lines and fold
+    .. "%}"
+    .. "%= "
+    .. "%#FoldColumn#" -- highlight group for fold
+    .. "%{" -- expression for showing fold expand/colapse
+    .. "foldlevel(v:lnum) > foldlevel(v:lnum - 1)" -- any folds?
+    .. "? (foldclosed(v:lnum) == -1" -- currently open?
+    .. '? ""' -- point down
+    .. ':  ""' -- point to right
+    .. ")"
+    .. ': " "' -- blank for no fold, or inside fold
+    .. "}"
+    .. "%= " -- spacing between end of column and start of text
 
   vim.opt.list = true -- Show non-printable characters.
   vim.opt.listchars = {
@@ -89,11 +107,6 @@ function M.visual_text()
     nbsp = "±",
     trail = "·",
   }
-
-  -- Enable break indent
-  -- vim.opt.breakindent = true
-  -- vim.opt.breakindentopt = {"sbr", mi
-  -- vim.opt.showbreak = " "
 end
 
 function M.search_settings()
@@ -140,12 +153,6 @@ function M.gui()
   vim.opt.splitbelow = true
   vim.opt.splitright = true
 
-  -- Turn on sign column
-  vim.wo.signcolumn = "yes"
-
-  -- Turn on global statusline
-  vim.opt.laststatus = 3
-
   vim.cmd [[let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"]]
   vim.cmd [[let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"]]
   vim.opt.termguicolors = true
@@ -167,6 +174,56 @@ function M.gui()
   vim.opt.background = "light"
   M.set_light_mode()
 end
+
+M.icons = {
+  diagnostics = {
+    Error = " ",
+    Warn = " ",
+    Hint = " ",
+    Info = " ",
+  },
+  git = {
+    added = " ",
+    modified = " ",
+    removed = " ",
+  },
+  kinds = {
+    Array = " ",
+    Boolean = " ",
+    Class = " ",
+    Color = " ",
+    Constant = " ",
+    Constructor = " ",
+    Enum = " ",
+    EnumMember = " ",
+    Event = " ",
+    Field = " ",
+    File = " ",
+    Folder = " ",
+    Function = " ",
+    Interface = " ",
+    Key = " ",
+    Keyword = " ",
+    Method = " ",
+    Module = " ",
+    Namespace = " ",
+    Null = "ﳠ ",
+    Number = " ",
+    Object = " ",
+    Operator = " ",
+    Package = " ",
+    Property = " ",
+    Reference = " ",
+    Snippet = " ",
+    String = " ",
+    Struct = " ",
+    Text = " ",
+    TypeParameter = " ",
+    Unit = " ",
+    Value = " ",
+    Variable = " ",
+  },
+}
 
 function M.defaults()
   M.sane_defaults()

@@ -1,8 +1,14 @@
 local myconfigs = {}
 
-local default_capabilities = require("cmp_nvim_lsp").default_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
+local function get_default_capabilities()
+  local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+  -- Try to use LSP based folding
+  default_capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
+  }
+  return require("cmp_nvim_lsp").default_capabilities(default_capabilities)
+end
 
 local default_conf = {
   on_init = function(client)
@@ -11,7 +17,7 @@ local default_conf = {
       client.config.flags.allow_incremental_sync = true
     end
   end,
-  capabilities = default_capabilities,
+  capabilities = get_default_capabilities(),
 }
 
 function myconfigs.__index(table, key)

@@ -1,5 +1,4 @@
 local command = vim.api.nvim_create_user_command
-local cmd = vim.cmd
 local map = vim.keymap.set
 
 --- Mappings for built-in LSP client
@@ -107,7 +106,7 @@ return {
     },
     config = function(_, opts)
       -- diagnostics
-      for name, icon in pairs(require("_utils/icons").diagnostics) do
+      for name, icon in pairs(require("_settings").icons.diagnostics) do
         name = "DiagnosticSign" .. name
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
