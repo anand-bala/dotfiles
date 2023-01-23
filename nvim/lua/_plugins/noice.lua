@@ -1,3 +1,34 @@
+local null_ls_token = nil
+local ltex_token = nil
+
+vim.lsp.handlers['$/progress'] = function(_, result, ctx)
+  local value = result.value
+  if not value.kind then
+    return
+  end
+
+  local client_id = ctx.client_id
+  local name = vim.lsp.get_client_by_id(client_id).name
+
+  if name == 'null-ls' then
+    if result.token == null_ls_token then
+      return
+    end
+    if value.title == 'formatting' then
+      null_ls_token = result.token
+      return
+    end
+  elseif name == 'ltex' then
+    if result.token == ltex_token then
+      return
+    end
+    if value.title == 'Checking document' then
+      ltex_token = result.token
+      return
+    end
+  end
+end
+
 local M = {
   "folke/noice.nvim",
   dependencies = {
@@ -22,6 +53,7 @@ function M.config()
   })
   require("noice").setup {
     lsp = {
+      progress = { enabled = false },
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
         ["vim.lsp.util.stylize_markdown"] = true,

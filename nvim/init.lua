@@ -15,7 +15,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("_plugins", {
+require("lazy").setup {
+  spec = {
+    -- { "LazyVim/LazyVim", import = "lazyvim.plugins", version = "^1.0" },
+    { import = "_plugins" },
+  },
   defaults = { lazy = true },
   install = { colorscheme = { "solarized" } },
   checker = { enabled = true, notify = false },
@@ -42,7 +46,7 @@ require("lazy").setup("_plugins", {
       },
     },
   },
-})
+}
 ---]]
 settings.post_plugin()
 

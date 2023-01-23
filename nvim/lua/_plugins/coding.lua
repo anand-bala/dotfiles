@@ -38,9 +38,14 @@ return {
       "hrsh7th/cmp-path",
       "ray-x/cmp-treesitter",
       "L3MON4D3/LuaSnip",
+      "kdheepak/cmp-latex-symbols",
+      --  'jc-doyle/cmp-pandoc-references' ,
+      "jmbuhr/cmp-pandoc-references",
+      "onsails/lspkind-nvim",
     },
     opts = function()
       local cmp = require "cmp"
+      require("lspkind").init()
       return {
         mapping = cmp_mappings(),
         snippet = {
@@ -60,7 +65,9 @@ return {
         sources = cmp.config.sources {
           { name = "nvim_lsp" },
           { name = "nvim_lua" },
+          { name = "otter" }, -- Quarto completion source
           { name = "path" },
+          { name = "latex_symbols" },
           { name = "buffer" },
           { name = "treesitter" },
           { name = "luasnip" },

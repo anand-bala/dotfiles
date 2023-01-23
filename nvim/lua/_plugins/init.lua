@@ -30,7 +30,7 @@ return {
       }
     end,
   },
-  { "preservim/vim-markdown", ft = { "markdown" } },
+  { "preservim/vim-markdown", ft = { "markdown", "quarto" } },
   -- Rust
   { "rust-lang/rust.vim", ft = { "rust" } },
   -- Kitty.conf

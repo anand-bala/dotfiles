@@ -43,6 +43,7 @@ return {
     end,
   },
   { "nvim-lua/plenary.nvim" },
+  { "folke/which-key.nvim"},
 
   -- Folding
   {
