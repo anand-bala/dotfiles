@@ -21,8 +21,8 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      { "nvim-telescope/telescope-ui-select.nvim" },
-      { "folke/noice.nvim" },
+      "nvim-telescope/telescope-ui-select.nvim",
+      "nvim-telescope/telescope-dap.nvim",
     },
     cmd = { "Telescope", "Helptags", "Buffers" },
     keys = {
@@ -69,7 +69,7 @@ return {
       telescope.setup(opts)
       telescope.load_extension "fzf"
       telescope.load_extension "ui-select"
-      telescope.load_extension "noice"
+      telescope.load_extension "dap"
     end,
   },
 }

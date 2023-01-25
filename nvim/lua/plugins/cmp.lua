@@ -55,7 +55,7 @@ return {
         },
         formatting = {
           format = function(_, item)
-            local icons = require("_settings").icons.kinds
+            local icons = require("config/icons").kinds
             if icons[item.kind] then
               item.kind = icons[item.kind] .. item.kind
             end
@@ -64,15 +64,41 @@ return {
         },
         sources = cmp.config.sources {
           { name = "nvim_lsp" },
-          { name = "nvim_lua" },
-          { name = "otter" }, -- Quarto completion source
           { name = "path" },
-          { name = "latex_symbols" },
           { name = "buffer" },
           { name = "treesitter" },
           { name = "luasnip" },
         },
       }
+    end,
+    setup = function(_, opts)
+      local cmp = require "cmp"
+      cmp.setup(opts)
+
+      -- Filetype specific sources
+
+      -- lua
+      cmp.setup.filetype("lua", {
+        sources = cmp.config.sources {
+          { name = "nvim_lua" },
+        },
+      })
+
+      -- tex
+      cmp.setup.filetype("tex", {
+        sources = {
+          { name = "omni" },
+          { name = "latex_symbols" },
+        },
+      })
+
+      -- markdown
+      cmp.setup.filetype("markdown", {
+        sources = {
+          { name = "otter" }, -- Quarto completion source
+          { name = "latex_symbols" },
+        },
+      })
     end,
   },
   {

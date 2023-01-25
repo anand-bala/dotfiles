@@ -1,6 +1,5 @@
 return {
   "mfussenegger/nvim-dap",
-  event = "VeryLazy",
   dependencies = {
     {
       "theHamsta/nvim-dap-virtual-text",
@@ -41,6 +40,7 @@ return {
       ["<leader>dv"] = { name = "+views" },
     }
   end,
+  cmd = { "DapContinue", "DapToggleBreakpoint" },
   keys = {
     {
       "<leader>dbc",
