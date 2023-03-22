@@ -1,10 +1,12 @@
--- Mason
+--- Mason base configuration
+---@type LazyPluginSpec
 local mason = {
   "williamboman/mason.nvim",
   cmd = "Mason",
   opts = {
     ensure_installed = {
       "stylua",
+      "commitlint",
     },
   },
   config = function(_, opts)
@@ -30,7 +32,8 @@ local function on_attach_hook(on_attach)
   })
 end
 
--- LSP
+--- LSP base plugins
+---@type LazyPluginSpec
 local lsp_plugin = {
   "neovim/nvim-lspconfig",
   event = "BufReadPre",
@@ -40,7 +43,11 @@ local lsp_plugin = {
     "hrsh7th/cmp-nvim-lsp",
     {
       "folke/neodev.nvim",
-      opts = { experimental = { pathStrict = true } },
+      opts = {
+        experimental = { pathStrict = true },
+        plugins = { "nvim-dap-ui" },
+        types = true,
+      },
       ft = { "lua" },
     },
   },
@@ -59,7 +66,7 @@ local lsp_plugin = {
     ---@class _.lspconfig.options
     servers = {
       jsonls = {},
-      sumneko_lua = {
+      lua_ls = {
         -- mason = false, -- set to false if you don't want this server to be installed with mason
         settings = {
           Lua = {
@@ -87,7 +94,7 @@ local lsp_plugin = {
     },
   },
   ---@param opts PluginLspOpts
-  config = function(plugin, opts)
+  config = function(_, opts)
     -- setup autoformat
     require("config.lsp").autoformat = opts.autoformat
     -- setup on_attach
@@ -134,17 +141,20 @@ local lsp_plugin = {
   end,
 }
 
--- Null-ls
+--- Null-ls base plugin configuration
+---@type LazyPluginSpec
 local null_ls = {
   "jose-elias-alvarez/null-ls.nvim",
   dependencies = {
     {
       "williamboman/mason.nvim",
       opts = function(_, opts)
-        vim.list_extend(
-          opts.ensure_installed,
-          { "black", "isort", "alex", "proselint", "write-good", "ruff" }
-        )
+        vim.list_extend(opts.ensure_installed, {
+          "black",
+          "isort",
+          -- "alex", "proselint", "write-good",
+          "ruff",
+        })
       end,
     },
   },
@@ -156,13 +166,18 @@ local null_ls = {
       "black",
       "isort",
       "stylua",
+      "taplo",
+      "prettierd",
+      "yamlfmt",
     }
 
     local diagnostics = {
-      "alex",
-      "proselint",
-      "write_good",
+      -- "alex",
+      -- "proselint",
+      -- "write_good",
       "ruff",
+      "mypy",
+      "commitlint",
     }
 
     local sources = {}
@@ -179,11 +194,30 @@ local null_ls = {
   end,
 }
 
+--- LSP UI
+---@type LazyPluginSpec
+local lsp_ui = {
+  "glepnir/lspsaga.nvim",
+  cmd = { "Lspsaga" },
+  event = { "BufReadPost" },
+  config = function()
+    require("lspsaga").setup {
+      lightbulb = {
+        enable = false,
+      },
+    }
+  end,
+  dependencies = {
+    { "nvim-tree/nvim-web-devicons" },
+    { "nvim-treesitter/nvim-treesitter" },
+  },
+}
+
 return {
   mason,
   lsp_plugin,
   null_ls,
-
+  lsp_ui,
   { import = "plugins.lang.markdown" },
   { import = "plugins.lang.rust" },
   { import = "plugins.lang.tex" },

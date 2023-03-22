@@ -1,9 +1,9 @@
 -- Set some sane defaults
 vim.opt.secure = true
-vim.opt.modelines = 0 -- Disable Modelines
-vim.opt.number = true -- Show line numbers
+vim.opt.modelines = 0     -- Disable Modelines
+vim.opt.number = true     -- Show line numbers
 vim.opt.visualbell = true -- Blink cursor on error instead of beeping (grr)
-vim.opt.undofile = true -- Save undo history
+vim.opt.undofile = true   -- Save undo history
 
 -- Fixes for fish shell
 if string.match(vim.o.shell, "fish$") then
@@ -22,11 +22,11 @@ vim.opt.textwidth = 88
 
 vim.opt.formatoptions = "tcqrnj"
 
-vim.opt.expandtab = true -- Use spaces instead of tabs
-vim.opt.tabstop = 2 -- Size of a hard tab (which will be expanded)
-vim.opt.softtabstop = 2 -- Size of a soft tab
+vim.opt.expandtab = true  -- Use spaces instead of tabs
+vim.opt.tabstop = 2       -- Size of a hard tab (which will be expanded)
+vim.opt.softtabstop = 2   -- Size of a soft tab
 vim.opt.shiftround = true -- Round indent
-vim.opt.shiftwidth = 2 -- Size of indent
+vim.opt.shiftwidth = 2    -- Size of indent
 
 -- Sane searching
 vim.opt.ignorecase = true
@@ -56,7 +56,7 @@ if vim.fn.has "nvim-0.9.0" == 1 then
 end
 
 -- GUI options
-vim.opt.mouse = "a" -- Enable mouse mode
+vim.opt.mouse = "a"      -- Enable mouse mode
 vim.opt.showmode = false -- Don't show mode since we are using statusline
 
 -- Split pane settings
@@ -82,6 +82,29 @@ vim.opt.termguicolors = true
 -- Set the leader character.
 -- Personally, I like backslash
 vim.g.mapleader = "\\"
+
+-- Setup sane keymaps
+
+-- Disable 'hjkl' for movements
+vim.keymap.set("", "h", "<nop>", { remap = false })
+vim.keymap.set("", "j", "<nop>", { remap = false })
+vim.keymap.set("", "k", "<nop>", { remap = false })
+vim.keymap.set("", "l", "<nop>", { remap = false })
+
+-- shifting visual block should keep it selected
+vim.keymap.set("v", "<", "<gv", { remap = false })
+vim.keymap.set("v", ">", ">gv", { remap = false })
+
+-- go up/down on visual line
+vim.keymap.set("n", "<Down>", "gj", { remap = false })
+vim.keymap.set("n", "<Up>", "gk", { remap = false })
+vim.keymap.set("v", "<Down>", "gj", { remap = false })
+vim.keymap.set("v", "<Up>", "gk", { remap = false })
+vim.keymap.set("i", "<Down>", "<C-o>gj", { remap = false })
+vim.keymap.set("i", "<Up>", "<C-o>gk", { remap = false })
+
+-- Yank entire line on Y
+vim.keymap.set("n", "Y", "yy", { remap = false })
 
 -- Setup lazy.nvim
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"

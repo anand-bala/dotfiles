@@ -1,9 +1,24 @@
--- Common dependencies
+--- Common dependencies
+---@type LazyPluginSpec[]
 local deps = {
-  { "lewis6991/gitsigns.nvim", config = true },
-  "kyazdani42/nvim-web-devicons",
+  { "lewis6991/gitsigns.nvim",    config = true },
+  { "nvim-tree/nvim-web-devicons" },
 }
--- Colorscheme
+
+--- Selection UI
+---@type LazyPluginSpec
+local select_ui = {
+  "stevearc/dressing.nvim",
+  event = "VeryLazy",
+  opts = {
+    select = {
+      backend = { "builtin" },
+    },
+  },
+}
+
+--- Colorscheme
+---@type LazyPluginSpec
 local colorscheme = {
   "shaunsingh/solarized.nvim",
   lazy = false, -- make sure we load this during startup if it is your main colorscheme
@@ -15,14 +30,15 @@ local colorscheme = {
   end,
 }
 
--- Statusline and tabline
+--- Statusline and tabline
+---@type LazyPluginSpec[]
 local bars = {
   {
     "echasnovski/mini.tabline",
     event = "VeryLazy",
     opts = {},
     keys = {
-      { "]b", "<cmd>bnext<cr>", desc = "Move to next buffer in list" },
+      { "]b", "<cmd>bnext<cr>",     desc = "Move to next buffer in list" },
       { "[b", "<cmd>bprevious<cr>", desc = "Move to previous buffer in list" },
     },
     config = function(_, opts)
@@ -41,32 +57,6 @@ local bars = {
       vim.opt.laststatus = 3
       -- Turn on sign column
       vim.wo.signcolumn = "yes"
-      -- Customize left column
-      vim.opt.statuscolumn = "%= "
-          .. "%#SignColumn#"
-          .. "%s"
-          .. "%= "
-          .. "%*"
-          .. "%#LineNr#"
-          .. "%{%"
-          .. "&number ? "
-          .. 'printf("%"..len(line("$")).."s", v:lnum)'
-          .. ":"
-          .. '""'
-          .. "%}"
-          .. "%= "
-          .. "%*"
-          .. "%#FoldColumn#" -- highlight group for fold
-          .. "%{" -- expression for showing fold expand/colapse
-          .. "foldlevel(v:lnum) > foldlevel(v:lnum - 1)" -- any folds?
-          .. "? (foldclosed(v:lnum) == -1" -- currently open?
-          .. '? ""' -- point down
-          .. ':  ""' -- point to right
-          .. ")"
-          .. ': " "' -- blank for no fold, or inside fold
-          .. "}"
-          .. "%="
-          .. "%*"
     end,
     config = function(_, opts)
       require("mini.statusline").setup(opts)
@@ -75,7 +65,8 @@ local bars = {
   },
 }
 
--- Notifications
+--- Notifications
+---@type LazyPluginSpec
 local notifications = {
   "rcarriga/nvim-notify",
   event = "VeryLazy",
@@ -88,7 +79,8 @@ local notifications = {
   end,
 }
 
--- Treesitter
+--- Treesitter
+---@type LazyPluginSpec
 local treesitter = {
   "nvim-treesitter/nvim-treesitter",
   build = [[:TSUpdate]],
@@ -118,13 +110,34 @@ local treesitter = {
   config = function(_, opts)
     require("nvim-treesitter.configs").setup(opts)
   end,
+  dependencies = {
+    "IndianBoy42/tree-sitter-just",
+    config = true,
+  },
 }
 
--- Folding
+--- Folding
+---@type LazyPluginSpec
 local folding = {
   "kevinhwang91/nvim-ufo",
-  dependencies = { "kevinhwang91/promise-async" },
-  lazy = false,
+  dependencies = {
+    "kevinhwang91/promise-async",
+    {
+      "luukvbaal/statuscol.nvim",
+      config = function()
+        local builtin = require "statuscol.builtin"
+        require("statuscol").setup {
+          relculright = true,
+          segments = {
+            { text = { "%s" },                       click = "v:lua.ScSa" },
+            { text = { builtin.lnumfunc },           click = "v:lua.ScLa" },
+            { text = { " ", builtin.foldfunc, " " }, click = "v:lua.ScFa" },
+          },
+        }
+      end,
+    },
+  },
+  event = "BufReadPost",
   keys = {
     {
       "zr",
@@ -161,37 +174,53 @@ local folding = {
     vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
     vim.opt.foldlevelstart = 99
     vim.opt.fillchars = { fold = " ", foldopen = "", foldclose = "" }
-    vim.opt.foldcolumn = "auto:3"
+    vim.opt.foldcolumn = "1"
   end,
   config = function()
-    local ftMap = {
-      git = "",
-    }
-
-    local function customizeSelector(bufnr)
-      local function handleFallbackException(err, providerName)
-        if type(err) == "string" and err:match "UfoFallbackException" then
-          return require("ufo").getFolds(bufnr, providerName)
-        else
-          return require("promise").reject(err)
-        end
-      end
-
-      return require("ufo")
-          .getFolds(bufnr, "lsp")
-          :catch(function(err)
-            return handleFallbackException(err, "treesitter")
-          end)
-          :catch(function(err)
-            return handleFallbackException(err, "indent")
-          end)
-    end
-
+    -- treesitter as a main provider instead
+    -- Only depend on `nvim-treesitter/queries/filetype/folds.scm`,
+    -- performance and stability are better than `foldmethod=nvim_treesitter#foldexpr()`
     require("ufo").setup {
-      provider_selector = function(_, filetype, _)
-        return ftMap[filetype] or customizeSelector
+      provider_selector = function()
+        return { "treesitter", "indent" }
       end,
     }
+  end,
+}
+
+--- Indent configuration
+---@type LazyPluginSpec
+local indent = {
+  "lukas-reineke/indent-blankline.nvim",
+  event = "BufReadPost",
+  opts = {
+    {
+      char = "▏",
+      buftype_exclude = { "terminal" },
+      show_trailing_blankline_indent = false,
+      show_current_context = true,
+      filetype_exclude = { "help", "terminal" },
+      -- default : {'class', 'function', 'method'}
+      context_patterns = {
+        "class",
+        "function",
+        "method",
+        "^if",
+        "^while",
+        "^for",
+        "^object",
+        "^table",
+        "^type",
+        "^import",
+        "block",
+        "arguments",
+      },
+      -- disabled now for performance hit.
+      -- use_treesitter = true
+    },
+  },
+  config = function(_, opts)
+    require("indent_blankline").setup(opts)
   end,
 }
 
@@ -201,4 +230,6 @@ return {
   notifications,
   treesitter,
   folding,
+  indent,
+  select_ui,
 }

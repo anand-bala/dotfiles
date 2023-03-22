@@ -1,4 +1,5 @@
 --- Everyday tools
+---@type LazyPluginSpec
 return {
   { "nvim-lua/plenary.nvim" },
   {
@@ -9,7 +10,7 @@ return {
       require("which-key").setup {
         plugins = {
           marks = false,
-        }
+        },
       }
     end,
   },
@@ -50,10 +51,9 @@ return {
   { "junegunn/vim-easy-align", cmd = { "EasyAlign" } },
   {
     "echasnovski/mini.comment",
-    event = "VeryLazy",
+    event = "BufReadPost",
     config = function(_, opts)
       require("mini.comment").setup(opts or {})
     end,
   },
-
 }

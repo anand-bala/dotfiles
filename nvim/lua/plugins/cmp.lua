@@ -27,6 +27,7 @@ local function cmp_mappings()
   return mapping
 end
 
+---@type LazyPluginSpec
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -71,7 +72,7 @@ return {
         },
       }
     end,
-    setup = function(_, opts)
+    config = function(_, opts)
       local cmp = require "cmp"
       cmp.setup(opts)
 

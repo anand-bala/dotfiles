@@ -9,7 +9,8 @@ local mason = {
 -- Setup LSP
 local lsp = {
   "neovim/nvim-lspconfig",
-  dependencies = { "simrat39/rust-tools.nvim"},
+  dependencies = { "simrat39/rust-tools.nvim" },
+  ft = { "rust" },
   opts = {
     setup = {
       rust_analyzer = function(_, opts)
@@ -20,23 +21,13 @@ local lsp = {
         local codelldb_path = extension_path .. "adapter/codelldb"
         local liblldb_path = vim.fn.has "mac" == 1
             and extension_path .. "lldb/lib/liblldb.dylib"
-          or extension_path .. "lldb/lib/liblldb.so"
+            or extension_path .. "lldb/lib/liblldb.so"
         local rust_tools_opts = vim.tbl_deep_extend("force", opts, {
           dap = {
             adapter = require("rust-tools.dap").get_codelldb_adapter(
               codelldb_path,
               liblldb_path
             ),
-          },
-          tools = {
-            hover_actions = {
-              auto_focus = false,
-              border = "none",
-            },
-            inlay_hints = {
-              auto = false,
-              show_parameter_hints = true,
-            },
           },
           server = {
             settings = {
@@ -46,10 +37,16 @@ local lsp = {
                 },
                 -- Add clippy lints for Rust.
                 checkOnSave = true,
+                -- Use nightly for rustfmt
+                rustfmt = {
+                  extraArgs = "+nightly",
+                },
+                -- Use clippy for checking
                 check = {
                   command = "clippy",
                   features = "all",
                 },
+                -- Enable procedural macro support
                 procMacro = {
                   enable = true,
                 },

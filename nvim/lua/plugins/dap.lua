@@ -1,11 +1,33 @@
-return {
-  "mfussenegger/nvim-dap",
-  dependencies = {
-    {
-      "theHamsta/nvim-dap-virtual-text",
-      config = true,
-    },
+---@type LazyPluginSpec
+local dap_ui = {
+  "rcarriga/nvim-dap-ui",
+  config = function(_, opts)
+    opts = opts or {}
+    require("dapui").setup(opts)
+
+    local dap, dapui = require "dap", require "dapui"
+    dap.listeners.after.event_initialized["dapui_config"] = function()
+      dapui.open()
+    end
+    dap.listeners.before.event_terminated["dapui_config"] = function()
+      dapui.close()
+    end
+    dap.listeners.before.event_exited["dapui_config"] = function()
+      dapui.close()
+    end
+  end,
+  keys = {
+    "<M-k>",
+    '<CMD>lua require("dapui").eval()<CR>',
+    desc = "evaluate expression in DAP",
+    mode = { "n", "v" },
   },
+}
+
+---@type LazyPluginSpec
+local nvim_dap = {
+  "mfussenegger/nvim-dap",
+  dependencies = { dap_ui },
   config = function()
     vim.fn.sign_define(
       "DapBreakpoint",
@@ -63,15 +85,15 @@ return {
       '<CMD>lua require("dap").toggle_breakpoint()<CR>',
       desc = "toggle breakpoint",
     },
-    { "<leader>dc", '<CMD>lua require("dap").continue()<CR>', desc = "continue" },
+    { "<leader>dc",  '<CMD>lua require("dap").continue()<CR>',  desc = "continue" },
     {
       "<leader>de",
       '<CMD>lua require("dap.ui.widgets").hover(nil, { border = "none" })<CR>',
       desc = "expression",
       mode = { "n", "v" },
     },
-    { "<leader>dp", '<CMD>lua require("dap").pause()<CR>', desc = "pause" },
-    { "<leader>dr", "<CMD>Telescope dap configurations<CR>", desc = "run" },
+    { "<leader>dp",  '<CMD>lua require("dap").pause()<CR>',     desc = "pause" },
+    { "<leader>dr",  "<CMD>Telescope dap configurations<CR>",   desc = "run" },
     { "<leader>dsb", '<CMD>lua require("dap").step_back()<CR>', desc = "step back" },
     {
       "<leader>dsc",
@@ -80,8 +102,8 @@ return {
     },
     { "<leader>dsi", '<CMD>lua require("dap").step_into()<CR>', desc = "step into" },
     { "<leader>dso", '<CMD>lua require("dap").step_over()<CR>', desc = "step over" },
-    { "<leader>dsx", '<CMD>lua require("dap").step_out()<CR>', desc = "step out" },
-    { "<leader>dx", '<CMD>lua require("dap").terminate()<CR>', desc = "terminate" },
+    { "<leader>dsx", '<CMD>lua require("dap").step_out()<CR>',  desc = "step out" },
+    { "<leader>dx",  '<CMD>lua require("dap").terminate()<CR>', desc = "terminate" },
     {
       "<leader>dvf",
       '<CMD>lua require("dap.ui.widgets").centered_float(require("dap.ui.widgets").frames, { border = "none" })<CR>',
@@ -98,4 +120,8 @@ return {
       desc = "show threads",
     },
   },
+}
+
+return {
+  nvim_dap,
 }

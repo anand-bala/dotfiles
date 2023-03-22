@@ -29,3 +29,10 @@ map("n", "`", "<cmd>Term<CR>", { silent = true, remap = false })
 -- Create new terminal vsplit
 map("n", "<C-w>|", "<cmd>VTerm<CR>", { silent = true, remap = false })
 
+-- Escape out of terminal mode to normal mode
+map("t", "<Esc>", "<C-\\><C-n>", { silent = true, remap = false })
+
+-- Launch terminal at bottom of window
+map("n", "`", "<cmd>Term<CR>", { silent = true, remap = false })
+-- Create new terminal vsplit
+map("n", "<C-w>|", "<cmd>VTerm<CR>", { silent = true, remap = false })

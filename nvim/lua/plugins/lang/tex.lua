@@ -41,7 +41,7 @@ local texlab = {}
 function texlab.build_config()
   local check_exe = vim.fn.executable
 
-  local exec = vim.g.texlab_builder
+  local exec = vim.g.texlab_builder or "latexmk"
 
   if not exec then
     return {}
@@ -120,9 +120,9 @@ texlab.config = {
           texlab = {
             build = texlab.build_config(),
             forwardSearch = texlab.forward_search(),
-            latexFormatter = "latexindent",
+            latexFormatter = "texlab",
             latexindent = {
-              ["local"] = "latexindent.yaml",
+                  ["local"] = "latexindent.yaml",
               modifyLineBreaks = true,
             },
           },
