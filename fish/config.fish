@@ -18,7 +18,7 @@ alias e="$EDITOR"
 if command -sq -- exa
   alias ls "exa"
   alias ll "exa -l"
-  alias tree "exa --tree"
+  alias tree "exa -l --tree --git-ignore"
 end
 
 alias less "less -R --use-color"
