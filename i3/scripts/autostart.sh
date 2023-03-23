@@ -20,11 +20,11 @@ fi
 #   disown $!
 # fi
 
-if command -v pasystray &> /dev/null; then
-  killall pasystray
-  pasystray &> /dev/null
-  disown $!
-fi
+# if command -v pasystray &> /dev/null; then
+#   killall pasystray
+#   pasystray &> /dev/null
+#   disown $!
+# fi
 
 # Autostart XDG-based applications
 if command -v dex &> /dev/null; then
