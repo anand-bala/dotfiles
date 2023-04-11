@@ -29,7 +29,7 @@ function M.format()
   local buf = vim.api.nvim_get_current_buf()
   local ft = vim.bo[buf].filetype
   local have_nls = #require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING")
-    > 0
+      > 0
 
   vim.lsp.buf.format {
     bufnr = buf,
@@ -122,6 +122,21 @@ function M.keymaps(client, bufnr)
     end
     lspmap("<leader>f", format)
     command("Format", format, { force = true })
+  end
+
+  local ft = vim.bo[bufnr].filetype
+  if vim.tbl_contains({ "tex" }, ft) then
+    vim.keymap.set("n", "<leader>lv", "<cmd>TexlabForward<CR>", {
+      silent = false,
+      buffer = false,
+      remap = false,
+    })
+
+    vim.keymap.set("n", "<leader>ll", "<cmd>TexlabBuild<CR>", {
+      silent = false,
+      buffer = false,
+      remap = false,
+    })
   end
 end
 

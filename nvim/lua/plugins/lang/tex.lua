@@ -120,29 +120,15 @@ texlab.config = {
           texlab = {
             build = texlab.build_config(),
             forwardSearch = texlab.forward_search(),
-            latexFormatter = "texlab",
+            bibtexFormatter = "none",
+            latexFormatter = "latexindent",
             latexindent = {
-                  ["local"] = "latexindent.yaml",
+              ["local"] = "latexindent.yaml",
               modifyLineBreaks = true,
             },
           },
         },
       },
-    },
-    setup = {
-      texlab = function(_, _)
-        vim.keymap.set("n", "<leader>lv", "<cmd>TexlabForward<CR>", {
-          silent = false,
-          buffer = true,
-          remap = false,
-        })
-
-        vim.keymap.set("n", "<leader>ll", "<cmd>TexlabBuild<CR>", {
-          silent = false,
-          buffer = true,
-          remap = false,
-        })
-      end,
     },
   },
 }

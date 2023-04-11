@@ -38,14 +38,15 @@ vim.opt.spelllang = "en_us"
 vim.opt.spell = false
 
 -- Conceal text completely and substiture with custom character
-vim.opt.conceallevel = 3 -- Hide * markup for bold and italic
+vim.opt.conceallevel = 2 -- Hide * markup for bold and italic
 
 -- Use smarter complete options
 -- vim.opt.completeopt to have a better completion experience
 vim.opt.completeopt = {
   "menu",
   "menuone",
-  "noselect",
+  "preview",
+  -- "noselect",
 }
 
 -- Avoid showing message extra message when using completion
@@ -137,14 +138,14 @@ require("lazy").setup("plugins", {
     },
     rtp = {
       disabled_plugins = {
-        "gzip",
+        -- "gzip",
         "matchit",
         "matchparen",
         "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
-        "zipPlugin",
+        -- "zipPlugin",
       },
     },
   },
