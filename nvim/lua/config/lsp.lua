@@ -6,9 +6,13 @@ local M = {}
 
 M.autoformat = false
 
+--- Default on attach hook for LSPs
+--- @param client vim.lsp.client
+--- @param bufnr integer
 function M.on_attach(client, bufnr)
   -- LSP-based formatting
   local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+  ---@diagnostic disable-next-line: undefined-field
   if client.supports_method "textDocument/formatting" then
     vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
     vim.api.nvim_create_autocmd("BufWritePre", {
