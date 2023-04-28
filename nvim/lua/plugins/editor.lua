@@ -90,7 +90,6 @@ local treesitter = {
       "bash",
       "c",
       "cpp",
-      "help",
       "html",
       "lua",
       "markdown",
@@ -99,6 +98,7 @@ local treesitter = {
       "regex",
       "rust",
       "vim",
+      "vimdoc",
       "zig",
     },
     highlight = {
