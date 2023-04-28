@@ -7,7 +7,15 @@
   defaultBranch = dev
 
 [diff]
-  algorithm = patience
+  tool = difftastic
+  external = difft
+
+[difftool]
+  prompt = false
+
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
+
 [merge]
   tool = nvim
 [mergetool]
@@ -15,7 +23,12 @@
 [mergetool "nvim"]
   cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 
+# Use a pager for large output, just like other git commands.
+[pager]
+  difftool = true
+
 [alias]
+  dft = difftool
   ignore = "!gi() { curl -sL https://www.gitignore.io/api/$@ ;}; gi"
   st = status
   lg = lg-specific --all
