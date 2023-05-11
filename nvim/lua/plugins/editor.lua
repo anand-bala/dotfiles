@@ -50,7 +50,7 @@ local bars = {
     "echasnovski/mini.statusline",
     event = "VeryLazy",
     opts = {
-      set_vim_settings = false,
+      set_vim_settings = true,
     },
     init = function(_)
       -- Turn on global statusline

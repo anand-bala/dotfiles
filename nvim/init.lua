@@ -20,7 +20,7 @@ vim.opt.wrap = true
 vim.opt.linebreak = true
 vim.opt.textwidth = 88
 
-vim.opt.formatoptions = "tcqrnj"
+vim.opt.formatoptions = "tcqrn21j"
 
 vim.opt.expandtab = true  -- Use spaces instead of tabs
 vim.opt.tabstop = 2       -- Size of a hard tab (which will be expanded)

@@ -21,17 +21,6 @@ local mason = {
   end,
 }
 
----@param on_attach fun(client, buffer)
-local function on_attach_hook(on_attach)
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-      local buffer = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      on_attach(client, buffer)
-    end,
-  })
-end
-
 --- LSP base plugins
 ---@type LazyPluginSpec
 local lsp_plugin = {
@@ -49,6 +38,19 @@ local lsp_plugin = {
         types = true,
       },
       ft = { "lua" },
+    },
+    {
+      "lukas-reineke/lsp-format.nvim",
+      config = function()
+        require("lsp-format").setup {
+          tex = {
+            sync = true,
+          },
+          latex = {
+            sync = true,
+          },
+        }
+      end,
     },
   },
   ---@class PluginLspOpts
@@ -97,8 +99,6 @@ local lsp_plugin = {
   config = function(_, opts)
     -- setup autoformat
     require("config.lsp").autoformat = opts.autoformat
-    -- setup on_attach
-    on_attach_hook(require("config.lsp").on_attach)
     -- Setup diagnostics
     require("config.lsp").diagnostics(opts)
     local capabilities = require("config.lsp").update_capabilities()
@@ -153,6 +153,7 @@ local null_ls = {
           "black",
           "isort",
           -- "alex", "proselint", "write-good",
+          "vale",
           "ruff",
         })
       end,
@@ -175,6 +176,7 @@ local null_ls = {
       -- "alex",
       -- "proselint",
       -- "write_good",
+      -- "vale",
       "ruff",
       "mypy",
       "commitlint",
@@ -204,6 +206,20 @@ local lsp_ui = {
     require("lspsaga").setup {
       lightbulb = {
         enable = false,
+      },
+      ui = {
+        -- This option only works in Neovim 0.9
+        title = true,
+        -- Border type can be single, double, rounded, solid, shadow.
+        border = "single",
+        winblend = 0,
+        expand = "",
+        collapse = "",
+        code_action = "💡",
+        incoming = " ",
+        outgoing = " ",
+        hover = " ",
+        kind = {},
       },
     }
   end,
