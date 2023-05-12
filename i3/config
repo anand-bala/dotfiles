@@ -193,7 +193,7 @@ exec_always --no-startup-id picom
 # Launch locker
 exec_always --no-startup-id light-locker
 # Launch polybar
-exec_always --no-startup-id polybar-msg cmd quit; polybar
+exec_always --no-startup-id polybar-msg cmd quit; polybar main
 
 # Set the wallpaper
 # exec_always sleep 10 && nitrogen --restore
