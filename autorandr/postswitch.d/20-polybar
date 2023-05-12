@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+
+# Kill all polybar instances
+polybar-msg cmd quit
+
+# Wait for all polybar instances to die
+while pgrep -u $UID -x polybar > /dev/null; do sleep 0.5; done
+
+# The monitor in which to output the main bar
+if $(polybar -m | grep -q "eDP1"); then
+  tray_output=eDP1
+else
+  tray_output=$(polybar -m | head -n1 | cut -d ":" -f 1)
+fi
+
+# Start a bar for each monitor
+for m in $(polybar -m | cut -d ':' -f 1); do
+  bar=""
+  if [[ $m == $tray_output ]]; then
+    bar="main"
+  else
+    bar="secondary"
+  fi
+  MONITOR=$m polybar --reload "main" </dev/null >/var/tmp/polybar-$m.log 2>&1 &
+  disown
+done
+
