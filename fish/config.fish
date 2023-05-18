@@ -34,38 +34,13 @@ if test -e $HOME/.fzf/bin/fzf
 end
 set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
 
-
 # --- Miniconda config
 if test -e $HOME/miniconda3/etc/fish/conf.d/conda.fish
   source $HOME/miniconda3/etc/fish/conf.d/conda.fish
 end
 
-# --- setup direnv
-if command -sq -- direnv
-  direnv hook fish | source
-end
-
 # --- Custom prompt (last plugin)
-set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
-starship init fish | source
-
-# -- Custom hooks
-
-function chpwd --on-variable PWD -d "Run ls on cd"
-    set -l cursor_pos (commandline --cursor)
-    # Only show directory listing in interactive mode when not tab completing
-    if test $cursor_pos -eq 0 ;and status --is-interactive
-        ll
-    end
-end
-
-# -- Custom secrets
-
-if functions -q replay
-    and test -d "$XDG_CONFIG_HOME/secrets"
-
-  for f in (fd -t f . $XDG_CONFIG_HOME/secrets/)
-    # echo "Sourcing $f"
-    replay source $f
-  end
+if command -sq -- starship
+  set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
+  starship init fish | source
 end
