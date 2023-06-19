@@ -4,6 +4,7 @@ changeps1: false
 auto_update_conda: true
 add_pip_as_python_depencency: true
 use_pip: true
+auto_activate_base: false
 
 channels:
   - conda-forge
