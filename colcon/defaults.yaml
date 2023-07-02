@@ -1,7 +1,6 @@
 build:
-  cmake-args: 
+  cmake-args:
     - "-GNinja"
     - "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
     - "-DCMAKE_C_COMPILER_LAUNCHER=sccache"
     - "-DCMAKE_CXX_COMPILER_LAUNCHER=sccache"
-  symlink-install: true
