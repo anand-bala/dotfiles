@@ -8,12 +8,11 @@ auto_activate_base: false
 
 channels:
   - conda-forge
-  - defaults
-channel_priority: strict
+
+# channel_priority: strict
 
 create_default_packages:
   - ipython
   - mypy
   - isort
   - black
-
