@@ -1,7 +1,7 @@
-# --- CUDA config
-if not set -q CUDA_HOME; and test -d "/usr/local/cuda"
-  set -gx CUDA_HOME           /usr/local/cuda
-end
+# # --- CUDA config
+# if not set -q CUDA_HOME; and test -d "/usr/local/cuda"
+#   set -gx CUDA_HOME           /usr/local/cuda
+# end
 
 if set -q CUDA_HOME
   fish_add_path -gP   $CUDA_HOME/bin

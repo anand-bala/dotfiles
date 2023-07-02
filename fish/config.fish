@@ -18,7 +18,7 @@ alias e="$EDITOR"
 if command -sq -- exa
   alias ls "exa"
   alias ll "exa -l"
-  alias tree "exa -l --tree --git-ignore"
+  alias tree "exa -l --tree"
 end
 
 alias less "less -R --use-color"
@@ -34,9 +34,20 @@ if test -e $HOME/.fzf/bin/fzf
 end
 set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
 
-# --- Miniconda config
-if test -e $HOME/miniconda3/etc/fish/conf.d/conda.fish
-  source $HOME/miniconda3/etc/fish/conf.d/conda.fish
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f $HOME/miniconda3/bin/conda
+    eval $HOME/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+end
+
+if test -f "$HOME/miniconda3/etc/fish/conf.d/mamba.fish"
+    source "$HOME/miniconda3/etc/fish/conf.d/mamba.fish"
+end
+# <<< conda initialize <<<
+
+# --- Direnv config
+if command -sq -- direnv 
+  direnv hook fish | source
 end
 
 # --- Custom prompt (last plugin)
@@ -44,3 +55,4 @@ if command -sq -- starship
   set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
   starship init fish | source
 end
+
