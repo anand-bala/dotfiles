@@ -10,11 +10,7 @@ local deps = {
 local select_ui = {
   "stevearc/dressing.nvim",
   event = "VeryLazy",
-  opts = {
-    select = {
-      backend = { "builtin" },
-    },
-  },
+  opts = {},
 }
 
 --- Colorscheme

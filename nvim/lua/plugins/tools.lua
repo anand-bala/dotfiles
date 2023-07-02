@@ -56,4 +56,9 @@ return {
       require("mini.comment").setup(opts or {})
     end,
   },
+  {
+    "stevearc/overseer.nvim",
+    event = "BufReadPost",
+    opts = {},
+  },
 }
