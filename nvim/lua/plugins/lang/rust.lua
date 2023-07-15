@@ -21,7 +21,7 @@ local lsp = {
         local codelldb_path = extension_path .. "adapter/codelldb"
         local liblldb_path = vim.fn.has "mac" == 1
             and extension_path .. "lldb/lib/liblldb.dylib"
-            or extension_path .. "lldb/lib/liblldb.so"
+          or extension_path .. "lldb/lib/liblldb.so"
         local rust_tools_opts = vim.tbl_deep_extend("force", opts, {
           dap = {
             adapter = require("rust-tools.dap").get_codelldb_adapter(

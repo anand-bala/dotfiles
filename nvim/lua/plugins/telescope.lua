@@ -43,6 +43,16 @@ return {
           color_devicons = true,
           set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
           mappings = telescope_mappings(),
+          vimgrep_arguments = {
+            "rg",
+            "--hidden",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+          },
         },
         pickers = {
           find_files = {

@@ -2,28 +2,8 @@ local on_attach_hook = require("config.lsp").on_attach_hook
 local command = vim.api.nvim_create_user_command
 local map = vim.keymap.set
 
---- LSP-based formatting
---- @param client vim.lsp.client
---- @param bufnr integer
-local function lsp_formatting(client, bufnr)
-  local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-  ---@diagnostic disable-next-line: undefined-field
-  if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        if M.autoformat then
-          vim.lsp.buf.format { bufnr = bufnr }
-        end
-      end,
-    })
-  end
-end
-
 --- Mappings for built-in LSP client
---- @param client vim.lsp.client
+--- @param client lsp.Client
 --- @param bufnr integer
 local function keymaps(client, bufnr)
   ---@param lhs string
@@ -34,6 +14,7 @@ local function keymaps(client, bufnr)
     local lsp_map_opts = { buffer = bufnr, silent = true }
     map(modes, lhs, rhs, lsp_map_opts)
   end
+  local format = require("config.lsp.format").format
   lspmap("K", "<cmd>Lspsaga hover_doc<CR>")
   lspmap("<C-k>", vim.lsp.buf.signature_help)
   lspmap("<C-]>", "<cmd>Lspsaga lsp_finder<CR>")
@@ -77,16 +58,30 @@ local function keymaps(client, bufnr)
   command("WorkspaceDiagnostics", "Telescope diagnostics", {
     force = true,
   })
-
-  if client.server_capabilities.documentFormattingProvider then
-    lspmap("<leader>f", "<cmd>Format<CR>")
-    -- command("Format", format, { force = true })
-  end
 end
 
 -- on_attach_hook(lsp_formatting)
 on_attach_hook(keymaps)
 
 on_attach_hook(function(client, buf)
-  require("lsp-format").on_attach(client)
+  if client.server_capabilities.documentFormattingProvider then
+    local M = require "config.lsp.format"
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = vim.api.nvim_create_augroup("LspFormatting", {}),
+      buffer = buf,
+      callback = function()
+        if M.opts.autoformat then
+          M.format()
+        end
+      end,
+    })
+
+    map("n", "<leader>f", M.format, {
+      desc = "Format the document",
+      buffer = buf,
+    })
+
+    command("Format", M.format, { desc = "Format the document", force = true })
+    command("FormatToggle", M.toggle, { desc = "Toggle auto-format", force = true })
+  end
 end)

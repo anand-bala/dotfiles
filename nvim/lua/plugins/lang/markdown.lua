@@ -1,3 +1,10 @@
+local mason = {
+  "williamboman/mason.nvim",
+  opts = function(_, opts)
+    vim.list_extend(opts.ensure_installed, { "markdownlint" })
+  end,
+}
+
 return {
   {
     "preservim/vim-markdown",
@@ -42,27 +49,5 @@ return {
         },
       },
     },
-  },
-  -- send code from python/r/qmd docuemts to a terminal
-  -- like ipython, R, bash
-  {
-    "jpalardy/vim-slime",
-    keys = {
-      { "<c-c><c-c>", "<Plug>SlimeRegionSend", "x" },
-      { "<c-c><c-c>", "<Plug>SlimeParagraphSend", "n" },
-    },
-    ft = { "markdown", "pandoc" },
-    config = function()
-      vim.b.slime_cell_delimiter = "#%%"
-
-      -- -- slime, tmux
-      -- vim.g.slime_target = 'tmux'
-      -- vim.g.slime_bracketed_paste = 1
-      -- vim.g.slime_default_config = { socket_name = "default", target_pane = ".2" }
-
-      -- slime, neovim terminal
-      vim.g.slime_target = "neovim"
-      vim.g.slime_python_ipython = 1
-    end,
   },
 }

@@ -1,0 +1,35 @@
+{
+  "neodev": {
+    "library": {
+      "enabled": true,
+      "plugins": true
+    }
+  },
+  "neoconf": {
+    "plugins": {
+      "lua_ls": {
+        "enabled": true
+      }
+    }
+  },
+  "lspconfig": {
+    "rust-analyzer": {
+      "rust-analyzer": {
+        "cargo":  {
+          "features":  "all"
+        },
+        "checkOnSave":  true,
+        "rustfmt":  {
+          "extraArgs":  "+nightly"
+        },
+        "check":  {
+          "command":  "clippy",
+          "features":  "all"
+        },
+        "procMacro":  {
+          "enable":  true
+        }
+      }
+    }
+  }
+}

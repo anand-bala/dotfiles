@@ -12,29 +12,43 @@ local lsp = {
   opts = {
     servers = {
       -- pyright = {
-      --   disableOrganizeImports = true,
-      --   analysis = {
-      --     diagnosticMode = "openFilesOnly",
+      --   mason = false,
+      --   settings = {
+      --     pyright = {
+      --       disableOrganizeImports = true,
+      --     },
+      --     python = {
+      --       analysis = {
+      --         diagnosticMode = "openFilesOnly",
+      --       },
+      --     },
       --   },
       -- },
-      -- pylyzer = {},
+      -- pylyzer = {
+      --   mason = false,
+      -- },
       pylsp = {
+        mason = false,
         settings = {
           pylsp = {
+            configurationSources = { "flake8" },
             plugins = {
               autopep8 = { enabled = false },
               yapf = { enabled = false },
               pycodestyle = { enabled = false },
+              mccabe = { enabled = false },
+              flake8 = { enabled = true },
+              rope_autoimport = { enabled = true },
+              jedi_completion = { enabled = true },
             },
           },
         },
       },
-    },
-    setup = {
-      ruff_lsp = function(_, opts)
-        opts.capabilities.hoverProvider = false
-        return false
-      end,
+      ruff_lsp = {
+        capabilities = {
+          hoverProvider = false,
+        },
+      },
     },
   },
 }

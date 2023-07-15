@@ -32,6 +32,7 @@ local lsp_plugin = {
   "neovim/nvim-lspconfig",
   event = "BufReadPre",
   dependencies = {
+    "folke/neoconf.nvim",
     "mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "hrsh7th/cmp-nvim-lsp",
@@ -44,19 +45,6 @@ local lsp_plugin = {
       },
       ft = { "lua" },
     },
-    {
-      "lukas-reineke/lsp-format.nvim",
-      config = function()
-        require("lsp-format").setup {
-          tex = {
-            sync = true,
-          },
-          latex = {
-            sync = true,
-          },
-        }
-      end,
-    },
   },
   ---@class PluginLspOpts
   opts = {
@@ -64,13 +52,38 @@ local lsp_plugin = {
     diagnostics = {
       underline = true,
       update_in_insert = false,
-      virtual_text = { spacing = 4, prefix = "●" },
+      virtual_text = {
+        spacing = 4,
+        source = "if_many",
+        -- prefix = "●",
+        -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+        -- this only works on a recent 0.10.0 build. Will be set to "?" when not supported
+        prefix = "icons",
+      },
       severity_sort = true,
     },
+    -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+    -- Be aware that you also will need to properly configure your LSP server to
+    -- provide the inlay hints.
+    inlay_hints = {
+      enabled = false,
+    },
+    -- add any global capabilities here
+    capabilities = {},
     -- Automatically format on save
     autoformat = true,
+    -- Enable this to show formatters used in a notification
+    -- Useful for debugging formatter issues
+    format_notify = false,
+    -- options for vim.lsp.buf.format
+    -- `bufnr` and `filter` is handled by the LazyVim formatter,
+    -- but can be also overridden when specified
+    format = {
+      formatting_options = nil,
+      timeout_ms = nil,
+    },
     -- LSP Server Settings
-    ---@class _.lspconfig.options
+    ---@type lspconfig.options
     servers = {
       jsonls = {},
       lua_ls = {
@@ -102,11 +115,14 @@ local lsp_plugin = {
   },
   ---@param opts PluginLspOpts
   config = function(_, opts)
+    -- ensure we load neoconf before this is setup.
+    local _ = require "neoconf"
+
     -- setup autoformat
-    require("config.lsp").autoformat = opts.autoformat
+    require("config.lsp.format").setup(opts)
     -- Setup diagnostics
     require("config.lsp").diagnostics(opts)
-    local capabilities = require("config.lsp").update_capabilities()
+    local capabilities = require("config.lsp").update_capabilities(opts)
 
     local servers = opts.servers
 
@@ -167,11 +183,13 @@ local null_ls = {
     local null_ls = require "null-ls"
 
     local formatters = {
-      null_ls.builtins.formatting.black,
+      null_ls.builtins.formatting.black.with {
+        extra_args = { "--line-length=127" },
+      },
       null_ls.builtins.formatting.isort,
       null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.taplo,
-      null_ls.builtins.formatting.prettierd,
+      null_ls.builtins.formatting.mdformat,
       null_ls.builtins.formatting.yamlfmt.with {
         extra_args = {
           "-formatter",
@@ -208,48 +226,23 @@ local null_ls = {
       table.insert(sources, diag)
     end
 
-    return { sources = sources, on_attach = require("config.lsp").on_attach }
-  end,
-}
-
---- LSP UI
----@type LazyPluginSpec
-local lsp_ui = {
-  "glepnir/lspsaga.nvim",
-  cmd = { "Lspsaga" },
-  event = { "BufReadPost" },
-  config = function()
-    require("lspsaga").setup {
-      lightbulb = {
-        enable = false,
-      },
-      ui = {
-        -- This option only works in Neovim 0.9
-        title = true,
-        -- Border type can be single, double, rounded, solid, shadow.
-        border = "single",
-        winblend = 0,
-        expand = "",
-        collapse = "",
-        code_action = "💡",
-        incoming = " ",
-        outgoing = " ",
-        hover = " ",
-        kind = {},
-      },
+    return {
+      root_dir = require("null-ls.utils").root_pattern(
+        ".null-ls-root",
+        ".neoconf.json",
+        ".vscode",
+        ".git"
+      ),
+      sources = sources,
+      on_attach = require("config.lsp").on_attach,
     }
   end,
-  dependencies = {
-    { "nvim-tree/nvim-web-devicons" },
-    { "nvim-treesitter/nvim-treesitter" },
-  },
 }
 
 return {
   mason,
   lsp_plugin,
   null_ls,
-  lsp_ui,
   { import = "plugins.lang.markdown" },
   { import = "plugins.lang.rust" },
   { import = "plugins.lang.tex" },
