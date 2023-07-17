@@ -46,6 +46,7 @@ vim.opt.completeopt = {
   "menu",
   "menuone",
   "preview",
+  "noinsert",
   -- "noselect",
 }
 
@@ -91,10 +92,10 @@ vim.g.mapleader = "\\"
 -- Setup sane keymaps
 
 -- Disable 'hjkl' for movements
-vim.keymap.set("", "h", "<nop>", { remap = false })
-vim.keymap.set("", "j", "<nop>", { remap = false })
-vim.keymap.set("", "k", "<nop>", { remap = false })
-vim.keymap.set("", "l", "<nop>", { remap = false })
+-- vim.keymap.set("", "h", "<nop>", { remap = false })
+-- vim.keymap.set("", "j", "<nop>", { remap = false })
+-- vim.keymap.set("", "k", "<nop>", { remap = false })
+-- vim.keymap.set("", "l", "<nop>", { remap = false })
 
 -- shifting visual block should keep it selected
 vim.keymap.set("v", "<", "<gv", { remap = false })

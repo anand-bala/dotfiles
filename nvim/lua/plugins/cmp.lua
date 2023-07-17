@@ -4,86 +4,42 @@
 local function cmp_mappings()
   local luasnip = require "luasnip"
   local cmp = require "cmp"
-
-  local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-  end
-
-  local has_words_before = function()
-    unpack = unpack or table.unpack
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0
-        and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match "%s"
-        == nil
-  end
+  local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 
   local mapping = cmp.mapping {
-    ["<CR>"] = cmp.mapping {
-      i = function(fallback)
-        if cmp.visible() and cmp.get_active_entry() then
-          cmp.confirm { select = true }
-        else
-          fallback()
-        end
-      end,
-      s = cmp.mapping.confirm { select = true },
-      c = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
-    },
-    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    ["<C-e>"] = cmp.mapping(cmp.mapping.close(), { "i", "c" }),
-    ["<C-n>"] = cmp.mapping {
-      c = function()
-        if cmp.visible() then
-          cmp.select_next_item()
-        else
-          vim.api.nvim_feedkeys(t "<Down>", "n", true)
-        end
-      end,
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        else
-          fallback()
-        end
-      end,
-    },
-    ["<C-p>"] = cmp.mapping {
-      c = function()
-        if cmp.visible() then
-          cmp.select_prev_item()
-        else
-          vim.api.nvim_feedkeys(t "<Up>", "n", true)
-        end
-      end,
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        else
-          fallback()
-        end
-      end,
-    },
-    ["<Tab>"] = cmp.mapping(function(fallback)
+    ["<CR>"] = cmp.mapping.confirm { select = false },
+    ["<C-y>"] = cmp.mapping.confirm { select = true },
+    ["<C-e>"] = cmp.mapping.abort(),
+    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-d>"] = cmp.mapping.scroll_docs(4),
+    ["<Up>"] = cmp.mapping.select_prev_item(cmp_select_opts),
+    ["<Down>"] = cmp.mapping.select_next_item(cmp_select_opts),
+    ["<C-p>"] = cmp.mapping(function()
       if cmp.visible() then
-        cmp.select_next_item()
-        -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-        -- they way you will only jump inside the snippet region
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      elseif has_words_before() then
+        cmp.select_prev_item(cmp_select_opts)
+      else
         cmp.complete()
+      end
+    end),
+    ["<C-n>"] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_next_item(cmp_select_opts)
+      else
+        cmp.complete()
+      end
+    end),
+    ["<C-k>"] = cmp.mapping(function(fallback)
+      -- Backward
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       else
         fallback()
       end
     end, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
+    ["<C-j>"] = cmp.mapping(function(fallback)
+      -- Forward
+      if luasnip.jumpable(1) then
+        luasnip.jump(1)
       else
         fallback()
       end
@@ -92,6 +48,7 @@ local function cmp_mappings()
 
   return mapping
 end
+
 
 ---@type LazyPluginSpec
 return {
@@ -106,13 +63,12 @@ return {
       "ray-x/cmp-treesitter",
       "L3MON4D3/LuaSnip",
       "kdheepak/cmp-latex-symbols",
-      --  'jc-doyle/cmp-pandoc-references' ,
       "jmbuhr/cmp-pandoc-references",
       "onsails/lspkind-nvim",
     },
     opts = function()
       local cmp = require "cmp"
-      require("lspkind").init()
+      -- require("lspkind").init()
       return {
         mapping = cmp_mappings(),
         snippet = {
@@ -121,20 +77,19 @@ return {
           end,
         },
         formatting = {
-          format = function(_, item)
-            local icons = require("config/icons").kinds
-            if icons[item.kind] then
-              item.kind = icons[item.kind] .. item.kind
-            end
-            return item
-          end,
+          -- fields = { "abbr", "kind", "menu" },
+          format = require("lspkind").cmp_format {
+            mode = "symbol", -- show only symbol annotations
+            -- maxwidth = 50, -- prevent the popup from showing more than provided characters
+            ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
+          },
         },
         sources = cmp.config.sources {
           { name = "nvim_lsp" },
           { name = "path" },
-          { name = "buffer" },
+          { name = "buffer", keyword_length = 3 },
           { name = "treesitter" },
-          { name = "luasnip" },
+          { name = "luasnip", keyword_length = 2 },
         },
       }
     end,

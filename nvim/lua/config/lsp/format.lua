@@ -8,12 +8,7 @@ function M.enabled()
 end
 
 function M.toggle()
-  if vim.b.autoformat == false then
-    vim.b.autoformat = nil
-    M.opts.autoformat = true
-  else
-    M.opts.autoformat = not M.opts.autoformat
-  end
+  M.opts.autoformat = not M.opts.autoformat
   if M.opts.autoformat then
     vim.notify("Enabled format on save", vim.log.levels.INFO, { title = "Format" })
   else
@@ -23,11 +18,15 @@ end
 
 ---@param opts? {force?:boolean}
 function M.format(opts)
-  local buf = vim.api.nvim_get_current_buf()
-  if vim.b.autoformat == false and not (opts and opts.force) then
+  opts = opts or {}
+  if M.opts.autoformat == false then
+    return
+  end
+  if not opts.force then
     return
   end
 
+  local buf = vim.api.nvim_get_current_buf()
   local formatters = M.get_formatters(buf)
   local client_ids = vim.tbl_map(function(client)
     return client.id

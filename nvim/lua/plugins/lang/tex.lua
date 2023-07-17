@@ -2,6 +2,9 @@
 local vimtex = {
   "lervag/vimtex",
   ft = { "tex", "latex", "bib", "bibtex" },
+  keys = {
+    {"<C-t>", "<cmd>VimtexTocToggle<CR>", mode = "n", desc = "Toggle document ToC", buffer = true},
+  },
   init = function()
     vim.g.vimtex_mappings_enabled = 0
     vim.g.vimtex_complete_enabled = 1
@@ -28,11 +31,6 @@ local vimtex = {
       sections = 0,
       styles = 1,
     }
-  end,
-  config = function(_, _)
-    vim.keymap.set("n", "<C-t>", "<cmd>VimtexTocToggle<CR>", {
-      buffer = true,
-    })
   end,
 }
 

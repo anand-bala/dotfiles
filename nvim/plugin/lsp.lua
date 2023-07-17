@@ -25,23 +25,13 @@ local function setup_formatting(client, buf)
       buffer = buf,
     })
 
-    buf_command(
-      buf,
-      "Format",
-      lsp_format.format,
-      { desc = "Format the document", force = true }
-    )
-    buf_command(
-      buf,
-      "FormatToggle",
-      lsp_format.toggle,
-      { desc = "Toggle auto-format", force = true }
-    )
+    buf_command(buf, "Format", function()
+      lsp_format.format()
+    end, { desc = "Format the document", force = true })
+    buf_command(buf, "FormatToggle", function()
+      lsp_format.toggle()
+    end, { desc = "Toggle auto-format", force = true })
   end
-
-  buf_command(buf, "FormattersList", function()
-    local formatter
-  end, { desc = "List the registered formatters for this buffer", force = true })
 end
 
 --- Mappings for built-in LSP client
