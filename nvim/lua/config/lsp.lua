@@ -1,9 +1,4 @@
-local command = vim.api.nvim_create_user_command
-local map = vim.keymap.set
-
 local M = {}
-
-M.autoformat = false
 
 --- Wrapper to add `on_attach` hooks for LSP
 ---@param on_attach fun(client, buffer)
@@ -15,23 +10,6 @@ function M.on_attach_hook(on_attach)
       on_attach(client, buffer)
     end,
   })
-end
-
-function M.format()
-  local buf = vim.api.nvim_get_current_buf()
-  local ft = vim.bo[buf].filetype
-  local have_nls = #require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING")
-    > 0
-
-  vim.lsp.buf.format {
-    bufnr = buf,
-    filter = function(client)
-      if have_nls then
-        return client.name == "null-ls"
-      end
-      return client.name ~= "null-ls"
-    end,
-  }
 end
 
 --- Setup LSP-based diagnostics

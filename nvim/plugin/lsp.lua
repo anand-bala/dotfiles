@@ -2,6 +2,48 @@ local on_attach_hook = require("config.lsp").on_attach_hook
 local command = vim.api.nvim_create_user_command
 local map = vim.keymap.set
 
+--- Setup autocmds and mappings for LSP-based formatting
+--- @param client lsp.Client
+--- @param buf integer
+local function setup_formatting(client, buf)
+  local buf_command = vim.api.nvim_buf_create_user_command
+
+  if client.server_capabilities.documentFormattingProvider then
+    local lsp_format = require "config.lsp.format"
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = vim.api.nvim_create_augroup("LspFormatting", {}),
+      buffer = buf,
+      callback = function()
+        if lsp_format.opts.autoformat then
+          lsp_format.format()
+        end
+      end,
+    })
+
+    map("n", "<leader>f", lsp_format.format, {
+      desc = "Format the document",
+      buffer = buf,
+    })
+
+    buf_command(
+      buf,
+      "Format",
+      lsp_format.format,
+      { desc = "Format the document", force = true }
+    )
+    buf_command(
+      buf,
+      "FormatToggle",
+      lsp_format.toggle,
+      { desc = "Toggle auto-format", force = true }
+    )
+  end
+
+  buf_command(buf, "FormattersList", function()
+    local formatter
+  end, { desc = "List the registered formatters for this buffer", force = true })
+end
+
 --- Mappings for built-in LSP client
 --- @param client lsp.Client
 --- @param bufnr integer
@@ -60,28 +102,5 @@ local function keymaps(client, bufnr)
   })
 end
 
--- on_attach_hook(lsp_formatting)
 on_attach_hook(keymaps)
-
-on_attach_hook(function(client, buf)
-  if client.server_capabilities.documentFormattingProvider then
-    local M = require "config.lsp.format"
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = vim.api.nvim_create_augroup("LspFormatting", {}),
-      buffer = buf,
-      callback = function()
-        if M.opts.autoformat then
-          M.format()
-        end
-      end,
-    })
-
-    map("n", "<leader>f", M.format, {
-      desc = "Format the document",
-      buffer = buf,
-    })
-
-    command("Format", M.format, { desc = "Format the document", force = true })
-    command("FormatToggle", M.toggle, { desc = "Toggle auto-format", force = true })
-  end
-end)
+on_attach_hook(setup_formatting)
