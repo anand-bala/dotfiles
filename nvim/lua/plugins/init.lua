@@ -1,13 +1,13 @@
 --- Colorscheme
 ---@type LazyPluginSpec
 local colorscheme = {
-  "shaunsingh/solarized.nvim",
+	'rose-pine/neovim',
+  name = 'rose-pine',
   lazy = false, -- make sure we load this during startup if it is your main colorscheme
   priority = 1000,
   config = function()
-    vim.g.solarized_borders = true
     vim.opt.background = "light"
-    vim.cmd [[colorscheme solarized]]
+    vim.cmd [[colorscheme rose-pine]]
   end,
 }
 

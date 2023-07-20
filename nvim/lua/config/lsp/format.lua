@@ -7,22 +7,48 @@ function M.enabled()
   return M.opts.autoformat
 end
 
-function M.toggle()
-  M.opts.autoformat = not M.opts.autoformat
-  if M.opts.autoformat then
+function M.enable()
+  if not M.opts.autoformat then
+    M.opts.autoformat = true
     vim.notify("Enabled format on save", vim.log.levels.INFO, { title = "Format" })
-  else
+  end
+end
+
+function M.disable()
+  if M.opts.autoformat then
+    M.opts.autoformat = false
     vim.notify("Disabled format on save", vim.log.levels.INFO, { title = "Format" })
   end
+end
+
+function M.toggle()
+  if M.enabled() then
+    M.disable()
+  else
+    M.enable()
+  end
+end
+
+---@param client lsp.Client
+---@param opts? {force?:boolean}
+function M.format_using(client, opts)
+  opts = opts or {}
+  local buf = vim.api.nvim_get_current_buf()
+  if M.opts.format_notify then
+    local formatters = M.get_formatters(buf)
+    M.notify(formatters)
+  end
+
+  vim.lsp.buf.format(vim.tbl_deep_extend("force", {
+    bufnr = buf,
+    id = client.id,
+  }, M.opts.format or {}))
 end
 
 ---@param opts? {force?:boolean}
 function M.format(opts)
   opts = opts or {}
-  if M.opts.autoformat == false then
-    return
-  end
-  if not opts.force then
+  if M.opts.autoformat == false and not opts.force then
     return
   end
 
@@ -124,6 +150,21 @@ function M.get_formatters(bufnr)
     end
   end
 
+  return ret
+end
+
+--- Gets all lsp clients that support formatting
+--- and have not disabled it in their client config
+---@param bufnr integer
+---@return lsp.Client[]
+function M.get_all_formatters(bufnr)
+  local ret = {}
+  local clients = vim.lsp.get_active_clients { bufnr = bufnr }
+  for _, client in ipairs(clients) do
+    if M.supports_format(client) then
+      table.insert(ret, client)
+    end
+  end
   return ret
 end
 

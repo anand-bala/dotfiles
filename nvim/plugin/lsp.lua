@@ -7,6 +7,7 @@ local map = vim.keymap.set
 --- @param buf integer
 local function setup_formatting(client, buf)
   local buf_command = vim.api.nvim_buf_create_user_command
+  local ft = vim.bo[buf].filetype
 
   if client.server_capabilities.documentFormattingProvider then
     local lsp_format = require "config.lsp.format"
@@ -20,17 +21,50 @@ local function setup_formatting(client, buf)
       end,
     })
 
-    map("n", "<leader>f", lsp_format.format, {
+    map("n", "<leader>f", function()
+      lsp_format.format { force = true }
+    end, {
       desc = "Format the document",
       buffer = buf,
     })
-
     buf_command(buf, "Format", function()
-      lsp_format.format()
+      local formatters = lsp_format.get_all_formatters(buf)
+      vim.ui.select(formatters, {
+        prompt = "Select a formatter to use",
+        ---@param item lsp.Client
+        ---@return string
+        format_item = function(item)
+          if item.name == "null-ls" then
+            local null_ls_fmts =
+              require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING")
+            return item.name
+              .. " ("
+              .. table.concat(
+                vim.tbl_map(function(f)
+                  return "`" .. f.name .. "`"
+                end, null_ls_fmts),
+                ", "
+              )
+              .. ")"
+          else
+            return item.name
+          end
+        end,
+      }, function(choice)
+        lsp_format.format_using(choice)
+      end)
     end, { desc = "Format the document", force = true })
     buf_command(buf, "FormatToggle", function()
       lsp_format.toggle()
     end, { desc = "Toggle auto-format", force = true })
+    buf_command(buf, "ListFormatters", function()
+      local bufnr = vim.api.nvim_get_current_buf()
+      local formatters = lsp_format.get_formatters(bufnr)
+      lsp_format.notify(formatters)
+    end, {
+      desc = "List the formatters for this buffer",
+      force = true,
+    })
   end
 end
 
