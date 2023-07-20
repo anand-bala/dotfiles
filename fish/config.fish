@@ -25,6 +25,9 @@ alias less "less -R --use-color"
 set -gx PAGER "less -R --use-color -Dd+r -Du+b"
 set -gx MANPAGER "less -R --use-color -Dd+r -Du+b"
 
+# --- Set fish color theme
+fish_config theme choose "Rosé Pine Dawn"
+
 # --- Colorize GCC output
 set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"
 
