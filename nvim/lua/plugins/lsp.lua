@@ -106,7 +106,7 @@ local null_ls = {
       end,
     },
   },
-  event = "BufReadPre",
+  event = "BufReadPost",
   opts = function()
     local null_ls = require "null-ls"
 

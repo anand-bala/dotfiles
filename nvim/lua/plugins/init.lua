@@ -18,9 +18,74 @@ local deps = {
   { "nvim-tree/nvim-web-devicons" },
 }
 
---- UI elements
 ---@type LazyPluginSpec[]
-local ui = {
+return {
+  colorscheme,
+  "folke/neodev.nvim",
+  {
+    "folke/which-key.nvim",
+    opts = {
+      plugins = {
+        registers = false,
+      },
+    },
+  },
+  {
+    --- Project local settings
+    "folke/neoconf.nvim",
+    lazy = false,
+    -- opts = {
+    --   import = {
+    --     vscode = false, -- local .vscode/settings.json
+    --     coc = false, -- global/local coc-settings.json
+    --     nlsp = false, -- global/local nlsp-settings.nvim json settings
+    --   },
+    -- },
+    config = true,
+  },
+  { "tpope/vim-obsession", cmd = "Obsession" },
+  {
+    "tpope/vim-abolish",
+    cmd = { "Abolish", "Subvert", "S" },
+    keys = {
+      { "crs", desc = "coerce to snake_case" },
+      { "crm", desc = "coerce to MixedCase" },
+      { "crc", desc = "coerce to camerlCase" },
+      { "cru", desc = "coerce to UPPER_CASE" },
+      { "cr-", desc = "coerce to dash-case" },
+      { "cr.", desc = "coerce to dot.case" },
+    },
+  },
+  { "tpope/vim-fugitive", cmd = "Git" },
+  { "junegunn/vim-easy-align", cmd = { "EasyAlign" } },
+  { "echasnovski/mini.comment", event = "VeryLazy", opts = {} },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = [[:TSUpdate]],
+    event = "BufReadPost",
+    opts = {
+      ensure_installed = {
+        "bash",
+        "c",
+        "cpp",
+        "html",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "regex",
+        "rust",
+        "vim",
+        "vimdoc",
+        "zig",
+      },
+      highlight = { enable = true },
+      indent = { enable = true },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
+  },
   { "stevearc/dressing.nvim", event = "VeryLazy", opts = {} },
   {
     "echasnovski/mini.tabline",
@@ -51,6 +116,7 @@ local ui = {
     event = "VeryLazy",
     config = function()
       local notify = require "notify"
+      ---@diagnostic disable-next-line: missing-fields
       notify.setup {
         top_down = false,
       }
@@ -58,40 +124,18 @@ local ui = {
     end,
   },
   {
-    "luukvbaal/statuscol.nvim",
-    config = function()
-      local builtin = require "statuscol.builtin"
-      require("statuscol").setup {
-        relculright = true,
-        segments = {
-          { text = { "%s" }, click = "v:lua.ScSa" },
-          {
-            text = { builtin.lnumfunc, " " },
-            condition = { true, builtin.not_empty },
-            click = "v:lua.ScLa",
-          },
-          { text = { " ", builtin.foldfunc, " " }, click = "v:lua.ScFa" },
-        },
-      }
-    end,
-  },
-  {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPre",
-    opts = {
-      {
-        char = "▏",
-        char_blankline = "┆",
-        buftype_exclude = { "terminal" },
-        show_trailing_blankline_indent = false,
-        show_current_context = true,
-        filetype_exclude = { "help", "terminal" },
-        -- disabled now for performance hit.
-        -- use_treesitter = true
-      },
-    },
-    config = function(_, opts)
-      require("indent_blankline").setup(opts)
+    event = "BufReadPost",
+    config = function()
+      vim.g.indent_blankline_char = "┆"
+      vim.g.indent_blankline_char_blankline = "┆"
+      vim.g.indent_blankline_buftype_exclude = { "terminal" }
+      vim.g.indent_blankline_show_trailing_blankline_indent = false
+      vim.g.indent_blankline_show_current_context = true
+      vim.g.indent_blankline_filetype_exclude = { "help", "terminal" }
+      -- disabled now for performance hit.
+      vim.g.indent_blankline_use_treesitter = true
+      require("indent_blankline").setup {}
     end,
     dependencies = {
       { "nvim-treesitter/nvim-treesitter" },
@@ -100,7 +144,7 @@ local ui = {
   {
     "glepnir/lspsaga.nvim",
     cmd = { "Lspsaga" },
-    event = "BufReadPre",
+    event = "BufReadPost",
     config = function()
       require("lspsaga").setup {
         lightbulb = {
@@ -127,79 +171,4 @@ local ui = {
       { "nvim-treesitter/nvim-treesitter" },
     },
   },
-}
-
---- Treesitter
----@type LazyPluginSpec
-local treesitter = {
-  "nvim-treesitter/nvim-treesitter",
-  build = [[:TSUpdate]],
-  event = "BufReadPre",
-  opts = {
-    ensure_installed = {
-      "bash",
-      "c",
-      "cpp",
-      "html",
-      "lua",
-      "markdown",
-      "markdown_inline",
-      "python",
-      "regex",
-      "rust",
-      "vim",
-      "vimdoc",
-      "zig",
-    },
-    highlight = { enable = true },
-    indent = { enable = true },
-  },
-  config = function(_, opts)
-    require("nvim-treesitter.configs").setup(opts)
-  end,
-}
-
----@type LazyPluginSpec[]
-return {
-  colorscheme,
-  ui,
-  "folke/neodev.nvim",
-  {
-    "folke/which-key.nvim",
-    opts = {
-      plugins = {
-        registers = false,
-      },
-    },
-  },
-  {
-    --- Project local settings
-    "folke/neoconf.nvim",
-    event = "BufReadPre",
-    -- opts = {
-    --   import = {
-    --     vscode = false, -- local .vscode/settings.json
-    --     coc = false, -- global/local coc-settings.json
-    --     nlsp = false, -- global/local nlsp-settings.nvim json settings
-    --   },
-    -- },
-    config = true,
-  },
-  { "tpope/vim-obsession", cmd = "Obsession" },
-  {
-    "tpope/vim-abolish",
-    cmd = { "Abolish", "Subvert", "S" },
-    keys = {
-      { "crs", desc = "coerce to snake_case" },
-      { "crm", desc = "coerce to MixedCase" },
-      { "crc", desc = "coerce to camerlCase" },
-      { "cru", desc = "coerce to UPPER_CASE" },
-      { "cr-", desc = "coerce to dash-case" },
-      { "cr.", desc = "coerce to dot.case" },
-    },
-  },
-  { "tpope/vim-fugitive", cmd = "Git" },
-  { "junegunn/vim-easy-align", cmd = { "EasyAlign" } },
-  { "echasnovski/mini.comment", event = "VeryLazy", opts = {} },
-  treesitter,
 }

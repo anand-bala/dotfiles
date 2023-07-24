@@ -65,7 +65,7 @@ return {
       "jmbuhr/cmp-pandoc-references",
       "onsails/lspkind-nvim",
     },
-    event = "BufReadPre",
+    event = "BufReadPost",
     opts = function()
       local cmp = require "cmp"
       -- require("lspkind").init()

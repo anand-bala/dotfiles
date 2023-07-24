@@ -87,8 +87,8 @@ function M.keymaps(_, bufnr)
   end
   lspmap("K", "<cmd>Lspsaga hover_doc<CR>")
   lspmap("<C-k>", vim.lsp.buf.signature_help)
-  lspmap("<C-]>", "<cmd>Lspsaga lsp_finder<CR>")
-  lspmap("gd", "<cmd>Lspsaga peek_type_definition<CR>")
+  lspmap("<C-]>", "<cmd>Lspsaga finder<CR>")
+  lspmap("gd", "<cmd>Lspsaga goto_definition<CR>")
   lspmap("<C-s>", function()
     local opts = {
       symbols = {
