@@ -2,9 +2,7 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
 local function abolish(args)
-  -- if vim.fn.exists ":Abolish" == 2 then
   vim.cmd("Abolish " .. table.concat(args, " "))
-  -- end
 end
 
 autocmd({ "InsertEnter" }, {

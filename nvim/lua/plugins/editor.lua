@@ -57,7 +57,7 @@ local vimtex = {
       buffer = true,
     },
   },
-  init = function()
+  config = function()
     vim.g.vimtex_mappings_enabled = 0
     vim.g.vimtex_complete_enabled = 1
     vim.g.vimtex_view_enabled = 0
@@ -67,9 +67,6 @@ local vimtex = {
       fold_enable = 1,
     }
     vim.g.vimtex_toc_show_preamble = 0
-
-    vim.g.tex_conceal = "abdgm"
-    vim.g.tex_flavor = "latex"
     vim.g.vimtex_syntax_conceal = {
       accents = 1,
       cites = 1,
@@ -83,6 +80,7 @@ local vimtex = {
       sections = 0,
       styles = 1,
     }
+    return true
   end,
 }
 

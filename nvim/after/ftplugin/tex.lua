@@ -1,5 +1,8 @@
 local on_attach_hook = require("config.lsp").on_attach_hook
 
+vim.g.tex_conceal = "abdgm"
+vim.g.tex_flavor = "latex"
+
 vim.opt_local.textwidth = 80
 ---@diagnostic disable-next-line: param-type-mismatch
 vim.opt_local.formatoptions:append "]"
