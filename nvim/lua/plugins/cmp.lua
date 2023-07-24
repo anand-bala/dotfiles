@@ -49,7 +49,6 @@ local function cmp_mappings()
   return mapping
 end
 
-
 ---@type LazyPluginSpec
 return {
   {
@@ -66,6 +65,7 @@ return {
       "jmbuhr/cmp-pandoc-references",
       "onsails/lspkind-nvim",
     },
+    event = "BufReadPre",
     opts = function()
       local cmp = require "cmp"
       -- require("lspkind").init()

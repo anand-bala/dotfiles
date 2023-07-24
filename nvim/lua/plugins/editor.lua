@@ -1,152 +1,92 @@
---- Common dependencies
----@type LazyPluginSpec[]
-local deps = {
-  { "lewis6991/gitsigns.nvim", config = true },
-  { "nvim-tree/nvim-web-devicons" },
-}
+local markdown = {
+  {
+    "preservim/vim-markdown",
+    ft = { "markdown" },
+    config = function(_, _)
+      vim.g.vim_markdown_auto_insert_bullets = 0
+      vim.g.vim_markdown_autowrite = 1
+      vim.g.vim_markdown_conceal = 1
+      vim.g.vim_markdown_conceal_code_blocks = 0
+      vim.g.vim_markdown_edit_url_in = "vsplit"
+      vim.g.vim_markdown_folding_disabled = 1
+      vim.g.vim_markdown_follow_anchor = 1
+      vim.g.vim_markdown_frontmatter = 1
+      vim.g.vim_markdown_math = 1
+      vim.g.vim_markdown_new_list_item_indent = 0
+      vim.g.vim_markdown_strikethrough = 1
+      vim.g.vim_markdown_toc_autofit = 1
+      vim.g.vim_markdown_toml_frontmatter = 1
 
---- UI elements
----@type LazyPluginSpec[]
-local ui = {
-  { "stevearc/dressing.nvim", event = "VeryLazy", opts = {} },
-  {
-    "echasnovski/mini.tabline",
-    event = "VeryLazy",
-    opts = {},
-    keys = {
-      { "]b", "<cmd>bnext<cr>", desc = "Move to next buffer in list" },
-      { "[b", "<cmd>bprevious<cr>", desc = "Move to previous buffer in list" },
-    },
-    dependencies = deps,
+      vim.g.markdown_fenced_languages = { "html", "python", "bash=sh", "R=r" }
+    end,
   },
+
+  -- Quarto
   {
-    "echasnovski/mini.statusline",
-    event = "VeryLazy",
+    "quarto-dev/quarto-nvim",
+    dependencies = {
+      "jmbuhr/otter.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    ft = { "markdown", "pandoc" },
     opts = {
-      set_vim_settings = true,
-    },
-    init = function(_)
-      -- Turn on global statusline
-      vim.opt.laststatus = 3
-      -- Turn on sign column
-      vim.wo.signcolumn = "yes"
-    end,
-    dependencies = deps,
-  },
-  {
-    "rcarriga/nvim-notify",
-    event = "VeryLazy",
-    config = function()
-      local notify = require "notify"
-      notify.setup {
-        top_down = false,
-      }
-      vim.notify = notify
-    end,
-  },
-  {
-    "luukvbaal/statuscol.nvim",
-    config = function()
-      local builtin = require "statuscol.builtin"
-      require("statuscol").setup {
-        relculright = true,
-        segments = {
-          { text = { "%s" }, click = "v:lua.ScSa" },
-          {
-            text = { builtin.lnumfunc, " " },
-            condition = { true, builtin.not_empty },
-            click = "v:lua.ScLa",
-          },
-          { text = { " ", builtin.foldfunc, " " }, click = "v:lua.ScFa" },
+      lspFeatures = {
+        enabled = true,
+        languages = { "r", "python", "julia" },
+        diagnostics = {
+          enabled = true,
+          triggers = { "BufWrite" },
         },
-      }
-    end,
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPost",
-    opts = {
-      {
-        char = "▏",
-        char_blankline = "┆",
-        buftype_exclude = { "terminal" },
-        show_trailing_blankline_indent = false,
-        show_current_context = true,
-        filetype_exclude = { "help", "terminal" },
-        -- disabled now for performance hit.
-        -- use_treesitter = true
+        completion = {
+          enabled = true,
+        },
       },
     },
-    config = function(_, opts)
-      require("indent_blankline").setup(opts)
-    end,
-    dependencies = {
-      { "nvim-treesitter/nvim-treesitter" },
-    },
-  },
-  {
-    "glepnir/lspsaga.nvim",
-    cmd = { "Lspsaga" },
-    event = { "BufReadPost" },
-    config = function()
-      require("lspsaga").setup {
-        lightbulb = {
-          enable = false,
-        },
-        ui = {
-          -- This option only works in Neovim 0.9
-          title = true,
-          -- Border type can be single, double, rounded, solid, shadow.
-          border = "single",
-          winblend = 0,
-          expand = "",
-          collapse = "",
-          code_action = "💡",
-          incoming = " ",
-          outgoing = " ",
-          hover = " ",
-          kind = {},
-        },
-      }
-    end,
-    dependencies = {
-      { "nvim-tree/nvim-web-devicons" },
-      { "nvim-treesitter/nvim-treesitter" },
-    },
   },
 }
 
---- Treesitter
----@type LazyPluginSpec
-local treesitter = {
-  "nvim-treesitter/nvim-treesitter",
-  build = [[:TSUpdate]],
-  event = "BufReadPost",
-  opts = {
-    ensure_installed = {
-      "bash",
-      "c",
-      "cpp",
-      "html",
-      "lua",
-      "markdown",
-      "markdown_inline",
-      "python",
-      "regex",
-      "rust",
-      "vim",
-      "vimdoc",
-      "zig",
+local vimtex = {
+  "lervag/vimtex",
+  ft = { "tex", "latex", "bib", "bibtex" },
+  keys = {
+    {
+      "<C-t>",
+      "<cmd>VimtexTocToggle<CR>",
+      mode = "n",
+      desc = "Toggle document ToC",
+      buffer = true,
     },
-    highlight = { enable = true },
-    indent = { enable = true },
   },
-  config = function(_, opts)
-    require("nvim-treesitter.configs").setup(opts)
+  init = function()
+    vim.g.vimtex_mappings_enabled = 0
+    vim.g.vimtex_complete_enabled = 1
+    vim.g.vimtex_view_enabled = 0
+    vim.g.vimtex_format_enabled = 1
+    vim.g.vimtex_toc_config = {
+      split_pos = "botright",
+      fold_enable = 1,
+    }
+    vim.g.vimtex_toc_show_preamble = 0
+
+    vim.g.tex_conceal = "abdgm"
+    vim.g.tex_flavor = "latex"
+    vim.g.vimtex_syntax_conceal = {
+      accents = 1,
+      cites = 1,
+      fancy = 1,
+      greek = 1,
+      math_bounds = 1,
+      math_delimiters = 1,
+      math_fracs = 1,
+      math_super_sub = 1,
+      math_symbols = 1,
+      sections = 0,
+      styles = 1,
+    }
   end,
 }
 
 return {
-  treesitter,
-  ui,
+  markdown,
+  vimtex,
 }
