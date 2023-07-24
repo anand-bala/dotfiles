@@ -200,7 +200,7 @@ function M.on_attach(client, buf)
   if client.server_capabilities.documentFormattingProvider then
     local lsp_format = require "config.lsp.format"
     vim.api.nvim_create_autocmd("BufWritePre", {
-      group = vim.api.nvim_create_augroup("LspFormatting", {}),
+      group = vim.api.nvim_create_augroup("LspFormatOnWrite", {}),
       buffer = buf,
       callback = function()
         if lsp_format.opts.autoformat then

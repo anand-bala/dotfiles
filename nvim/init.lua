@@ -198,3 +198,16 @@ autocmd("TermOpen", {
     vim.opt_local.statuscolumn = ""
   end,
 })
+
+-- LSP default on_attach hooks
+do
+  local on_attach_hook = require("config.lsp").on_attach_hook
+  on_attach_hook(
+    require("config.lsp").keymaps,
+    { desc = "LSP: setup default keymaps", group = "LspDefaultKeymaps" }
+  )
+  on_attach_hook(
+    require("config.lsp.format").on_attach,
+    { desc = "LSP: setup formatting", group = "LspFormattingSetup" }
+  )
+end

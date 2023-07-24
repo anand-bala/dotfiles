@@ -63,7 +63,6 @@ local lsp_plugin = {
     local servers = opts.servers or {}
 
     local function setup(server)
-      local on_attach_hook = require("config.lsp").on_attach_hook
       local server_opts = servers[server] or {}
 
       server_opts["capabilities"] =
@@ -78,8 +77,6 @@ local lsp_plugin = {
         end
       end
       require("lspconfig")[server].setup(server_opts)
-      on_attach_hook(require("config.lsp").keymaps)
-      on_attach_hook(require("config.lsp.format").on_attach)
     end
 
     for server, server_opts in pairs(servers) do

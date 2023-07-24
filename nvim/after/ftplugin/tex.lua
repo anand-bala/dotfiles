@@ -75,29 +75,27 @@ local function forward_search()
 end
 
 -- Update the Texlab settings lazily
-on_attach_hook(
-  ---@param client lsp.Client
-  ---@param buffer number
-  function(client, buffer)
-    local new_settings = vim.tbl_extend("force", client.config.settings or {}, {
-      build = build_config(),
-      forwardSearch = forward_search(),
+on_attach_hook(function(client, _)
+  local new_settings = vim.tbl_extend("force", client.config.settings or {}, {
+    build = build_config(),
+    forwardSearch = forward_search(),
+  })
+  if client["workspace_did_change_configuration"] ~= nil then
+    ---@diagnostic disable-next-line: undefined-field
+    client.workspace_did_change_configuration(new_settings)
+  else
+    ---@diagnostic disable-next-line: invisible
+    client.notify("workspace/didChangeConfiguration", {
+      settings = new_settings,
     })
-    if client["workspace_did_change_configuration"] ~= nil then
-      ---@diagnostic disable-next-line: undefined-field
-      client.workspace_did_change_configuration(new_settings)
-    else
-      ---@diagnostic disable-next-line: invisible
-      client.notify("workspace/didChangeConfiguration", {
-        settings = new_settings,
-      })
-    end
   end
-)
+end, {
+  desc = "Setup Texlab builder and forward search configuration",
+  once = true,
+  group = "LspTexlabSettings",
+})
 
 on_attach_hook(function(_, buffer)
-  -- Use builtin formatexpr for Markdown and Tex
-  vim.bo[buffer].formatexpr = nil
   -- Setup Texlab keymaps
   vim.keymap.set("n", "<leader>lv", "<cmd>TexlabForward<CR>", {
     silent = false,
@@ -110,4 +108,12 @@ on_attach_hook(function(_, buffer)
     buffer = buffer,
     remap = false,
   })
-end)
+end, { desc = "Setup Texlab keymaps", group = "TexlabKeymaps" })
+
+on_attach_hook(function(_, buffer)
+  -- Use builtin formatexpr for Markdown and Tex
+  vim.bo[buffer].formatexpr = nil
+end, {
+  desc = "Disable formatexpr",
+  group = "DisableLspFormatexpr",
+})

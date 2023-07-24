@@ -4,15 +4,26 @@ local map = vim.keymap.set
 local M = {}
 
 --- Wrapper to add `on_attach` hooks for LSP
----@param on_attach fun(client, buffer)
-function M.on_attach_hook(on_attach)
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-      local buffer = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      on_attach(client, buffer)
-    end,
-  })
+---@param on_attach fun(client:lsp.Client, buffer:integer)
+---@param opts? {desc?:string,once?:boolean,group?:integer|string}
+function M.on_attach_hook(on_attach, opts)
+  opts = opts or {}
+  if opts["group"] and type(opts.group) == "string" then
+    ---@diagnostic disable-next-line: param-type-mismatch
+    opts.group = vim.api.nvim_create_augroup(opts.group, {})
+  end
+  vim.api.nvim_create_autocmd(
+    "LspAttach",
+    vim.tbl_extend("force", opts, {
+      callback = function(args)
+        local buffer = args.buf
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client ~= nil then
+          on_attach(client, buffer)
+        end
+      end,
+    })
+  )
 end
 
 --- Setup LSP-based diagnostics
@@ -29,7 +40,7 @@ function M.diagnostics(opts)
       if client.server_capabilities.inlayHintProvider then
         inlay_hint(buffer, true)
       end
-    end)
+    end, { desc = "LSP: Enable inlay hints" })
   end
 
   if

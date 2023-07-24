@@ -22,4 +22,5 @@ autocmd({ "InsertEnter" }, {
     abolish { "rec{co,com,o}mend{,s,ed,ing,ation}", "rec{om}mend{}" }
     abolish { "{,ir}releven{ce,cy,t,tly}", "{}relevan{}" }
   end,
+  once = true,
 })
