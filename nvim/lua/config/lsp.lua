@@ -8,9 +8,8 @@ local M = {}
 ---@param opts? {desc?:string,once?:boolean,group?:integer|string}
 function M.on_attach_hook(on_attach, opts)
   opts = opts or {}
-  if opts["group"] and type(opts.group) == "string" then
-    ---@diagnostic disable-next-line: param-type-mismatch
-    opts.group = vim.api.nvim_create_augroup(opts.group, {})
+  if opts["group"] ~= nil and type(opts.group) == "string" then
+    opts.group = vim.api.nvim_create_augroup(opts.group --[[@as string]], {})
   end
   vim.api.nvim_create_autocmd(
     "LspAttach",

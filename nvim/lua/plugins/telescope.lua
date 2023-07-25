@@ -77,6 +77,9 @@ return {
       local telescope = require "telescope"
       telescope.setup(opts)
       telescope.load_extension "fzf"
+      if pcall(require, "notify") then
+        telescope.load_extension "notify"
+      end
       -- telescope.load_extension "ui-select"
     end,
   },

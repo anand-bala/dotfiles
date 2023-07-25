@@ -2,10 +2,10 @@ local on_attach_hook = require("config.lsp").on_attach_hook
 
 vim.g.tex_conceal = "abdgm"
 vim.g.tex_flavor = "latex"
+vim.g.texlab_builder = "latexmk"
 
 vim.opt_local.textwidth = 80
----@diagnostic disable-next-line: param-type-mismatch
-vim.opt_local.formatoptions:append "]"
+vim.opt_local.formatoptions = vim.opt_local.formatoptions + "]"
 vim.opt_local.formatlistpat = [[^\s*\(\d\+[\]:.)}\t ]\)\|\(\\item \)\s*]]
 
 --- Get the TexlabBuild configuration
@@ -83,15 +83,42 @@ on_attach_hook(function(client, _)
     build = build_config(),
     forwardSearch = forward_search(),
   })
-  if client["workspace_did_change_configuration"] ~= nil then
-    ---@diagnostic disable-next-line: undefined-field
-    client.workspace_did_change_configuration(new_settings)
-  else
-    ---@diagnostic disable-next-line: invisible
-    client.notify("workspace/didChangeConfiguration", {
-      settings = new_settings,
-    })
+  if vim.deep_equal(new_settings, client.config.settings) then
+    return
   end
+  if vim.tbl_isempty(new_settings.build) then
+    vim.notify(
+      "TexLab builder not set",
+      vim.log.levels.INFO,
+      { title = "TexLab Build" }
+    )
+  else
+    vim.notify(
+      string.format("TexLab builder set to: %s", new_settings.build.executable),
+      vim.log.levels.INFO,
+      { title = "TexLab Build" }
+    )
+  end
+
+  if vim.tbl_isempty(new_settings.forwardSearch) then
+    vim.notify(
+      "TexLab forward search method not set",
+      vim.log.levels.INFO,
+      { title = "TexLab Forward Search" }
+    )
+  else
+    vim.notify(
+      string.format(
+        "TexLab forward search method set to: %s",
+        new_settings.forwardSearch.executable
+      ),
+      vim.log.levels.INFO,
+      { title = "TexLab Forward Search" }
+    )
+  end
+  client.notify("workspace/didChangeConfiguration", {
+    settings = new_settings,
+  })
 end, {
   desc = "Setup Texlab builder and forward search configuration",
   once = true,
