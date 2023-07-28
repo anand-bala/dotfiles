@@ -120,8 +120,8 @@ bindsym $mod+Shift+8 move container to workspace $ws_music
 bindsym $mod+Shift+9 move container to workspace $ws_gamedev
 
 # navigate workspaces next / previous
-bindsym Mod1+Ctrl+Right workspace next
-bindsym Mod1+Ctrl+Left workspace prev
+bindsym Mod1+Ctrl+Right workspace next_on_output
+bindsym Mod1+Ctrl+Left workspace prev_on_output
 
 # Assign applications to specific workspaces
 assign [class="(?i)thunderbird"] $ws_msgs
