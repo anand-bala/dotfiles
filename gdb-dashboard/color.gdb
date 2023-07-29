@@ -14,4 +14,5 @@ dashboard -style divider_fill_style_secondary '30'
 dashboard -style divider_label_style_on_secondary '30'
 dashboard -style divider_label_style_off_secondary '30;1'
 
-dashboard -style syntax_highlighting 'solarized-light'
+dashboard -style syntax_highlighting 'xcode'
+dashboard -style prompt_not_running '\\[\\e[30m\\]>>>\\[\\e[0m\\]'
