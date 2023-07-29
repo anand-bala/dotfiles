@@ -129,7 +129,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Load lazy.nvim plugins
 require("lazy").setup("plugins", {
   defaults = { lazy = true },
-  install = { colorscheme = { "rose-pine" } },
+  install = { colorscheme = { "dayfox" } },
   checker = { enabled = true, notify = false },
   change_detection = {
     -- automatically check for config file changes and reload the ui

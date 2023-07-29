@@ -1,13 +1,23 @@
 --- Colorscheme
 ---@type LazyPluginSpec
 local colorscheme = {
-  "rose-pine/neovim",
-  name = "rose-pine",
+  "EdenEast/nightfox.nvim",
   lazy = false, -- make sure we load this during startup if it is your main colorscheme
   priority = 1000,
-  config = function()
-    vim.opt.background = "light"
-    vim.cmd [[colorscheme rose-pine]]
+  config = function(_, _)
+    require("nightfox").setup {
+      options = {
+        colorblind = {
+          enable = true,
+          severity = {
+            protan = 0.4,
+            deutan = 1.0,
+          },
+        },
+      },
+    }
+
+    vim.cmd "colorscheme dayfox"
   end,
 }
 
