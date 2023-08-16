@@ -1,3 +1,7 @@
+---@diagnostic disable: missing-fields
+
+local lspconfig_util = require "lspconfig.util"
+
 --- Configure each server and merge it with the `opts` table in for `lspconfig`.
 ---@class PluginLspOpts
 local M = {
@@ -122,7 +126,11 @@ M.servers = {
     },
   },
   texlab = {
-    single_file_support = false,
+    ---@diagnostic disable-next-line: assign-type-mismatch
+    root_dir = function(fname)
+      return lspconfig_util.root_pattern(".latexmkrc", "latexindent.yaml")(fname)
+        or lspconfig_util.find_git_ancestor(fname)
+    end,
     settings = {
       texlab = {
         bibtexFormatter = "none",
@@ -131,6 +139,13 @@ M.servers = {
           ["local"] = "latexindent.yaml",
           modifyLineBreaks = true,
         },
+      },
+    },
+  },
+  esbonio = {
+    init_options = {
+      sphinx = {
+        srcDir = "${confDir}",
       },
     },
   },
@@ -180,6 +195,12 @@ M.setup = {
     })
     require("rust-tools").setup(rust_tools_opts)
     return true
+  end,
+  texlab = function(_, opts)
+    local texlab_helpers = require "config.lsp.texlab"
+
+    opts.settings.texlab.build = texlab_helpers.build_config()
+    opts.settings.texlab.forwardSearch = texlab_helpers.forward_search()
   end,
 }
 

@@ -34,6 +34,7 @@ return {
   "folke/neodev.nvim",
   {
     "folke/which-key.nvim",
+    lazy = false,
     opts = {
       plugins = {
         registers = false,
@@ -43,15 +44,14 @@ return {
   {
     --- Project local settings
     "folke/neoconf.nvim",
-    lazy = false,
-    -- opts = {
-    --   import = {
-    --     vscode = false, -- local .vscode/settings.json
-    --     coc = false, -- global/local coc-settings.json
-    --     nlsp = false, -- global/local nlsp-settings.nvim json settings
-    --   },
-    -- },
-    config = true,
+    lazy = "BufReadPre",
+    opts = {
+      import = {
+        vscode = false, -- local .vscode/settings.json
+        coc = false, -- global/local coc-settings.json
+        nlsp = false, -- global/local nlsp-settings.nvim json settings
+      },
+    },
   },
   { "tpope/vim-obsession", cmd = "Obsession" },
   {
@@ -69,6 +69,14 @@ return {
   { "tpope/vim-fugitive", cmd = "Git" },
   { "junegunn/vim-easy-align", cmd = { "EasyAlign" } },
   { "echasnovski/mini.comment", event = "VeryLazy", opts = {} },
+  {
+    "andymass/vim-matchup",
+    event = "BufReadPre",
+    config = function()
+      vim.g.matchup_matchparen_offscreen = { method = "status" }
+      vim.g.matchup_override_vimtex = 1
+    end,
+  },
   {
     "nvim-treesitter/nvim-treesitter",
     build = [[:TSUpdate]],
@@ -91,6 +99,7 @@ return {
       },
       highlight = { enable = true },
       indent = { enable = true },
+      matchup = { enable = true },
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)

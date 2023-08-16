@@ -211,3 +211,6 @@ do
     { desc = "LSP: setup formatting", group = "LspFormattingSetup" }
   )
 end
+
+-- LSP debug
+-- vim.lsp.set_log_level "DEBUG"

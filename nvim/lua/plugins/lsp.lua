@@ -51,8 +51,10 @@ local lsp_plugin = {
   ---@param opts PluginLspOpts
   config = function(_, opts)
     -- ensure we load neoconf before this is setup.
-    local _ = require "neoconf"
-    opts = vim.tbl_deep_extend("force", opts, require "config.lsp.servers" or {})
+    -- require("lazy").load { plugins = { "folke/neoconf.nvim" } }
+
+    -- merge options
+    opts = vim.tbl_deep_extend("force", opts, require "config.lsp.servers" or {}) or {}
 
     -- setup autoformat
     require("config.lsp.format").setup(opts)
