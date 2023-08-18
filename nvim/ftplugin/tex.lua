@@ -8,9 +8,13 @@ if
   or vim.fn.has "wsl" == 1
   or (vim.fn.has "unix" == 1 and os.getenv "WSLENV" ~= nil)
 then
-  vim.g.texlab_forward_search = "sumatrapdf"
+  if vim.fn.executable "SumatraPDF.exe" then
+    vim.g.texlab_forward_search = "sumatrapdf"
+  end
 elseif vim.fn.has "unix" == 1 then
-  vim.g.texlab_forward_search = "zathura"
+  if vim.fn.executable "zathura" then
+    vim.g.texlab_forward_search = "zathura"
+  end
 end
 
 vim.opt_local.textwidth = 80

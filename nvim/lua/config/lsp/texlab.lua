@@ -99,19 +99,24 @@ end
 --- Get the TexlabBuild configuration
 ---@return TexlabBuildConfig?
 function M.build_config()
-  local exec = vim.g.texlab_builder or M.default_builder
+  local exec = vim.g.texlab_builder
+  if exec == nil then
+    return
+  end
   local available = M.get_available_builders()
   local config = available[exec]
   if not config or vim.tbl_isempty(config) then
     error("Specified LaTeX builder isn't available: " .. exec)
+    return {}
+  else
+    return config
   end
-  return config
 end
 
 --- Get the TexlabForward configuration
 ---@return TexlabForwardSearchConfig?
 function M.forward_search()
-  local exec = vim.g.texlab_forward_search or M.default_forward_search
+  local exec = vim.g.texlab_forward_search
   if not exec then
     return nil
   end
@@ -119,8 +124,10 @@ function M.forward_search()
   local config = available[exec]
   if not config or vim.tbl_isempty(config) then
     error("Specified SyncTeX forward search executable isn't available: " .. exec)
+    return {}
+  else
+    return config
   end
-  return config
 end
 
 return M
