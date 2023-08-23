@@ -116,17 +116,6 @@ function M.keymaps(_, bufnr)
   lspmap("]D", function()
     require("lspsaga.diagnostic"):goto_next { severity = vim.diagnostic.severity.ERROR }
   end)
-  vim.api.nvim_buf_create_user_command(
-    bufnr,
-    "Diagnostics",
-    "Lspsaga show_buf_diagnostics",
-    {
-      force = true,
-    }
-  )
-  command("WorkspaceDiagnostics", "Telescope diagnostics", {
-    force = true,
-  })
 end
 
 return M
