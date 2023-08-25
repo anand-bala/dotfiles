@@ -61,7 +61,7 @@ return {
       "hrsh7th/cmp-path",
       "ray-x/cmp-treesitter",
       "L3MON4D3/LuaSnip",
-      "kdheepak/cmp-latex-symbols",
+      { "kdheepak/cmp-latex-symbols", ft = { "tex", "latex" } },
       "jmbuhr/cmp-pandoc-references",
       "onsails/lspkind-nvim",
     },
