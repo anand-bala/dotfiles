@@ -32,12 +32,11 @@ function M.diagnostics(opts)
     name = "DiagnosticSign" .. name
     vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
   end
-  local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
 
-  if opts.inlay_hints.enabled and inlay_hint then
+  if opts.inlay_hints.enabled then
     M.on_attach_hook(function(client, buffer)
       if client.server_capabilities.inlayHintProvider then
-        inlay_hint(buffer, true)
+        vim.lsp.inlay_hint(buffer, true)
       end
     end, { desc = "LSP: Enable inlay hints" })
   end
@@ -84,37 +83,38 @@ function M.keymaps(_, bufnr)
     local lsp_map_opts = { buffer = bufnr, silent = true }
     map(modes, lhs, rhs, lsp_map_opts)
   end
-  lspmap("K", "<cmd>Lspsaga hover_doc<CR>")
-  lspmap("<C-k>", vim.lsp.buf.signature_help)
-  lspmap("<C-]>", "<cmd>Lspsaga finder<CR>")
-  lspmap("gd", "<cmd>Lspsaga goto_definition<CR>")
-  lspmap("<C-s>", function()
-    local opts = {
-      symbols = {
-        "interface",
-        "class",
-        "constructor",
-        "method",
-        "function",
-      },
-    }
-    if vim.tbl_contains({ "rust", "c", "cpp" }, vim.bo.filetype) then
-      vim.list_extend(opts.symbols, { "object", "struct", "enum" })
-    end
-    require("telescope.builtin").lsp_document_symbols(opts)
-  end)
-  lspmap("<leader>o", "<cmd>Lspsaga outline<cr>")
-  lspmap("<leader><Space>", "<cmd>Lspsaga code_action<CR>", { "n", "v" })
-  lspmap("<leader>rn", "<cmd>Lspsaga rename<CR>")
+  local telescope = require "telescope.builtin"
 
-  lspmap("<leader>ld", "<cmd>Lspsaga show_line_diagnostics<CR>")
-  lspmap("[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
-  lspmap("]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+  lspmap("K", vim.lsp.buf.hover)
+  lspmap("<C-k>", vim.lsp.buf.signature_help)
+  lspmap("<C-]>", function()
+    telescope.lsp_references {
+      show_line = false,
+      fname_width = 50,
+    }
+  end)
+  lspmap("gd", telescope.lsp_definitions)
+  lspmap("<C-s>", require("telescope.builtin").lsp_document_symbols)
+  lspmap("<leader><Space>", vim.lsp.buf.code_action, { "n", "v" })
+  lspmap("<leader>rn", vim.lsp.buf.rename, { "n" })
+  lspmap("<leader>ld", function()
+    vim.diagnostic.open_float {
+      bufnr = bufnr,
+      scope = "line",
+      source = "if_many",
+    }
+  end)
+  lspmap("[d", function()
+    vim.diagnostic.goto_prev { float = true }
+  end)
+  lspmap("]d", function()
+    vim.diagnostic.goto_next { float = true }
+  end)
   lspmap("[D", function()
-    require("lspsaga.diagnostic"):goto_prev { severity = vim.diagnostic.severity.ERROR }
+    vim.diagnostic.goto_prev { float = true, severity = vim.diagnostic.severity.ERROR }
   end)
   lspmap("]D", function()
-    require("lspsaga.diagnostic"):goto_next { severity = vim.diagnostic.severity.ERROR }
+    vim.diagnostic.goto_next { float = true, severity = vim.diagnostic.severity.ERROR }
   end)
 end
 
