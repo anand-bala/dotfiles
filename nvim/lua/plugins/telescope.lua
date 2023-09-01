@@ -39,7 +39,7 @@ return {
             vertical = { prompt_position = "top" },
             horizontal = { prompt_position = "top" },
           },
-          path_display = { shorten = 5 },
+          path_display = { truncate = 3 },
           color_devicons = true,
           set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
           mappings = telescope_mappings(),
