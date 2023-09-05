@@ -91,18 +91,18 @@ M.servers = {
       },
     },
   },
-  -- pyright = {
-  --   settings = {
-  --     pyright = {
-  --       disableOrganizeImports = true,
-  --     },
-  --     python = {
-  --       analysis = {
-  --         diagnosticMode = "openFilesOnly",
-  --       },
-  --     },
-  --   },
-  -- },
+  pyright = {
+    settings = {
+      pyright = {
+        disableOrganizeImports = true,
+      },
+      python = {
+        analysis = {
+          diagnosticMode = "openFilesOnly",
+        },
+      },
+    },
+  },
   -- pylyzer = {},
   pylsp = {
     settings = {
