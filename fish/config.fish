@@ -34,14 +34,17 @@ if test -e $HOME/.fzf/bin/fzf
 end
 set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
 
+# --- Conda configuration
+set -gx MAMBA_ROOT_PREFIX "$HOME/.local/share/mamba"
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-if test -f $HOME/miniconda3/bin/conda
-    eval $HOME/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+if test -f $HOME/.local/share/mamba/bin/conda
+    eval $HOME/.local/share/mamba/bin/conda "shell.fish" "hook" $argv | source
 end
 
-if test -f "$HOME/miniconda3/etc/fish/conf.d/mamba.fish"
-    source "$HOME/miniconda3/etc/fish/conf.d/mamba.fish"
+if test -f "$HOME/.local/share/mamba/etc/fish/conf.d/mamba.fish"
+    source "$HOME/.local/share/mamba/etc/fish/conf.d/mamba.fish"
 end
 # <<< conda initialize <<<
 
@@ -55,4 +58,3 @@ if command -sq -- starship
   set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
   starship init fish | source
 end
-

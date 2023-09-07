@@ -13,6 +13,9 @@ channels:
 
 create_default_packages:
   - ipython
-  - mypy
-  - isort
-  - black
+
+envs_dirs:
+  - ~/.local/share/mamba/
+
+pkgs_dirs:
+  - ~/.cache/mamba/
