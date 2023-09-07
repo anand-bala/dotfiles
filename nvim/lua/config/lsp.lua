@@ -101,7 +101,7 @@ function M.keymaps(_, bufnr)
     vim.diagnostic.open_float {
       bufnr = bufnr,
       scope = "line",
-      source = "if_many",
+      source = true,
     }
   end)
   lspmap("[d", function()
