@@ -98,29 +98,32 @@ M.servers = {
       },
       python = {
         analysis = {
-          diagnosticMode = "openFilesOnly",
+          diagnosticMode = "workspace",
         },
       },
     },
   },
   -- pylyzer = {},
-  pylsp = {
-    settings = {
-      pylsp = {
-        configurationSources = { "flake8" },
-        plugins = {
-          autopep8 = { enabled = false },
-          yapf = { enabled = false },
-          pycodestyle = { enabled = false },
-          mccabe = { enabled = false },
-          flake8 = { enabled = true },
-          pyflakes = { enabled = false },
-          rope_autoimport = { enabled = false },
-          jedi_completion = { enabled = false },
-        },
-      },
-    },
-  },
+  -- pylsp = {
+  --   settings = {
+  --     pylsp = {
+  --       configurationSources = { "flake8" },
+  --       plugins = {
+  --         autopep8 = { enabled = false },
+  --         yapf = { enabled = false },
+  --         pycodestyle = { enabled = false },
+  --         mccabe = { enabled = false },
+  --         flake8 = { enabled = true },
+  --         pyflakes = { enabled = false },
+  --         rope_autoimport = { enabled = false },
+  --         jedi_completion = { enabled = false },
+  --       },
+  --     },
+  --   },
+  --   capabilities = {
+  --     formattingProvider = false,
+  --   },
+  -- },
   ruff_lsp = {
     capabilities = {
       hoverProvider = false,
