@@ -80,6 +80,7 @@ local vimtex = {
       sections = 0,
       styles = 1,
     }
+
     return true
   end,
 }
@@ -87,4 +88,8 @@ local vimtex = {
 return {
   markdown,
   vimtex,
+  {
+    "anufrievroman/vim-angry-reviewer",
+    ft = { "tex", "latex" },
+  },
 }

@@ -1,6 +1,6 @@
 local M = {}
 
-M.default_builder = "arara"
+M.default_builder = "latexmk"
 
 if
   vim.fn.has "win32" == 1
@@ -99,7 +99,7 @@ end
 --- Get the TexlabBuild configuration
 ---@return TexlabBuildConfig?
 function M.build_config()
-  local exec = vim.g.texlab_builder
+  local exec = vim.g.texlab_builder or M.default_builder
   if exec == nil then
     return
   end
@@ -116,7 +116,7 @@ end
 --- Get the TexlabForward configuration
 ---@return TexlabForwardSearchConfig?
 function M.forward_search()
-  local exec = vim.g.texlab_forward_search
+  local exec = vim.g.texlab_forward_search or M.default_forward_search
   if not exec then
     return nil
   end

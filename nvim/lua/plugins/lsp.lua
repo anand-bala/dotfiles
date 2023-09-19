@@ -174,4 +174,9 @@ return {
   lsp_plugin,
   null_ls,
   { "simrat39/rust-tools.nvim", ft = { "rust" } },
+  {
+    "vigoux/ltex-ls.nvim",
+    dependencies = { "neovim/nvim-lspconfig" },
+    ft = { "tex", "latex" },
+  },
 }
