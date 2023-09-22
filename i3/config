@@ -96,6 +96,7 @@ set $ws_msgs "inbox"
 set $ws_zotero "papers"
 set $ws_music "music"
 set $ws_gamedev "gamedev"
+set $ws_extras "extras"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -132,6 +133,7 @@ assign [class="Microsoft Teams - Preview"] $ws_msgs
 assign [class="(?i)spotify"] $ws_music
 assign [class="UnrealEditor"] $ws_gamedev
 assign [class="(?i)qjackctl"] $ws_music
+assign [class="(?i)com.cisco.anyconnect.gui"] $ws_extras
 
 # Open specific applications in floating mode
 for_window [title="(?i)alsamixer"] floating enable
