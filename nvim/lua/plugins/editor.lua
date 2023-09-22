@@ -28,7 +28,7 @@ local markdown = {
       "jmbuhr/otter.nvim",
       "neovim/nvim-lspconfig",
     },
-    ft = { "markdown", "pandoc" },
+    ft = { "markdown", "pandoc", "quarto" },
     opts = {
       lspFeatures = {
         enabled = true,

@@ -182,7 +182,9 @@ M.servers = {
           enablePickyRules = true,
           motherTongue = "en",
         },
-        disabledRules = {},
+        disabledRules = {
+          en = { "EN_QUOTES" },
+        },
         dictionary = (function()
           -- For dictionary, search for files in the runtime to have
           -- and include them as externals the format for them is

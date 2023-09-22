@@ -168,7 +168,7 @@ do
     group = ft_mappings,
     pattern = { "*.tex", "*.latex" },
     callback = function()
-      vim.opt.filetype = "tex"
+      vim.opt_local.filetype = "tex"
     end,
   })
 end
@@ -183,7 +183,7 @@ do
   local ft_spellfile = augroup("ft_spellfile", {})
   autocmd({ "FileType" }, {
     group = ft_spellfile,
-    pattern = "markdown,tex",
+    pattern = "markdown,tex,quarto,pandoc",
     callback = set_spellfile,
   })
 end
