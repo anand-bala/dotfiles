@@ -29,8 +29,8 @@ symbol = " "
 [openstack]
 disabled = true
 
-[package]
-symbol = " "
+# [package]
+# symbol = " "
 
 [python]
 symbol = " "
