@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 --- Colorscheme
 ---
 --- # My Colorblindness simulation
@@ -43,7 +44,7 @@ local deps = {
 ---@type LazyPluginSpec[]
 return {
   colorscheme,
-  "folke/neodev.nvim",
+  { "folke/neodev.nvim" },
   {
     "folke/which-key.nvim",
     lazy = false,
@@ -56,7 +57,7 @@ return {
   {
     --- Project local settings
     "folke/neoconf.nvim",
-    lazy = "BufReadPre",
+    event = "BufReadPre",
     opts = {
       import = {
         vscode = false, -- local .vscode/settings.json
@@ -72,7 +73,7 @@ return {
     keys = {
       { "crs", desc = "coerce to snake_case" },
       { "crm", desc = "coerce to MixedCase" },
-      { "crc", desc = "coerce to camerlCase" },
+      { "crc", desc = "coerce to camelCase" },
       { "cru", desc = "coerce to UPPER_CASE" },
       { "cr-", desc = "coerce to dash-case" },
       { "cr.", desc = "coerce to dot.case" },
@@ -83,10 +84,11 @@ return {
   { "echasnovski/mini.comment", event = "VeryLazy", opts = {} },
   {
     "andymass/vim-matchup",
-    event = "BufReadPre",
+    lazy = false,
     config = function()
       vim.g.matchup_matchparen_offscreen = { method = "status" }
       vim.g.matchup_override_vimtex = 1
+      vim.g.matchup_surround_enabled = 1
     end,
   },
   {

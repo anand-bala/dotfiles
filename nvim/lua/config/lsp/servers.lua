@@ -45,6 +45,7 @@ local M = {
     underline = true,
     update_in_insert = false,
     virtual_text = {
+      severity = vim.diagnostic.severity.ERROR,
       spacing = 4,
       source = "true",
       -- prefix = "●",
@@ -62,7 +63,7 @@ local M = {
   --- Be aware that you also will need to properly configure your LSP server to
   --- provide the inlay hints.
   inlay_hints = {
-    enabled = false,
+    enabled = true,
   },
   --- add any global capabilities here
   capabilities = {},
@@ -181,7 +182,9 @@ M.servers = {
           enablePickyRules = true,
           motherTongue = "en",
         },
-        disabledRules = {},
+        disabledRules = {
+          en = { "EN_QUOTES" },
+        },
         dictionary = (function()
           -- For dictionary, search for files in the runtime to have
           -- and include them as externals the format for them is
