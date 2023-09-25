@@ -21,9 +21,9 @@ if command -sq -- exa
   alias tree "exa -l --tree"
 end
 
-alias less "less -R --use-color"
-set -gx PAGER "less -R --use-color -Dd+r -Du+b"
-set -gx MANPAGER "less -R --use-color -Dd+r -Du+b"
+alias less "less -R"
+set -gx PAGER "less -R"
+set -gx MANPAGER "less -R"
 
 # --- Colorize GCC output
 set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"
