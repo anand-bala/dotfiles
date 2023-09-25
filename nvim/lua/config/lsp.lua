@@ -68,6 +68,9 @@ function M.update_capabilities(opts)
     has_cmp and cmp_nvim_lsp.default_capabilities() or {},
     opts.capabilities or {}
   )
+  assert(capabilities ~= nil)
+  -- https://github.com/neovim/neovim/issues/23291
+  capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
   return capabilities
 end
 

@@ -106,7 +106,6 @@ function M.build_config()
   local available = M.get_available_builders()
   local config = available[exec]
   if not config or vim.tbl_isempty(config) then
-    error("Specified LaTeX builder isn't available: " .. exec)
     return {}
   else
     return config
@@ -123,7 +122,6 @@ function M.forward_search()
   local available = M.get_available_forward_search_methods()
   local config = available[exec]
   if not config or vim.tbl_isempty(config) then
-    error("Specified SyncTeX forward search executable isn't available: " .. exec)
     return {}
   else
     return config
