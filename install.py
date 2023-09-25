@@ -47,15 +47,15 @@ def parse_args():
 def _install_module_dir(module: str, dryrun=False):
     LOG.info(f"Attempting to install `{module}`")
 
-    module_dir = SCRIPTPATH / module
+    module_dir = (SCRIPTPATH / module).resolve()
     assert module_dir.is_dir()
 
     dest_dir = CONFIG_DIR / module
     if dest_dir.is_symlink():
-        if dest_dir.readlink() == module_dir:
-            LOG.info(f"`{module}` already installed: {dest_dir} -> {dest_dir.readlink()}")
+        if dest_dir.resolve() == module_dir:
+            LOG.info(f"`{module}` already installed: {dest_dir} -> {dest_dir.resolve()}")
             return
-        LOG.info(f"Removing this symlink: {dest_dir} -> {dest_dir.readlink()}")
+        LOG.info(f"Removing this symlink: {dest_dir} -> {dest_dir.resolve()}")
         if not dryrun:
             dest_dir.unlink()
     if dest_dir.is_dir():
