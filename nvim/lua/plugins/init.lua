@@ -156,20 +156,5 @@ return {
       vim.notify = notify
     end,
   },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPost",
-    config = function()
-      vim.g.indent_blankline_char = "┆"
-      vim.g.indent_blankline_char_blankline = "┆"
-      vim.g.indent_blankline_show_trailing_blankline_indent = false
-      vim.g.indent_blankline_show_current_context = true
-      -- disabled now for performance hit.
-      vim.g.indent_blankline_use_treesitter = true
-      require("indent_blankline").setup {}
-    end,
-    dependencies = {
-      { "nvim-treesitter/nvim-treesitter" },
-    },
-  },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 }
