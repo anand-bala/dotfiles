@@ -6,9 +6,9 @@ output VIRTUAL1
 off
 output DP1
 crtc 1
-mode 1920x1080
+mode 2560x1440
 pos 0x0
-rate 60.00
+rate 59.95
 x-prop-audio auto
 x-prop-broadcast_rgb Automatic
 x-prop-colorspace Default
@@ -17,7 +17,7 @@ x-prop-non_desktop 0
 output eDP1
 crtc 0
 mode 1920x1080
-pos 1920x0
+pos 0x1440
 primary
 rate 60.03
 x-prop-broadcast_rgb Automatic
