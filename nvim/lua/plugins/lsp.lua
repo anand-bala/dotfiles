@@ -92,87 +92,95 @@ local lsp_plugin = {
   end,
 }
 
---- Null-ls base plugin configuration
 ---@type LazyPluginSpec
-local null_ls = {
-  "jose-elias-alvarez/null-ls.nvim",
-  dependencies = {
-    {
-      "williamboman/mason.nvim",
-      opts = function(_, opts)
-        vim.list_extend(opts.ensure_installed, {
-          -- "alex", "proselint", "write-good",
-          "vale",
-          "jq",
-        })
-      end,
-    },
-  },
+local formatter = {
+  "mhartington/formatter.nvim",
   event = "BufReadPost",
-  opts = function()
-    local null_ls = require "null-ls"
-
-    local formatters = {
-      null_ls.builtins.formatting.black.with {
-        extra_args = { "--line-length=127" },
-      },
-      null_ls.builtins.formatting.isort,
-      null_ls.builtins.formatting.stylua,
-      null_ls.builtins.formatting.taplo,
-      null_ls.builtins.formatting.mdformat,
-      null_ls.builtins.formatting.yamlfmt.with {
-        extra_args = {
-          "-formatter",
-          "-indent=2,retain_line_breaks=true",
+  opts = {
+    -- Enable or disable logging
+    logging = true,
+    -- Set the log level
+    log_level = vim.log.levels.WARN,
+  },
+  config = function(_, opts)
+    opts = vim.tbl_deep_extend("force", opts or {}, {
+      filetype = {
+        lua = {
+          require("formatter.filetypes.lua").stylua,
+        },
+        python = {
+          require("formatter.filetypes.python").isort,
+          require("formatter.filetypes.python").black,
+        },
+        toml = {
+          require("formatter.filetypes.toml").taplo,
+        },
+        yaml = {
+          function()
+            local yamlfmt = require("formatter.filetypes.yaml").yamlfmt()
+            vim.list_extend(yamlfmt.args, {
+              "-formatter",
+              "-indent=2,retain_line_breaks=true",
+            })
+            return yamlfmt
+          end,
+        },
+        bash = {
+          require("formatter.filetypes.sh").shfmt,
+        },
+        tex = {
+          function()
+            local latexindent = require("formatter.filetypes.latex").latexindent()
+            vim.list_extend(latexindent.args, {
+              "-m",
+              "-l",
+            })
+            return latexindent
+          end,
+        },
+        -- Use the special "*" filetype for defining formatter configurations on
+        -- any filetype
+        ["*"] = {
+          -- "formatter.filetypes.any" defines default configurations for any
+          -- filetype
+          -- require("formatter.filetypes.any").remove_trailing_whitespace,
         },
       },
-      null_ls.builtins.formatting.cmake_format,
-      null_ls.builtins.formatting.jq,
-      null_ls.builtins.formatting.shfmt,
-      null_ls.builtins.formatting.shellharden,
+    })
+    require("formatter").setup(opts)
+  end,
+}
+
+---@type LazyPluginSpec
+local nvim_lint = {
+  "mfussenegger/nvim-lint",
+  event = "BufReadPost",
+  config = function(_, opts)
+    require("lint").linters_by_ft = {
+      python = {
+        -- "ruff",
+        "mypy",
+      },
+      bash = {
+        "shellcheck",
+      },
+      cmake = {
+        "cmakelint",
+      },
     }
-
-    local diagnostics = {
-      -- null_ls.builtins.diagnostics.alex,
-      -- null_ls.builtins.diagnostics.proselint,
-      -- null_ls.builtins.diagnostics.write_good,
-      -- null_ls.builtins.diagnostics.vale,
-      -- null_ls.builtins.diagnostics.ruff,
-      null_ls.builtins.diagnostics.mypy,
-      -- null_ls.builtins.diagnostics.commitlint,
-      null_ls.builtins.diagnostics.cmake_lint,
-      null_ls.builtins.diagnostics.shellcheck,
-    }
-
-    local sources = {
-      null_ls.builtins.code_actions.shellcheck,
-    }
-
-    for _, fmt in ipairs(formatters) do
-      table.insert(sources, fmt)
-    end
-
-    for _, diag in ipairs(diagnostics) do
-      table.insert(sources, diag)
-    end
-
-    return {
-      root_dir = require("null-ls.utils").root_pattern(
-        ".null-ls-root",
-        ".neoconf.json",
-        ".vscode",
-        ".git"
-      ),
-      sources = sources,
-      on_attach = require("config.lsp").on_attach,
-    }
+    vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+      callback = function()
+        require("lint").try_lint()
+      end,
+    })
   end,
 }
 
 return {
   mason,
   lsp_plugin,
-  null_ls,
+  formatter,
+  nvim_lint,
   { "simrat39/rust-tools.nvim", ft = { "rust" } },
   {
     "vigoux/ltex-ls.nvim",

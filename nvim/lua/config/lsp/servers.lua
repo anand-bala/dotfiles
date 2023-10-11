@@ -155,11 +155,7 @@ M.servers = {
     settings = {
       texlab = {
         bibtexFormatter = "none",
-        latexFormatter = "latexindent",
-        latexindent = {
-          ["local"] = "latexindent.yaml",
-          modifyLineBreaks = true,
-        },
+        latexFormatter = "none",
       },
     },
   },
@@ -171,7 +167,7 @@ M.servers = {
     },
   },
   ltex = {
-    filetypes = { "latex", "tex", "bib", "markdown", "gitcommit", "text" },
+    filetypes = { "latex", "tex", "bib", "markdown", "gitcommit" },
     settings = {
       ltex = {
         enabled = { "latex", "tex", "bib", "markdown" },

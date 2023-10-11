@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local command = vim.api.nvim_create_user_command
 
 local M = {}
 
@@ -60,20 +61,23 @@ function M.format(opts)
     return client.id
   end, formatters.active)
 
-  if #client_ids == 0 then
-    return
-  end
-
   if M.opts.format_notify then
-    M.notify(formatters)
+    M.notify(formatters.formatter_nvim or formatters.active)
   end
 
-  vim.lsp.buf.format(vim.tbl_deep_extend("force", {
-    bufnr = buf,
-    filter = function(client)
-      return vim.tbl_contains(client_ids, client.id)
-    end,
-  }, M.opts.format or {}))
+  -- prefer formatter.nvim
+  if not vim.tbl_isempty(formatters.formatter_nvim) then
+    vim.cmd [[FormatWrite]]
+  end
+
+  if #client_ids > 0 then
+    vim.lsp.buf.format(vim.tbl_deep_extend("force", {
+      bufnr = buf,
+      filter = function(client)
+        return vim.tbl_contains(client_ids, client.id)
+      end,
+    }, M.opts.format or {}))
+  end
 end
 
 ---@param formatters LazyVimFormatters
@@ -93,6 +97,22 @@ function M.notify(formatters)
         )
         .. ")"
     end
+    table.insert(lines, line)
+  end
+
+  if
+    formatters.formatter_nvim ~= nil
+    and not vim.tbl_isempty(formatters.formatter_nvim)
+  then
+    local line = "- ** formatter.nvim **"
+      .. " ("
+      .. table.concat(
+        vim.tbl_map(function(f)
+          return "`" .. f().exe .. "`"
+        end, formatters.formatter_nvim),
+        ", "
+      )
+      .. ")"
     table.insert(lines, line)
   end
 
@@ -131,6 +151,11 @@ function M.get_formatters(bufnr)
       and require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING")
     or {}
 
+  -- check if we have any formatter.nvim formatters for the current filetype
+  local formatter_nvim = package.loaded["formatter"]
+      and require("formatter.config").formatters_for_filetype(ft)
+    or {}
+
   ---@class LazyVimFormatters
   local ret = {
     ---@type lsp.Client[]
@@ -138,10 +163,11 @@ function M.get_formatters(bufnr)
     ---@type lsp.Client[]
     available = {},
     null_ls = null_ls,
+    formatter_nvim = formatter_nvim,
   }
 
   ---@type lsp.Client[]
-  local clients = vim.lsp.get_active_clients { bufnr = bufnr }
+  local clients = vim.lsp.get_clients { bufnr = bufnr }
   for _, client in ipairs(clients) do
     if M.supports_format(client) then
       if (#null_ls > 0 and client.name == "null-ls") or #null_ls == 0 then
@@ -161,7 +187,7 @@ end
 ---@return lsp.Client[]
 function M.get_all_formatters(bufnr)
   local ret = {}
-  local clients = vim.lsp.get_active_clients { bufnr = bufnr }
+  local clients = vim.lsp.get_clients { bufnr = bufnr }
   for _, client in ipairs(clients) do
     if M.supports_format(client) then
       table.insert(ret, client)
@@ -177,7 +203,10 @@ function M.supports_format(client)
   if
     client.config
     and client.config.capabilities
-    and client.config.capabilities.documentFormattingProvider == false
+    and (
+      client.config.capabilities.documentFormattingProvider == false
+      or client.config.capabilities.documentFormattingProvider == nil
+    )
   then
     return false
   end
@@ -188,72 +217,38 @@ end
 ---@param opts PluginLspOpts
 function M.setup(opts)
   M.opts = opts
+
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    group = vim.api.nvim_create_augroup("LspFormatOnWrite", {}),
+    pattern = { "*" },
+    callback = function()
+      if M.opts.autoformat then
+        M.format()
+      end
+    end,
+  })
+
+  map("n", "<leader>f", function()
+    M.format { force = true }
+  end, {
+    desc = "Format the document",
+  })
+  command("FormatToggle", function()
+    M.toggle()
+  end, { desc = "Toggle auto-format", force = true })
+  command("ListFormatters", function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local formatters = M.get_formatters(bufnr)
+    M.notify(formatters)
+  end, {
+    desc = "List the formatters for this buffer",
+    force = true,
+  })
 end
 
 --- Setup autocmds and mappings for LSP-based formatting
 --- @param client lsp.Client
 --- @param buf integer
-function M.on_attach(client, buf)
-  local buf_command = vim.api.nvim_buf_create_user_command
-  local ft = vim.bo[buf].filetype
-
-  if client.server_capabilities.documentFormattingProvider then
-    local lsp_format = require "config.lsp.format"
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = vim.api.nvim_create_augroup("LspFormatOnWrite", {}),
-      buffer = buf,
-      callback = function()
-        if lsp_format.opts.autoformat then
-          lsp_format.format()
-        end
-      end,
-    })
-
-    map("n", "<leader>f", function()
-      lsp_format.format { force = true }
-    end, {
-      desc = "Format the document",
-      buffer = buf,
-    })
-    buf_command(buf, "Format", function()
-      local formatters = lsp_format.get_all_formatters(buf)
-      vim.ui.select(formatters, {
-        prompt = "Select a formatter to use",
-        ---@param item lsp.Client
-        ---@return string
-        format_item = function(item)
-          if item.name == "null-ls" then
-            local null_ls_fmts =
-              require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING")
-            return item.name
-              .. " ("
-              .. table.concat(
-                vim.tbl_map(function(f)
-                  return "`" .. f.name .. "`"
-                end, null_ls_fmts),
-                ", "
-              )
-              .. ")"
-          else
-            return item.name
-          end
-        end,
-      }, function(choice)
-        lsp_format.format_using(choice)
-      end)
-    end, { desc = "Format the document", force = true })
-    buf_command(buf, "FormatToggle", function()
-      lsp_format.toggle()
-    end, { desc = "Toggle auto-format", force = true })
-    buf_command(buf, "ListFormatters", function()
-      local bufnr = vim.api.nvim_get_current_buf()
-      local formatters = lsp_format.get_formatters(bufnr)
-      lsp_format.notify(formatters)
-    end, {
-      desc = "List the formatters for this buffer",
-      force = true,
-    })
-  end
-end
+function M.on_attach(client, buf) end
 
 return M

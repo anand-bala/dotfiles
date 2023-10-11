@@ -8,6 +8,8 @@ local function telescope_mappings()
     i = {
       ["<C-u>"] = false,
       ["<C-d>"] = false,
+      ["<C-Down>"] = require("telescope.actions").cycle_history_next,
+      ["<C-Up>"] = require("telescope.actions").cycle_history_prev,
     },
   }
   command("Helptags", "Telescope help_tags", { force = true })
