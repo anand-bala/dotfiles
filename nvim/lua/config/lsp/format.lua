@@ -32,25 +32,6 @@ function M.toggle()
   end
 end
 
----@param client lsp.Client
----@param opts? {force?:boolean}
-function M.format_using(client, opts)
-  if client == nil then
-    return
-  end
-  opts = opts or {}
-  local buf = vim.api.nvim_get_current_buf()
-  if M.opts.format_notify then
-    local formatters = M.get_formatters(buf)
-    M.notify(formatters)
-  end
-
-  vim.lsp.buf.format(vim.tbl_deep_extend("force", {
-    bufnr = buf,
-    id = client.id,
-  }, M.opts.format or {}))
-end
-
 ---@param opts? {force?:boolean}
 function M.format(opts)
   opts = opts or {}
@@ -62,12 +43,12 @@ function M.format(opts)
   end, formatters.active)
 
   if M.opts.format_notify then
-    M.notify(formatters.formatter_nvim or formatters.active)
+    M.notify(formatters)
   end
 
   -- prefer formatter.nvim
   if not vim.tbl_isempty(formatters.formatter_nvim) then
-    vim.cmd [[FormatWrite]]
+    vim.cmd [[Format]]
   end
 
   if #client_ids > 0 then
@@ -181,21 +162,6 @@ function M.get_formatters(bufnr)
   return ret
 end
 
---- Gets all lsp clients that support formatting
---- and have not disabled it in their client config
----@param bufnr integer
----@return lsp.Client[]
-function M.get_all_formatters(bufnr)
-  local ret = {}
-  local clients = vim.lsp.get_clients { bufnr = bufnr }
-  for _, client in ipairs(clients) do
-    if M.supports_format(client) then
-      table.insert(ret, client)
-    end
-  end
-  return ret
-end
-
 -- Gets all lsp clients that support formatting
 -- and have not disabled it in their client config
 ---@param client lsp.Client
@@ -245,10 +211,5 @@ function M.setup(opts)
     force = true,
   })
 end
-
---- Setup autocmds and mappings for LSP-based formatting
---- @param client lsp.Client
---- @param buf integer
-function M.on_attach(client, buf) end
 
 return M

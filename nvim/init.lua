@@ -206,10 +206,6 @@ do
     require("config.lsp").keymaps,
     { desc = "LSP: setup default keymaps", group = "LspDefaultKeymaps" }
   )
-  on_attach_hook(
-    require("config.lsp.format").on_attach,
-    { desc = "LSP: setup formatting", group = "LspFormattingSetup" }
-  )
 end
 
 -- Commands to set the quickfix buffer/loclist buffer
