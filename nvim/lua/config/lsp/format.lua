@@ -40,7 +40,7 @@ function M.format(opts)
   local formatters = M.get_formatters(buf)
   local client_ids = vim.tbl_map(function(client)
     return client.id
-  end, formatters.active)
+  end, formatters.available)
 
   if M.opts.format_notify then
     M.notify(formatters)
@@ -65,7 +65,7 @@ end
 function M.notify(formatters)
   local lines = { "# Active:" }
 
-  for _, client in ipairs(formatters.active) do
+  for _, client in ipairs(formatters.available) do
     local line = "- **" .. client.name .. "**"
     if client.name == "null-ls" then
       line = line
@@ -95,14 +95,6 @@ function M.notify(formatters)
       )
       .. ")"
     table.insert(lines, line)
-  end
-
-  if #formatters.available > 0 then
-    table.insert(lines, "")
-    table.insert(lines, "# Disabled:")
-    for _, client in ipairs(formatters.available) do
-      table.insert(lines, "- **" .. client.name .. "**")
-    end
   end
 
   vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO, {
@@ -140,8 +132,6 @@ function M.get_formatters(bufnr)
   ---@class LazyVimFormatters
   local ret = {
     ---@type lsp.Client[]
-    active = {},
-    ---@type lsp.Client[]
     available = {},
     null_ls = null_ls,
     formatter_nvim = formatter_nvim,
@@ -151,11 +141,7 @@ function M.get_formatters(bufnr)
   local clients = vim.lsp.get_clients { bufnr = bufnr }
   for _, client in ipairs(clients) do
     if M.supports_format(client) then
-      if (#null_ls > 0 and client.name == "null-ls") or #null_ls == 0 then
-        table.insert(ret.active, client)
-      else
-        table.insert(ret.available, client)
-      end
+      table.insert(ret.available, client)
     end
   end
 
@@ -166,16 +152,6 @@ end
 -- and have not disabled it in their client config
 ---@param client lsp.Client
 function M.supports_format(client)
-  if
-    client.config
-    and client.config.capabilities
-    and (
-      client.config.capabilities.documentFormattingProvider == false
-      or client.config.capabilities.documentFormattingProvider == nil
-    )
-  then
-    return false
-  end
   return client.supports_method "textDocument/formatting"
     or client.supports_method "textDocument/rangeFormatting"
 end

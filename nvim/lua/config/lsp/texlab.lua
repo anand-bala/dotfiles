@@ -13,7 +13,8 @@ elseif vim.fn.has "unix" == 1 then
 end
 
 ---@class TexlabBuildConfig
----@field onSave boolean
+---@field onSave boolean?
+---@field forwardSearchAfter boolean?
 ---@field executable string
 ---@field args string[]
 
@@ -24,7 +25,7 @@ end
 ---@type table<string,TexlabBuildConfig>
 M.BUILDERS = {
   latexmk = {
-    onSave = false,
+    onSave = true,
     executable = "latexmk",
     args = { "-pdf", "-interaction=nonstopmode", "-synctex=1" },
   },
@@ -49,7 +50,7 @@ M.BUILDERS = {
     },
   },
   arara = {
-    onSave = false,
+    onSave = true,
     executable = "arara",
     args = {
       -- Input

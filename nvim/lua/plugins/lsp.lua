@@ -92,6 +92,13 @@ local lsp_plugin = {
   end,
 }
 
+---@class FormatterSpec
+---@field exe string
+---@field args? string[]
+---@field stdin? boolean
+---@field cwd? string
+---@field no_append? boolean
+
 ---@type LazyPluginSpec
 local formatter = {
   "mhartington/formatter.nvim",
@@ -104,13 +111,29 @@ local formatter = {
   },
   config = function(_, opts)
     opts = vim.tbl_deep_extend("force", opts or {}, {
+      ---@type table<string, (fun(): FormatterSpec)[]>
       filetype = {
         lua = {
           require("formatter.filetypes.lua").stylua,
         },
         python = {
           require("formatter.filetypes.python").isort,
-          require("formatter.filetypes.python").black,
+          function()
+            local util = require "lspconfig.util"
+            ---@type FormatterSpec
+            local black = require("formatter.filetypes.python").black()
+            local bufname = vim.api.nvim_buf_get_name(0)
+            vim.list_extend(black.args, {
+              "--stdin-filename",
+              bufname,
+            })
+            black.cwd =
+              util.root_pattern("pyproject.toml", "setup.cfg", "setup.py", ".git/")(
+                bufname
+              )
+
+            return black
+          end,
         },
         toml = {
           require("formatter.filetypes.toml").taplo,
