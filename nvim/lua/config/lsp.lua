@@ -36,7 +36,7 @@ function M.diagnostics(opts)
   if opts.inlay_hints.enabled then
     M.on_attach_hook(function(client, buffer)
       if client.server_capabilities.inlayHintProvider then
-        vim.lsp.inlay_hint(buffer, true)
+        vim.lsp.inlay_hint.enable(buffer)
       end
     end, { desc = "LSP: Enable inlay hints" })
   end
