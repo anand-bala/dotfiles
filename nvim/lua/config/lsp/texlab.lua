@@ -129,4 +129,82 @@ function M.forward_search()
   end
 end
 
+local util = require "lspconfig.util"
+
+local texlab_build_status = vim.tbl_add_reverse_lookup {
+  Success = 0,
+  Error = 1,
+  Failure = 2,
+  Cancelled = 3,
+}
+
+local texlab_forward_status = vim.tbl_add_reverse_lookup {
+  Success = 0,
+  Error = 1,
+  Failure = 2,
+  Unconfigured = 3,
+}
+
+function M.buf_build_command(bufnr)
+  bufnr = util.validate_bufnr(bufnr)
+  local texlab_client = util.get_active_client_by_name(bufnr, "texlab")
+  local pos = vim.api.nvim_win_get_cursor(0)
+  local params = {
+    textDocument = { uri = vim.uri_from_bufnr(bufnr) },
+    position = { line = pos[1] - 1, character = pos[2] },
+  }
+  if texlab_client then
+    texlab_client.request("textDocument/build", params, function(err, result)
+      if err then
+        vim.notify(tostring(err), vim.log.levels.ERROR, { title = "Texlab Build" })
+        error(tostring(err))
+      end
+      vim.notify(
+        "Build " .. texlab_build_status[result.status],
+        vim.log.levels.INFO,
+        { title = "Texlab Build" }
+      )
+    end, bufnr)
+  else
+    vim.notify(
+      "method textDocument/build is not supported by any servers active on the current buffer",
+      vim.log.levels.ERROR,
+      { title = "LSP" }
+    )
+  end
+end
+
+function M.buf_search_command(bufnr)
+  bufnr = util.validate_bufnr(bufnr)
+  local texlab_client = util.get_active_client_by_name(bufnr, "texlab")
+  local pos = vim.api.nvim_win_get_cursor(0)
+  local params = {
+    textDocument = { uri = vim.uri_from_bufnr(bufnr) },
+    position = { line = pos[1] - 1, character = pos[2] },
+  }
+  if texlab_client then
+    texlab_client.request("textDocument/forwardSearch", params, function(err, result)
+      if err then
+        vim.notify(
+          tostring(err),
+          vim.log.levels.ERROR,
+          { title = "Texlab Forward Search" }
+        )
+        error(tostring(err))
+      end
+      vim.notify(
+        "Search " .. texlab_forward_status[result.status],
+        vim.log.levels.INFO,
+        { title = "Texlab Forward Search" }
+      )
+    end, bufnr)
+  else
+    vim.notify(
+      "method textDocument/forwardSearch is not supported by any servers active on the current buffer",
+      vim.log.levels.ERROR,
+      { title = "LSP" }
+    )
+  end
+end
+
 return M

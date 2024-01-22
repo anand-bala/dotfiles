@@ -261,6 +261,20 @@ M.setup = {
 
     opts.settings.texlab.build = texlab_helpers.build_config()
     opts.settings.texlab.forwardSearch = texlab_helpers.forward_search()
+    opts.commands = {
+      TexlabBuild = {
+        function()
+          texlab_helpers.buf_build_command(0)
+        end,
+        description = "Build the current buffer",
+      },
+      TexlabForward = {
+        function()
+          texlab_helpers.buf_search_command(0)
+        end,
+        description = "Forward search from current position",
+      },
+    }
   end,
 
   ltex = function(_, opts)
