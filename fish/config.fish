@@ -15,7 +15,11 @@ if type -q nvim
 end
 alias e="$EDITOR"
 
-if command -sq -- exa
+if command -sq -- eza
+  alias ls "eza"
+  alias ll "eza -l"
+  alias tree "eza -l --tree"
+else if command -sq -- exa
   alias ls "exa"
   alias ll "exa -l"
   alias tree "exa -l --tree"
