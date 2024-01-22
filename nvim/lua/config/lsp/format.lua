@@ -49,9 +49,7 @@ function M.format(opts)
   -- prefer formatter.nvim
   if not vim.tbl_isempty(formatters.formatter_nvim) then
     vim.cmd [[Format]]
-  end
-
-  if #client_ids > 0 then
+  elseif #client_ids > 0 then
     vim.lsp.buf.format(vim.tbl_deep_extend("force", {
       bufnr = buf,
       filter = function(client)
