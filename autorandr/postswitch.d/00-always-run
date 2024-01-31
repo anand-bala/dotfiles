@@ -2,48 +2,48 @@
 
 set -euo pipefail
 
-if type nitrogen > /dev/null; then
-  nitrogen --restore > /dev/null 2>&1
+if type nitrogen >/dev/null; then
+	nitrogen --restore >/dev/null 2>&1
 fi
 
-if type polybar-msg > /dev/null; then
-  sleep 1
-  # Wait for all polybar instances to die
-  while pgrep -u $UID -x polybar > /dev/null; do
-    # Kill all polybar instances
-    polybar-msg cmd quit
-    sleep 0.5
-  done
+if type polybar-msg >/dev/null; then
+	sleep 1
+	# Wait for all polybar instances to die
+	while pgrep -u $UID -x polybar >/dev/null; do
+		# Kill all polybar instances
+		polybar-msg cmd quit
+		sleep 0.5
+	done
 
-  # The monitor in which to output the main bar
-  # Prefer the larger monitor (so not eDP1)
-  non_builtin_monitor="$(polybar -m | awk 'BEGIN { FS = ":" }; !/eDP1/ { print $1 };')"
-  if [[ -n "$non_builtin_monitor" ]]; then
-    tray_output="$non_builtin_monitor"
-  else
-    tray_output=eDP1
-  fi
+	# The monitor in which to output the main bar
+	# Prefer the larger monitor (so not eDP-1)
+	non_builtin_monitor="$(polybar -m | awk 'BEGIN { FS = ":" }; !/eDP-1/ { print $1 };')"
+	if [[ -n "$non_builtin_monitor" ]]; then
+		tray_output="$non_builtin_monitor"
+	else
+		tray_output=eDP-1
+	fi
 
-  # Start a bar for each monitor
-  for m in $(polybar -m | cut -d ':' -f 1); do
-    bar=""
-    if [[ $m == $tray_output ]]; then
-      bar="main"
-    else
-      bar="secondary"
-    fi
-    MONITOR=$m polybar --reload $bar </dev/null >/var/tmp/polybar-$m.log 2>&1 &
-    disown
-  done
+	# Start a bar for each monitor
+	for m in $(polybar -m | cut -d ':' -f 1); do
+		bar=""
+		if [[ $m == $tray_output ]]; then
+			bar="main"
+		else
+			bar="secondary"
+		fi
+		MONITOR=$m polybar --reload $bar </dev/null >/var/tmp/polybar-$m.log 2>&1 &
+		disown
+	done
 fi
 
-if type xkbcomp > /dev/null; then
-  XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
-  log_dir=$XDG_STATE_HOME/xkbconfig
-  mkdir -p $log_dir
-  log_file=$log_dir/keymap.log
+if type xkbcomp >/dev/null; then
+	XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+	log_dir=$XDG_STATE_HOME/xkbconfig
+	mkdir -p $log_dir
+	log_file=$log_dir/keymap.log
 
-  XKB_CONFIG_DIR=$XDG_CONFIG_HOME/xkb
+	XKB_CONFIG_DIR=$XDG_CONFIG_HOME/xkb
 
-  xkbcomp -I$XKB_CONFIG_DIR $XKB_CONFIG_DIR/keymap/custom $DISPLAY > $log_file 2>&1
+	xkbcomp -I$XKB_CONFIG_DIR $XKB_CONFIG_DIR/keymap/custom $DISPLAY >$log_file 2>&1
 fi
