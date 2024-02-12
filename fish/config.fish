@@ -3,7 +3,7 @@ set -g fish_greeting "🐟"
 
 # -- Common directories to add to PATH, if they exist
 for p in "$HOME/bin" "$HOME/.local/bin"
-  fish_add_path -gP $p
+  fish_add_path -gmpP $p
 end
 
 if type -q nvim
@@ -34,23 +34,26 @@ set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:qu
 
 # --- FZF config
 if test -e $HOME/.fzf/bin/fzf
-  fish_add_path -gP $HOME/.fzf/bin/
+  fish_add_path -gmpP $HOME/.fzf/bin/
 end
 set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
 
 # --- Conda configuration
 set -gx MAMBA_ROOT_PREFIX "$HOME/.local/share/mamba"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
 if test -f $HOME/.local/share/mamba/bin/conda
-    eval $HOME/.local/share/mamba/bin/conda "shell.fish" "hook" $argv | source
+  eval $HOME/.local/share/mamba/bin/conda "shell.fish" "hook" $argv | source
+else
+  if test -f "$HOME/.local/share/mamba/etc/fish/conf.d/conda.fish"
+    source "$HOME/.local/share/mamba/etc/fish/conf.d/conda.fish"
+  else
+    fish_add_path -gmpP "$HOME/.local/share/mamba/bin"
+  end
 end
 
 if test -f "$HOME/.local/share/mamba/etc/fish/conf.d/mamba.fish"
-    source "$HOME/.local/share/mamba/etc/fish/conf.d/mamba.fish"
+  source "$HOME/.local/share/mamba/etc/fish/conf.d/mamba.fish"
 end
-# <<< conda initialize <<<
 
 # --- Direnv config
 if command -sq -- direnv 

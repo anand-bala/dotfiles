@@ -4,7 +4,7 @@
 # end
 
 if set -q CUDA_HOME
-  fish_add_path -gP   $CUDA_HOME/bin
+  fish_add_path -gmpP   $CUDA_HOME/bin
 
   not contains -- "$CUDA_HOME/lib" $DYLD_LIBRARY_PATH;
     and set -gx DYLD_LIBRARY_PATH   $DYLD_LIBRARY_PATH $CUDA_HOME/lib

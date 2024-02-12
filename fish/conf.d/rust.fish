@@ -5,5 +5,5 @@ end
 set -l rustup_path $CARGO_HOME/bin
 
 if test -d $rustup_path
-  fish_add_path -gP $rustup_path
+  fish_add_path -gmpP $rustup_path
 end
