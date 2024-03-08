@@ -16,13 +16,6 @@
 [difftool "difftastic"]
   cmd = difft "$LOCAL" "$REMOTE"
 
-[merge]
-  tool = nvim
-[mergetool]
-  prompt = false
-[mergetool "nvim"]
-  cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
-
 # Use a pager for large output, just like other git commands.
 [pager]
   difftool = true
