@@ -6,6 +6,14 @@ for p in "$HOME/bin" "$HOME/.local/bin"
   fish_add_path -gP $p
 end
 
+function nvim -d "open new neovim session, or attach to existing one" --wraps nvim
+  if test -z "$NVIM"
+    command nvim $argv
+  else
+    command nvr $argv
+  end
+end
+
 if type -q nvim
   if type -q nvr
     set -gx EDITOR "nvr -s"
@@ -144,6 +152,18 @@ end
 # --- Direnv config
 if command -sq -- direnv 
   direnv hook fish | source
+end
+
+# --- Zoxide config
+if command -sq -- zoxide
+  zoxide init fish | source
+end
+
+# --- Pixi configuration
+set -gx PIXI_HOME "$HOME/.local/share/pixi"
+fish_add_path -gP /home/anand/.local/share/pixi/bin
+if command -sq -- pixi
+  pixi completion --shell fish | source
 end
 
 # --- Custom prompt (last plugin)
