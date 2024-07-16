@@ -79,7 +79,6 @@ if test -z "$CARGO_HOME"
 end
 
 set -l rustup_path $CARGO_HOME/bin
-
 if test -d $rustup_path
   fish_add_path -gP $rustup_path
 end
@@ -91,6 +90,12 @@ end
 
 if test -z "$TEXMFVAR"
   set -gx TEXMFVAR ~/.cache/texlive
+end
+
+# -- luarocks paths
+set -l luarocks_bin_path "$HOME/.luarocks/bin"
+if test -d $luarocks_bin_path
+  fish_add_path -gpP $luarocks_bin_path
 end
 
 # -- WSL stuff
@@ -154,17 +159,19 @@ if command -sq -- direnv
   direnv hook fish | source
 end
 
-# --- Zoxide config
-if command -sq -- zoxide
-  zoxide init fish | source
-end
-
 # --- Pixi configuration
 set -gx PIXI_HOME "$HOME/.local/share/pixi"
 fish_add_path -gP /home/anand/.local/share/pixi/bin
 if command -sq -- pixi
   pixi completion --shell fish | source
 end
+
+# pnpm
+set -gx PNPM_HOME "/home/anand/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
 
 # --- Custom prompt (last plugin)
 if command -sq -- starship
