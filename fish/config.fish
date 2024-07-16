@@ -16,7 +16,7 @@ end
 
 if type -q nvim
   if type -q nvr
-    set -gx EDITOR "nvr -s"
+    set -gx EDITOR "nvr"
   else
     set -gx EDITOR nvim
   end
