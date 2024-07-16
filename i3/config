@@ -24,7 +24,8 @@ bindsym $mod+Shift+e exec fish -c "$SCRIPTDIR/shutdown_menu.sh"
 # }}}
 
 # Default applications {{{
-set $default_terminal alacritty
+# set $default_terminal alacritty
+set $default_terminal wezterm
 set $default_launcher fish -c "rofi -no-disable-history -sort -show drun"
 set $default_window_switcher fish -c "rofi -show window"
 # }}}
