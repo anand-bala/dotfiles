@@ -47,3 +47,16 @@ if type xkbcomp >/dev/null; then
 
 	xkbcomp -I$XKB_CONFIG_DIR $XKB_CONFIG_DIR/keymap/custom $DISPLAY >$log_file 2>&1
 fi
+
+if type xinput >/dev/null; then
+  touchpad_dev='DELL08AF:00 06CB:76AF Touchpad'
+  tapping_enabled='libinput Tapping Enabled'
+  tapping_drag_enabled='libinput Tapping Drag Enabled'
+  tapping_natural_scrolling_enabled='libinput Natural Scrolling Enabled'
+
+  xinput set-prop "$touchpad_dev" "$tapping_enabled" 1
+  xinput set-prop "$touchpad_dev" "$tapping_drag_enabled" 1
+  xinput set-prop "$touchpad_dev" "$tapping_natural_scrolling_enabled" 1
+fi
+
+# vim: set ft=bash
