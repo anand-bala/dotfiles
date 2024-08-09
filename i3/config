@@ -5,6 +5,7 @@ floating_modifier $mod
 
 font pango:JetBrainsMono Nerd Font Regular 11
 
+set $XDGCONFIGHOME $HOME/.config
 set $SCRIPTDIR $HOME/.config/i3/scripts
 
 # Global Keybindings {{{
@@ -133,6 +134,7 @@ bindsym $mod+Ctrl+less move workspace to output prev
 assign [class="(?i)thunderbird"] $ws_msgs
 assign [class="(?i)slack"] $ws_msgs
 assign [class="(?i)discord"] $ws_msgs
+assign [class="(?i)vesktop"] $ws_msgs
 assign [class="(?i)zotero"] $ws_zotero
 assign [class="Microsoft Teams - Preview"] $ws_msgs
 assign [class="(?i)spotify"] $ws_music
@@ -198,8 +200,8 @@ bindsym $mod+u border toggle
 exec_always --no-startup-id picom
 # Launch locker
 exec_always --no-startup-id light-locker
-# Launch polybar
-# exec_always --no-startup-id $HOME/.config/autorandr/postswitch.d/00-always-run
+# Run all "new display" related commands
+exec_always --no-startup-id fish -c "$XDGCONFIGHOME/autorandr/postswitch.d/00-always-run"
 
 # Set the wallpaper
 # exec_always sleep 10 && nitrogen --restore
