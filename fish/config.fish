@@ -6,22 +6,18 @@ for p in "$HOME/bin" "$HOME/.local/bin"
   fish_add_path -gP $p
 end
 
-function nvim -d "open new neovim session, or attach to existing one" --wraps nvim
-  if test -z "$NVIM"
-    command nvim $argv
-  else
-    command nvr $argv
+if command -sq -- nvim 
+  function nvim -d "open new neovim session, or attach to existing one" --wraps nvim
+    if test -z "$NVIM"
+      command nvim $argv
+    else
+      command nvr $argv
+    end
   end
-end
 
-if type -q nvim
-  if type -q nvr
-    set -gx EDITOR "nvr"
-  else
-    set -gx EDITOR nvim
-  end
+  set -gx EDITOR nvim
+  alias e="nvim"
 end
-alias e="$EDITOR"
 
 if command -sq -- eza
   alias ls "eza"
