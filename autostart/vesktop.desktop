@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Vesktop
+Comment=Vesktop autostart script
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --file-forwarding dev.vencord.Vesktop --enable-speech-dispatcher
+StartupNotify=false
+Terminal=false
