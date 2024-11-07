@@ -17,15 +17,15 @@ if type polybar-msg >/dev/null; then
 
   # The monitor in which to output the main bar
   # Prefer the larger monitor (so not eDP-1)
-  # non_builtin_monitor="$(polybar -m | awk 'BEGIN { FS = ":" }; !/eDP-1/ { print $1 };')"
-  # if [[ -n "$non_builtin_monitor" ]]; then
-  # 	tray_output="$non_builtin_monitor"
-  # else
-  # 	tray_output=eDP-1
-  # fi
+  non_builtin_monitor="$(polybar -m | awk 'BEGIN { FS = ":" }; !/eDP-1/ { print $1 };')"
+  if [[ -n "$non_builtin_monitor" ]]; then
+    tray_output="$non_builtin_monitor"
+  else
+    tray_output=eDP-1
+  fi
 
   # use main display as tray output
-  tray_output="eDP-1"
+  # tray_output="eDP-1"
 
   # Start a bar for each monitor
   while read -r m; do
