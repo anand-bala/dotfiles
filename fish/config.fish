@@ -169,6 +169,20 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
+# bun
+set --export BUN_INSTALL "$HOME/.local/share/bun"
+fish_add_path -gP  "$BUN_INSTALL/bin"
+
+# jj
+if command -sq -- jj
+  jj util completion fish | source
+end
+
+# --- zoxide config
+if command -sq -- zoxide
+  zoxide init fish | source
+end
+
 # --- Custom prompt (last plugin)
 if command -sq -- starship
   set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
