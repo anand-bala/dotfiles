@@ -132,11 +132,17 @@ bindsym $mod+Ctrl+less move workspace to output prev
 
 # Assign applications to specific workspaces
 assign [class="(?i)thunderbird"] $ws_msgs
+for_window [class="(?i)thunderbird"] layout tabbed
 assign [class="(?i)slack"] $ws_msgs
+for_window [class="(?i)slack"] layout tabbed
 assign [class="(?i)discord"] $ws_msgs
+for_window [class="(?i)discord"] layout tabbed
 assign [class="(?i)vesktop"] $ws_msgs
+for_window [class="(?i)vesktop"] layout tabbed
 assign [class="(?i)zotero"] $ws_zotero
+for_window [class="(?i)zotero"] layout tabbed
 assign [class="Microsoft Teams - Preview"] $ws_msgs
+for_window [class="Microsoft Teams - Preview"] layout tabbed
 assign [class="(?i)spotify"] $ws_music
 assign [class="UnrealEditor"] $ws_gamedev
 assign [class="(?i)qjackctl"] $ws_music
