@@ -1,0 +1,32 @@
+[user]
+name = "Anand Balakrishnan"
+email = "anandbala1597@gmail.com"
+
+[ui]
+pager = "less -FRX"
+# paginate = "never"
+# Use Difftastic by default
+diff.tool = ["difft", "--color=always", "$left", "$right"]
+editor = ["nvr", "--remote-wait-silent", "-s"]
+
+[revsets]
+log = "@ | ancestors(remote_bookmarks().., 2) | ancestors(immutable_heads()..,2) | present(trunk())"
+
+[signing]
+sign-all = true
+backend = "ssh"
+key = "~/.ssh/id_personal.pub"
+
+[signing.backends.ssh]
+program = "/opt/1Password/op-ssh-sign"
+
+[template-aliases]
+'format_short_signature(signature)' = 'signature.name()'
+
+[merge-tools.diffconflicts]
+program = "nvim"
+merge-args = [
+    "-c", "let g:jj_diffconflicts_marker_length=$marker_length",
+    "-c", "JJDiffConflicts!", "$output", "$base", "$left", "$right",
+]
+merge-tool-edits-conflict-markers = true
