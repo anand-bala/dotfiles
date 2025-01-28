@@ -40,7 +40,7 @@ set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:qu
 if test -e $HOME/.fzf/bin/fzf
   fish_add_path -gP $HOME/.fzf/bin/
 end
-set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse --border --height=90% --preview-window=wrap --marker="*"'
+set -gx FZF_DEFAULT_OPTS '--cycle --layout=reverse --preview-window=wrap --marker="*"'
 
 # --- NPM config
 if not set -q NPM_CONFIG_PREFIX

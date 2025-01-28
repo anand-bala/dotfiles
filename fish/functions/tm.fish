@@ -9,7 +9,7 @@ function tm -d "create new tmux session, or switch to existing one. Works from w
     or begin tmux new-session -d -s $argv[1]; and tmux $change -t $argv[1]; end
   else
     echo "Here are a list"
-    set -l session (tmux list-sessions -F "#{session_name}" 2>/dev/null | _fzf_wrapper --exit-0);
+    set -l session (tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0);
     and tmux $change -t $session;
     or echo "No session found";
   end
