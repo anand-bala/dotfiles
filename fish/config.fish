@@ -162,6 +162,14 @@ if command -sq -- pixi
   pixi completion --shell fish | source
 end
 
+# uv
+if command -sq -- uv
+  uv generate-shell-completion fish | source
+end
+if command -sq -- uvx
+  uvx --generate-shell-completion fish | source
+end
+
 # pnpm
 set -gx PNPM_HOME "/home/anand/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
