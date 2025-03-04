@@ -92,12 +92,6 @@ if test -z "$TEXMFVAR"
   set -gx TEXMFVAR ~/.cache/texlive
 end
 
-# -- luarocks paths
-set -l luarocks_bin_path "$HOME/.luarocks/bin"
-if test -d $luarocks_bin_path
-  fish_add_path -gpP $luarocks_bin_path
-end
-
 # -- WSL stuff
 if set -q WSL_DISTRO_NAME
   set -gx BROWSER wslview
@@ -165,6 +159,15 @@ fish_add_path -gP /home/anand/.local/share/pixi/bin
 if command -sq -- pixi
   pixi completion --shell fish | source
 end
+
+# luarocks
+if command -sq -- luarocks
+  luarocks completion fish | source
+
+  set -l luarocks_bin_path "$(luarocks config --scope user home_tree)/bin"
+  fish_add_path -gpP $luarocks_bin_path
+end
+
 
 # uv
 if command -sq -- uv
