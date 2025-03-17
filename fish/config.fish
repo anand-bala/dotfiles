@@ -1,6 +1,10 @@
 # -- Remove the intro
 set -g fish_greeting "🐟"
 
+# This needs to be added (don't know why profile doesn't add it)
+fish_add_path -gamP /usr/local/sbin
+fish_add_path -gamP /usr/sbin
+
 # -- Common directories to add to PATH, if they exist
 for p in "$HOME/bin" "$HOME/.local/bin"
   fish_add_path -gP $p
@@ -172,9 +176,7 @@ end
 
 # pnpm
 set -gx PNPM_HOME "/home/anand/.local/share/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
-end
+fish_add_path -gP $PNPM_HOME
 # pnpm end
 
 # bun
