@@ -8,6 +8,7 @@ pager = "less -FRX"
 # Use Difftastic by default
 diff.tool = ["difft", "--color=always", "$left", "$right"]
 editor = ["nvr", "--remote-wait-silent", "-s"]
+default-command = "log"
 
 [revsets]
 log = "@ | ancestors(remote_bookmarks().., 2) | ancestors(immutable_heads()..,2) | present(trunk())"
