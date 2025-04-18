@@ -126,23 +126,6 @@ if set -q CUDA_HOME
 end
 
 
-# --- Conda configuration
-set -gx MAMBA_ROOT_PREFIX "$HOME/.local/share/mamba"
-
-if test -f $HOME/.local/share/mamba/bin/conda
-  eval $HOME/.local/share/mamba/bin/conda "shell.fish" "hook" $argv | source
-else
-  if test -f "$HOME/.local/share/mamba/etc/fish/conf.d/conda.fish"
-    source "$HOME/.local/share/mamba/etc/fish/conf.d/conda.fish"
-  else
-    fish_add_path -gP "$HOME/.local/share/mamba/bin"
-  end
-end
-
-if test -f "$HOME/.local/share/mamba/etc/fish/conf.d/mamba.fish"
-  source "$HOME/.local/share/mamba/etc/fish/conf.d/mamba.fish"
-end
-
 # --- Direnv config
 if command -sq -- direnv 
   direnv hook fish | source
@@ -171,11 +154,6 @@ end
 if command -sq -- uvx
   uvx --generate-shell-completion fish | source
 end
-
-# pnpm
-set -gx PNPM_HOME "/home/anand/.local/share/pnpm"
-fish_add_path -gP $PNPM_HOME
-# pnpm end
 
 # bun
 set --export BUN_INSTALL "$HOME/.local/share/bun"
