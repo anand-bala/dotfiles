@@ -7,7 +7,7 @@ pager = "less -FRX"
 # paginate = "never"
 # Use Difftastic by default
 diff.tool = ["difft", "--color=always", "$left", "$right"]
-editor = ["nvr", "--remote-wait-silent", "-s"]
+editor = "nvim"
 default-command = "log"
 
 [revsets]

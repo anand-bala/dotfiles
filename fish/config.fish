@@ -11,17 +11,16 @@ for p in "$HOME/bin" "$HOME/.local/bin"
 end
 
 if command -sq -- nvim 
-  function nvim -d "open new neovim session, or attach to existing one" --wraps nvim
-    if test -z "$NVIM"
-      command nvim $argv
-    else
-      command nvr $argv
-    end
-  end
-
   set -gx EDITOR nvim
+  set -gx VISUAL "nvim --cmd 'let g:flatten_wait=1'"
+  set -gx MANPAGER "nvim +Man!"
   alias e="nvim"
+else
+  set -gx PAGER less
+  set -gx MANPAGER less
 end
+# --- Make less better
+set -gx LESS '--quit-if-one-screen --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4'
 
 if command -sq -- eza
   alias ls "eza"
@@ -32,10 +31,6 @@ else if command -sq -- exa
   alias ll "exa -l"
   alias tree "exa -l --tree"
 end
-
-alias less "less -R"
-set -gx PAGER "less -R"
-set -gx MANPAGER "less -R"
 
 # --- Colorize GCC output
 set -gx GCC_COLORS "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"
