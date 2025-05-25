@@ -10,9 +10,6 @@ diff.tool = ["difft", "--color=always", "$left", "$right"]
 editor = "nvim"
 default-command = "log"
 
-[revsets]
-log = "@ | ancestors(remote_bookmarks().., 2) | ancestors(immutable_heads()..,2) | present(trunk())"
-
 [signing]
 behavior = "drop"
 backend = "ssh"
@@ -23,9 +20,7 @@ program = "/opt/1Password/op-ssh-sign"
 
 [git]
 sign-on-push = true
-
-[template-aliases]
-'format_short_signature(signature)' = 'signature.name()'
+write-change-id-header = true
 
 [merge-tools.diffconflicts]
 program = "nvim"
@@ -40,3 +35,68 @@ merge-args = [
   "$right",
 ]
 merge-tool-edits-conflict-markers = true
+
+[aliases]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+clean = [
+  "util",
+  "exec",
+  "--",
+  "git",
+  "clean",
+  "-e",
+  '!.jj',
+  "-e",
+  '!.jj/**/*',
+  "-e",
+  '!.envrc',
+  "-e",
+  '!.venv',
+  "-e",
+  '!.venv/**/*',
+]
+
+
+[templates]
+log = '''
+  if(root,
+    format_root_commit(self),
+    label(if(current_working_copy, "working_copy"),
+      concat(
+        separate(" ",
+          format_short_change_id_with_hidden_and_divergent_info(self),
+          if(empty, label("empty", "(empty)")),
+          if(description,
+            description.first_line(),
+            label(if(empty, "empty"), description_placeholder),
+          ),
+          bookmarks,
+          tags,
+          working_copies,
+          if(git_head, label("git_head", "HEAD")),
+          if(conflict, label("conflict", "conflict")),
+          if(config("ui.show-cryptographic-signatures").as_boolean(),
+            format_short_cryptographic_signature(signature)),
+        ) ++ "\n",
+      ),
+    )
+  )
+'''
+draft_commit_description = '''
+    concat(
+      coalesce(description, default_commit_description, "\n"),
+      surround(
+        "\nJJ: This commit contains the following changes:\n", "",
+        indent("JJ:     ", diff.stat(72)),
+      ),
+      "\nJJ: ignore-rest\n",
+      diff.git(),
+    )
+'''
+
+[revsets]
+log = "@ | ancestors(remote_bookmarks().., 2) | ancestors(immutable_heads()..,2) | present(trunk())"
+
+
+[template-aliases]
+'format_short_signature(signature)' = 'signature.name()'
