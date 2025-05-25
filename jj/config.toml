@@ -8,7 +8,7 @@ pager = "less -FRX"
 # Use Difftastic by default
 diff.tool = ["difft", "--color=always", "$left", "$right"]
 editor = "nvim"
-default-command = "log"
+default-command = "status"
 
 [signing]
 behavior = "drop"
