@@ -6,7 +6,7 @@ email = "anandbala1597@gmail.com"
 pager = "less -FRX"
 # paginate = "never"
 # Use Difftastic by default
-diff.tool = ["difft", "--color=always", "$left", "$right"]
+diff-formatter = "difft"
 editor = "nvim"
 default-command = "status"
 
@@ -21,6 +21,10 @@ program = "/opt/1Password/op-ssh-sign"
 [git]
 sign-on-push = true
 write-change-id-header = true
+
+[merge-tools.difft]
+program = "difft"
+diff-args = ["--color=always", "$left", "$right"]
 
 [merge-tools.diffconflicts]
 program = "nvim"
