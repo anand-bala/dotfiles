@@ -24,6 +24,6 @@ else
     elif [ "$1" = "Hybrid-sleep" ]; then
         systemctl hybrid-sleep
     elif [ "$1" = "Lock" ]; then
-        xflock4
+        light-locker-command -l
     fi
 fi

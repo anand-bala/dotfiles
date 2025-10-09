@@ -18,7 +18,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # lock i3
-bindsym $mod+l exec xflock4
+bindsym $mod+l exec light-locker-command -l
 
 # Set shut down, restart and locking features
 bindsym $mod+Shift+e exec fish -c "$SCRIPTDIR/shutdown_menu.sh"
