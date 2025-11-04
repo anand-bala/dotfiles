@@ -170,10 +170,10 @@ if command -sq -- zoxide
 end
 
 # --- Custom prompt (last plugin)
-if command -sq -- starship
-  set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
-  starship init fish | source
-end
+# if command -sq -- starship
+#   set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
+#   starship init fish | source
+# end
 
 # --- Set SSH_AUTH_SOCK to the 1password one if available
 if test -e "$HOME/.1password/agent.sock"
