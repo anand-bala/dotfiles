@@ -164,6 +164,9 @@ if command -sq -- jj
   jj util completion fish | source
 end
 
+# Lean
+fish_add_path -gP "$HOME/.elan/bin"
+
 # --- zoxide config
 if command -sq -- zoxide
   zoxide init fish | source
