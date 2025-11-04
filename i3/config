@@ -209,6 +209,9 @@ exec_always --no-startup-id light-locker
 # Run all "new display" related commands
 exec_always --no-startup-id fish -c "$XDGCONFIGHOME/autorandr/postswitch.d/00-always-run"
 
+# Run autotiling
+exec_always --no-startup-id autotiling --limit 2
+
 # Set the wallpaper
 # exec_always sleep 10 && nitrogen --restore
 # Start the network manager applet
