@@ -1,3 +1,9 @@
+# Claude code things
+
+plan.md
+claude-cache
+
+# General cache
 .cache/
 
 # Created by https://www.toptal.com/developers/gitignore/api/vim,tags,linux,visualstudiocode,direnv
@@ -77,3 +83,5 @@ Sessionx.vim
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,tags,linux,visualstudiocode,direnv
+
+**/.claude/settings.local.json
