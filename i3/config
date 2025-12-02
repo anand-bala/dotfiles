@@ -34,7 +34,7 @@ set $default_window_switcher fish -c "rofi -show window"
 # Application keybindings {{{
 
 # Start default terminal
-bindsym $mod+Return exec $default_terminal
+bindsym $mod+Return exec --no-startup-id $default_terminal
 # start program launcher
 bindsym $mod+d exec --no-startup-id $default_launcher
 # start window switcher
@@ -151,7 +151,6 @@ assign [class="(?i)com.cisco.anyconnect.gui"] $ws_extras
 # Open specific applications in floating mode
 for_window [title="(?i)alsamixer"] floating enable
 for_window [class="(?i)nitrogen"] floating enable
-for_window [class="(?i)pavucontrol"] floating enable
 for_window [class="(?i)system-config-printer.py"] floating enable
 for_window [class="(?i)timeset-gui"] floating enable
 for_window [class="(?i)nemo"] floating enable
