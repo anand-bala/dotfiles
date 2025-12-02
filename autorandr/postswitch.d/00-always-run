@@ -34,9 +34,8 @@ if type polybar-msg >/dev/null; then
 fi
 
 if type xinput >/dev/null; then
-  (
-    IFS=$'\n'
-    for touchpad_dev in $(xinput list --name-only | grep 'Touchpad'); do
+  xinput list --name-only | grep 'Touchpad' | {
+    while read -r touchpad_dev; do
       tapping_enabled='libinput Tapping Enabled'
       tapping_drag_enabled='libinput Tapping Drag Enabled'
       tapping_natural_scrolling_enabled='libinput Natural Scrolling Enabled'
@@ -45,7 +44,5 @@ if type xinput >/dev/null; then
       xinput set-prop "$touchpad_dev" "$tapping_drag_enabled" 1
       xinput set-prop "$touchpad_dev" "$tapping_natural_scrolling_enabled" 1
     done
-  )
+  }
 fi
-
-# vim: set ft=bash
