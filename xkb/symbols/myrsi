@@ -1,7 +1,0 @@
-partial modifier_keys
-xkb_symbols "swap_rctl_lwin" {
-    replace key <LWIN>    { [ Control_R ] };
-    replace key <RCTL>    { [ Super_L ] };
-    modifier_map Mod4     { <RCTL> };
-    modifier_map Control  { <LWIN> };
-};

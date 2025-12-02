@@ -222,8 +222,5 @@ exec_always --no-startup-id autotiling --limit 2
 exec --no-startup-id lxpolkit
 # - run things that need to be run for new screens
 # - use dex to launch xdg/autostart
-exec --no-startup-id sleep 2 && fish -c "$SCRIPTDIR/autostart.sh"
+exec --no-startup-id "$SCRIPTDIR/autostart.sh"
 # }}}
-
-# Set some custom keymaps
-exec --no-startup-id $SCRIPTDIR/xkbconfig.sh
