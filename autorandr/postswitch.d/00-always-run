@@ -24,8 +24,8 @@ for daemon_exe in "${_autostart_daemons[@]}"; do
 done
 
 # Set wallpaper
-if type nitrogen >/dev/null; then
-  nitrogen --restore >/dev/null 2>&1
+if type feh >/dev/null; then
+  feh --bg-scale "$HOME"/.config/i3/backgrounds/losangeles.png >/dev/null 2>&1
 fi
 
 # Launch bar

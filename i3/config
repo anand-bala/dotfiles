@@ -206,5 +206,5 @@ bindsym $mod+u border toggle
 exec_always --no-startup-id fish -c "$XDGCONFIGHOME/autorandr/postswitch.d/00-always-run"
 
 # Run things that need to be run only at login
-exec --no-startup-id "$SCRIPTDIR/autostart.sh"
+exec --no-startup-id fish -c "$SCRIPTDIR/autostart.sh"
 # }}}
