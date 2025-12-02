@@ -202,25 +202,9 @@ bindsym $mod+u border toggle
 # }}}
 
 # Autostart applications {{{
-# Launch compositor
-exec_always --no-startup-id picom
-# Launch locker
-exec_always --no-startup-id light-locker
 # Run all "new display" related commands
 exec_always --no-startup-id fish -c "$XDGCONFIGHOME/autorandr/postswitch.d/00-always-run"
 
-# Run autotiling
-exec_always --no-startup-id autotiling --limit 2
-
-# Set the wallpaper
-# exec_always sleep 10 && nitrogen --restore
-# Start the network manager applet
-# exec --no-startup-id sleep 2 && nm-applet
-# Start the power manager
-# exec --no-startup-id sleep 2 && xfce4-power-manager
-# Start the polkit authenticator
-exec --no-startup-id lxpolkit
-# - run things that need to be run for new screens
-# - use dex to launch xdg/autostart
+# Run things that need to be run only at login
 exec --no-startup-id "$SCRIPTDIR/autostart.sh"
 # }}}

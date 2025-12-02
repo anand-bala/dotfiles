@@ -2,10 +2,33 @@
 
 set -euo pipefail
 
+function launch() {
+  eval "$1" </dev/null &
+  disown
+}
+
+# Move i3wm autostart here
+declare -a _autostart_daemons=(
+  picom        # Compositor
+  light-locker # locker
+  dunst        # notification daemon
+  lxpolkit
+  autotiling # i3wm tiling plugin
+)
+for daemon_exe in "${_autostart_daemons[@]}"; do
+  if type "$daemon_exe" >/dev/null; then
+    if ! pgrep -u "$UID" -x "$daemon_exe" >/dev/null; then
+      launch "$daemon_exe"
+    fi
+  fi
+done
+
+# Set wallpaper
 if type nitrogen >/dev/null; then
   nitrogen --restore >/dev/null 2>&1
 fi
 
+# Launch bar
 if type polybar-msg >/dev/null; then
   sleep 1
   # Wait for all polybar instances to die
