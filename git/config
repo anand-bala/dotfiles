@@ -35,3 +35,12 @@ clean = "jq --indent 1 \
         '"
 smudge = cat
 required = true
+
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /opt/1Password/op-ssh-sign
+[commit]
+	gpgsign = true
+[user]
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIORyux0WjLbeb0tQwTJ1td1DtoIYSk8TKhaWDAcDEBMS
