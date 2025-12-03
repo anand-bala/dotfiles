@@ -11,9 +11,10 @@ function launch() {
 declare -a _autostart_daemons=(
   picom        # Compositor
   light-locker # locker
-  dunst        # notification daemon
+  # dunst        # notification daemon
   lxpolkit
   autotiling # i3wm tiling plugin
+  xsettingsd # X Settings daemon
 )
 for daemon_exe in "${_autostart_daemons[@]}"; do
   if type "$daemon_exe" >/dev/null; then
