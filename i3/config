@@ -18,7 +18,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # lock i3
-bindsym $mod+l exec light-locker-command -l
+bindsym $mod+l exec loginctl lock-session
 
 # Set shut down, restart and locking features
 bindsym $mod+Shift+e exec fish -c "$SCRIPTDIR/shutdown_menu.sh"
@@ -201,6 +201,12 @@ bindsym $mod+u border toggle
 # }}}
 
 # Autostart applications {{{
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- xfce4-screensaver-command --lock --inhibit
+
 # Run all "new display" related commands
 exec_always --no-startup-id fish -c "$XDGCONFIGHOME/autorandr/postswitch.d/00-always-run"
 
