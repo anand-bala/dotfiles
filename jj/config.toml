@@ -110,7 +110,7 @@ draft_commit_description = '''
 '''
 
 [revsets]
-log = "@ | ancestors(remote_bookmarks().., 2) | ancestors(immutable_heads()..,2) | present(trunk())"
+# log = "@ | ancestors(remote_bookmarks().., 2) | ancestors(immutable_heads()..,2) | present(trunk())"
 
 
 [template-aliases]
