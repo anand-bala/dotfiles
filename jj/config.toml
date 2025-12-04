@@ -62,6 +62,17 @@ clean = [
 
 
 [templates]
+'format_short_change_id_with_hidden_and_divergent_info(commit)' = '''
+if(commit.hidden(),
+  label("hidden",
+    format_short_change_id(commit.change_id()) ++ " hidden"
+  ),
+  label(if(commit.divergent(), "divergent"),
+    format_short_change_id(commit.change_id()) ++" " ++ format_short_commit_id(commit.commit_id()) ++ if(commit.divergent(), "??")
+  )
+)
+'''
+
 log = '''
   if(root,
     format_root_commit(self),
