@@ -148,6 +148,7 @@ end
 
 
 # uv
+set -gx UV_NO_MODIFY_PATH 1
 if command -sq -- uv
   uv generate-shell-completion fish | source
 end
