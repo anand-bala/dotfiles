@@ -205,7 +205,8 @@ bindsym $mod+u border toggle
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-exec --no-startup-id xss-lock --transfer-sleep-lock -- xfce4-screensaver-command --lock --inhibit
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- xfce4-screensaver-command --lock --inhibit
+exec --no-startup-id xss-lock --transfer-sleep-lock -- light-locker-command --lock --inhibit
 
 # Run all "new display" related commands
 exec_always --no-startup-id fish -c "$XDGCONFIGHOME/autorandr/postswitch.d/00-always-run"
