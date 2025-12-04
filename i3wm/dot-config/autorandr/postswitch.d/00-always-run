@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Set wallpaper
+if type feh >/dev/null; then
+  feh --bg-scale "$HOME"/.config/i3/backgrounds/losangeles.png >/dev/null 2>&1
+fi
+
+# Launch bar
+if type polybar-msg >/dev/null; then
+  sleep 1
+  # Wait for all polybar instances to die
+  while pgrep -u "$UID" -x polybar >/dev/null; do
+    # Kill all polybar instances
+    polybar-msg cmd quit
+    sleep 0.5
+  done
+
+  # The monitor in which to output the main bar
+  # Prefer whatever xrandr thinks is the primary monitor
+  primary_monitor="$(polybar -m | awk 'BEGIN { FS = ":" }; /primary/ { print $1 };')"
+  tray_output="$primary_monitor"
+
+  # Start a bar for each monitor
+  while read -r m; do
+    bar=""
+    if [[ "$m" == "$tray_output" ]]; then
+      bar="main"
+    else
+      bar="secondary"
+    fi
+    MONITOR=$m polybar --reload "$bar" </dev/null >/var/tmp/polybar-"$m".log 2>&1 &
+    disown
+  done < <(polybar -m | cut -d ':' -f 1)
+fi

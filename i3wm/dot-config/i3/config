@@ -1,0 +1,216 @@
+# vim: set ft=i3config foldmethod=marker
+
+set $mod Mod4
+floating_modifier $mod
+
+font pango:JetBrainsMono Nerd Font Regular 11
+
+set $XDGCONFIGHOME $HOME/.config
+set $SCRIPTDIR $HOME/.config/i3/scripts
+
+# Global Keybindings {{{
+# kill focused window
+bindsym $mod+Shift+q kill
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# lock i3
+bindsym $mod+l exec loginctl lock-session
+
+# Set shut down, restart and locking features
+bindsym $mod+Shift+e exec fish -c "$SCRIPTDIR/shutdown_menu.sh"
+# }}}
+
+# Default applications {{{
+# set $default_terminal alacritty
+set $default_terminal ghostty +new-window
+set $default_launcher fish -c "rofi -no-disable-history -sort -show drun"
+set $default_window_switcher fish -c "rofi -show window"
+# }}}
+
+# Application keybindings {{{
+
+# Start default terminal
+bindsym $mod+Return exec --no-startup-id $default_terminal
+# start program launcher
+bindsym $mod+d exec --no-startup-id $default_launcher
+# start window switcher
+bindsym $mod+Tab exec --no-startup-id $default_window_switcher
+
+# }}}
+
+# Window Movement and layout {{{
+
+# change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# workspace back and forth (with/without active container)
+# workspace_auto_back_and_forth yes
+# bindsym $mod+Tab workspace back_and_forth
+# bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
+
+# split orientation
+bindsym $mod+h split h;exec notify-send 'tile horizontally'
+bindsym $mod+v split v;exec notify-send 'tile vertically'
+
+# toggle fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+# focus the child container
+bindsym $mod+c focus child
+
+# }}}
+
+# Workspaces {{{
+
+# workspaces
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws_msgs "inbox"
+set $ws_zotero "papers"
+set $ws_music "music"
+set $ws_gamedev "gamedev"
+set $ws_extras "extras"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+m workspace $ws_msgs
+bindsym $mod+0 workspace $ws_zotero
+bindsym $mod+8 workspace $ws_music
+bindsym $mod+9 workspace $ws_gamedev
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+8 move container to workspace $ws_music
+bindsym $mod+Shift+9 move container to workspace $ws_gamedev
+
+# navigate workspaces next / previous
+bindsym Mod1+Ctrl+Right workspace next_on_output
+bindsym Mod1+Ctrl+Left workspace prev_on_output
+
+# move focused workspace between monitors
+bindsym $mod+Ctrl+greater move workspace to output next
+bindsym $mod+Ctrl+less move workspace to output prev
+
+# Assign applications to specific workspaces
+assign [class="(?i)thunderbird"] $ws_msgs
+for_window [class="(?i)thunderbird"] layout tabbed
+assign [class="(?i)slack"] $ws_msgs
+for_window [class="(?i)slack"] layout tabbed
+assign [class="(?i)discord"] $ws_msgs
+for_window [class="(?i)discord"] layout tabbed
+assign [class="(?i)vesktop"] $ws_msgs
+for_window [class="(?i)vesktop"] layout tabbed
+assign [class="(?i)zotero"] $ws_zotero
+for_window [class="(?i)zotero"] layout tabbed
+assign [class="Microsoft Teams - Preview"] $ws_msgs
+for_window [class="Microsoft Teams - Preview"] layout tabbed
+assign [class="(?i)spotify"] $ws_music
+assign [class="UnrealEditor"] $ws_gamedev
+assign [class="(?i)qjackctl"] $ws_music
+assign [class="(?i)com.cisco.anyconnect.gui"] $ws_extras
+
+# Open specific applications in floating mode
+for_window [title="(?i)alsamixer"] floating enable
+for_window [class="(?i)nitrogen"] floating enable
+for_window [class="(?i)system-config-printer.py"] floating enable
+for_window [class="(?i)timeset-gui"] floating enable
+for_window [class="(?i)nemo"] floating enable
+for_window [class="(?i)thunar"] floating enable
+for_window [class="(?i)zoom"] floating enable
+for_window [class="(?i)bitwarden"] floating enable
+for_window [class="(?i)1password"] floating enable
+for_window [class="(?i)qjackctl"] floating enable
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+# Set gamedev window to floating by default
+for_window [workspace=$ws_gamedev] floating enable
+# }}}
+
+# Miscellaneous Keybindings {{{
+
+# Use pactl to adjust volume in PulseAudio.
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Music Next, Prev, Pause/Play
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# }}}
+
+# Theme and Appearance {{{
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+
+client.background       #F8F8F2
+
+# Gaps/ borders
+default_border none               # Opens new windows without borders
+gaps inner 7
+gaps outer 7
+
+bindsym $mod+u border toggle
+# }}}
+
+# Autostart applications {{{
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- xfce4-screensaver-command --lock --inhibit
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- light-locker-command --lock --inhibit
+
+# Run all "new display" related commands
+exec_always --no-startup-id fish -c "$XDGCONFIGHOME/autorandr/postswitch.d/00-always-run"
+
+# Run things that need to be run only at login
+exec --no-startup-id fish -c "$SCRIPTDIR/autostart.sh"
+# }}}
