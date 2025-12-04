@@ -1,3 +1,6 @@
 --target=~
 --dotfiles
 --verbose
+--override='\.config\/systemd'
+--override='bin'
+--override='\.config\/nwg-panel'

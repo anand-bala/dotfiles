@@ -1,0 +1,233 @@
+# vim: set ft=i3config foldmethod=marker
+
+set $mod Mod4
+floating_modifier $mod
+set $XDGCONFIGHOME $HOME/.config
+set $SCRIPTDIR $HOME/.config/i3/scripts
+
+# Global configuration {{{
+font pango:JetBrainsMono Nerd Font Regular 11
+xwayland enable
+# }}}
+
+# Theme and Appearance {{{
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+
+client.background       #F8F8F2
+
+# Gaps/ borders
+# default_border normal
+smart_borders on
+gaps {
+  inner 7
+  outer 7
+}
+# }}}
+
+# Basic input configuration {{{
+# NOTE: only do touchpad here. Keyd handles keyboard per-device
+input type:touchpad {
+  dwt enabled # disable when typing
+
+  click_method clickfinger
+  clickfinger_button_map lrm # right-click is 2 fingers
+
+  tap enabled
+  tap_button_map lrm
+
+  drag enabled
+
+  natural_scroll enabled
+  scroll_method two_finger
+}
+# }}}
+
+# Basic output configuration {{{
+output  * {
+  background ~/backgrounds/losangeles.png fill
+}
+# }}}
+
+# Global Keybindings {{{
+# kill focused window
+bindsym $mod+Shift+q kill
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r reload
+
+# lock i3
+bindsym $mod+l exec loginctl lock-session
+
+# Set shut down, restart and locking features
+bindsym $mod+Shift+e exec '~/bin/__rofi_poweroff_menu.sh $(~/bin/__rofi_poweroff_menu.sh | fuzzel --dmenu --config ~/.config/fuzzel/powermenu.ini)'
+# }}}
+
+# Default applications {{{
+# set $default_terminal alacritty
+set $default_terminal ghostty
+set $default_launcher fuzzel
+set $default_window_switcher swayr switch-window
+
+# bar {
+#   swaybar_command waybar
+#   position bottom
+#   mode dock
+# }
+# }}}
+
+# Application keybindings {{{
+
+# Start default terminal
+bindsym $mod+Return exec --no-startup-id $default_terminal
+# start program launcher
+bindsym $mod+d exec --no-startup-id $default_launcher
+# start window switcher
+bindsym $mod+Tab exec --no-startup-id fish -c $default_window_switcher
+
+# }}}
+
+# Window Movement and layout {{{
+
+# change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# workspace back and forth (with/without active container)
+# workspace_auto_back_and_forth yes
+# bindsym $mod+Tab workspace back_and_forth
+# bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
+
+# split orientation
+bindsym $mod+h split h;exec notify-send 'tile horizontally'
+bindsym $mod+v split v;exec notify-send 'tile vertically'
+
+# toggle fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+# toggle window border
+bindsym $mod+u border toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+# focus the child container
+bindsym $mod+c focus child
+
+# }}}
+
+# Workspaces {{{
+
+# workspaces
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws_msgs "inbox"
+set $ws_zotero "papers"
+set $ws_music "music"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+m workspace $ws_msgs
+bindsym $mod+0 workspace $ws_zotero
+bindsym $mod+8 workspace $ws_music
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+8 move container to workspace $ws_music
+
+# navigate workspaces next / previous
+bindsym Mod1+Ctrl+Right workspace next_on_output
+bindsym Mod1+Ctrl+Left workspace prev_on_output
+
+# move focused workspace between monitors
+bindsym $mod+Ctrl+greater move workspace to output next
+bindsym $mod+Ctrl+less move workspace to output prev
+
+# Assign applications to specific workspaces
+assign [class="(?i)thunderbird"] $ws_msgs
+for_window [class="(?i)thunderbird"] layout tabbed
+assign [class="(?i)slack"] $ws_msgs
+for_window [class="(?i)slack"] layout tabbed
+assign [class="(?i)discord"] $ws_msgs
+for_window [class="(?i)discord"] layout tabbed
+assign [class="(?i)vesktop"] $ws_msgs
+for_window [class="(?i)vesktop"] layout tabbed
+assign [class="(?i)zotero"] $ws_zotero
+for_window [class="(?i)zotero"] layout tabbed
+assign [class="Microsoft Teams - Preview"] $ws_msgs
+for_window [class="Microsoft Teams - Preview"] layout tabbed
+assign [class="(?i)spotify"] $ws_music
+assign [class="(?i)qjackctl"] $ws_music
+
+# Open specific applications in floating mode
+for_window [class="(?i)zoom"] floating enable
+for_window [class="(?i)1password"] floating enable
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+# }}}
+
+# Miscellaneous Keybindings {{{
+
+# Use pactl to adjust volume in PulseAudio.
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Music Next, Prev, Pause/Play
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# }}}
+
+# Autostart applications {{{
+exec_always --no-startup-id fish -c 'pgrep -x dunst || dunst &'
+exec_always --no-startup-id fish -c 'pgrep -x swayidle || swayidle -w &'
+exec_always --no-startup-id fish -c 'pgrep -x lxpolkit || lxpolkit &'
+exec_always --no-startup-id fish -c 'pgrep -x kanshi || kanshi &'
+exec_always --no-startup-id fish -c 'pgrep -x nm-applet || nm-applet &'
+exec_always --no-startup-id fish -c 'pgrep -x pasystray || pasystray &'
+exec_always --no-startup-id fish -c 'pgrep -x autotiling || autotiling &'
+exec_always --no-startup-id fish -c 'pgrep -x swayrd || RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1 &'
+exec_always --no-startup-id fish -c 'pgrep -x nwg-panel || nwg-panel &'
+exec --no-startup-id fish -c 'dex-autostart -a -s "$XDGCONFIGHOME/autostart"'
+
+exec_always --no-startup-id systemctl --user start sway-session.target
+# }}}
+
