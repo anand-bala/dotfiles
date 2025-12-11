@@ -1,0 +1,89 @@
+{
+  "name": "bottombar",
+  "layer": "top",
+  "position": "bottom",
+  "height": 30,
+  "modules-right": [
+    "tray",
+    "backlight",
+    "idle_inhibitor",
+    "power-profiles-daemon",
+    "battery",
+    "clock"
+  ],
+  "modules-center": [
+    "wlr/taskbar"
+  ],
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode"
+  ],
+  "tray": {
+    "icon-size": 16,
+    "spacing": 10
+  },
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 13,
+    "tooltip": false,
+    "active-first": true,
+    "on-click": "activate"
+    // "on-click-right": "close"
+  },
+  "sway/mode": {
+    "format": "<span style=\"italic\">{}</span>"
+  },
+  "clock": {
+    "interval": 1,
+    "format": "{:%a, %d. %b  %I:%M %p}",
+    "format-alt": "{:%Y-%m-%d %H:%M:%S}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "backlight": {
+    "interval": 1,
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      ""
+    ],
+    "on-click": "wdisplays"
+  },
+  "battery": {
+    "interval": 10,
+    "full-at": 99,
+    "states": {
+      "full": 100,
+      "good": 99,
+      "empty": 5
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": "{capacity}%",
+    "format-empty": "",
+    "format-full": "",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  }
+}

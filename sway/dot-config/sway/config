@@ -72,11 +72,11 @@ set $default_terminal ghostty
 set $default_launcher fuzzel
 set $default_window_switcher swayr switch-window
 
-# bar {
-#   swaybar_command waybar
-#   position bottom
-#   mode dock
-# }
+bar {
+  swaybar_command waybar
+  position bottom
+  mode dock
+}
 # }}}
 
 # Application keybindings {{{
@@ -173,8 +173,8 @@ bindsym Mod1+Ctrl+Right workspace next_on_output
 bindsym Mod1+Ctrl+Left workspace prev_on_output
 
 # move focused workspace between monitors
-bindsym $mod+Ctrl+greater move workspace to output next
-bindsym $mod+Ctrl+less move workspace to output prev
+bindsym $mod+Ctrl+period move workspace to output right
+bindsym $mod+Ctrl+comma move workspace to output left
 
 # Assign applications to specific workspaces
 assign [class="(?i)thunderbird"] $ws_msgs
@@ -225,7 +225,6 @@ exec_always --no-startup-id fish -c 'pgrep -x nm-applet || nm-applet &'
 exec_always --no-startup-id fish -c 'pgrep -x pasystray || pasystray &'
 exec_always --no-startup-id fish -c 'pgrep -x autotiling || autotiling &'
 exec_always --no-startup-id fish -c 'pgrep -x swayrd || RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1 &'
-exec_always --no-startup-id fish -c 'pgrep -x nwg-panel || nwg-panel &'
 exec --no-startup-id fish -c 'dex-autostart -a -s "$XDGCONFIGHOME/autostart"'
 
 exec_always --no-startup-id systemctl --user start sway-session.target
