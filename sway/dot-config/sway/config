@@ -104,6 +104,8 @@ bindsym $mod+Return exec --no-startup-id $default_terminal
 bindsym $mod+d exec --no-startup-id $default_launcher
 # start window switcher
 bindsym $mod+Tab exec --no-startup-id fish -c $default_window_switcher
+# Launch 1password quick access
+bindsym Ctrl+Shift+Space exec 1password --quick-access
 
 # }}}
 
