@@ -17,7 +17,8 @@
   ],
   "modules-left": [
     "sway/workspaces",
-    "sway/mode"
+    "sway/mode",
+    "mpris"
   ],
   "tray": {
     "icon-size": 16,
@@ -28,11 +29,28 @@
     "icon-size": 13,
     "tooltip": false,
     "active-first": true,
-    "on-click": "activate"
+    "on-click": "minimize"
     // "on-click-right": "close"
   },
   "sway/mode": {
     "format": "<span style=\"italic\">{}</span>"
+  },
+  "mpris": {
+    "format": " {player_icon} {dynamic}",
+    "format-paused": " {status_icon} <i>{dynamic}</i>",
+    "player-icons": {
+      "default": "▶",
+      "mpv": "🎵"
+    },
+    "status-icons": {
+      "paused": "⏸"
+    },
+    "dynamic-order": [
+      "title",
+      "artist",
+      "position",
+      "length"
+    ]
   },
   "clock": {
     "interval": 1,
