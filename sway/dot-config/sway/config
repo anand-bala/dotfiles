@@ -210,8 +210,12 @@ for_window [class="(?i)zoom"] floating enable
 for_window [class="(?i)1password"] floating enable
 
 # switch to workspace with urgent window automatically
-for_window [urgent=latest] focus
+# for_window [urgent=latest] focus
 
+# inhibit idle for these guys
+for_window [all] inhibit_idle fullscreen
+for_window [class="(?i)zoom"] inhibit_idle visible
+for_window [class="(?i)steam"] inhibit_idle visible
 # }}}
 
 # Miscellaneous Keybindings {{{
