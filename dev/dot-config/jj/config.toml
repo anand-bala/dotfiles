@@ -62,7 +62,7 @@ clean = [
 
 
 [templates]
-'format_short_change_id_with_hidden_and_divergent_info(commit)' = '''
+'format_short_change_id_with_change_offset(commit)' = '''
 if(commit.hidden(),
   label("hidden",
     format_short_change_id(commit.change_id()) ++ " hidden"
@@ -79,7 +79,7 @@ log = '''
     label(if(current_working_copy, "working_copy"),
       concat(
         separate(" ",
-          format_short_change_id_with_hidden_and_divergent_info(self),
+          format_short_change_id_with_change_offset(self),
           if(empty, label("empty", "(empty)")),
           if(description,
             description.first_line(),
@@ -88,7 +88,6 @@ log = '''
           bookmarks,
           tags,
           working_copies,
-          if(git_head, label("git_head", "HEAD")),
           if(conflict, label("conflict", "conflict")),
           if(config("ui.show-cryptographic-signatures").as_boolean(),
             format_short_cryptographic_signature(signature)),
