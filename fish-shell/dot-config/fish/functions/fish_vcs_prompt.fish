@@ -39,7 +39,7 @@ function fish_jj_prompt
     )"
     or return 1
     if test -n "$info"
-        printf ' %s' $info
+        printf '%s' $info
     end
 end
 
