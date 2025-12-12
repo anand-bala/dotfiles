@@ -215,7 +215,14 @@ bindsym XF86Search exec $default_launcher
 # }}}
 
 # Autostart applications {{{
-exec_always --no-startup-id fish -c 'pgrep -x dunst || dunst &'
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE XAUTHORITY
+exec source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+
+exec_always systemctl --user start sway-session.target
+exec_always systemctl --user start swaync
+
+# exec_always --no-startup-id fish -c 'pgrep -x dunst || dunst &'
+# exec_always --no-startup-id fish -c 'pgrep -x swaync || swaync &'
 exec_always --no-startup-id fish -c 'pgrep -x swayidle || swayidle -w &'
 exec_always --no-startup-id fish -c 'pgrep -x lxpolkit || lxpolkit &'
 exec_always --no-startup-id fish -c 'pgrep -x kanshi || kanshi &'
@@ -225,6 +232,5 @@ exec_always --no-startup-id fish -c 'pgrep -x autotiling || autotiling &'
 exec_always --no-startup-id fish -c 'pgrep -x swayrd || RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1 &'
 exec --no-startup-id fish -c 'dex-autostart -a -s "$XDGCONFIGHOME/autostart"'
 
-exec_always --no-startup-id systemctl --user start sway-session.target
 # }}}
 
