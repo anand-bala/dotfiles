@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=betterbird --file-forwarding eu.betterbird.Betterbird @@u %u @@
+Icon=eu.betterbird.Betterbird
+Terminal=false
+Type=Application
+MimeType=message/rfc822;x-scheme-handler/mailto;application/x-xpinstall;application/x-extension-ics;text/calendar;text/vcard;text/x-vcard;x-scheme-handler/webcal;x-scheme-handler/webcals;x-scheme-handler/mid;
+StartupNotify=true
+StartupWMClass=eu.betterbird.Betterbird
+Name=Betterbird
+
