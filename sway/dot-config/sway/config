@@ -177,20 +177,16 @@ bindsym $mod+Ctrl+period move workspace to output right
 bindsym $mod+Ctrl+comma move workspace to output left
 
 # Assign applications to specific workspaces
-assign [class="(?i)thunderbird"] $ws_msgs
-for_window [class="(?i)thunderbird"] layout tabbed
-assign [class="(?i)slack"] $ws_msgs
-for_window [class="(?i)slack"] layout tabbed
-assign [class="(?i)discord"] $ws_msgs
-for_window [class="(?i)discord"] layout tabbed
-assign [class="(?i)vesktop"] $ws_msgs
-for_window [class="(?i)vesktop"] layout tabbed
-assign [class="(?i)zotero"] $ws_zotero
-for_window [class="(?i)zotero"] layout tabbed
-assign [class="Microsoft Teams - Preview"] $ws_msgs
-for_window [class="Microsoft Teams - Preview"] layout tabbed
-assign [class="(?i)spotify"] $ws_music
-assign [class="(?i)qjackctl"] $ws_music
+# Paper reading things
+assign [app_id="[Zz]otero"] $ws_zotero
+# Inbox apps
+assign [app_id="com.slack.Slack"] $ws_msgs
+assign [app_id="net.thunderbird.Thunderbird"] $ws_msgs
+assign [app_id="eu.betterbird.Betterbird"] $ws_msgs
+
+# Set the names workspaces to be tabbed
+for_window [workspace="papers"] layout tabbed
+for_window [workspace="inbox"] layout tabbed
 
 # Open specific applications in floating mode
 for_window [class="(?i)zoom"] floating enable
@@ -203,16 +199,18 @@ for_window [urgent=latest] focus
 
 # Miscellaneous Keybindings {{{
 
-# Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
-
-# Music Next, Prev, Pause/Play
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioPause exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+bindsym --locked XF86AudioStop exec playerctl stop
+bindsym XF86Search exec $default_launcher
 
 # }}}
 
