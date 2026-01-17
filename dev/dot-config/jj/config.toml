@@ -11,7 +11,7 @@ editor = "nvim"
 default-command = "status"
 
 [signing]
-behavior = "drop"
+behavior = "own"
 backend = "ssh"
 key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIORyux0WjLbeb0tQwTJ1td1DtoIYSk8TKhaWDAcDEBMS"
 
