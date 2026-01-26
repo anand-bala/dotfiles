@@ -87,7 +87,6 @@ bindsym $mod+Shift+e exec '~/bin/__rofi_poweroff_menu.sh $(~/bin/__rofi_poweroff
 # set $default_terminal alacritty
 set $default_terminal ghostty
 set $default_launcher fuzzel
-set $default_window_switcher swayr switch-window
 
 bar {
   swaybar_command waybar
@@ -103,7 +102,7 @@ bindsym $mod+Return exec --no-startup-id $default_terminal
 # start program launcher
 bindsym $mod+d exec --no-startup-id $default_launcher
 # start window switcher
-bindsym $mod+Tab exec --no-startup-id fish -c $default_window_switcher
+bindsym $mod+Tab exec --no-startup-id fish -c "swayr switch-window"
 # Launch 1password quick access
 bindsym Ctrl+Shift+Space exec 1password --quick-access
 

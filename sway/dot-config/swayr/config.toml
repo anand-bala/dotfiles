@@ -1,13 +1,7 @@
 [menu]
 executable = 'fuzzel'
-args = [
-  '--dmenu',
-  '--prompt=🪟❯ ',
-  '--width=100',
-  '--font=JetBrainsMono Nerd Font Mono:style=Bold:size=18',
-  '--line-height=28',
-]
+args = ['--dmenu', '--prompt=🪟❯ ', '--width=100', '--minimal-lines']
 
 [format]
-window_format = "{app_name:{:<11.11}} “{title:{:<60.60}...}” {id:{:<3.3}} on {workspace_name:{:<13.13}}\u0000icon\u001f{app_icon}"
+window_format = "{app_name:{:<25.25}} “{title:{:<48.48}...}” on {workspace_name:{:>7.7}}\u0000icon\u001f{app_icon}"
 indent = '    '
