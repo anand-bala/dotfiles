@@ -1,3 +1,48 @@
-include nvim.profile
+# nvim access for dev sandboxes
+noblacklist ${HOME}/.config/nvim
+noblacklist ${HOME}/.local/share/nvim
+noblacklist ${HOME}/.local/state/nvim
+noblacklist ${HOME}/.cache/nvim
+noblacklist ${HOME}/.vim
+noblacklist ${HOME}/.vimrc
+
+# Git
+noblacklist ${HOME}/.config/git
+noblacklist ${HOME}/.gitconfig
+noblacklist ${HOME}/.git-credentials
+
+# Node
+noblacklist ${HOME}/.npm
+noblacklist ${HOME}/.npmrc
+noblacklist ${HOME}/.yarn
+noblacklist ${HOME}/.yarnrc
+noblacklist ${HOME}/.local/share/bun
+
+# Python
+noblacklist ${HOME}/.local/lib/python3*
+noblacklist ${HOME}/.local/share/uv
+
+# Rust
+noblacklist ${HOME}/.cargo
+noblacklist ${HOME}/.rustup
+
+# Pixi (Conda)
+noblacklist ${HOME}/.local/share/pixi
+
+# Common bin dirs
+noblacklist ${HOME}/.local/bin
+
+# Fish shell
+noblacklist ${HOME}/.config/fish
+
+# neovim
+noblacklist ${HOME}/.config/nvim
+noblacklist ${HOME}/.local/share/nvim
+noblacklist ${HOME}/.local/state/nvim
+read-write ${HOME}/.local/state/nvim
+
+# direnv
+noblacklist ${HOME}/.config/direnv
+noblacklist ${HOME}/.local/share/direnv
 
 

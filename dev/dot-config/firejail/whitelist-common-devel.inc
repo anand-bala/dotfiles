@@ -20,8 +20,10 @@ whitelist-ro ${HOME}/.rustup
 
 # Pixi (Conda)
 whitelist-ro ${HOME}/.local/share/pixi
+whitelist ${HOME}/.cache/rattler
 
 # Common bin dirs
+whitelist-ro ${HOME}/.local/bin
 whitelist-ro ${HOME}/.local/bin
 
 # Fish shell
