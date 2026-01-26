@@ -9,9 +9,11 @@ pager = "less -FRX"
 diff-formatter = "difft"
 editor = "nvim"
 default-command = "status"
+log-synthetic-elided-nodes = true
+graph.style = "curved"
 
 [signing]
-behavior = "own"
+behavior = "drop"
 backend = "ssh"
 key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIORyux0WjLbeb0tQwTJ1td1DtoIYSk8TKhaWDAcDEBMS"
 
@@ -96,6 +98,7 @@ log = '''
     )
   )
 '''
+
 draft_commit_description = '''
     concat(
       coalesce(description, default_commit_description, "\n"),
@@ -109,7 +112,8 @@ draft_commit_description = '''
 '''
 
 [revsets]
-# log = "@ | ancestors(remote_bookmarks().., 2) | ancestors(immutable_heads()..,2) | present(trunk())"
+# log = "@:: | ancestors(tracked_remote_bookmarks() | working_copies() | conflicts(), 2) | present(trunk())"
+# log = "builtin_log_compact"
 
 
 [template-aliases]
